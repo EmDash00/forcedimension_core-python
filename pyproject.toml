@@ -24,4 +24,4 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/EmDash00/forcedimension-core-python"
+"Homepage" = "https://github.com/EmDash00/forcedimension_core-python"

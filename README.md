@@ -45,12 +45,12 @@ The bindings are available through a PyPI package for Python. The most recent ve
 all supported Python versions at the time of release.
 
 ```
-    python3 -m pip install forcedimension_core
+python3 -m pip install forcedimension_core
 ```
 
 The bindings do not currently download or install the Force Dimension SDK itself. So additional steps are necessary.
 
-### Install the [ForceDimensionSDK](https://www.forcedimension.com/software/sdk) for your computer.
+### Install the [Force Dimension SDK](https://www.forcedimension.com/software/sdk)
 By default, the bindings will search in the following system-wide install locations for the dynamic link libraries.
 
 * System-wide install locations (Linux):
