@@ -2,7 +2,9 @@ from ctypes import c_bool, c_byte, c_char_p, c_double, c_int, c_uint, c_ushort
 from ctypes import POINTER, byref
 from typing import List, Optional, Tuple, Union, cast
 
-from forcedimension_core.dhd.adaptors import StatusTuple, VersionTuple
+from forcedimension_core.dhd.adaptors import (
+    StatusTuple, VersionTuple, errno_to_exception
+)
 from forcedimension_core.dhd.constants import (
     ComMode,
     DeltaEncID,
