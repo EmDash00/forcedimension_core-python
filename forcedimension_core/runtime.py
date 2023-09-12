@@ -122,9 +122,11 @@ def load(lib_name, search_dirs=(), silent=False):
         if sys.platform.startswith("linux"):
             lib_ext = ".so"
             platform_name = 'lin'
+            compiler = 'gcc'
         elif sys.platform == 'darwin':
             lib_ext = ".dylib"
             platform_name = 'mac'
+            compiler = 'clang'
 
         if (libpath := os.environ.get("FORCEDIM_SDK")) is not None:
             search_dirs.append(
@@ -132,7 +134,7 @@ def load(lib_name, search_dirs=(), silent=False):
                     libpath,
                     "lib",
                     "release",
-                    f"{platform_name}-{machine}-gcc")
+                    f"{platform_name}-{machine}-{compiler}")
                 )
             )
 
