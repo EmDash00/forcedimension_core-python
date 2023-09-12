@@ -119,8 +119,11 @@ def load(lib_name, search_dirs=(), silent=False):
                 )
             )[0]
         )
-    elif sys.platform.startswith("linux"):
-        machine = platform.machine()
+    elif sys.platform.startswith("linux") or sys.platform == 'darwin':
+        if sys.platform.startswith("linux"):
+            machine = platform.machine()
+        elif sys.platform == 'darwin':
+            machine = 'mac'
 
         if (os.environ.get("FORCEDIM_SDK")):
             search_dirs.append(
