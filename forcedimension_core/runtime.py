@@ -94,19 +94,15 @@ def load(lib_name, search_dirs=(), silent=False):
     except NameError:
         pass
 
-    if (sys.platform == "win32"):
+    search_dirs = list(search_dirs)
+
+    if sys.platform == "win32":
         lib_ext = ".dll"
         lib_dir = "bin"
 
         if platform.architecture()[0] == "64bit":
             lib_name = lib_name[3:] + "64"
-    else:
-        lib_ext = ".so"
-        lib_dir = "lib"
 
-    search_dirs = list(search_dirs)
-
-    if sys.platform == "win32":
         search_dirs.append(
             glob.glob(
                 "{}\\sdk-*".format(
@@ -120,18 +116,24 @@ def load(lib_name, search_dirs=(), silent=False):
             )[0]
         )
     elif sys.platform.startswith("linux") or sys.platform == 'darwin':
-        if sys.platform.startswith("linux"):
-            machine = platform.machine()
-        elif sys.platform == 'darwin':
-            machine = 'mac'
+        lib_dir = "lib"
+        machine = platform.machine()
 
-        if (os.environ.get("FORCEDIM_SDK")):
+        if sys.platform.startswith("linux"):
+            lib_ext = ".so"
+            platform_name = 'lin'
+        elif sys.platform == 'darwin':
+            lib_ext = ".dylib"
+            platform_name = 'mac'
+
+        if (libpath := os.environ.get("FORCEDIM_SDK")) is not None:
             search_dirs.append(
                 os.path.realpath(os.path.join(
-                    os.environ.get("FORCEDIM_SDK"),
+                    libpath,
                     "lib",
                     "release",
-                    f"lin-{machine}-gcc"))
+                    f"{platform_name}-{machine}-gcc")
+                )
             )
 
         search_dirs.extend([
@@ -139,7 +141,6 @@ def load(lib_name, search_dirs=(), silent=False):
             "/usr",
 
         ])
-
     else:
         if not silent:
             sys.stderr.write(
