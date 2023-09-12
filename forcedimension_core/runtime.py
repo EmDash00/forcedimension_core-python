@@ -37,9 +37,7 @@ class _Version(NamedTuple):
 
     def __le__(self, v):
         if self.major <= v.major:
-            print('hi')
             if self.minor <= v.minor:
-                print('hi')
                 return True
             else:
                 return False
@@ -122,11 +120,7 @@ def load(lib_name, search_dirs=(), silent=False):
             )[0]
         )
     elif sys.platform.startswith("linux"):
-        search_dirs.extend([
-            "/usr/local",
-            "/usr",
-
-        ])
+        machine = platform.machine()
 
         if (os.environ.get("FORCEDIM_SDK")):
             search_dirs.append(
@@ -134,8 +128,15 @@ def load(lib_name, search_dirs=(), silent=False):
                     os.environ.get("FORCEDIM_SDK"),
                     "lib",
                     "release",
-                    "lin-x86_64-gcc"))
+                    f"lin-{machine}-gcc"))
             )
+
+        search_dirs.extend([
+            "/usr/local",
+            "/usr",
+
+        ])
+
     else:
         if not silent:
             sys.stderr.write(
