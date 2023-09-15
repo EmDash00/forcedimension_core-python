@@ -1,46 +1,37 @@
 from ctypes import c_bool, c_byte, c_double
-from forcedimension_core import runtime
-
-_libdhd = runtime.load("libdrd")
-
-if _libdhd is None:
-    raise ImportError("There were problems loading libdhd.")
+from forcedimension_core import runtime as _runtime
 
 
-_libdhd.dhdKbHit.argtypes = []
-_libdhd.dhdKbHit.restype = c_bool
+_runtime._libdhd.dhdKbHit.argtypes = []
+_runtime._libdhd.dhdKbHit.restype = c_bool
 
 
 def kbHit() -> bool:
     """
     Check keyboard for a key hit. This function is OS independent.
 
-    :rtype: bool
-
     :returns:
         `True` if a key on the keyboard was hit, and `False` otherwise.
     """
-    return _libdhd.dhdKbHit()
+    return _runtime._libdhd.dhdKbHit()
 
 
-_libdhd.dhdKbGet.argtypes = []
-_libdhd.dhdKbGet.restype = c_byte
+_runtime._libdhd.dhdKbGet.argtypes = []
+_runtime._libdhd.dhdKbGet.restype = c_byte
 
 
 def kbGet() -> str:
     """
     Retrieve a character from the keyboard. This function is OS independent.
 
-    :rtype: str
-
     :returns:
         The character hit on the keyboard.
     """
-    return chr(_libdhd.dhdKbGet())
+    return chr(_runtime._libdhd.dhdKbGet())
 
 
-_libdhd.dhdGetTime.argtypes = []
-_libdhd.dhdGetTime.restype = c_double
+_runtime._libdhd.dhdGetTime.argtypes = []
+_runtime._libdhd.dhdGetTime.restype = c_double
 
 
 def getTime() -> float:
@@ -50,27 +41,19 @@ def getTime() -> float:
     usually derived from one of the CPU clock signals. The time returned,
     however, is guarunteed to be monotonic.
 
-    :rtype: float
-
     :returns:
         The current monotonic time in [s] from the high-resolution system
         counter.
     """
-    return _libdhd.dhdGetTime()
+    return _runtime._libdhd.dhdGetTime()
 
 
-_libdhd.dhdSleep.argtypes = [c_double]
-_libdhd.dhdSleep.restype = None
+_runtime._libdhd.dhdSleep.argtypes = [c_double]
+_runtime._libdhd.dhdSleep.restype = None
 
 
 def sleep(sec: float) -> None:
     """
     Sleep for a given period of time in [s]. This function is OS independent.
-
-    :rtype: None
     """
-    _libdhd.dhdSleep(sec)
-
-
-def startThread():
-    raise NotImplementedError()
+    _runtime._libdhd.dhdSleep(sec)
