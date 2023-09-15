@@ -1,215 +1,173 @@
-import ctypes
+import ctypes as ct
 import glob
 import os
 import platform
-import re
 import sys
+import unittest.mock as __mock
 from functools import lru_cache
-from typing import NamedTuple
+from typing import Final, Iterable, List, Literal, Optional, Set, Tuple, Union
 
-VERSION_TARGET_FULL = "3.14.0-1681794874)"
-VERSION_TARGET = VERSION_TARGET_FULL.partition("-")[0]
+from forcedimension_core.containers import VersionTuple
 
+VERSION_TARGET = VersionTuple(3, 16, 0, 0)
 
-class _Version(NamedTuple):
-    major: int
-    minor: int
-    release: int
-    revision: int = 0
-
-    def __eq__(self, v):
-        if self == v:
-            return True
-        else:
-            return False
-
-    def __lt__(self, v):
-        if self.major < v.major:
-            return True
-
-        if self.major == v.major:
-            if self.minor < v.minor:
-                return True
-            else:
-                return False
-        else:
-            return False
-
-    def __le__(self, v):
-        if self.major <= v.major:
-            if self.minor <= v.minor:
-                return True
-            else:
-                return False
-        else:
-            return False
-
-    def __ge__(self, v):
-        if self.major >= v.major:
-            if self.minor >= v.minor:
-                return True
-            else:
-                return False
-        else:
-            return False
-
-    def __gt__(self, v):
-        if self.major > v.major:
-            return True
-
-        if self.major == v.major:
-            if self.minor > v.minor:
-                return True
-            else:
-                return False
-        else:
-            return False
-
-    def __ne__(self, v):
-        if self != v:
-            return True
-        else:
-            return False
+SUPPORTED_PLATFORMS: Final[Set[str]] = {'linux', 'win32', 'darwin'}
 
 
-def version_tuple(version_string: str):
-    res = re.search(r"(\d+)\.(\d+)\.(\d+)-(\d+)", version_string)
-
-    if (res.groups() is not None):
-        if (len(res.groups()) != 4):
-            raise ValueError("Invalid version string.")
-    else:
-        raise ValueError("Invalid version string.")
-
-    return _Version(*(int(v) for v in res.groups()))
-
-
-@lru_cache
-def load(lib_name, search_dirs=(), silent=False):
-
-    try:
-        if __sphinx_build__:
-            from mock import Mock
-            return Mock()
-    except NameError:
-        pass
-
-    search_dirs = list(search_dirs)
-
-    if sys.platform == "win32":
-        lib_ext = ".dll"
-        lib_dir = "bin"
-
-        if platform.architecture()[0] == "64bit":
-            lib_name = lib_name[3:] + "64"
-
-        search_dirs.append(
-            glob.glob(
-                "{}\\sdk-*".format(
-                    os.path.join(
-                        "c:",
-                        os.sep,
-                        "Program Files",
-                        "Force Dimension"
-                    )
-                )
-            )[0]
-        )
-    elif sys.platform.startswith("linux") or sys.platform == 'darwin':
-        lib_dir = "lib"
-        machine = platform.machine()
-
-        if sys.platform.startswith("linux"):
-            lib_ext = ".so"
-            platform_name = 'lin'
-            compiler = 'gcc'
-        elif sys.platform == 'darwin':
-            lib_ext = ".dylib"
-            platform_name = 'mac'
-            compiler = 'clang'
-
-        if (libpath := os.environ.get("FORCEDIM_SDK")) is not None:
-            search_dirs.append(
-                os.path.realpath(os.path.join(
-                    libpath,
-                    "lib",
-                    "release",
-                    f"{platform_name}-{machine}-{compiler}")
-                )
-            )
-
-        search_dirs.extend([
-            "/usr/local",
-            "/usr",
-
-        ])
-    else:
+def _get_search_info(
+    lib_name: Union[Literal['libdrd'], Literal['libdhd']],
+    search_dirs: Iterable[str] = (),
+    silent=False
+) -> Optional[List[str]]:
+    if sys.platform not in SUPPORTED_PLATFORMS:
         if not silent:
             sys.stderr.write(
-                "Unsupported platform. Only Windows and Linux is supported."
+                "Unsupported platform."
             )
 
         return None
 
-    for directory in search_dirs:
+    search_dirs = list(search_dirs)
 
-        if directory is None:
-            continue
+    if sys.platform == "win32":
+        if platform.architecture()[0] == "64bit":
+            lib_name = lib_name[3:] + "64"
 
-        if not os.path.isdir(directory):
-            continue
-
-        directory = os.path.abspath(directory)
-        lib_path = os.path.join(directory, lib_dir, lib_name + lib_ext)
-
-        if (os.path.isfile(lib_path)):
-            if sys.platform == "win32":
-
-                path = os.getenv("PATH")
-                if (path is not None and directory not in path):
-                    os.environ["PATH"] = "{};{}".format(path, directory)
-
-            try:
-                lib = ctypes.CDLL(lib_path)
-            except OSError:
-                if silent:
-                    break
-                else:
-                    raise RuntimeError("Library could not be loaded. Do you"
-                                       "have missing dependencies?\n"
-                                       "Ensure you have libusb-1.")
-
-            major = ctypes.c_int()
-            minor = ctypes.c_int()
-            release = ctypes.c_int()
-            revision = ctypes.c_int()
-
-            lib.dhdGetSDKVersion(ctypes.byref(major),
-                                 ctypes.byref(minor),
-                                 ctypes.byref(release),
-                                 ctypes.byref(revision))
-
-            version = _Version(
-                major.value,
-                minor.value,
-                release.value,
-                revision.value
+        lib_versions = glob.glob(
+            "{}\\sdk-*".format(
+                os.path.join(
+                    "c:",
+                    os.sep,
+                    "Program Files",
+                    "Force Dimension"
+                )
             )
+        )[0]
 
-            if (version < version_tuple(VERSION_TARGET_FULL)):
-                if not silent:
-                    sys.stderr.write(
-                        "Invalid version. v{}.{}.{}-{} found "
-                        "but {} is required.\n".format(
-                            *version,
-                            VERSION_TARGET_FULL
-                        )
-                    )
+        lib_versions.sort()
 
-                return None
+        search_dirs.append(
+            os.path.join(lib_versions[-1], "bin", f"{lib_name}.dll")
+        )
 
-            return lib
-    if (not silent):
+        return search_dirs
+
+    if sys.platform.startswith("linux"):
+        lib_ext = '.so'
+        platform_name = 'lin'
+        compiler = 'gcc'
+    elif sys.platform == 'darwin':
+        lib_ext = '.dylib'
+        platform_name = 'mac'
+        compiler = 'clang'
+
+    lib_dir = "lib"
+    machine = platform.machine()
+
+    if (libpath := os.environ.get('FORCEDIM_SDK')) is not None:
+        lib_folder = os.path.realpath(
+            os.path.join(
+                libpath,
+                "lib",
+                "release",
+                f"{platform_name}-{machine}-{compiler}",  # type: ignore
+            )
+        )
+
+        search_dirs.append(
+            glob.glob(f"{lib_folder}/{lib_name + lib_ext}*")[0]  # type: ignore
+        )
+
+    search_dirs.extend([
+        f"/usr/local/lib/{lib_name + lib_ext}",  # type: ignore
+        f"/usr/lib/{lib_name + lib_ext}",  # type: ignore
+    ])
+
+    return search_dirs  # type: ignore
+
+
+def _get_version(lib):
+    major = ct.c_int()
+    minor = ct.c_int()
+    release = ct.c_int()
+    revision = ct.c_int()
+
+    lib.dhdGetSDKVersion(
+        ct.byref(major),
+        ct.byref(minor),
+        ct.byref(release),
+        ct.byref(revision)
+    )
+
+    return VersionTuple(
+        major.value,
+        minor.value,
+        release.value,
+        revision.value
+    )
+
+
+@lru_cache
+def load(
+    lib_name: Union[Literal['libdrd'], Literal['libdhd']],
+    search_dirs=(),
+    silent=False
+):
+    should_mock = (
+        globals().get('__sphinx_build__', False) or
+        globals().get('__unittest__', False)
+    )
+
+    if should_mock:
+        return __mock.Mock()
+
+    if (search_info := _get_search_info(lib_name, search_dirs, silent)) is None:
+        return None
+
+    search_dirs = search_info
+    load_failed = False
+
+    for lib_path in search_dirs:
+        if not os.path.isfile(lib_path):
+            continue
+
+        if sys.platform == "win32":
+            path = os.getenv("PATH")
+            if (path is not None and directory not in path):
+                os.environ["PATH"] = f"{path};{directory}"
+
+        try:
+            lib = ct.CDLL(lib_path)
+        except OSError:
+            if silent:
+                break
+            else:
+                sys.stderr.write(
+                    "Library could not be loaded. Do you"
+                    "have missing dependencies?\n"
+                    "Ensure you have libusb-1."
+                )
+
+        if (version := _get_version(lib)) < VERSION_TARGET:
+            if not silent:
+                sys.stderr.write(
+                    f"Invalid version. v{version} found "
+                    f"but {VERSION_TARGET} is required.\n"
+                )
+
+            return None
+
+        return lib
+    if not silent:
         sys.stderr.write(
-            "Could not find {}. Is it installed?\n".format(lib_name))
+            f"Could not find {lib_name}. Is it installed?\n"
+        )
+
     return None
+
+
+if (_libdrd_load := load('libdrd')) is None:
+    raise ImportError("There were problems loading libdrd.")
+
+_libdrd = _libdrd_load
+_libdhd = _libdrd_load
