@@ -734,7 +734,7 @@ def gripperEncoderToAngleRad(
         Output buffer to store the opening angle of the gripper (in [rad]).
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
@@ -784,7 +784,7 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
         (in [m]).
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
@@ -878,7 +878,7 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
         Buffer to store the gripper encoder value.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :raises ctypes.ArgumentError:
         If ``gap`` is not implicitly convertible to a C char.

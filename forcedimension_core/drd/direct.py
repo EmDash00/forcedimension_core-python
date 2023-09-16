@@ -41,7 +41,7 @@ def getPositionAndOrientation(
         Output buffer to store the orientation matrix.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :raises AttributeError:
         If ``p_out.ptrs`` is not a valid attribute of ``p_out``
@@ -108,7 +108,7 @@ def getVelocity(
 
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :param SupportsPtrs3[c_double] v_out:
         Output buffer for the linear velocity (in [m/s]).
@@ -184,7 +184,7 @@ def moveTo(pos: SupportsPtr[c_double], block: bool, ID: int = -1):
         ``False``, the call returns immediately.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :raises AttributeError:
         If ``pos.ptr`` is not a valid attribute of ``pos``
@@ -227,7 +227,7 @@ def moveToAllEnc(enc: SupportsPtr[c_int], block: bool, ID: int = -1):
         Target encoder positions.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :param bool block:
         If ``True``, the call blocks until the destination is reached.
@@ -274,7 +274,7 @@ def track(pos: SupportsPtr[c_double], ID: int = -1):
         (in [m]).
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :raises AttributeError:
         If ``pos.ptr`` is not a valid attribute of ``pos``
@@ -317,7 +317,7 @@ def trackAllEnc(enc: SupportsPtr[c_int], ID: int = -1):
         Target encoder positions.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details)
 
     :raises AttributeError:
         If ``enc.ptr`` is not a valid attribute of ``enc``

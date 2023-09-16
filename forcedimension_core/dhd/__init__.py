@@ -1590,7 +1590,7 @@ def getPosition(out: MutableArray[int, float], ID: int = -1) -> int:
         An output buffer to store the position of the end-effector.
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :raises TypeError:
         If ``out`` is specified and does not support item assignment either
@@ -1649,7 +1649,7 @@ def getForce(out: MutableArray[int, float], ID: int = -1) -> int:
         (in [N]).
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :raises TypeError:
         If ``out`` is specified and does not support item.
@@ -1776,7 +1776,7 @@ def getOrientationRad(out: MutableArray[int, float], ID: int = -1) -> int:
         An output buffer to store the joint angles (in [rad]).
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :raises TypeError:
         If ``out`` is specified and does not support item.
@@ -1856,7 +1856,7 @@ def getOrientationDeg(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] out:
         An output buffer to store the joint angles (in [deg]).
@@ -1947,7 +1947,7 @@ def getPositionAndOrientationRad(
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] p_out:
         An output buffer to store the position (in [m]).
@@ -2053,7 +2053,7 @@ def getPositionAndOrientationDeg(
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] p_out:
         An output buffer to store the position (in [m]).
@@ -2160,7 +2160,7 @@ def getPositionAndOrientationFrame(
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :raises TypeError:
         If ``p_out`` is specified and does not support item assignment either
@@ -2237,7 +2237,7 @@ def getForceAndTorque(
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] f_out:
         An output buffer to store the applied forces on the end-effector
@@ -2383,7 +2383,7 @@ def getOrientationFrame(
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableFloatMatrixLike out:
         An output buffer to store the orientation frame.
@@ -2579,7 +2579,7 @@ def getGripperThumbPos(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] out:
         An output buffer to store the grippper thumb position (in [m]).
@@ -2638,7 +2638,7 @@ def getGripperFingerPos(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] out:
         An output buffer to store the gripper finger position (in [m]).
@@ -2896,7 +2896,7 @@ def getForceAndTorqueAndGripperForce(
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] f_out:
         An output buffer to store the applied forces on the end-effector
@@ -3016,7 +3016,7 @@ def getLinearVelocity(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] out:
         An output buffer to store the linear velocity (in [m/s]).
@@ -3125,7 +3125,7 @@ def getAngularVelocityRad(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] out:
         An output buffer to store the angular velocity (in [rad/s]).
@@ -3191,7 +3191,7 @@ def getAngularVelocityDeg(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details)
 
     :param MutableArray[int, float] out:
         An output buffer to store the angular velocity (in [deg/s]).
