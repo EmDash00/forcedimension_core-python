@@ -20,7 +20,7 @@ def getDeltaEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_int] out:
         An output buffer to store the delta encoder values.
@@ -78,7 +78,7 @@ def getWristEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
         An output buffer to store the wrist encoder values.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -123,7 +123,7 @@ def deltaEncoderToPosition(
         respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the position about the X, Y, and Z axes
@@ -182,7 +182,7 @@ def deltaPositionToEncoder(
         respectively (in [m]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_int] out:
         An output buffer to store the delta encoder values.
@@ -249,7 +249,7 @@ def deltaMotorToForce(
         the X, Y, and Z axes (in [N])
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises TypeError:
         If ``out`` does not support item assignment either
@@ -321,7 +321,7 @@ def deltaForceToMotor(
         An output buffer to store the motor commands on axes 0, 1, and 2.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``f`` is not implicitly convertible to a C double.
@@ -490,7 +490,7 @@ def wristOrientationToEncoder(
         An output buffer to store the encoder values.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
 
     :raises AttributeError:
@@ -562,7 +562,7 @@ def wristMotorToTorque(
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the torques applied to the wrist about the
@@ -647,7 +647,7 @@ def wristTorqueToMotor(
         An output buffer to store the wrist motor commands.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -734,7 +734,7 @@ def gripperEncoderToAngleRad(
         Output buffer to store the opening angle of the gripper (in [rad]).
 
     :param int ID:
-        Device ID (see multiple devices section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
@@ -784,7 +784,7 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
         (in [m]).
 
     :param int ID:
-        Device ID (see multiple devices section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
@@ -831,7 +831,7 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
         Output buffer to store the value of the gripper encoder value.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to a C char.
@@ -878,7 +878,7 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
         Buffer to store the gripper encoder value.
 
     :param int ID:
-        Device ID (see multiple devices section for details), defaults to -1.
+        Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :raises ctypes.ArgumentError:
         If ``gap`` is not implicitly convertible to a C char.
@@ -931,7 +931,7 @@ def gripperMotorToForce(
         Output buffer to store the force applied to the end-effector (in [N]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``cmd`` is not implicitly convertible to a C ushort.
@@ -987,7 +987,7 @@ def gripperForceToMotor(
         An output buffer to store the wrist encoding readings.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``f`` is not implicitly convertible to a C double.
@@ -1029,7 +1029,7 @@ def getEnc(out: SupportsPtr[c_int], mask: int=0xff, ID: int = -1) -> int:
         Bitwise mask of which motor should be set.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -1067,7 +1067,7 @@ def getDeltaJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the joint angles (in [rad]) of the DELTA
@@ -1106,7 +1106,7 @@ def getDeltaJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the Jacobian.
@@ -1150,7 +1150,7 @@ def deltaJointAnglesToJacobian(
         joint angles (in [rad]) for axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the Jacobian.
@@ -1283,7 +1283,7 @@ def deltaEncodersToJointAngles(
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the DELTA joint angles (in [rad]) about axes
@@ -1344,7 +1344,7 @@ def deltaJointAnglesToEncoders(
         DELTA joint angles (in [rad]) for axes 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the DELTA encoder values.
@@ -1388,7 +1388,7 @@ def getWristJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the wrist joint angles.
@@ -1426,7 +1426,7 @@ def getWristJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the Jacobian.
@@ -1472,7 +1472,7 @@ def wristJointAnglesToJacobian(
         An output buffer to store the wrist jacobian.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptr`` is not a valid attribute of ``out``
@@ -1540,7 +1540,7 @@ def wristJointTorquesExtrema(
         about axes 0, 1, and 2 (in [Nm]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to C
@@ -1626,7 +1626,7 @@ def wristEncodersToJointAngles(
         joint axes 0, 1, and 2.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -1682,7 +1682,7 @@ def wristJointAnglesToEncoders(
         An output buffer to store the wrist encoder values.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -1741,7 +1741,7 @@ def getJointAngles(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the joint angles (in [rad]) for all sensed
@@ -1818,7 +1818,7 @@ def getEncVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the encoder velocities (in [inc/s]) for all
@@ -1863,7 +1863,7 @@ def jointAnglesToIntertiaMatrix(
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An array of joint angles (in [rad]) containing joint angles for all
@@ -1916,7 +1916,7 @@ def jointAnglesToGravityJointTorques(
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param int mask:
         Bitwise mask of which joint torques should be computed.

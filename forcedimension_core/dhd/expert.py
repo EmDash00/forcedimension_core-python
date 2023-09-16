@@ -72,7 +72,7 @@ def preset(val: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
         Bitwise mask of which encoder should be set.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to a C char.
@@ -116,7 +116,7 @@ def setTimeGuard(min_period: int, ID: int = -1) -> int:
         recommended value.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``min_period`` is not implicitly convertible to a C char.
@@ -156,7 +156,7 @@ def setVelocityThreshold(thresh: int, ID: int = -1) -> int:
         An arbitrary value of velocity threshold (in [m/s]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``thresh`` is not implicitly convertible to a C char.
@@ -187,7 +187,7 @@ def getVelocityThreshold(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -220,7 +220,7 @@ def updateEncoders(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -250,7 +250,7 @@ def getDeltaEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param Array[int, int] out:
         An output buffer to store the raw encoder values.
@@ -321,7 +321,7 @@ def getWristEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -381,7 +381,7 @@ def getGripperEncoder(out: c_int, ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param c_int out:
         Output buffer to store the encoder value of the force gripper.
@@ -416,7 +416,7 @@ def getEncoder(index: int, ID: int = -1) -> int:
         :data:`forcedimension_core.dhd.constants.MAX_DOF`
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``index`` is not implicitly convertible to a C char.
@@ -453,7 +453,7 @@ def setMotor(index: int, output: int, ID: int = -1) -> int:
         The motor DAa C char.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``index`` is not implicitly convertible to a C char.
@@ -492,7 +492,7 @@ def setDeltaMotor(mot: Array[int, int], ID: int = -1) -> int:
         respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``mot`` is not implicitly convertible to a C ushort.
@@ -544,7 +544,7 @@ def setWristMotor(output: Array[int, int], ID: int = -1) -> int:
         respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``output`` is not implicitly convertible to a C char.
@@ -585,7 +585,7 @@ def setGripperMotor(output: int, ID: int = -1) -> int:
         Gripper motor command.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``output`` is not implicitly convertible to a C ushort.
@@ -632,7 +632,7 @@ def deltaEncoderToPosition(
         respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param Array[int, int] out:
         An output buffer to store the end-effector position (in [m]).
@@ -717,7 +717,7 @@ def deltaPositionToEncoder(
         respectively (in [m]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param Array[int, int] out:
         An output buffer to store the raw encoder values.
@@ -810,7 +810,7 @@ def deltaMotorToForce(
         respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the applied force to the end effector.
@@ -914,7 +914,7 @@ def deltaForceToMotor(
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param Array[int, int] out:
         An output buffer to store the applied force to the end-effector.
@@ -1022,7 +1022,7 @@ def wristEncoderToOrientation(
         third joint, respectively
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the joint angles.
@@ -1125,7 +1125,7 @@ def wristOrientationToEncoder(
         respectively (in [rad]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param Array[int, int] out:
         An output buffer to store the encoder values.
@@ -1224,7 +1224,7 @@ def wristMotorToTorque(
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the torques applied to the wrist.
@@ -1331,7 +1331,7 @@ def wristTorqueToMotor(
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param Array[int, int] out:
         An output buffer to store the wrist motor commands.
@@ -1428,7 +1428,7 @@ def gripperEncoderToAngleRad(enc: int, out: c_double, ID: int = -1) -> int:
         Output buffer to store the gripper angle (in [rad]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
@@ -1485,7 +1485,7 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
         Buffer to store the griper opening (in [m]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
@@ -1534,7 +1534,7 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
         Gripper opening as an angle (in [rad]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to a C char.
@@ -1590,7 +1590,7 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
         Outpu buffer to store the gripper encoder value.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``gap`` is not implicitly convertible to a C char.
@@ -1657,7 +1657,7 @@ def gripperMotorToForce(
         Output buffer to store the force applied to the end effector (in [N]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``cmd`` is not implicitly convertible to a C ushort.
@@ -1734,7 +1734,7 @@ def gripperForceToMotor(
         Output buffer to store the motor command.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``f`` is not implicitly convertible to a C double.
@@ -1793,7 +1793,7 @@ def setMot(cmds: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
         Bitwise mask of which motor should be set.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``cmds`` is not implicitly convertible to a C
@@ -1856,7 +1856,7 @@ def setJointTorques(q: Array[int, float], mask: int = 0xff, ID: int = -1):
         Bitwise mask of which joints should be set
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``cmds`` is not implicitly convertible to a C
@@ -1919,7 +1919,7 @@ def preloadMot(cmds: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
         Bitwise mask of which motor should be set.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``cmds`` is not implicitly convertible to a C ushort.
@@ -1976,7 +1976,7 @@ def getEnc(mask: int, out: MutableArray[int, int], ID: int = -1) -> int:
         Bitwise mask of which motor should be set, default to ``0xff``
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param Array[int, int] out:
         An output buffer to store the encoder values.
@@ -2036,7 +2036,7 @@ def setBrk(mask: int = 0xff, ID: int = -1) -> int:
         brakes be set on.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C char.
@@ -2071,7 +2071,7 @@ def getDeltaJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the joint angles.
@@ -2128,7 +2128,7 @@ def getDeltaJacobian(
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableFloatMatrixLike out:
         An output buffer to store the Jacobian.
@@ -2190,7 +2190,7 @@ def deltaJointAnglesToJacobian(
         joint angles for axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableFloatMatrixLike out:
         An output buffer to store the return.
@@ -2270,7 +2270,7 @@ def deltaJointTorquesExtrema(
         joint angles for axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] minq_out:
         An output buffer to store the return.
@@ -2410,7 +2410,7 @@ def deltaEncodersToJointAngles(
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the return.
@@ -2491,7 +2491,7 @@ def deltaJointAnglesToEncoders(
         DELTA joint angles for axes 0, 1, and 2, respectively, (in [rad]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the return.
@@ -2563,7 +2563,7 @@ def getWristJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the wrist joint angles.
@@ -2619,7 +2619,7 @@ def getWristJacobian(
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the Jacobian.
@@ -2681,7 +2681,7 @@ def wristJointAnglesToJacobian(
         the joint angles for wrist axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableFloatMatrixLike out:
         An output buffer to store the Jacobian.
@@ -2763,7 +2763,7 @@ def wristJointTorquesExtrema(
         joint angles for wrist axes 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] minq_out:
         An output buffer to store the return.
@@ -2852,7 +2852,7 @@ def setWristJointTorques(
         commands for axes 0, 1, and 2, respectively (in [Nm]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``t`` is not implicitly convertible to a C double.
@@ -2909,7 +2909,7 @@ def setForceAndWristJointTorques(
         for axes 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``f`` is not implicitly convertible to a C double.
@@ -2981,7 +2981,7 @@ def setForceAndWristJointTorquesAndGripperForce(
         Gripper force (in [N]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``f`` is not implicitly convertible to a C double.
@@ -3050,7 +3050,7 @@ def wristEncodersToJointAngles(
         An output buffer to store the joint angles (in [rad]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
@@ -3115,7 +3115,7 @@ def wristJointAnglesToEncoders(
         wrist joint angles for axes 0, 1, and 2, respectively, (in [rad]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param Array[int, int] out:
         An output buffer to store the raw encoder values.
@@ -3190,7 +3190,7 @@ def getJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the joint angles (in [rad]).
@@ -3237,7 +3237,7 @@ def getJointVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the joint velocities (in [rad/s]).
@@ -3282,7 +3282,7 @@ def getEncVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the encoder velocities (in [inc/s]).
@@ -3336,7 +3336,7 @@ def jointAnglesToIntertiaMatrix(
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableFloatMatrixLike out:
         Output buffer for the inertia matrix.
@@ -3415,7 +3415,7 @@ def jointAnglesToGravityJointTorques(
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param int mask:
         Bitwise mask of which joint torques should be computed.
@@ -3488,7 +3488,7 @@ def setComMode(mode: ComMode, ID: int = -1) -> int:
         desired COM operation mode.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``mode`` is not implicitly convertible to a C char.
@@ -3521,7 +3521,7 @@ def setWatchdog(duration: int, ID: int = -1) -> int:
         A value of 0 disables the watchdog feature.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``duration`` is not implicitly convertible to a C char.
@@ -3550,7 +3550,7 @@ def getWatchdog(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -3579,7 +3579,7 @@ def getEncRange(ID: int = -1) -> Tuple[IntDOFTuple, IntDOFTuple, int]:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -3609,7 +3609,7 @@ def getJointAngleRange(ID: int = -1) -> Tuple[
     do not exist on the device will return a range of 0.0.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -3653,7 +3653,7 @@ def controllerSetDevice(devtype: DeviceType, ID: int = -1) -> int:
         The device type to use.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -3680,7 +3680,7 @@ def readConfigFromFile(filename: str, ID: int = -1):
         Configuration file containing device calibration/configuration data.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -3731,7 +3731,7 @@ def deltaGravityJointTorques(
         joint angles for axis 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the return.
@@ -3820,7 +3820,7 @@ def wristGravityJointTorques(
         the joint angles for wrist axes 0, 1, and 2, respectively.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :param MutableArray[int, float] out:
         An output buffer to store the joint torques.

@@ -216,7 +216,7 @@ def setDevice(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -256,7 +256,7 @@ def getSerialNumber(ID: int = -1) -> int:
     Return the device serial number.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -421,7 +421,7 @@ def close(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -442,7 +442,7 @@ def checkControllerMemory(ID: int = -1) -> int:
     internal configuration on supported device types.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -474,7 +474,7 @@ def stop(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -499,7 +499,7 @@ def getComMode(ID: int = -1) -> ComMode:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -530,7 +530,7 @@ def enableForce(enable: bool, ID: int = -1) -> int:
         ``True`` to enable force, ``False`` to disable it.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to C bool.
@@ -569,7 +569,7 @@ def enableGripperForce(enable: bool, ID: int = -1) -> int:
         ``True`` to enable force, ``False`` to disable it.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``enable`` is not implicitly convertible to C bool.
@@ -602,7 +602,7 @@ def getSystemType(ID: int = -1) -> DeviceType:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -633,7 +633,7 @@ def getSystemRev(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -663,7 +663,7 @@ def getSystemName(ID: int = -1) -> Union[str, None]:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -691,7 +691,7 @@ def getVersion(ID: int = -1) -> float:
     haptic controller.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -768,7 +768,7 @@ def getComponentVersionStr(
         an internal component.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ValueError:
         If N is less than 1.
@@ -809,7 +809,7 @@ def getStatus(out: containers.Status, ID: int = -1) -> int:
     The status is described in the status section.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -843,7 +843,7 @@ def getDeviceAngleRad(out: c_double, ID: int = -1) -> int:
         (in [rad]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -877,7 +877,7 @@ def getDeviceAngleDeg(out: c_double, ID: int = -1) -> int:
         (in [deg]).
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -906,7 +906,7 @@ def getEffectorMass(ID: int = -1) -> float:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -940,7 +940,7 @@ def getButton(index: int, ID: int = -1) -> int:
         :data:`forcedimension_core.dhd.constants.MAX_BUTTONS`
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -966,7 +966,7 @@ def getButtonMask(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1000,7 +1000,7 @@ def setOutput(output: int, ID: int = -1) -> int:
         A bitwise mask that toggles the programmable output bits.
 
     :param int ID:
-        Device ID (see multiple devices section for details).
+        Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1049,7 +1049,7 @@ def isLeftHanded(ID: int = -1) -> bool:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1098,7 +1098,7 @@ def hasBase(ID: int = -1) -> bool:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1142,7 +1142,7 @@ def hasWrist(ID: int = -1) -> bool:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1187,7 +1187,7 @@ def hasActiveWrist(ID: int = -1) -> bool:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1229,7 +1229,7 @@ def hasGripper(ID: int = -1) -> bool:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1271,7 +1271,7 @@ def hasActiveGripper(ID: int = -1) -> bool:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1297,7 +1297,7 @@ def reset(ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1331,7 +1331,7 @@ def waitForReset(timeout: Optional[int] = None, ID: int = -1) -> int:
         Maximum time to wait for calibration (in [ms]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If not implicitly convertible to C int.
@@ -1368,7 +1368,7 @@ def setStandardGravity(g: float, ID: int = -1) -> int:
         standard gravity constant (in [m/s^2]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``g`` is not implicitly convertible to C double.
@@ -1402,7 +1402,7 @@ def setGravityCompensation(enable: bool, ID: int = -1) -> int:
         gravity compensation.
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to C bool.
@@ -1437,7 +1437,7 @@ def setBrakes(enable: bool, ID: int = -1) -> int:
         turn off the device electromagnetic brakes.
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to C bool.
@@ -1475,7 +1475,7 @@ def setDeviceAngleRad(angle: float, ID: int = -1) -> int:
         device base plate angle [rad]
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to C double.
@@ -1513,7 +1513,7 @@ def setDeviceAngleDeg(angle: float, ID: int = -1) -> int:
         device base plate angle [deg]
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to C double.
@@ -1549,7 +1549,7 @@ def setEffectorMass(mass: float, ID: int = -1) -> int:
         The actual end-effector mass (in [kg]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to C double.
@@ -1590,7 +1590,7 @@ def getPosition(out: MutableArray[int, float], ID: int = -1) -> int:
         An output buffer to store the position of the end-effector.
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :raises TypeError:
         If ``out`` is specified and does not support item assignment either
@@ -1649,7 +1649,7 @@ def getForce(out: MutableArray[int, float], ID: int = -1) -> int:
         (in [N]).
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :raises TypeError:
         If ``out`` is specified and does not support item.
@@ -1703,7 +1703,7 @@ def setForce(f: Array[int, float], ID: int = -1) -> int:
         Translation force vector (fx, fy, fz) (in [N]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -1776,7 +1776,7 @@ def getOrientationRad(out: MutableArray[int, float], ID: int = -1) -> int:
         An output buffer to store the joint angles (in [rad]).
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :raises TypeError:
         If ``out`` is specified and does not support item.
@@ -1856,7 +1856,7 @@ def getOrientationDeg(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] out:
         An output buffer to store the joint angles (in [deg]).
@@ -1947,7 +1947,7 @@ def getPositionAndOrientationRad(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] p_out:
         An output buffer to store the position (in [m]).
@@ -2053,7 +2053,7 @@ def getPositionAndOrientationDeg(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] p_out:
         An output buffer to store the position (in [m]).
@@ -2160,7 +2160,7 @@ def getPositionAndOrientationFrame(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :raises TypeError:
         If ``p_out`` is specified and does not support item assignment either
@@ -2237,7 +2237,7 @@ def getForceAndTorque(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] f_out:
         An output buffer to store the applied forces on the end-effector
@@ -2320,7 +2320,7 @@ def setForceAndTorque(
         axes, respectively.
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -2383,7 +2383,7 @@ def getOrientationFrame(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableFloatMatrixLike out:
         An output buffer to store the orientation frame.
@@ -2447,7 +2447,7 @@ def getGripperAngleDeg(out: c_double, ID: int = -1) -> int:
         Output buffer to store the gripper opening angle (in [deg]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -2490,7 +2490,7 @@ def getGripperAngleRad(out: c_double, ID: int = -1) -> int:
         Output buffer to store the gripper opening angle (in [rad]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -2533,7 +2533,7 @@ def getGripperGap(out: c_double, ID: int = -1) -> int:
         Output buffer to store the gripper opening distance (in [m]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -2579,7 +2579,7 @@ def getGripperThumbPos(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] out:
         An output buffer to store the grippper thumb position (in [m]).
@@ -2638,7 +2638,7 @@ def getGripperFingerPos(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] out:
         An output buffer to store the gripper finger position (in [m]).
@@ -2687,7 +2687,7 @@ def getComFreq(ID: int = -1) -> float:
     a force on the device (e.g. :func:`forcedimension_core.dhd.setForce()`).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -2729,7 +2729,7 @@ def setForceAndGripperForce(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param VectorLike f:
         Translational force vector ``(fx, fy, fz)`` where ``fx``, ``fy``, and
@@ -2812,7 +2812,7 @@ def setForceAndTorqueAndGripperForce(
         Grasping force of the gripper (in [N]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -2896,7 +2896,7 @@ def getForceAndTorqueAndGripperForce(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] f_out:
         An output buffer to store the applied forces on the end-effector
@@ -2966,7 +2966,7 @@ def configLinearVelocity(
         details).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3016,7 +3016,7 @@ def getLinearVelocity(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] out:
         An output buffer to store the linear velocity (in [m/s]).
@@ -3074,7 +3074,7 @@ def configAngularVelocity(
         details).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3125,7 +3125,7 @@ def getAngularVelocityRad(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] out:
         An output buffer to store the angular velocity (in [rad/s]).
@@ -3191,7 +3191,7 @@ def getAngularVelocityDeg(out: MutableArray[int, float], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details), defaults to -1.
+         Device ID (see :ref:`multiple_devices` section for details), defaults to -1.
 
     :param MutableArray[int, float] out:
         An output buffer to store the angular velocity (in [deg/s]).
@@ -3252,7 +3252,7 @@ def configGripperVelocity(
         details).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3300,7 +3300,7 @@ def getGripperLinearVelocity(out: c_double, ID: int = -1) -> int:
         (in [m/s]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3344,7 +3344,7 @@ def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
         (in [rad/s]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3388,7 +3388,7 @@ def getGripperAngularVelocityDeg(out: c_double, ID: int = -1) -> int:
         (in [deg/s]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :returns:
         0 on success, -1 otherwise.
@@ -3428,7 +3428,7 @@ def emulateButton(enable: bool, ID: int = -1) -> int:
         ``True`` to enable, ``False`` to disable.
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3460,7 +3460,7 @@ def getBaseAngleXRad(out: c_double, ID: int = -1) -> int:
         (in [rad]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3492,7 +3492,7 @@ def getBaseAngleXDeg(out: c_double, ID: int = -1) -> int:
         (in [deg]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3525,7 +3525,7 @@ def setBaseAngleXRad(angle: float, ID: int = -1) -> int:
         device base plate angle around the X axis (in [rad]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3558,7 +3558,7 @@ def setBaseAngleXDeg(angle: float, ID: int = -1) -> int:
         device base plate angle around the X axis (in [deg]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3590,7 +3590,7 @@ def getBaseAngleZRad(out: c_double, ID: int = -1) -> int:
         (in [rad]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3622,7 +3622,7 @@ def getBaseAngleZDeg(out: c_double, ID: int = -1) -> float:
         (in [deg]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3655,7 +3655,7 @@ def setBaseAngleZRad(angle: float, ID: int = -1) -> int:
         device base plate angle around the Z axis (in [rad]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3688,7 +3688,7 @@ def setBaseAngleZDeg(angle: float, ID: int = -1) -> int:
         device base plate angle around the Z axis (in [deg])
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to C double
@@ -3727,7 +3727,7 @@ def setVibration(f: float, A: float, profile: int = 0, ID: int = -1) -> int:
         Vibration profile (unused, reserved for future use)
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``f`` is not implicitly convertible to C double.
@@ -3781,7 +3781,7 @@ def setMaxForce(limit: float, ID: int = -1) -> int:
         max magnitude of force that can be applied (in [N]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``limit`` is not implicitly convertible to C double.
@@ -3829,7 +3829,7 @@ def setMaxTorque(limit: float, ID: int = -1) -> int:
         max magnitude of torque that can be applied (in [Nm]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``limit`` is not implicitly convertible to C double.
@@ -3877,7 +3877,7 @@ def setMaxGripperForce(limit: float, ID: int = -1) -> int:
         Max magnitude of force that can be applied (in [N]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``limit`` is not implicitly convertible to C double.
@@ -3910,7 +3910,7 @@ def getMaxForce(ID: int = -1) -> float:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3941,7 +3941,7 @@ def getMaxTorque(ID: int = -1) -> float:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -3972,7 +3972,7 @@ def getMaxGripperForce(ID: int = -1) -> float:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.

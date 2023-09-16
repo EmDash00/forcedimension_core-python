@@ -23,7 +23,7 @@ def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
         An output buffer to store the position of the end-effector (in [m]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -66,7 +66,7 @@ def getForce(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
         (in [N]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -135,7 +135,7 @@ def getOrientationRad(
         An output buffer to store the joint angles (in [rad]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -205,7 +205,7 @@ def getOrientationDeg(
         An output buffer to store the joint angles (in [deg]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -276,7 +276,7 @@ def getPositionAndOrientationRad(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] p_out:
         An output buffer to store the position (in [m]).
@@ -365,7 +365,7 @@ def getPositionAndOrientationDeg(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] p_out:
         An output buffer to store the position (in [m]).
@@ -453,7 +453,7 @@ def getPositionAndOrientationFrame(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises AttributeError:
         If ``p_out.ptrs`` is not a valid attribute of ``p_out``
@@ -505,7 +505,7 @@ def getForceAndTorque(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] f_out:
         An output buffer to store the applied forces on the end-effector
@@ -556,7 +556,7 @@ def getOrientationFrame(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the orientation frame.
@@ -604,7 +604,7 @@ def getGripperAngleDeg(out: c_double, ID: int = -1) -> int:
         Buffer to store the gripper opening angle (in [deg]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -643,7 +643,7 @@ def getGripperAngleRad(out: c_double, ID: int = -1) -> int:
         Buffer to store the gripper opening angle (in [rad]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -682,7 +682,7 @@ def getGripperGap(out: c_double, ID: int = -1) -> int:
         buffer to store the gripper opening distance (in [m]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
@@ -720,7 +720,7 @@ def getGripperThumbPos(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the grippper thumb position (in [m]).
@@ -772,7 +772,7 @@ def getGripperFingerPos(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the gripper finger position (in [m]).
@@ -817,7 +817,7 @@ def getForceAndTorqueAndGripperForce(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtrs3[c_double] f_out:
         An output buffer to store the applied forces on the end-effector
@@ -893,7 +893,7 @@ def getLinearVelocity(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the linear velocity (in [m/s]).
@@ -945,7 +945,7 @@ def getAngularVelocityRad(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param out:
         An output buffer to store the angular velocity (in [rad/s]).
@@ -998,7 +998,7 @@ def getAngularVelocityDeg(
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param out:
         An output buffer to store the angular velocity (in [deg/s]).
@@ -1048,7 +1048,7 @@ def getGripperLinearVelocity(out: c_double, ID: int = -1) -> int:
         Output buffer to store the gripper linear velocity (in [m/s]).
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the gripper linear velocity (in [m/s]).
@@ -1094,7 +1094,7 @@ def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param c_double out:
         An output buffer to store the gripper angular velocity (in [rad/s])
@@ -1134,7 +1134,7 @@ def getGripperAngularVelocityDeg(out: c_double, ID: int = -1) -> int:
 
 
     :param int ID:
-         Device ID (see multiple devices section for details).
+         Device ID (see :ref:`multiple_devices` section for details).
 
     :param c_double out:
         An output buffer to store the gripper angular velocity (in [deg/s]).
