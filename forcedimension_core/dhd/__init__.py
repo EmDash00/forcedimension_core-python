@@ -987,7 +987,7 @@ def setOutput(output: int, ID: int = -1) -> int:
     """
     Set the user programmable output bits on devices that support it.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1024,7 +1024,7 @@ def isLeftHanded(ID: int = -1) -> bool:
     ``True`` if the device is configured for left-handed use,
     ``False`` otherwise.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1070,7 +1070,7 @@ def hasBase(ID: int = -1) -> bool:
     """
      ``True`` if the device has a base, ``False`` otherwise.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1118,7 +1118,7 @@ def hasWrist(ID: int = -1) -> bool:
     """
      ``True`` if the device has a wrist, ``False`` otherwise.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1162,7 +1162,7 @@ def hasActiveWrist(ID: int = -1) -> bool:
     """
      ``True`` if the device has an active wrist, ``False`` otherwise.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1207,7 +1207,7 @@ def hasGripper(ID: int = -1) -> bool:
     """
     Checks if the device has a gripper.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1249,7 +1249,7 @@ def hasActiveGripper(ID: int = -1) -> bool:
     """
     Checks if the specified device has an active gripper.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1740,7 +1740,7 @@ def getOrientationRad(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     of each joint, starting with the one located nearest to the wrist base
     plate.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1754,7 +1754,7 @@ def getOrientationRad(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -1823,7 +1823,7 @@ def getOrientationDeg(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     plate.
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1837,7 +1837,7 @@ def getOrientationDeg(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -1914,7 +1914,7 @@ def getPositionAndOrientationRad(
     base plate.
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1928,7 +1928,7 @@ def getPositionAndOrientationRad(
     :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -2020,7 +2020,7 @@ def getPositionAndOrientationDeg(
     structure, retrieve individual angle of each joint (in [deg]), starting
     with the one located nearest to the wrist base plate.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -2034,7 +2034,7 @@ def getPositionAndOrientationDeg(
     :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -2127,7 +2127,7 @@ def getPositionAndOrientationFrame(
     about the X, Y, and Z axes. Please refer to your device user manual for
     more information on your device coordinate system.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -2141,7 +2141,7 @@ def getPositionAndOrientationFrame(
     :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -2420,7 +2420,7 @@ def getGripperAngleDeg(out: c_double, ID: int = -1) -> int:
     """
     Get the gripper opening angle (in [deg]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -2463,7 +2463,7 @@ def getGripperAngleRad(out: c_double, ID: int = -1) -> int:
     """
     Get the gripper opening angle (in [rad]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -2506,7 +2506,7 @@ def getGripperGap(out: c_double, ID: int = -1) -> int:
     """
     Get the gripper opening distance (in [m]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -2556,7 +2556,7 @@ def getGripperThumbPos(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     Read the position (in [m]) of thumb rest location about the X, y and z axes
     of the force gripper structure if present.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -2615,7 +2615,7 @@ def getGripperFingerPos(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     Read the position (in [m]) of forefinger rest location about the X, Y, and Z
     axes of the force gripper structure if present.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -2992,13 +2992,13 @@ def getLinearVelocity(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     """
     Retrieve the estimated instanteous linear velocity (in [m/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
     :func:`forcedimension_core.dhd.configLinearVelocity()` in order to be able to
     compute the estimate. Otherwise, if there are no calls to
-    :func:`forcedimension_core.dhd.getPosition()
+    :func:`forcedimension_core.dhd.getPosition()`
     or :func:`forcedimension_core.dhd.getLinearVelocity()`,
     this function will error with
     :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
@@ -3100,13 +3100,13 @@ def getAngularVelocityRad(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     """
     Retrieve the estimated angular velocity (in [rad/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
     :func:`forcedimension_core.dhd.configAngularVelocity()` in order to be able to
     compute the estimate. Otherwise, if there are no calls to
-    :func:`forcedimension_core.dhd.getPosition() or
+    :func:`forcedimension_core.dhd.getPosition()` or
     :func:`forcedimension_core.dhd.getAngularVelocityRad()`, this function
     will return error with
     (:data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`).
@@ -3166,7 +3166,7 @@ def getAngularVelocityDeg(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     """
     Retrieve the estimated angular velocity (in [deg/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
@@ -3273,13 +3273,13 @@ def getGripperLinearVelocity(out: c_double, ID: int = -1) -> int:
     """
     Retrieve the estimated linear velocity of the gripper (in [m/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
     :func:`forcedimension_core.dhd.configGripperVelocity()` in order to be able
     to compute the estimate. Otherwise, if there are no calls to
-    :func:`forcedimension_core.dhd.getGripperGap() or
+    :func:`forcedimension_core.dhd.getGripperGap()` or
     :func:`forcedimension_core.dhd.getGripperLinearVelocity()`, this function
     will error with data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
     For more information please refer to :ref:`velocity_estimator`
@@ -3315,7 +3315,7 @@ def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
     """
     Retrieve the estimated angular velocity of the gripper (in [rad/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
@@ -3359,7 +3359,7 @@ def getGripperAngularVelocityDeg(out: c_double, ID: int = -1) -> int:
     """
     Retrieve the estimated angular velocity of the gripper (in [rad/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
@@ -3401,7 +3401,7 @@ def emulateButton(enable: bool, ID: int = -1) -> int:
     """
     Enable the button behavior emulation in devices that feature a gripper.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -3413,7 +3413,7 @@ def emulateButton(enable: bool, ID: int = -1) -> int:
     :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     For omega.7 devices with firmware versions 2.x, forces need to be enabled
     for the button emulation to report the emulated button status.
@@ -3756,7 +3756,7 @@ def setMaxForce(limit: float, ID: int = -1) -> int:
     If a negative limit is set, there is no max force and the full range of
     force can be applied.
 
-    Info
+    Note
     ----
     The force limit enforced only applies to forces set
     programatically by dhd.libdhd.setForce(). Setting DAC values directly
@@ -3804,7 +3804,7 @@ def setMaxTorque(limit: float, ID: int = -1) -> int:
     remains below the requested value. If a negative limit is set, there is no
     max force and the full range of force can be applied.
 
-    Info
+    Note
     ----
     The torque limit enforced only applies to torques set
     programatically by :func:`forcedimension_core.dhd.setTorque()`.
@@ -3852,7 +3852,7 @@ def setMaxGripperForce(limit: float, ID: int = -1) -> int:
     below the requested value. If a negative limit is set, there is no max force
     and the full range of force can be applied.
 
-    Info
+    Note
     ----
     The force limit enforced only applies to forces set
     programatically by dhd.libdhd.setForceAndTorqueAndGripperForce. Setting

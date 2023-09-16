@@ -53,7 +53,7 @@ def getWristEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
     """
     Read all encoders values of the wrist structure.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -381,7 +381,7 @@ def wristEncodersToOrientation(
     is rotated 45 degrees or π/4 radians about the Y axis. Please refer to your
     device user manual for more information on your device coordinate system.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -460,7 +460,7 @@ def wristOrientationToEncoder(
     for more information on your device coordinate system.
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -538,7 +538,7 @@ def wristMotorToTorque(
     end-effector about the, X, Y, and Z axes (in [Nm]) for a given set of motor
     commands at a given orientation (defined by encoder values)
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -622,7 +622,7 @@ def wristTorqueToMotor(
     obtain a given torque on the wrist end-effector about the X, Y, and Z axes
     (in [Nm]) at a given orientation (defined by encoder values)
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -709,7 +709,7 @@ def gripperEncoderToAngleRad(
     gripper encoder value.
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -758,7 +758,7 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
     Compute the opening of the gripper distance (in [m]) for a given gripper
     encoder value.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -806,7 +806,7 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
     gripper opening distance (in [rad]).
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -852,7 +852,7 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
     Compute the gripper encoder value for a given
     gripper opening distance (in [m]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -903,7 +903,7 @@ def gripperMotorToForce(
     Computes the force applied to the end-effector (in [N]) for a given
     motor command.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -963,7 +963,7 @@ def gripperForceToMotor(
     Given a desired force to be displayed by the force gripper, this routine
     computes and returns the refering motor command.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 

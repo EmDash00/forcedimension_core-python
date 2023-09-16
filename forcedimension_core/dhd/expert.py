@@ -302,7 +302,7 @@ def getWristEncoders(out: MutableCIntArrayLike, ID: int = -1) -> int:
     """
     Read all encoders values of the wrist structure.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -373,7 +373,7 @@ def getGripperEncoder(out: c_int, ID: int = -1) -> int:
     """
     Read the encoder value of the force gripper.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -525,7 +525,7 @@ def setWristMotor(output: CIntArrayLike, ID: int = -1) -> int:
     motors.
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -998,7 +998,7 @@ def wristEncoderToOrientation(
     is rotated 45 degrees or π/4 radians about the Y axis. Please refer to your
     device user manual for more information on your device coordinate system.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1101,7 +1101,7 @@ def wristOrientationToEncoder(
     rotated 45 degrees or π/4 radians about the Y axis. Please refer to your
     device user manual for more information on your device coordinate system.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1203,7 +1203,7 @@ def wristMotorToTorque(
     end-effector for a given set of motor commands at a given orientation
     (defined by encoder values)
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1312,7 +1312,7 @@ def wristTorqueToMotor(
     obtain a given torque (in [Nm]) on the wrist end-effector at a given
     orientation (defined by encoder values).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1406,7 +1406,7 @@ def gripperEncoderToAngleRad(enc: int, out: c_double, ID: int = -1) -> int:
     """
     Compute the gripper angle (in [rad]) for a given encoder value.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1463,7 +1463,7 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
     Compute and return the gripper opening (in [m]) for a
     given encoder reading.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1517,7 +1517,7 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
     Computes and return the gripper encoder value for a given
     gripper opening distance (in [rad]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1567,7 +1567,7 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
     Compute and return the gripper encoder value for a given
     gripper opening distance (in [m]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1634,7 +1634,7 @@ def gripperMotorToForce(
     :func:`forcedimension_core.dhd.expert.gripperForceToMotor()`
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -1715,7 +1715,7 @@ def gripperForceToMotor(
     :func:`forcedimension_core.dhd.direct_expert.gripperForceToMotor()`
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -3639,7 +3639,7 @@ def controllerSetDevice(devtype: DeviceType, ID: int = -1) -> int:
     device configuration from the controller. If this fails, a default
     configuration will be selected and stored in the controller.
 
-    Info
+    Note
     ----
     This feature only applies to devices of type
         :data:`forcedimension_core.constants.DeviceType.CONTROLLER` or

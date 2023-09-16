@@ -100,7 +100,7 @@ def getOrientationRad(
     of each joint, starting with the one located nearest to the wrist base
     plate.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -114,7 +114,7 @@ def getOrientationRad(
     :data:`forcedimension.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -170,7 +170,7 @@ def getOrientationDeg(
     of each joint, starting with the one located nearest to the wrist base
     plate.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -184,7 +184,7 @@ def getOrientationDeg(
     :data:`forcedimension.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -243,7 +243,7 @@ def getPositionAndOrientationRad(
     of each joint (in [rad]), starting with the one located nearest to the wrist
     base plate.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -257,7 +257,7 @@ def getPositionAndOrientationRad(
     :data:`forcedimension.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -333,7 +333,7 @@ def getPositionAndOrientationDeg(
     base plate.
 
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -347,7 +347,7 @@ def getPositionAndOrientationDeg(
     :data:`forcedimension.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -420,7 +420,7 @@ def getPositionAndOrientationFrame(
     about the X, Y, and Z axes. Please refer to your device user manual for
     more information on your device coordinate system.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -434,7 +434,7 @@ def getPositionAndOrientationFrame(
     :data:`forcedimension.dhd.constants.DeviceType.LAMBDA7_LEFT`
 
 
-    Info
+    Note
     ----
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_RIGHT` and
     :data:`forcedimension.dhd.constants.DeviceType.OMEGA6_LEFT`
@@ -582,7 +582,7 @@ def getGripperAngleDeg(out: c_double, ID: int = -1) -> int:
     """
     Get the gripper opening angle (in [deg]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -621,7 +621,7 @@ def getGripperAngleRad(out: c_double, ID: int = -1) -> int:
     """
     Get the gripper opening angle (in [rad]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -660,7 +660,7 @@ def getGripperGap(out: c_double, ID: int = -1) -> int:
     """
     Get the gripper opening distance (in [m]).
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -702,7 +702,7 @@ def getGripperThumbPos(
     Read the position (in [m]) of thumb rest location about the X, Y, and Z
     axes of the force gripper structure if present.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -754,7 +754,7 @@ def getGripperFingerPos(
     Read the position (in [m]) of forefinger rest location about the X, Y, and
     Z axes of the force gripper structure if present.
 
-    Info
+    Note
     ----
     This feature only applies to the following devices:
 
@@ -874,7 +874,7 @@ def getLinearVelocity(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     :data:`forcedimension.dhd.constants.VELOCITY_WINDOWING`
     are used. See velocity estimator for details.
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
@@ -925,7 +925,7 @@ def getAngularVelocityRad(
     """
     Retrieve the estimated angular velocity (in [rad/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
@@ -977,7 +977,7 @@ def getAngularVelocityDeg(
     """
     Retrieve the estimated angular velocity (in [deg/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
@@ -1028,7 +1028,7 @@ def getGripperLinearVelocity(out: c_double, ID: int = -1) -> int:
     """
     Retrieve the estimated linear velocity of the gripper (in [m/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
@@ -1074,7 +1074,7 @@ def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
     """
     Retrieve the estimated angular velocity of the gripper (in [rad/s]).
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
@@ -1114,7 +1114,7 @@ def getGripperAngularVelocityDeg(out: c_double, ID: int = -1) -> int:
     Retrieve the estimated angular velocity of the gripper (in [rad/s]).
     Velocity computation can be figured by calling:
 
-    Info
+    Note
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
