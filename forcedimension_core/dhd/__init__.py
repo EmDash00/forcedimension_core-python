@@ -73,7 +73,7 @@ _runtime._libdhd.dhdErrorGetLast.restype = c_int
 def errorGetLast() -> ErrorNum:
     """
     Gets the last error code encountered in the running thread.
-    See :ref:`error management` for details.
+    See :ref:`error_management` for details.
 
     See Also
     --------
@@ -590,7 +590,7 @@ _runtime._libdhd.dhdGetSystemType.restype = c_int
 
 def getSystemType(ID: int = -1) -> DeviceType:
     """
-    Return the :ref:``device_type`. As this SDK can be used to control all of
+    Return the :ref:`device_type`. As this SDK can be used to control all of
     Force Dimension haptic products, this can help programmers ensure that
     their application is running on the appropriate target haptic device.
 
@@ -660,6 +660,7 @@ def getSystemName(ID: int = -1) -> Union[str, None]:
     :func:`forcedimension_core.dhd.getSystemType()`
     :func:`forcedimension_core.dhd.getSystemRev()`
     :func:`forcedimension_core.dhd.getVersion()`
+
 
     :param int ID:
         Device ID (see multiple devices section for details).
@@ -2342,7 +2343,7 @@ def setForceAndTorque(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-   :raises ArgumentError:
+    :raises ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2737,19 +2738,19 @@ def setForceAndGripperForce(
         If any elements of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
-        If ``len(f) < 3``.
+        If ``len(f) < 3``
 
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-   :raises ArgumentError:
+    :raises ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
     :raises ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :raises IndexError:
-        If ``len(f) < 3``g
+        If ``len(f) < 3``
 
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED` on
@@ -2829,7 +2830,7 @@ def setForceAndTorqueAndGripperForce(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-   :raises ArgumentError:
+    :raises ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2840,8 +2841,8 @@ def setForceAndTorqueAndGripperForce(
 
     :returns:
         0 or
-        :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED` on success, and
-        -1 otherwise.
+        :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED` on success,
+        and -1 otherwise.
 
     """
 
