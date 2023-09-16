@@ -11,12 +11,12 @@ _VT = TypeVar("_VT")
 _VT_co = TypeVar("_VT_co", covariant=True)
 
 
-class _Array(Sized, Container[_VT_co], Protocol[_KT_contra, _VT_co]):
+class Array(Sized, Container[_VT_co], Protocol[_KT_contra, _VT_co]):
     def __getitem__(self, __k: _KT_contra) -> _VT_co: ...
 
 
-class _MutableArray(
-    _Array[_KT_contra, _VT], Protocol[_KT_contra, _VT]
+class MutableArray(
+    Array[_KT_contra, _VT], Protocol[_KT_contra, _VT]
 ):
     def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
 
@@ -63,6 +63,7 @@ class SupportsPtrs3(Protocol, Generic[CType]):
     """
     A type which supports direct memory addressing of its stored values.
     """
+
     @property
     def ptrs(self) -> Tuple[
         Pointer[CType], Pointer[CType], Pointer[CType]
@@ -71,25 +72,25 @@ class SupportsPtrs3(Protocol, Generic[CType]):
 
 #: Represents the type of a homogenous array of floats
 #: specifically, it implements ``__getitem__`` and ``__len__``
-CFloatArrayLike = _Array[int, float]
+CFloatArrayLike = Array[int, float]
 
 #: Represents the type of a homogenous array of ints
 #: specifically, it implements ``__getitem__`` and ``__len__``
-CIntArrayLike = _Array[int, int]
+CIntArrayLike = Array[int, int]
 
 #: Represents the type of a mutable homogenous array of floats
 #: specifically, it implements ``__setitem__``, ``__getitem__``, and
 #: ``__len__``
-MutableCFloatArrayLike = _MutableArray[int, float]
+MutableCFloatArrayLike = MutableArray[int, float]
 
 #: Represents the type of a mutable homogenous array of ints
 #: specifically, it implements ``__setitem__``, ``__getitem__``, and
 #: ``__len__``
-MutableCIntArrayLike = _MutableArray[int, int]
+MutableCIntArrayLike = MutableArray[int, int]
 
 
 #: Represents a 2D array of floats
-MutableCFloatArray2DLike = _MutableArray[int, MutableCFloatArrayLike]
+MutableCFloatArray2DLike = MutableArray[int, MutableCFloatArrayLike]
 
 
 #: Represents a tuple of integers, one for each DOF.
