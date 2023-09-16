@@ -5,27 +5,15 @@ from typing import (
     TypeVar, Union
 )
 
+
 _KT_contra = TypeVar("_KT_contra", contravariant=True)
 _VT = TypeVar("_VT")
 _VT_co = TypeVar("_VT_co", covariant=True)
 
-try:
-    from numpy import float64, int64
-    from numpy.typing import NDArray
-
-    MutableFloatReturnArray = Union[List[float], NDArray[float64]]
-    MutableFloatReturnArray2D = Union[List[List[float]], NDArray[float64]]
-    MutableIntReturnArray = Union[List[int], NDArray[int64]]
-except ImportError:
-    MutableFloatReturnArray = List[float]
-    MutableFloatReturnArray2D = List[List[float]]
-    MutableIntReturnArray = List[int]
-
-
-ComModeStr = Literal['sync', 'async', 'virtual', 'network']
 
 class _Array(Sized, Container[_VT_co], Protocol[_KT_contra, _VT_co]):
     def __getitem__(self, __k: _KT_contra) -> _VT_co: ...
+
 
 class _MutableArray(
     _Array[_KT_contra, _VT], Protocol[_KT_contra, _VT]
