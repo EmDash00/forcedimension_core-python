@@ -8,11 +8,8 @@ import forcedimension_core.runtime as _runtime
 from forcedimension_core.typing import (
     IntDOFTuple,
     FloatDOFTuple,
-    CFloatArrayLike,
-    MutableCIntArrayLike,
-    MutableCFloatArrayLike,
-    MutableCFloatArray2DLike,
-    CIntArrayLike,
+    Array,
+    MutableArray,
     c_double_ptr,
     c_int_ptr,
     c_ushort_ptr,
@@ -62,12 +59,12 @@ _runtime._libdhd.dhdPreset.argtypes = [c_int_ptr, c_ubyte, c_byte]
 _runtime._libdhd.dhdPreset.restype = c_int
 
 
-def preset(val: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
+def preset(val: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
     """
     Set selected encoder offsets to a given value. Intended for use with the
     generic controller when no RESET button is available.
 
-    :param CIntArrayLike val:
+    :param Array[int, int] val:
         Vector of encoder offsets refering to each DOF with length
         :data:`forcedimension_core.dhd.constants.MAX_DOF`.
 
@@ -77,7 +74,7 @@ def preset(val: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to a C char.
 
     :raises IndexError:
@@ -86,10 +83,10 @@ def preset(val: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
     :raises TypeError:
         If ``val`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise
@@ -121,10 +118,10 @@ def setTimeGuard(min_period: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``min_period`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -161,10 +158,10 @@ def setVelocityThreshold(thresh: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``thresh`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -192,7 +189,7 @@ def getVelocityThreshold(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -225,7 +222,7 @@ def updateEncoders(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -242,7 +239,7 @@ _runtime._libdhd.dhdGetDeltaEncoders.argtypes = [
 _runtime._libdhd.dhdGetDeltaEncoders.restype = c_int
 
 
-def getDeltaEncoders(out: MutableCIntArrayLike, ID: int = -1) -> int:
+def getDeltaEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
     """
     Read all encoders values of the DELTA structure
 
@@ -255,7 +252,7 @@ def getDeltaEncoders(out: MutableCIntArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the raw encoder values.
 
     :raises TypeError:
@@ -265,10 +262,10 @@ def getDeltaEncoders(out: MutableCIntArrayLike, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -298,7 +295,7 @@ _runtime._libdhd.dhdGetWristEncoders.argtypes = [
 _runtime._libdhd.dhdGetWristEncoders.restype = c_int
 
 
-def getWristEncoders(out: MutableCIntArrayLike, ID: int = -1) -> int:
+def getWristEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
     """
     Read all encoders values of the wrist structure.
 
@@ -326,10 +323,10 @@ def getWristEncoders(out: MutableCIntArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the raw wrist encoder values.
 
     :raises TypeError:
@@ -339,7 +336,7 @@ def getWristEncoders(out: MutableCIntArrayLike, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -389,7 +386,7 @@ def getGripperEncoder(out: c_int, ID: int = -1) -> int:
     :param c_int out:
         Output buffer to store the encoder value of the force gripper.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -421,10 +418,10 @@ def getEncoder(index: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``index`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: The (positive) encoder reading on success, -1 otherwise.
@@ -458,13 +455,13 @@ def setMotor(index: int, output: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``index`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``output`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -477,7 +474,7 @@ _runtime._libdhd.dhdSetDeltaMotor.argtypes = [c_ushort, c_ushort, c_ushort, c_by
 _runtime._libdhd.dhdSetDeltaMotor.restype = c_int
 
 
-def setDeltaMotor(mot: CIntArrayLike, ID: int = -1) -> int:
+def setDeltaMotor(mot: Array[int, int], ID: int = -1) -> int:
     """
     Set desired motor commands to the amplifier channels commanding the DELTA
     motors.
@@ -489,7 +486,7 @@ def setDeltaMotor(mot: CIntArrayLike, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.expert.setWristMotor()`
 
 
-    :param CIntArrayLike mot:
+    :param Array[int, int] mot:
         Sequence of ``(mot0, mot1, mot2)`` where ``mot0``, ``mot1``,
         and ``mot2`` are the axis 0, 1, and 2 DELTA motor commands,
         respectively.
@@ -497,7 +494,7 @@ def setDeltaMotor(mot: CIntArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``mot`` is not implicitly convertible to a C ushort.
 
     :raises IndexError:
@@ -506,7 +503,7 @@ def setDeltaMotor(mot: CIntArrayLike, ID: int = -1) -> int:
     :raises TypeError:
         If ``mot`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -519,7 +516,7 @@ _runtime._libdhd.dhdSetWristMotor.argtypes = [c_ushort, c_ushort, c_ushort, c_by
 _runtime._libdhd.dhdSetWristMotor.restype = c_int
 
 
-def setWristMotor(output: CIntArrayLike, ID: int = -1) -> int:
+def setWristMotor(output: Array[int, int], ID: int = -1) -> int:
     """
     Set desired motor commands to the amplifier channels commanding the wrist
     motors.
@@ -541,7 +538,7 @@ def setWristMotor(output: CIntArrayLike, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.setGripperMotor()`
 
 
-    :param CIntArrayLike output:
+    :param Array[int, int] output:
         Sequence of (output0, output1, output2) where ``output0``, ``output1``,
         and ``output2`` are the axis 0, 1, and 2 wrist motor commands,
         respectively.
@@ -549,7 +546,7 @@ def setWristMotor(output: CIntArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``output`` is not implicitly convertible to a C char.
 
     :raises IndexError:
@@ -558,7 +555,7 @@ def setWristMotor(output: CIntArrayLike, ID: int = -1) -> int:
     :raises TypeError:
         If ``output`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -590,10 +587,10 @@ def setGripperMotor(output: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``output`` is not implicitly convertible to a C ushort.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -614,8 +611,8 @@ _runtime._libdhd.dhdDeltaEncoderToPosition.restype = c_int
 
 
 def deltaEncoderToPosition(
-    enc: CIntArrayLike,
-    out: MutableCFloatArrayLike,
+    enc: Array[int, int],
+    out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -629,7 +626,7 @@ def deltaEncoderToPosition(
     :func:`forcedimension_core.dhd.expert.deltaEncodersToJointAngles()`
 
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to raw encoder values on axis 0, 1, and 2,
         respectively.
@@ -637,7 +634,7 @@ def deltaEncoderToPosition(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the end-effector position (in [m]).
 
     :raises TypeError:
@@ -647,10 +644,10 @@ def deltaEncoderToPosition(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -659,7 +656,7 @@ def deltaEncoderToPosition(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -700,8 +697,8 @@ _runtime._libdhd.dhdDeltaPositionToEncoder.restype = c_int
 
 
 def deltaPositionToEncoder(
-    pos: CFloatArrayLike,
-    out: MutableCIntArrayLike,
+    pos: Array[int, float],
+    out: MutableArray[int, int],
     ID: int = -1,
 ) -> int:
     """
@@ -714,7 +711,7 @@ def deltaPositionToEncoder(
     :func:`forcedimension_core.dhd.expert.deltaEncoderToPosition()`
     :func:`forcedimension_core.dhd.expert.deltaEncodersToJointAngles()`
 
-    :param CFloatArrayLike pos:
+    :param Array[int, float] pos:
         Sequence of ``(px, py, pz)`` where ``px``, ``py``, and ``pz``
         refer to the end-effector position on the X, Y, and Z axes,
         respectively (in [m]).
@@ -722,7 +719,7 @@ def deltaPositionToEncoder(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the raw encoder values.
 
     :raises TypeError:
@@ -732,10 +729,10 @@ def deltaPositionToEncoder(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``pos`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -744,7 +741,7 @@ def deltaPositionToEncoder(
     :raises TypeError:
         If ``pos`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -788,9 +785,9 @@ _runtime._libdhd.dhdDeltaMotorToForce.restype = c_int
 
 
 def deltaMotorToForce(
-    mot: CIntArrayLike,
-    enc: CIntArrayLike,
-    out: MutableCFloatArrayLike,
+    mot: Array[int, int],
+    enc: Array[int, int],
+    out: MutableArray[int, float],
 ) -> int:
     """
     Compute and return the force applied to the end-effector for
@@ -802,12 +799,12 @@ def deltaMotorToForce(
     :func:`forcedimension_core.dhd.expert.deltaForceToMotor()`
 
 
-    :param CIntArrayLike mot:
+    :param Array[int, int] mot:
         Sequence of ``(mot0, mot1, mot2)`` where ``mot0``, ``mot1``,
         and ``mot2`` are the axis 0, 1, and 2 DELTA motor commands,
         respectively.
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2,
         respectively.
@@ -815,7 +812,7 @@ def deltaMotorToForce(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the applied force to the end effector.
 
     :raises TypeError:
@@ -825,10 +822,10 @@ def deltaMotorToForce(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``output`` is not implicitly convertible to a C
         ushort.
 
@@ -838,7 +835,7 @@ def deltaMotorToForce(
     :raises TypeError:
         If ``output`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C char.
 
     :raises IndexError:
@@ -847,7 +844,7 @@ def deltaMotorToForce(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -893,9 +890,9 @@ _runtime._libdhd.dhdDeltaForceToMotor.restype = c_int
 
 
 def deltaForceToMotor(
-    f: CFloatArrayLike,
-    enc: CIntArrayLike,
-    out: MutableCIntArrayLike
+    f: Array[int, float],
+    enc: Array[int, int],
+    out: MutableArray[int, int]
 ) -> int:
     """
     Compute and return the motor commands necessary to obtain a
@@ -907,19 +904,19 @@ def deltaForceToMotor(
     :func:`forcedimension_core.dhd.direct_expert.deltaMotorToForce()`
 
 
-    :param CFloatArrayLike f:
+    :param Array[int, float] f:
         Sequence of ``(fx, fy, fz)`` where ``fx``, ``fy``, and ``fz`` are the
         force on the DELTA end-effector on the X, Y, and Z axes, respectively
         (in [N]).
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the applied force to the end-effector.
 
     :raises TypeError:
@@ -929,10 +926,10 @@ def deltaForceToMotor(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``f`` is not implicitly convertible to a C char.
 
     :raises IndexError:
@@ -941,7 +938,7 @@ def deltaForceToMotor(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -985,8 +982,8 @@ _runtime._libdhd.dhdWristEncoderToOrientation.restype = c_int
 
 
 def wristEncoderToOrientation(
-    enc: CIntArrayLike,
-    out: MutableCFloatArrayLike,
+    enc: Array[int, int],
+    out: MutableArray[int, float],
     ID: int = -1,
 ) -> int:
     """
@@ -1019,7 +1016,7 @@ def wristEncoderToOrientation(
     :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
 
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to wrist encoder values on the first, second, and
         third joint, respectively
@@ -1027,7 +1024,7 @@ def wristEncoderToOrientation(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the joint angles.
 
     :raises TypeError:
@@ -1037,7 +1034,7 @@ def wristEncoderToOrientation(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible
         to a C char.
 
@@ -1047,7 +1044,7 @@ def wristEncoderToOrientation(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1087,8 +1084,8 @@ _runtime._libdhd.dhdWristOrientationToEncoder.restype = c_int
 
 
 def wristOrientationToEncoder(
-    orientation: CFloatArrayLike,
-    out: MutableCIntArrayLike,
+    orientation: Array[int, float],
+    out: MutableArray[int, int],
     ID: int = -1,
 ) -> int:
     """
@@ -1122,7 +1119,7 @@ def wristOrientationToEncoder(
     :func:`forcedimension_core.dhd.expert.wristJointAnglesToEncoders()`
 
 
-    :param CFloatArrayLike orientation:
+    :param Array[int, float] orientation:
         Sequence of ``(oa, ob, og)`` where ``oa``, ``ob``, and ``og`` refer to
         wrist end effector orientation around the X, Y, and Z axes,
         respectively (in [rad]).
@@ -1130,7 +1127,7 @@ def wristOrientationToEncoder(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the encoder values.
 
     :raises TypeError:
@@ -1140,7 +1137,7 @@ def wristOrientationToEncoder(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``orientation`` is not implicitly convertible to a C
         double.
 
@@ -1150,7 +1147,7 @@ def wristOrientationToEncoder(
     :raises TypeError:
         If ``orientation`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1194,9 +1191,9 @@ _runtime._libdhd.dhdWristMotorToTorque.restype = c_int
 
 
 def wristMotorToTorque(
-    output: CIntArrayLike,
-    enc: CIntArrayLike,
-    out: MutableCFloatArrayLike
+    output: Array[int, int],
+    enc: Array[int, int],
+    out: MutableArray[int, float]
 ) -> int:
     """
     Compute and return the torque applied to the wrist
@@ -1217,19 +1214,19 @@ def wristMotorToTorque(
     :func:`forcedimension_core.dhd.expert.wristJointTorquesExtrema()`
 
 
-    :param CIntArrayLike cmd:
+    :param Array[int, int] cmd:
         Sequence of ``(cmd0, cmd1, cmd2)`` where ``cmd0``, ``cmd1``,
         and ``cmd2`` are the axis 0, 1, and 2 DELTA motor commands,
         respectively.
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the torques applied to the wrist.
 
     :raises TypeError:
@@ -1239,7 +1236,7 @@ def wristMotorToTorque(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``cmd`` is not implicitly convertible to a C ushort.
 
     :raises IndexError:
@@ -1248,7 +1245,7 @@ def wristMotorToTorque(
     :raises TypeError:
         If ``cmd`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C char.
 
     :raises IndexError:
@@ -1257,7 +1254,7 @@ def wristMotorToTorque(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1303,9 +1300,9 @@ _runtime._libdhd.dhdWristTorqueToMotor.restype = c_int
 
 
 def wristTorqueToMotor(
-    t: CFloatArrayLike,
-    enc: CIntArrayLike,
-    out: MutableCIntArrayLike
+    t: Array[int, float],
+    enc: Array[int, int],
+    out: MutableArray[int, int]
 ) -> int:
     """
     Compute and return the wrist motor commands necessary to
@@ -1324,19 +1321,19 @@ def wristTorqueToMotor(
     :func:`forcedimension_core.dhd.expert.wristTorqueToMotor()`
 
 
-    :param CFloatArrayLike t:
+    :param Array[int, float] t:
         Sequence of ``(t0, t1, t2)`` where ``t0``, ``t1``, and ``t2`` are the
         DELTA axis torque commands for axes 0, 1, and 2, respectively
         (in [Nm]).
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the wrist motor commands.
 
     :raises TypeError:
@@ -1346,7 +1343,7 @@ def wristTorqueToMotor(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -1355,7 +1352,7 @@ def wristTorqueToMotor(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -1364,7 +1361,7 @@ def wristTorqueToMotor(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1433,13 +1430,13 @@ def gripperEncoderToAngleRad(enc: int, out: c_double, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
 
     :raises IndexError:
         If ``len(enc) < 3``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1490,10 +1487,10 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1539,10 +1536,10 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1595,10 +1592,10 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gap`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1620,7 +1617,7 @@ _runtime._libdhd.dhdGripperMotorToForce.restype = c_int
 
 def gripperMotorToForce(
     cmd: int,
-    enc_wrist: CIntArrayLike,
+    enc_wrist: Array[int, int],
     enc_gripper: int,
     out: c_double,
     ID: int = -1
@@ -1649,7 +1646,7 @@ def gripperMotorToForce(
     :param int output:
         Motor command on gripper axis.
 
-    :param CIntArrayLike enc_wrist:
+    :param Array[int, int] enc_wrist:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, ``enc2``
         are encoder values about wrist joints 0, 1, and 2, respectively.
 
@@ -1662,10 +1659,10 @@ def gripperMotorToForce(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``cmd`` is not implicitly convertible to a C ushort.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc_wrist`` is not implicitly convertible to a C
         int.
 
@@ -1675,10 +1672,10 @@ def gripperMotorToForce(
     :raises TypeError:
         If ``enc_wrist`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc_gripper`` is not implicitly convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1701,7 +1698,7 @@ _runtime._libdhd.dhdGripperForceToMotor.restype = c_int
 
 def gripperForceToMotor(
     f: float,
-    enc_wrist: CIntArrayLike,
+    enc_wrist: Array[int, int],
     enc_gripper: int,
     out: c_ushort,
     ID: int = -1
@@ -1730,7 +1727,7 @@ def gripperForceToMotor(
     :param int f:
         Force on the gripper end-effector (in [N]).
 
-    :param CIntArrayLike enc_wrist:
+    :param Array[int, int] enc_wrist:
         An output buffer to store the wrist encoding readings.
 
     :param c_ushort out:
@@ -1739,10 +1736,10 @@ def gripperForceToMotor(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``f`` is not implicitly convertible to a C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any member of ``enc_wrist`` is not implicitly convertible to a C
         ushort.
 
@@ -1752,10 +1749,10 @@ def gripperForceToMotor(
     :raises TypeError:
         If ``enc_wrist`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc_gripper`` is not implicitly convertible to a C ushort.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1775,7 +1772,7 @@ _runtime._libdhd.dhdSetMot.argtypes = [c_ushort_ptr, c_ubyte, c_byte]
 _runtime._libdhd.dhdSetMot.restype = c_int
 
 
-def setMot(cmds: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
+def setMot(cmds: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
     """
     Program motor commands to a selection of motor channels. Particularly
     useful when using the generic controller directly, without a device model
@@ -1789,7 +1786,7 @@ def setMot(cmds: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
     :data:`forcedimension_core.dhd.expert.setGripperMotor()`
 
 
-    :param CIntArrayLike cmds:
+    :param Array[int, int] cmds:
         List of motor command values.
 
     :param int mask:
@@ -1798,7 +1795,7 @@ def setMot(cmds: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``cmds`` is not implicitly convertible to a C
         ushort.
 
@@ -1808,10 +1805,10 @@ def setMot(cmds: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
     :raises TypeError:
         If ``cmds`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C uchar.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise
@@ -1840,7 +1837,7 @@ _runtime._libdhd.dhdSetJointTorques.argtypes = [
 _runtime._libdhd.dhdSetJointTorques.restype = c_int
 
 
-def setJointTorques(q: CFloatArrayLike, mask: int = 0xff, ID: int = -1):
+def setJointTorques(q: Array[int, float], mask: int = 0xff, ID: int = -1):
     """
     Sets all joint torques on all active axes.
 
@@ -1852,7 +1849,7 @@ def setJointTorques(q: CFloatArrayLike, mask: int = 0xff, ID: int = -1):
     :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
 
 
-    :param CFloatArrayLike q:
+    :param Array[int, float] q:
         Joint torques for each degree-of-freedom (in [Nm]).
 
     :param int mask:
@@ -1861,7 +1858,7 @@ def setJointTorques(q: CFloatArrayLike, mask: int = 0xff, ID: int = -1):
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``cmds`` is not implicitly convertible to a C
         double.
 
@@ -1871,10 +1868,10 @@ def setJointTorques(q: CFloatArrayLike, mask: int = 0xff, ID: int = -1):
     :raises TypeError:
         If ``cmds`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C uchar.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1903,7 +1900,7 @@ _runtime._libdhd.dhdPreloadMot.argtypes = [c_ushort_ptr, c_ubyte, c_byte]
 _runtime._libdhd.dhdPreloadMot.restype = c_int
 
 
-def preloadMot(cmds: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
+def preloadMot(cmds: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
     """
     Program motor commands to a selection of motor channels. Unlike
     forcedimension_core.dhd.expert.setMot, this function saves the requested
@@ -1915,7 +1912,7 @@ def preloadMot(cmds: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.expert.setMot()`
 
 
-    :param CIntArrayLike outputs:
+    :param Array[int, int] outputs:
         List of motor command values.
 
     :param int mask:
@@ -1924,7 +1921,7 @@ def preloadMot(cmds: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``cmds`` is not implicitly convertible to a C ushort.
 
     :raises IndexError:
@@ -1933,10 +1930,10 @@ def preloadMot(cmds: CIntArrayLike, mask: int = 0xff, ID: int = -1) -> int:
     :raises TypeError:
         If ``cmds`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise
@@ -1964,7 +1961,7 @@ _runtime._libdhd.dhdGetEnc.argtypes = [c_int_ptr, c_ubyte, c_byte]
 _runtime._libdhd.dhdGetEnc.restype = c_int
 
 
-def getEnc(mask: int, out: MutableCIntArrayLike, ID: int = -1) -> int:
+def getEnc(mask: int, out: MutableArray[int, int], ID: int = -1) -> int:
     """
     Get a selective list of encoder values. Particularly useful when using the
     generic controller directly, without a device model attached.
@@ -1981,7 +1978,7 @@ def getEnc(mask: int, out: MutableCIntArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the encoder values.
 
     :raises TypeError:
@@ -1991,10 +1988,10 @@ def getEnc(mask: int, out: MutableCIntArrayLike, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < MAX_DOF``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2041,10 +2038,10 @@ def setBrk(mask: int = 0xff, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise
@@ -2062,7 +2059,7 @@ _runtime._libdhd.dhdGetDeltaJointAngles.argtypes = [
 _runtime._libdhd.dhdGetDeltaJointAngles.restype = c_int
 
 
-def getDeltaJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getDeltaJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the joint angles (in [rad]) for the DELTA structure.
 
@@ -2076,7 +2073,7 @@ def getDeltaJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the joint angles.
 
     :raises TypeError:
@@ -2086,7 +2083,7 @@ def getDeltaJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2116,7 +2113,10 @@ _runtime._libdhd.dhdGetDeltaJacobian.argtypes = [c_double_ptr, c_byte]
 _runtime._libdhd.dhdGetDeltaJacobian.restype = c_int
 
 
-def getDeltaJacobian(out: MutableCFloatArray2DLike, ID: int = -1) -> int:
+def getDeltaJacobian(
+    out: MutableArray[int, MutableArray[int, float]],
+    ID: int = -1
+) -> int:
     """
     Retrieve the 3x3 jacobian matrix for the DELTA structure based on the
     current end-effector position. Please refer to your device user manual for
@@ -2140,7 +2140,7 @@ def getDeltaJacobian(out: MutableCFloatArray2DLike, ID: int = -1) -> int:
     :raises IndexError:
         If any dimension of ``out`` is less than 3.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2169,8 +2169,8 @@ _runtime._libdhd.dhdDeltaJointAnglesToJacobian.restype = c_int
 
 
 def deltaJointAnglesToJacobian(
-    joint_angles: CFloatArrayLike,
-    out: MutableCFloatArray2DLike,
+    joint_angles: Array[int, float],
+    out: MutableArray[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
     """
@@ -2185,7 +2185,7 @@ def deltaJointAnglesToJacobian(
     :func:`forcedimension_core.dhd.direct_expert.getDeltaJacobian()`
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of (j0, j1, j2) where ``j0``, ``j1``, and ``j2`` refer to the
         joint angles for axis 0, 1, and 2, respectively.
 
@@ -2202,7 +2202,7 @@ def deltaJointAnglesToJacobian(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to C
         double.
 
@@ -2212,7 +2212,7 @@ def deltaJointAnglesToJacobian(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2248,9 +2248,9 @@ _runtime._libdhd.dhdDeltaJointTorquesExtrema.restype = c_int
 
 
 def deltaJointTorquesExtrema(
-    joint_angles: CFloatArrayLike,
-    minq_out: MutableCFloatArrayLike,
-    maxq_out: MutableCFloatArrayLike,
+    joint_angles: Array[int, float],
+    minq_out: MutableArray[int, float],
+    maxq_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2265,17 +2265,17 @@ def deltaJointTorquesExtrema(
     :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, ``j2`` refer to the
         joint angles for axis 0, 1, and 2, respectively.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike minq_out:
+    :param MutableArray[int, float] minq_out:
         An output buffer to store the return.
 
-    :param MutableCFloatArrayLike maxq_out:
+    :param MutableArray[int, float] maxq_out:
         An output buffer to store the return.
 
     :raises TypeError:
@@ -2292,7 +2292,7 @@ def deltaJointTorquesExtrema(
     :raises IndexError:
         If ``len(out) < MAX_DOF``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -2302,7 +2302,7 @@ def deltaJointTorquesExtrema(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2342,7 +2342,7 @@ _runtime._libdhd.dhdSetDeltaJointTorques.restype = c_int
 
 
 def setDeltaJointTorques(
-    t: CFloatArrayLike,
+    t: Array[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2356,12 +2356,12 @@ def setDeltaJointTorques(
     :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
 
 
-    :param CFloatArrayLike t:
+    :param Array[int, float] t:
         Sequence of ``(t0, t1, t2)`` where ``t0``, ``t1``, and ``t2`` are the
         DELTA axis torque commands for axes 0, 1, and 2, respectively
         (in [Nm]).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``t`` is not implicitly convertible to a C char
 
     :raises IndexError:
@@ -2370,7 +2370,7 @@ def setDeltaJointTorques(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise
@@ -2391,8 +2391,8 @@ _runtime._libdhd.dhdDeltaEncodersToJointAngles.restype = c_int
 
 
 def deltaEncodersToJointAngles(
-    enc: CIntArrayLike,
-    out: MutableCFloatArrayLike,
+    enc: Array[int, int],
+    out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2405,14 +2405,14 @@ def deltaEncodersToJointAngles(
     :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
 
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the return.
 
     :raises TypeError:
@@ -2422,7 +2422,7 @@ def deltaEncodersToJointAngles(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -2431,7 +2431,7 @@ def deltaEncodersToJointAngles(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2472,8 +2472,8 @@ _runtime._libdhd.dhdDeltaJointAnglesToEncoders.restype = c_int
 
 
 def deltaJointAnglesToEncoders(
-    joint_angles: CFloatArrayLike,
-    out: MutableCIntArrayLike,
+    joint_angles: Array[int, float],
+    out: MutableArray[int, int],
     ID: int = -1,
 ) -> int:
     """
@@ -2486,14 +2486,14 @@ def deltaJointAnglesToEncoders(
     :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
 
 
-    :param CFloatArrayLike enc:
+    :param Array[int, float] enc:
         Sequence of ``(j0, j1, j1)`` where ``j0``, ``j1``, and ``j2`` refer to
         DELTA joint angles for axes 0, 1, and 2, respectively, (in [rad]).
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the return.
 
     :raises TypeError:
@@ -2503,7 +2503,7 @@ def deltaJointAnglesToEncoders(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -2513,7 +2513,7 @@ def deltaJointAnglesToEncoders(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2550,7 +2550,7 @@ _runtime._libdhd.dhdGetWristJointAngles.argtypes = [
 _runtime._libdhd.dhdGetWristJointAngles.restype = c_int
 
 
-def getWristJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getWristJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the joint angles (in [rad]) for the wrist structure.
 
@@ -2565,7 +2565,7 @@ def getWristJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the wrist joint angles.
 
     :raises TypeError:
@@ -2575,7 +2575,7 @@ def getWristJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2604,7 +2604,10 @@ _runtime._libdhd.dhdGetWristJacobian.argtypes = [c_double_ptr, c_byte]
 _runtime._libdhd.dhdGetWristJacobian.restype = c_int
 
 
-def getWristJacobian(out: MutableCFloatArray2DLike,ID: int = -1) -> int:
+def getWristJacobian(
+    out: MutableArray[int, MutableArray[int, float]],
+    ID: int = -1
+) -> int:
     """
     Retrieve the 3x3 jacobian matrix for the wrist structure based on the
     current end-effector position. Please refer to your device user manual for
@@ -2618,7 +2621,7 @@ def getWristJacobian(out: MutableCFloatArray2DLike,ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the Jacobian.
 
     :raises TypeError:
@@ -2628,7 +2631,7 @@ def getWristJacobian(out: MutableCFloatArray2DLike,ID: int = -1) -> int:
     :raises IndexError:
         If any dimension of out is less than 3.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2658,8 +2661,8 @@ _runtime._libdhd.dhdWristJointAnglesToJacobian.restype = c_int
 
 
 def wristJointAnglesToJacobian(
-    joint_angles: CFloatArrayLike,
-    out: MutableCFloatArray2DLike,
+    joint_angles: Array[int, float],
+    out: MutableArray[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
     """
@@ -2673,7 +2676,7 @@ def wristJointAnglesToJacobian(
     :func:`forcedimension_core.dhd.getWristJointAngles()`
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, and ``j2`` refer to
         the joint angles for wrist axis 0, 1, and 2, respectively.
 
@@ -2690,7 +2693,7 @@ def wristJointAnglesToJacobian(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -2700,7 +2703,7 @@ def wristJointAnglesToJacobian(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2736,9 +2739,9 @@ _runtime._libdhd.dhdWristJointTorquesExtrema.restype = c_int
 
 
 def wristJointTorquesExtrema(
-    joint_angles: CFloatArrayLike,
-    minq_out: MutableCFloatArrayLike,
-    maxq_out: MutableCFloatArrayLike,
+    joint_angles: Array[int, float],
+    minq_out: MutableArray[int, float],
+    maxq_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2755,17 +2758,17 @@ def wristJointTorquesExtrema(
     :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, ``j2`` refer to the
         joint angles for wrist axes 0, 1, and 2, respectively.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike minq_out:
+    :param MutableArray[int, float] minq_out:
         An output buffer to store the return.
 
-    :param MutableCFloatArrayLike maxq_out:
+    :param MutableArray[int, float] maxq_out:
         An output buffer to store the return.
 
     :raises TypeError:
@@ -2782,7 +2785,7 @@ def wristJointTorquesExtrema(
     :raises IndexError:
         If ``len(maxq_out) < MAX_DOF``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to C
         double.
 
@@ -2792,7 +2795,7 @@ def wristJointTorquesExtrema(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -2832,7 +2835,7 @@ _runtime._libdhd.dhdSetWristJointTorques.restype = c_int
 
 
 def setWristJointTorques(
-    t: CFloatArrayLike,
+    t: Array[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2844,14 +2847,14 @@ def setWristJointTorques(
     :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
 
 
-    :param CFloatArrayLike t:
+    :param Array[int, float] t:
         Sequence of (t0, t1, t2) where t0, t1, t2 are the wrist axis torque
         commands for axes 0, 1, and 2, respectively (in [Nm]).
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2860,7 +2863,7 @@ def setWristJointTorques(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -2881,8 +2884,8 @@ _runtime._libdhd.dhdSetForceAndWristJointTorques.restype = c_int
 
 
 def setForceAndWristJointTorques(
-    f: CFloatArrayLike,
-    t: CFloatArrayLike,
+    f: Array[int, float],
+    t: Array[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2895,12 +2898,12 @@ def setForceAndWristJointTorques(
     :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
 
 
-    :param CFloatArrayLike f:
+    :param Array[int, float] f:
         Sequence of ``(fx, fy, fz)`` where ``fx``, ``fy``, and ``fz`` are the
         translation forces (in [N]) to be applied to the DELTA end-effector on
         the X, Y, and Z axes respectively.
 
-    :param CFloatArrayLike t:
+    :param Array[int, float] t:
         Sequence of (t0, t1, t2) where ``t0``, ``t1``, ``t2`` are the wrist
         joint torques (in [Nm]) to be applied to the wrist end-effector
         for axes 0, 1, and 2, respectively.
@@ -2908,7 +2911,7 @@ def setForceAndWristJointTorques(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2917,7 +2920,7 @@ def setForceAndWristJointTorques(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2926,7 +2929,7 @@ def setForceAndWristJointTorques(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise
@@ -2950,8 +2953,8 @@ _runtime._libdhd.dhdSetForceAndWristJointTorquesAndGripperForce.restype = c_int
 
 
 def setForceAndWristJointTorquesAndGripperForce(
-        f: CFloatArrayLike,
-        t: CFloatArrayLike,
+        f: Array[int, float],
+        t: Array[int, float],
         fg: float,
         ID: int = -1) -> int:
     """
@@ -2964,12 +2967,12 @@ def setForceAndWristJointTorquesAndGripperForce(
     :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorques()`
 
 
-    :param CFloatArrayLike f:
+    :param Array[int, float] f:
         Sequence of ``(fx, fy, fz)`` where ``fx``, ``fy``, and ``fz`` are the
         translation forces (in [N]) to be applied to the DELTA end-effector on
         the X, Y, and Z axes respectively.
 
-    :param CFloatArrayLike t:
+    :param Array[int, float] t:
         Sequence of (t0, t1, t2) where ``t0``, ``t1``, ``t2`` are the wrist
         joint torques (in [Nm]) to be applied to the wrist end-effector
         for axes 0, 1, and 2, respectively.
@@ -2980,7 +2983,7 @@ def setForceAndWristJointTorquesAndGripperForce(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2989,7 +2992,7 @@ def setForceAndWristJointTorquesAndGripperForce(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2998,10 +3001,10 @@ def setForceAndWristJointTorquesAndGripperForce(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-   :raises ArgumentError:
+   :raises ctypes.ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise
@@ -3024,8 +3027,8 @@ _runtime._libdhd.dhdWristEncodersToJointAngles.restype = c_int
 
 
 def wristEncodersToJointAngles(
-    enc: CIntArrayLike,
-    out: MutableCFloatArrayLike,
+    enc: Array[int, int],
+    out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -3039,17 +3042,17 @@ def wristEncodersToJointAngles(
     :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
 
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of (enc0, enc1, enc2) where ``enc0``, ``enc1``, and ``enc2``
         refer to encoder values on wrist axes 0, 1, and 2, respectively.
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the joint angles (in [rad]).
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -3058,7 +3061,7 @@ def wristEncodersToJointAngles(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3093,8 +3096,8 @@ _runtime._libdhd.dhdWristJointAnglesToEncoders.restype = c_int
 
 
 def wristJointAnglesToEncoders(
-    joint_angles: CFloatArrayLike,
-    out: MutableCIntArrayLike,
+    joint_angles: Array[int, float],
+    out: MutableArray[int, int],
     ID: int = -1
 ) -> int:
     """
@@ -3107,14 +3110,14 @@ def wristJointAnglesToEncoders(
     :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
 
 
-    :param CFloatArrayLike enc:
+    :param Array[int, float] enc:
         Sequence of ``(j0, j1, j1)`` where ``j0``, ``j1``, and ``j2`` refer to
         wrist joint angles for axes 0, 1, and 2, respectively, (in [rad]).
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the raw encoder values.
 
     :raises TypeError:
@@ -3124,7 +3127,7 @@ def wristJointAnglesToEncoders(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -3134,7 +3137,7 @@ def wristJointAnglesToEncoders(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3166,7 +3169,7 @@ _runtime._libdhd.dhdGetJointAngles.argtypes = [c_double_ptr, c_byte]
 _runtime._libdhd.dhdGetJointAngles.restype = c_int
 
 
-def getJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the joint angles (in [rad]) for all sensed degrees-of-freedom of
     the current device.
@@ -3189,7 +3192,7 @@ def getJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the joint angles (in [rad]).
 
     :raises TypeError:
@@ -3199,7 +3202,7 @@ def getJointAngles(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < MAX_DOF``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3221,7 +3224,7 @@ _runtime._libdhd.dhdGetJointVelocities.argtypes = [c_double_ptr, c_byte]
 _runtime._libdhd.dhdGetJointVelocities.restype = c_int
 
 
-def getJointVelocities(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getJointVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the joint angle velocities (in [rad/s]) for all sensed
     degrees-of-freedom of the current device.
@@ -3236,7 +3239,7 @@ def getJointVelocities(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the joint velocities (in [rad/s]).
 
     :raises TypeError:
@@ -3246,7 +3249,7 @@ def getJointVelocities(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < :data:forcedimension_core.dhd.constants.MAX_DOF``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3268,7 +3271,7 @@ _runtime._libdhd.dhdGetEncVelocities.argtypes = [c_double_ptr, c_byte]
 _runtime._libdhd.dhdGetEncVelocities.restype = c_int
 
 
-def getEncVelocities(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getEncVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the encoder angle velocities (in [inc/s]) for all sensed
     degrees-of-freedom of the current device
@@ -3281,7 +3284,7 @@ def getEncVelocities(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the encoder velocities (in [inc/s]).
 
     :raises TypeError:
@@ -3291,7 +3294,7 @@ def getEncVelocities(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < MAX_DOF``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3318,8 +3321,8 @@ _runtime._libdhd.dhdJointAnglesToInertiaMatrix.restype = c_int
 
 
 def jointAnglesToIntertiaMatrix(
-    joint_angles: CFloatArrayLike,
-    out: MutableCFloatArray2DLike,
+    joint_angles: Array[int, float],
+    out: MutableArray[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
     """
@@ -3338,7 +3341,7 @@ def jointAnglesToIntertiaMatrix(
     :param MutableFloatMatrixLike out:
         Output buffer for the inertia matrix.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``joint_angles`` is not implicitly convertible to a C char
 
     :raises IndexError:
@@ -3354,7 +3357,7 @@ def jointAnglesToIntertiaMatrix(
     :raises IndexError:
         If of the any dimension of ``out`` is less than 6.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3396,8 +3399,8 @@ _runtime._libdhd.dhdJointAnglesToGravityJointTorques.restype = c_int
 
 
 def jointAnglesToGravityJointTorques(
-    joint_angles: CFloatArrayLike,
-    out: MutableCFloatArrayLike,
+    joint_angles: Array[int, float],
+    out: MutableArray[int, float],
     mask: int = 0xff,
     ID: int = -1,
 ) -> int:
@@ -3421,7 +3424,7 @@ def jointAnglesToGravityJointTorques(
         Output buffer for the joint torques required to provide gravity
         compensation (in [Nm]).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``joint_angles`` is not implicitly convertible to a C char
 
     :raises IndexError:
@@ -3438,10 +3441,10 @@ def jointAnglesToGravityJointTorques(
         If ``len(out)`` is less than
         :data:`forcedimension_core.dhd.constants.MAX_DOF`.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C uchar.
 
     :returns:
@@ -3487,10 +3490,10 @@ def setComMode(mode: ComMode, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mode`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -3520,10 +3523,10 @@ def setWatchdog(duration: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``duration`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
@@ -3549,7 +3552,7 @@ def getWatchdog(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3578,7 +3581,7 @@ def getEncRange(ID: int = -1) -> Tuple[IntDOFTuple, IntDOFTuple, int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3608,7 +3611,7 @@ def getJointAngleRange(ID: int = -1) -> Tuple[
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3652,7 +3655,7 @@ def controllerSetDevice(devtype: DeviceType, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3679,7 +3682,7 @@ def readConfigFromFile(filename: str, ID: int = -1):
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3706,8 +3709,8 @@ _runtime._libdhd.dhdDeltaGravityJointTorques.restype = c_int
     "forcedimension_core.dhd.jointAnglesToGravityJointTorques() instead."
 )
 def deltaGravityJointTorques(
-    joint_angles: CFloatArrayLike,
-    out: MutableCFloatArrayLike,
+    joint_angles: Array[int, float],
+    out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -3723,14 +3726,14 @@ def deltaGravityJointTorques(
        instead.
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, ``j2`` refer to the
         joint angles for axis 0, 1, and 2, respectively.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the return.
 
     :raises TypeError:
@@ -3740,7 +3743,7 @@ def deltaGravityJointTorques(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -3750,7 +3753,7 @@ def deltaGravityJointTorques(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -3795,8 +3798,8 @@ _runtime._libdhd.dhdWristGravityJointTorques.restype = c_int
     "forcedimension_core.dhd.jointAnglesToGravityJointTorques() instead.",
 )
 def wristGravityJointTorques(
-    joint_angles: CFloatArrayLike,
-    out: MutableCFloatArrayLike,
+    joint_angles: Array[int, float],
+    out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -3812,14 +3815,14 @@ def wristGravityJointTorques(
        instead.
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, and ``j2`` refer to
         the joint angles for wrist axes 0, 1, and 2, respectively.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the joint torques.
 
     :raises TypeError:
@@ -3829,7 +3832,7 @@ def wristGravityJointTorques(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -3839,7 +3842,7 @@ def wristGravityJointTorques(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:

@@ -8,8 +8,8 @@ import forcedimension_core.containers as containers
 import forcedimension_core.runtime as _runtime
 from forcedimension_core.runtime import VersionTuple
 from forcedimension_core.typing import (
-    c_double_ptr, c_int_ptr, c_ushort_ptr, MutableCFloatArray2DLike,
-    CFloatArrayLike, MutableCFloatArrayLike
+    c_double_ptr, c_int_ptr, c_ushort_ptr,
+    Array, MutableArray
 )
 from forcedimension_core.dhd.adaptors import (
     DHDError,
@@ -218,7 +218,7 @@ def setDevice(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -258,7 +258,7 @@ def getSerialNumber(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -394,7 +394,7 @@ def openID(index: int) -> int:
         underlying operating system (must be between 0 and the number of
         devices connected to the system).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``index`` is not convertible to C int.
 
     :returns:
@@ -423,7 +423,7 @@ def close(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -444,7 +444,7 @@ def checkControllerMemory(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -476,7 +476,7 @@ def stop(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -501,7 +501,7 @@ def getComMode(ID: int = -1) -> ComMode:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -532,10 +532,10 @@ def enableForce(enable: bool, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to C bool.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -571,10 +571,10 @@ def enableGripperForce(enable: bool, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enable`` is not implicitly convertible to C bool.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -604,7 +604,7 @@ def getSystemType(ID: int = -1) -> DeviceType:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -635,7 +635,7 @@ def getSystemRev(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -665,7 +665,7 @@ def getSystemName(ID: int = -1) -> Union[str, None]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -693,7 +693,7 @@ def getVersion(ID: int = -1) -> float:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -773,13 +773,13 @@ def getComponentVersionStr(
     :raises ValueError:
         If N is less than 1.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``component`` is not implicitly convertible to C uint32_t.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``N`` is not implicitly convertible to C size_t.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -811,7 +811,7 @@ def getStatus(out: containers.Status, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -845,7 +845,7 @@ def getDeviceAngleRad(out: c_double, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -879,7 +879,7 @@ def getDeviceAngleDeg(out: c_double, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -908,7 +908,7 @@ def getEffectorMass(ID: int = -1) -> float:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -942,7 +942,7 @@ def getButton(index: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -968,7 +968,7 @@ def getButtonMask(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1002,10 +1002,10 @@ def setOutput(output: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``output`` is not implicitly convertible to C uint.
 
     :returns:
@@ -1051,7 +1051,7 @@ def isLeftHanded(ID: int = -1) -> bool:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1100,7 +1100,7 @@ def hasBase(ID: int = -1) -> bool:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1144,7 +1144,7 @@ def hasWrist(ID: int = -1) -> bool:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1189,7 +1189,7 @@ def hasActiveWrist(ID: int = -1) -> bool:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1231,7 +1231,7 @@ def hasGripper(ID: int = -1) -> bool:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1273,7 +1273,7 @@ def hasActiveGripper(ID: int = -1) -> bool:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1299,7 +1299,7 @@ def reset(ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1333,10 +1333,10 @@ def waitForReset(timeout: Optional[int] = None, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If not implicitly convertible to C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1370,10 +1370,10 @@ def setStandardGravity(g: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``g`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1404,10 +1404,10 @@ def setGravityCompensation(enable: bool, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to C bool.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1439,10 +1439,10 @@ def setBrakes(enable: bool, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to C bool.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1477,10 +1477,10 @@ def setDeviceAngleRad(angle: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1515,10 +1515,10 @@ def setDeviceAngleDeg(angle: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1551,10 +1551,10 @@ def setEffectorMass(mass: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1573,7 +1573,7 @@ _runtime._libdhd.dhdGetPosition.argtypes = [
 _runtime._libdhd.dhdGetPosition.restype = c_int
 
 
-def getPosition(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getPosition(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the position of the end-effector about the X, Y, and Z axes.
     Please refer to your device user manual for more information on your device
@@ -1586,7 +1586,7 @@ def getPosition(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.getPositionAndOrientationFrame()`
 
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the position of the end-effector.
 
     :param int ID:
@@ -1629,7 +1629,7 @@ _runtime._libdhd.dhdGetForce.argtypes = [
 _runtime._libdhd.dhdGetForce.restype = c_int
 
 
-def getForce(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getForce(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the force vector applied to the end-effector (in [N])
     about the X, Y, and Z axes Please refer to your device user manual for more
@@ -1644,7 +1644,7 @@ def getForce(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.getForceAndTorqueAndGripperForce()`
 
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the applied forces on the end-effector
         (in [N]).
 
@@ -1684,7 +1684,7 @@ _runtime._libdhd.dhdSetForce.argtypes = [c_double, c_double, c_double, c_byte]
 _runtime._libdhd.dhdSetForce.restype = c_int
 
 
-def setForce(f: CFloatArrayLike, ID: int = -1) -> int:
+def setForce(f: Array[int, float], ID: int = -1) -> int:
     """
     Set the desired force (in [N]) about the X, Y, and Z axes to be applied
     to the end-effector of the device.
@@ -1705,10 +1705,10 @@ def setForce(f: CFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any elements of ``f`` are not implicitly convertible to C double.
 
     :raises IndexError:
@@ -1734,7 +1734,7 @@ _runtime._libdhd.dhdGetOrientationRad.argtypes = [
 _runtime._libdhd.dhdGetOrientationRad.restype = c_int
 
 
-def getOrientationRad(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getOrientationRad(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     For devices with a wrist structure, retrieve individual angle (in [rad])
     of each joint, starting with the one located nearest to the wrist base
@@ -1772,7 +1772,7 @@ def getOrientationRad(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.getPositionAndOrientationFrame()`
 
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the joint angles (in [rad]).
 
     :param int ID:
@@ -1816,7 +1816,7 @@ _runtime._libdhd.dhdGetOrientationDeg.argtypes = [
 _runtime._libdhd.dhdGetOrientationDeg.restype = c_int
 
 
-def getOrientationDeg(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getOrientationDeg(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     For devices with a wrist structure, retrieve individual angle of each
     joint (in [deg]), starting with the one located nearest to the wrist base
@@ -1858,7 +1858,7 @@ def getOrientationDeg(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the joint angles (in [deg]).
 
     :raises TypeError:
@@ -1903,8 +1903,8 @@ _runtime._libdhd.dhdGetPositionAndOrientationRad.restype = c_int
 
 
 def getPositionAndOrientationRad(
-    p_out: MutableCFloatArrayLike,
-    o_out: MutableCFloatArrayLike,
+    p_out: MutableArray[int, float],
+    o_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -1949,10 +1949,10 @@ def getPositionAndOrientationRad(
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike p_out:
+    :param MutableArray[int, float] p_out:
         An output buffer to store the position (in [m]).
 
-    :param MutableCFloatArrayLike o_out:
+    :param MutableArray[int, float] o_out:
         An output buffer to store the joint angles (in [rad]).
 
     :raises TypeError:
@@ -2011,8 +2011,8 @@ _runtime._libdhd.dhdGetPositionAndOrientationDeg.restype = c_int
 
 
 def getPositionAndOrientationDeg(
-    p_out: MutableCFloatArrayLike,
-    o_out: MutableCFloatArrayLike,
+    p_out: MutableArray[int, float],
+    o_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2055,10 +2055,10 @@ def getPositionAndOrientationDeg(
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike p_out:
+    :param MutableArray[int, float] p_out:
         An output buffer to store the position (in [m]).
 
-    :param MutableCFloatArrayLike o_out:
+    :param MutableArray[int, float] o_out:
         An output buffer to store the joint angles (in [deg]).
 
     :raises TypeError:
@@ -2118,8 +2118,8 @@ _runtime._libdhd.dhdGetPositionAndOrientationFrame.restype = c_int
 
 
 def getPositionAndOrientationFrame(
-    p_out: MutableCFloatArrayLike,
-    matrix_out: MutableCFloatArray2DLike,
+    p_out: MutableArray[int, float],
+    matrix_out: MutableArray[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
     """
@@ -2220,8 +2220,8 @@ _runtime._libdhd.dhdGetForceAndTorque.restype = c_int
 
 
 def getForceAndTorque(
-    f_out: MutableCFloatArrayLike,
-    t_out: MutableCFloatArrayLike,
+    f_out: MutableArray[int, float],
+    t_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2239,11 +2239,11 @@ def getForceAndTorque(
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike f_out:
+    :param MutableArray[int, float] f_out:
         An output buffer to store the applied forces on the end-effector
         (in [N]).
 
-    :param MutableCFloatArrayLike t_out:
+    :param MutableArray[int, float] t_out:
         An output buffer to store the applied torques on the end-effector
         (in [Nm]).
 
@@ -2292,8 +2292,8 @@ _runtime._libdhd.dhdSetForceAndTorque.restype = c_int
 
 
 def setForceAndTorque(
-    f: CFloatArrayLike,
-    t: CFloatArrayLike,
+    f: Array[int, float],
+    t: Array[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2322,10 +2322,10 @@ def setForceAndTorque(
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any elements of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2334,7 +2334,7 @@ def setForceAndTorque(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any elements of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2343,7 +2343,7 @@ def setForceAndTorque(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2357,7 +2357,9 @@ def setForceAndTorque(
         and -1 otherwise.
     """
 
-    return _runtime._libdhd.dhdSetForceAndTorque(f[0], f[1], f[2], t[0], t[1], t[2], ID)
+    return _runtime._libdhd.dhdSetForceAndTorque(
+        f[0], f[1], f[2], t[0], t[1], t[2], ID
+    )
 
 
 _runtime._libdhd.dhdGetOrientationFrame.argtypes = [
@@ -2367,7 +2369,10 @@ _runtime._libdhd.dhdGetOrientationFrame.argtypes = [
 _runtime._libdhd.dhdGetOrientationFrame.restype = c_int
 
 
-def getOrientationFrame(out: MutableCFloatArray2DLike, ID: int = -1) -> int:
+def getOrientationFrame(
+    out: MutableArray[int, MutableArray[int, float]],
+    ID: int = -1
+) -> int:
     """
     Retrieve the rotation matrix of the wrist structure. The identity matrix
     is returned for devices that do not support orientations.
@@ -2444,7 +2449,7 @@ def getGripperAngleDeg(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -2487,7 +2492,7 @@ def getGripperAngleRad(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -2530,7 +2535,7 @@ def getGripperGap(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -2551,7 +2556,7 @@ _runtime._libdhd.dhdGetGripperThumbPos.argtypes = [
 _runtime._libdhd.dhdGetGripperThumbPos.restype = c_int
 
 
-def getGripperThumbPos(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getGripperThumbPos(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Read the position (in [m]) of thumb rest location about the X, y and z axes
     of the force gripper structure if present.
@@ -2576,7 +2581,7 @@ def getGripperThumbPos(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the grippper thumb position (in [m]).
 
     :raises ValueError:
@@ -2610,7 +2615,7 @@ _runtime._libdhd.dhdGetGripperFingerPos.argtypes = [
 _runtime._libdhd.dhdGetGripperFingerPos.restype = c_int
 
 
-def getGripperFingerPos(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getGripperFingerPos(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Read the position (in [m]) of forefinger rest location about the X, Y, and Z
     axes of the force gripper structure if present.
@@ -2635,7 +2640,7 @@ def getGripperFingerPos(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the gripper finger position (in [m]).
 
     :raises TypeError:
@@ -2684,7 +2689,7 @@ def getComFreq(ID: int = -1) -> float:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -2705,7 +2710,7 @@ _runtime._libdhd.dhdSetForceAndGripperForce.restype = c_int
 
 
 def setForceAndGripperForce(
-    f: CFloatArrayLike,
+    f: Array[int, float],
     fg: float,
     ID: int = -1
 ) -> int:
@@ -2734,7 +2739,7 @@ def setForceAndGripperForce(
     :param float fg:
         Grasping force of the gripper (in [N]).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any elements of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2743,10 +2748,10 @@ def setForceAndGripperForce(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :raises IndexError:
@@ -2774,8 +2779,8 @@ _runtime._libdhd.dhdSetForceAndTorqueAndGripperForce.restype = c_int
 
 
 def setForceAndTorqueAndGripperForce(
-    f: CFloatArrayLike,
-    t: CFloatArrayLike,
+    f: Array[int, float],
+    t: Array[int, float],
     fg: float,
     ID: int = -1
 ) -> int:
@@ -2809,10 +2814,10 @@ def setForceAndTorqueAndGripperForce(
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any elements of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2821,7 +2826,7 @@ def setForceAndTorqueAndGripperForce(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any elements of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2830,7 +2835,7 @@ def setForceAndTorqueAndGripperForce(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -2872,8 +2877,8 @@ _runtime._libdhd.dhdGetForceAndTorqueAndGripperForce.restype = c_int
 
 
 def getForceAndTorqueAndGripperForce(
-    f_out: MutableCFloatArrayLike,
-    t_out: MutableCFloatArrayLike,
+    f_out: MutableArray[int, float],
+    t_out: MutableArray[int, float],
     fg_out: c_double,
     ID: int = -1
 ) -> int:
@@ -2893,11 +2898,11 @@ def getForceAndTorqueAndGripperForce(
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike f_out:
+    :param MutableArray[int, float] f_out:
         An output buffer to store the applied forces on the end-effector
         (in [N]).
 
-    :param MutableCFloatArrayLike t_out:
+    :param MutableArray[int, float] t_out:
         An output buffer to store the applied torques on the end-effector
         (in [Nm]).
 
@@ -2963,13 +2968,13 @@ def configLinearVelocity(
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ms`` is not implicitly convertible to C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mode`` is not implicitly convertible to C int.
 
     :returns:
@@ -2988,7 +2993,7 @@ _runtime._libdhd.dhdGetLinearVelocity.argtypes = [
 _runtime._libdhd.dhdGetLinearVelocity.restype = c_int
 
 
-def getLinearVelocity(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getLinearVelocity(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the estimated instanteous linear velocity (in [m/s]).
 
@@ -3013,7 +3018,7 @@ def getLinearVelocity(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the linear velocity (in [m/s]).
 
     :raises TypeError:
@@ -3071,13 +3076,13 @@ def configAngularVelocity(
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ms`` is not implicitly convertible to C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mode`` is not implicitly convertible to C int.
 
     :returns:
@@ -3096,7 +3101,7 @@ _runtime._libdhd.dhdGetAngularVelocityRad.argtypes = [
 _runtime._libdhd.dhdGetAngularVelocityRad.restype = c_int
 
 
-def getAngularVelocityRad(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getAngularVelocityRad(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the estimated angular velocity (in [rad/s]).
 
@@ -3122,7 +3127,7 @@ def getAngularVelocityRad(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the angular velocity (in [rad/s]).
 
     :raises TypeError:
@@ -3162,7 +3167,7 @@ _runtime._libdhd.dhdGetAngularVelocityDeg.restype = c_int
 
 
 
-def getAngularVelocityDeg(out: MutableCFloatArrayLike, ID: int = -1) -> int:
+def getAngularVelocityDeg(out: MutableArray[int, float], ID: int = -1) -> int:
     """
     Retrieve the estimated angular velocity (in [deg/s]).
 
@@ -3188,7 +3193,7 @@ def getAngularVelocityDeg(out: MutableCFloatArrayLike, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details), defaults to -1.
 
-    :param MutableCFloatArrayLike out:
+    :param MutableArray[int, float] out:
         An output buffer to store the angular velocity (in [deg/s]).
 
     :raises TypeError:
@@ -3249,13 +3254,13 @@ def configGripperVelocity(
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ms`` is not implicitly convertible to C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mode`` is not implicitly convertible to C int.
 
     :returns:
@@ -3297,7 +3302,7 @@ def getGripperLinearVelocity(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3341,7 +3346,7 @@ def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3425,7 +3430,7 @@ def emulateButton(enable: bool, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3457,7 +3462,7 @@ def getBaseAngleXRad(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3489,7 +3494,7 @@ def getBaseAngleXDeg(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3522,7 +3527,7 @@ def setBaseAngleXRad(angle: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3555,7 +3560,7 @@ def setBaseAngleXDeg(angle: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3587,7 +3592,7 @@ def getBaseAngleZRad(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3619,7 +3624,7 @@ def getBaseAngleZDeg(out: c_double, ID: int = -1) -> float:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3652,7 +3657,7 @@ def setBaseAngleZRad(angle: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3685,10 +3690,10 @@ def setBaseAngleZDeg(angle: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to C double
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3724,16 +3729,16 @@ def setVibration(f: float, A: float, profile: int = 0, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``f`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``A`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``profile`` is not implicitly convertible to C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3778,10 +3783,10 @@ def setMaxForce(limit: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``limit`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3826,10 +3831,10 @@ def setMaxTorque(limit: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``limit`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3874,10 +3879,10 @@ def setMaxGripperForce(limit: float, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``limit`` is not implicitly convertible to C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3907,7 +3912,7 @@ def getMaxForce(ID: int = -1) -> float:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3938,7 +3943,7 @@ def getMaxTorque(ID: int = -1) -> float:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -3969,7 +3974,7 @@ def getMaxGripperForce(ID: int = -1) -> float:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:

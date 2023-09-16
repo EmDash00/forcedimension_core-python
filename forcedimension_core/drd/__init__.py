@@ -17,12 +17,7 @@ from forcedimension_core.drd.adaptors import (
     TrajectoryGenParams
 )
 
-from forcedimension_core.typing import (
-    CIntArrayLike,
-    CFloatArrayLike,
-    MutableCFloatArrayLike,
-    MutableCFloatArray2DLike
-)
+from forcedimension_core.typing import Array, MutableArray
 
 from forcedimension_core.typing import c_int_ptr, c_double_ptr
 from . import direct
@@ -82,7 +77,7 @@ def openID(ID: int) -> int:
         system (must be between 0 and the number of devices connected to the
         system)
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         index is not convertible to a C int.
 
     :returns: The device ID on success, -1 otherwise.
@@ -111,7 +106,7 @@ def setDevice(ID: int) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
@@ -150,7 +145,7 @@ def close(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
@@ -181,7 +176,7 @@ def isSupported(ID: int) -> bool:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns: ``True`` if the device is supported, ``False`` otherwise.
@@ -201,7 +196,7 @@ def isRunning(ID: int = -1) -> bool:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns: ``True`` if the control thread is running, ``False`` otherwise.
@@ -229,7 +224,7 @@ def isFiltering(ID: int = -1) -> bool:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns: ``True`` if the motion filter is enabled, ``False`` otherwise.
@@ -257,7 +252,7 @@ def isInitialized(ID: int = -1) -> bool:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns: ``True`` if the robot is initialized, ``False`` otherwise
@@ -287,7 +282,7 @@ def isMoving(ID: int = -1) -> bool:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns: ``True`` if the robot is moving, ``False`` otherwise
@@ -316,7 +311,7 @@ def autoInit(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -350,7 +345,7 @@ def checkInit(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -420,7 +415,7 @@ def getCtrlFreq(ID: int = -1) -> float:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -455,7 +450,7 @@ def start(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -489,10 +484,10 @@ def regulatePos(enable: bool, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
@@ -525,10 +520,10 @@ def regulateRot(enable: bool, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
@@ -561,10 +556,10 @@ def regulateGrip(enable: bool, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
@@ -588,8 +583,8 @@ _runtime._libdrd.drdSetForceAndTorqueAndGripperForce.restype = c_int
 
 
 def setForceAndTorqueAndGripperForce(
-    f: CFloatArrayLike,
-    t: CFloatArrayLike,
+    f: Array[int, float],
+    t: Array[int, float],
     fg: float,
     ID: int = -1
 ) -> int:
@@ -622,10 +617,10 @@ def setForceAndTorqueAndGripperForce(
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any elements of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -634,7 +629,7 @@ def setForceAndTorqueAndGripperForce(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any elements of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -643,7 +638,7 @@ def setForceAndTorqueAndGripperForce(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -685,8 +680,8 @@ _runtime._libdrd.drdSetForceAndWristJointTorquesAndGripperForce.restype = c_int
 
 
 def setForceAndWristJointTorquesAndGripperForce(
-        f: CFloatArrayLike,
-        t: CFloatArrayLike,
+        f: Array[int, float],
+        t: Array[int, float],
         fg: float,
         ID: int = -1) -> int:
     """
@@ -700,12 +695,12 @@ def setForceAndWristJointTorquesAndGripperForce(
     information about regulation see :ref:`regulation`.
 
 
-    :param CFloatArrayLike f:
+    :param Array[int, float] f:
         Sequence of ``(fx, fy, fz)`` where ``fx``, ``fy``, and ``fz`` are the
         translation forces (in [N]) to be applied to the DELTA end-effector on
         the X, Y, and Z axes respectively.
 
-    :param CFloatArrayLike t:
+    :param Array[int, float] t:
         Sequence of (t0, t1, t2) where ``t0``, ``t1``, ``t2`` are the wrist
         joint torques (in [Nm]) to be applied to the wrist end-effector
         for axes 0, 1, and 2, respectively.
@@ -716,7 +711,7 @@ def setForceAndWristJointTorquesAndGripperForce(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -725,7 +720,7 @@ def setForceAndWristJointTorquesAndGripperForce(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -734,10 +729,10 @@ def setForceAndWristJointTorquesAndGripperForce(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gripper_force`` is not implicitly convertible to a C double.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise
@@ -769,9 +764,9 @@ _runtime._libdrd.drdGetPositionAndOrientation.restype = c_int
 
 
 def getPositionAndOrientation(
-    p_out: MutableCFloatArrayLike,
-    o_out: MutableCFloatArrayLike,
-    matrix_out: MutableCFloatArray2DLike,
+    p_out: MutableArray[int, float],
+    o_out: MutableArray[int, float],
+    matrix_out: MutableArray[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
     """
@@ -879,8 +874,8 @@ _runtime._libdrd.drdGetVelocity.restype = c_int
 
 
 def getVelocity(
-    v_out: MutableCFloatArrayLike,
-    w_out: MutableCFloatArrayLike,
+    v_out: MutableArray[int, float],
+    w_out: MutableArray[int, float],
     vg_out: c_double,
     ID: int = -1
 ) -> int:
@@ -967,10 +962,10 @@ def enableFilter(enabled: bool, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enabled`` is not implicitly convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
@@ -983,7 +978,7 @@ _runtime._libdrd.drdMoveToPos.argtypes = [c_double, c_double, c_double, c_bool, 
 _runtime._libdrd.drdMoveToPos.restype = c_int
 
 
-def moveToPos(pos: CFloatArrayLike, block: bool, ID: int = -1):
+def moveToPos(pos: Array[int, float], block: bool, ID: int = -1):
     """
     Send the robot end-effector to a desired Cartesian position. The motion
     follows a straight line, with smooth acceleration/deceleration. The
@@ -1011,11 +1006,11 @@ def moveToPos(pos: CFloatArrayLike, block: bool, ID: int = -1):
         If ``True``, the call blocks until the destination is reached. If
         ``False``, the call returns immediately.
 
-    :param CFloatArrayLike pos:
+    :param Array[int, float] pos:
         A vector of ``[px, py, pz]`` where ``px``, ``py``, and ``pz``` are the
         position (in [m]) about the X, Y, and Z axes, respectively.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1029,7 +1024,7 @@ _runtime._libdrd.drdMoveToRot.argtypes = [c_double, c_double, c_double, c_bool, 
 _runtime._libdrd.drdMoveToRot.restype = c_int
 
 
-def moveToRot(orientation: CFloatArrayLike, block: bool, ID: int = -1):
+def moveToRot(orientation: Array[int, float], block: bool, ID: int = -1):
     """
     Send the robot end-effector to a desired Cartesian rotation. The motion
     follows a straight curve, with smooth acceleration/deceleration. The
@@ -1056,12 +1051,12 @@ def moveToRot(orientation: CFloatArrayLike, block: bool, ID: int = -1):
         If ``True``, the call blocks until the destination is reached. If
         ``False``, the call returns immediately.
 
-    :param CFloatArrayLike orientation:
+    :param Array[int, float] orientation:
         A vector of ``[oa, ob, og]`` where ``oa``, ``ob``, and ``og`` are the
         device orientation (in [rad])  around the first, second, and third
         joints, respectively.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1108,7 +1103,7 @@ def moveToGrip(pg: float, block: bool, ID: int = -1):
     :param float pg:
         Target gripper opening distance (in [m]).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1122,7 +1117,7 @@ _runtime._libdrd.drdMoveTo.argtypes = [c_double_ptr, c_bool, c_byte]
 _runtime._libdrd.drdMoveTo.restype = c_int
 
 
-def moveTo(pos: CFloatArrayLike, block: bool, ID: int = -1):
+def moveTo(pos: Array[int, float], block: bool, ID: int = -1):
     """
     Send the robot end-effector to a desired Cartesian 7-DOF configuration.
     The motion uses smooth acceleration/deceleration. The acceleration and
@@ -1195,7 +1190,7 @@ _runtime._libdrd.drdMoveToEnc.argtypes = [c_int, c_int, c_int, c_bool, c_byte]
 _runtime._libdrd.drdMoveToEnc.restype = c_int
 
 
-def moveToEnc(enc: CIntArrayLike, block: bool, ID: int = -1) -> int:
+def moveToEnc(enc: Array[int, int], block: bool, ID: int = -1) -> int:
     """
     Send the robot end-effector to a desired encoder position. The motion
     follows a straight line in the encoder space, with smooth
@@ -1225,7 +1220,7 @@ def moveToEnc(enc: CIntArrayLike, block: bool, ID: int = -1) -> int:
         If ``True``, the call blocks until the destination is reached. If
         ``False``, the call returns immediately.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any member of ``enc`` is not convertible to a C int.
 
     :raises IndexError:
@@ -1237,10 +1232,10 @@ def moveToEnc(enc: CIntArrayLike, block: bool, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any of elements of enc are not implicitly convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1254,7 +1249,7 @@ _runtime._libdrd.drdMoveToAllEnc.argtypes = [c_int_ptr, c_bool, c_byte]
 _runtime._libdrd.drdMoveToAllEnc.restype = c_int
 
 
-def moveToAllEnc(enc: CIntArrayLike, block: bool, ID: int = -1):
+def moveToAllEnc(enc: Array[int, int], block: bool, ID: int = -1):
     """
     Send the robot end-effector to a desired encoder position. The motion
     follows a straight line in the encoder space, with smooth
@@ -1329,7 +1324,7 @@ def hold(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1371,13 +1366,13 @@ def lock(mask: int, init: bool, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not convertible to a C unsigned char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``init`` is not convertible to a C unsigned char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
@@ -1404,7 +1399,7 @@ def stop(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1432,7 +1427,7 @@ def getPriorities(ID: int = -1) -> Tuple[int, int, int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1477,13 +1472,13 @@ def setPriorities(prio: int, ctrlprio: int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``prio`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ctrlprio`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1511,10 +1506,10 @@ def getEncPGain(gain: float, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gain`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1541,7 +1536,7 @@ def setEncPGain(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1572,10 +1567,10 @@ def setEncIGain(gain: float, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gain`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1602,7 +1597,7 @@ def getEncIGain(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1633,10 +1628,10 @@ def setEncDGain(gain: float, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gain`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1663,7 +1658,7 @@ def getEncDGain(ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1677,7 +1672,7 @@ _runtime._libdrd.drdTrackPos.argtypes = [c_double, c_double, c_double, c_byte]
 _runtime._libdrd.drdTrackPos.restype = c_int
 
 
-def trackPos(pos: CFloatArrayLike, ID: int = -1):
+def trackPos(pos: Array[int, float], ID: int = -1):
     """
     Send the robot end-effector to a desired Cartesian position. If
     motion filters are enabled, the motion follows a smooth
@@ -1688,11 +1683,11 @@ def trackPos(pos: CFloatArrayLike, ID: int = -1):
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CFloatArrayLike pos:
+    :param Array[int, float] pos:
         A vector of ``[px, py, pz]`` where ``px``, ``py``, and ``pz``` are the
         position (in [m]) about the X, Y, and Z axes, respectively.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1705,7 +1700,7 @@ _runtime._libdrd.drdTrackRot.argtypes = [c_double, c_double, c_double, c_byte]
 _runtime._libdrd.drdTrackRot.restype = c_int
 
 
-def trackRot(orientation: CFloatArrayLike, ID: int = -1):
+def trackRot(orientation: Array[int, float], ID: int = -1):
     """
     Send the robot end-effector to a desired Cartesian rotation. If motion
     filters are enabled, the motion follows a smooth acceleration/deceleration
@@ -1715,12 +1710,12 @@ def trackRot(orientation: CFloatArrayLike, ID: int = -1):
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :param CFloatArrayLike orientation:
+    :param Array[int, float] orientation:
         A vector of ``[oa, ob, og]`` where ``oa``, ``ob``, and ``og`` are the
         device orientation (in [rad])  around the first, second, and third
         joints, respectively.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1749,7 +1744,7 @@ def trackGrip(pg: float, ID: int = -1):
     :param float pg:
         Target gripper opening distance (in [m]).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1763,7 +1758,7 @@ _runtime._libdrd.drdTrack.argtypes = [c_double_ptr, c_byte]
 _runtime._libdrd.drdTrack.restype = c_int
 
 
-def track(pos: CFloatArrayLike, ID: int = -1):
+def track(pos: Array[int, float], ID: int = -1):
     """
     Send the robot end-effector to a desired Cartesian 7-DOF configuration.
     If motion filters are enabled, the motion follows a smooth
@@ -1824,7 +1819,7 @@ _runtime._libdrd.drdTrackEnc.argtypes = [c_int, c_int, c_int, c_byte]
 _runtime._libdrd.drdTrackEnc.restype = c_int
 
 
-def trackEnc(enc: CIntArrayLike, ID: int = -1) -> int:
+def trackEnc(enc: Array[int, int], ID: int = -1) -> int:
     """
     Send the robot end-effector to a desired encoder position. If motion
     filters are enabled, the motion follows a smooth acceleration/deceleration
@@ -1849,7 +1844,7 @@ def trackEnc(enc: CIntArrayLike, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any member of ``enc`` is not convertible to a C int.
 
     :raises IndexError:
@@ -1858,10 +1853,10 @@ def trackEnc(enc: CIntArrayLike, ID: int = -1) -> int:
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any of elements of enc are not implicitly convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1875,7 +1870,7 @@ _runtime._libdrd.drdTrackAllEnc.argtypes = [c_int_ptr, c_byte]
 _runtime._libdrd.drdTrackAllEnc.restype = c_int
 
 
-def trackAllEnc(enc: CIntArrayLike, ID: int = -1):
+def trackAllEnc(enc: Array[int, int], ID: int = -1):
     """
     Send the robot end-effector to a desired encoder position. If motion
     filters are enabled, th emotion follows a smooth acceleration/deceleration
@@ -1955,10 +1950,10 @@ def setMotRatioMax(scale: float, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``scale`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -1985,7 +1980,7 @@ def getMotRatioMax(ID: int = -1) -> float:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2026,16 +2021,16 @@ def setEncMoveParam(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``amax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``jerk`` is not convertible to a C int.
 
     :returns:
@@ -2076,16 +2071,16 @@ def setEncTrackParam(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``amax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``jerk`` is not convertible to a C int.
 
     :returns:
@@ -2124,16 +2119,16 @@ def setPosMoveParam(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``amax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``jerk`` is not convertible to a C int.
 
     :returns:
@@ -2171,16 +2166,16 @@ def setPosTrackParam(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``amax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``jerk`` is not convertible to a C int.
 
     :returns:
@@ -2219,16 +2214,16 @@ def setRotMoveParam(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``amax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``jerk`` is not convertible to a C int.
 
     :returns:
@@ -2266,16 +2261,16 @@ def setRotTrackParam(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``amax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``jerk`` is not convertible to a C int.
 
     :returns:
@@ -2314,16 +2309,16 @@ def setGripMoveParam(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``amax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``jerk`` is not convertible to a C int.
 
     :returns:
@@ -2362,16 +2357,16 @@ def setGripTrackParam(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``amax`` is not convertible to a C int.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``jerk`` is not convertible to a C int.
 
     :returns:
@@ -2401,7 +2396,7 @@ def getEncMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2438,7 +2433,7 @@ def getEncTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2476,7 +2471,7 @@ def getPosMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2513,7 +2508,7 @@ def getPosTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2550,7 +2545,7 @@ def getRotMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2587,7 +2582,7 @@ def getRotTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2624,7 +2619,7 @@ def getGripMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2661,7 +2656,7 @@ def getGripTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -2689,7 +2684,7 @@ def waitForTick(ID: int = -1):
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
     """
     _runtime._libdrd.drdWaitForTick(ID)

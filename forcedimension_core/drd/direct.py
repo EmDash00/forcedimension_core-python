@@ -58,21 +58,21 @@ def getPositionAndOrientation(
     :raises TypeError:
         If ``o_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``p_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``o_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``matrix_out.ptr`` is not a Pointer[c_double] type
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``pg_out`` is not a c_double type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
@@ -131,18 +131,18 @@ def getVelocity(
     :raises TypeError:
         If ``o_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``p_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``o_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``pg_out`` is not a c_double type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
@@ -189,10 +189,10 @@ def moveTo(pos: SupportsPtr[c_double], block: bool, ID: int = -1):
     :raises AttributeError:
         If ``pos.ptr`` is not a valid attribute of ``pos``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``pos.ptr`` is not a ``Pointer[c_double]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -239,7 +239,7 @@ def moveToAllEnc(enc: SupportsPtr[c_int], block: bool, ID: int = -1):
     :raises ValueError:
         If ``enc.ptr`` is not a ``Pointer[c_int]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -279,10 +279,10 @@ def track(pos: SupportsPtr[c_double], ID: int = -1):
     :raises AttributeError:
         If ``pos.ptr`` is not a valid attribute of ``pos``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``pos.ptr`` is not a ``Pointer[c_double]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.'
 
     :returns:
@@ -322,10 +322,10 @@ def trackAllEnc(enc: SupportsPtr[c_int], ID: int = -1):
     :raises AttributeError:
         If ``enc.ptr`` is not a valid attribute of ``enc``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc.ptr`` is not a ``Pointer[c_int]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:

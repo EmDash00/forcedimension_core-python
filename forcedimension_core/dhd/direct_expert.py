@@ -1,7 +1,7 @@
 import forcedimension_core.runtime as _runtime
 from forcedimension_core.typing import (
     SupportsPtr, SupportsPtrs3, c_double_ptr, c_int_ptr, c_ushort_ptr,
-    CFloatArrayLike, CIntArrayLike
+    Array
 )
 
 from typing import Tuple
@@ -34,11 +34,11 @@ def getDeltaEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -86,11 +86,11 @@ def getWristEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -102,7 +102,7 @@ def getWristEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
 
 
 def deltaEncoderToPosition(
-    enc: CIntArrayLike,
+    enc: Array[int, int],
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
@@ -117,7 +117,7 @@ def deltaEncoderToPosition(
     :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
 
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to raw encoder values on axis 0, 1, and 2,
         respectively.
@@ -129,7 +129,7 @@ def deltaEncoderToPosition(
         An output buffer to store the position about the X, Y, and Z axes
         (in [m]).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -144,11 +144,11 @@ def deltaEncoderToPosition(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -161,7 +161,7 @@ def deltaEncoderToPosition(
 
 
 def deltaPositionToEncoder(
-    pos: CFloatArrayLike,
+    pos: Array[int, float],
     out: SupportsPtrs3[c_int],
     ID: int = -1,
 ) -> int:
@@ -176,7 +176,7 @@ def deltaPositionToEncoder(
     :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
 
 
-    :param CFloatArrayLike pos:
+    :param Array[int, float] pos:
         Sequence of ``(px, py, pz)`` where ``px``, ``py``, and ``pz``
         refer to the end-effector position on the X, Y, and Z axes,
         respectively (in [m]).
@@ -193,11 +193,11 @@ def deltaPositionToEncoder(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``pos`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -206,7 +206,7 @@ def deltaPositionToEncoder(
     :raises TypeError:
         If ``pos`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -219,8 +219,8 @@ def deltaPositionToEncoder(
 
 
 def deltaMotorToForce(
-    mot: CIntArrayLike,
-    enc: CIntArrayLike,
+    mot: Array[int, int],
+    enc: Array[int, int],
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
@@ -234,12 +234,12 @@ def deltaMotorToForce(
     :func:`forcedimension_core.dhd.direct_expert.deltaForceToMotor()`
 
 
-    :param CIntArrayLike mot:
+    :param Array[int, int] mot:
         Sequence of ``(mot0, mot1, mot2)`` where ``mot0``, ``mot1``,
         and ``mot2`` are the axis 0, 1, and 2 DELTA motor commands,
         respectively.
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2,
         respectively.
@@ -258,7 +258,7 @@ def deltaMotorToForce(
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``output`` is not implicitly convertible to a C
         ushort.
 
@@ -268,7 +268,7 @@ def deltaMotorToForce(
     :raises TypeError:
         If ``output`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C char.
 
     :raises IndexError:
@@ -277,7 +277,7 @@ def deltaMotorToForce(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -293,8 +293,8 @@ def deltaMotorToForce(
 
 
 def deltaForceToMotor(
-    f: CFloatArrayLike,
-    enc: CIntArrayLike,
+    f: Array[int, float],
+    enc: Array[int, int],
     out: SupportsPtrs3[c_ushort],
     ID = -1
 ) -> int:
@@ -308,12 +308,12 @@ def deltaForceToMotor(
     :func:`forcedimension_core.dhd.direct_expert.deltaMotorToForce()`
 
 
-    :param CFloatArrayLike f:
+    :param Array[int, float] f:
         Sequence of ``(fx, fy, fz)`` where ``fx``, ``fy``, and ``fz`` are the
         force on the DELTA end-effector on the X, Y, and Z axes, respectively
         (in [N]).
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
@@ -323,7 +323,7 @@ def deltaForceToMotor(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``f`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -332,7 +332,7 @@ def deltaForceToMotor(
     :raises TypeError:
         If ``f`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -347,11 +347,11 @@ def deltaForceToMotor(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_ushort]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -368,7 +368,7 @@ def deltaForceToMotor(
 
 
 def wristEncodersToOrientation(
-    enc: CIntArrayLike,
+    enc: Array[int, int],
     out: SupportsPtrs3[c_double],
     ID: int = -1,
 ) -> int:
@@ -402,7 +402,7 @@ def wristEncodersToOrientation(
     :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
 
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to wrist encoder values on the first, second, and
         third joint, respectively
@@ -417,11 +417,11 @@ def wristEncodersToOrientation(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible
         to a C int.
 
@@ -431,7 +431,7 @@ def wristEncodersToOrientation(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -446,7 +446,7 @@ def wristEncodersToOrientation(
 
 
 def wristOrientationToEncoder(
-    orientation: CFloatArrayLike,
+    orientation: Array[int, float],
     out: SupportsPtrs3[c_int],
     ID: int = -1,
 ) -> int:
@@ -481,7 +481,7 @@ def wristOrientationToEncoder(
     :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
 
 
-    :param CFloatArrayLike orientation:
+    :param Array[int, float] orientation:
         Sequence of ``(oa, ob, og)`` where ``oa``, ``ob``, and ``og`` refer to
         wrist end effector orientation (in [rad]) around the X, Y, and Z axes,
         respectively.
@@ -499,11 +499,11 @@ def wristOrientationToEncoder(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_int]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``orientation`` is not implicitly convertible to a C
         double.
 
@@ -513,7 +513,7 @@ def wristOrientationToEncoder(
     :raises TypeError:
         If ``orientation`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -528,8 +528,8 @@ def wristOrientationToEncoder(
 
 
 def wristMotorToTorque(
-    output: CIntArrayLike,
-    enc: CIntArrayLike,
+    output: Array[int, int],
+    enc: Array[int, int],
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
@@ -552,12 +552,12 @@ def wristMotorToTorque(
     :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
 
 
-    :param CIntArrayLike cmd:
+    :param Array[int, int] cmd:
         Sequence of ``(cmd0, cmd1, cmd2)`` where ``cmd0``, ``cmd1``,
         and ``cmd2`` are the axis 0, 1, and 2 DELTA motor commands,
         respectively.
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
@@ -574,11 +574,11 @@ def wristMotorToTorque(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``cmd`` is not implicitly convertible to a C ushort.
 
     :raises IndexError:
@@ -587,7 +587,7 @@ def wristMotorToTorque(
     :raises TypeError:
         If ``cmd`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -596,7 +596,7 @@ def wristMotorToTorque(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -612,8 +612,8 @@ def wristMotorToTorque(
 
 
 def wristTorqueToMotor(
-    t: CFloatArrayLike,
-    enc: CIntArrayLike,
+    t: Array[int, float],
+    enc: Array[int, int],
     out: SupportsPtrs3[c_int],
     ID: int = -1
 ) -> int:
@@ -635,11 +635,11 @@ def wristTorqueToMotor(
     :func:`forcedimension_core.dhd.direct_expert.wristTorqueToMotor()`
 
 
-    :param CFloatArrayLike t:
+    :param Array[int, float] t:
         Sequence of ``(t0, t1, t2)`` where ``t0``, ``t1``, and ``t2`` are the
         DELTA axis torque commands (in [Nm]) for axes 0, 1, and 2, respectively.
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
@@ -655,11 +655,11 @@ def wristTorqueToMotor(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_ushort]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``t`` is not implicitly convertible to a C double.
 
     :raises IndexError:
@@ -668,7 +668,7 @@ def wristTorqueToMotor(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -677,7 +677,7 @@ def wristTorqueToMotor(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -736,13 +736,13 @@ def gripperEncoderToAngleRad(
     :param int ID:
         Device ID (see multiple devices section for details), defaults to -1.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
 
     :raises IndexError:
         If ``len(enc) < 3``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -786,10 +786,10 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details), defaults to -1.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -833,10 +833,10 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``angle`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -880,10 +880,10 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
     :param int ID:
         Device ID (see multiple devices section for details), defaults to -1.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gap`` is not implicitly convertible to a C char.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -933,17 +933,17 @@ def gripperMotorToForce(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``cmd`` is not implicitly convertible to a C ushort.
 
     :raises AttributeError:
         If ``enc_wrist_grip.ptr`` is not a valid attribute of
         ``enc_wrist_grip``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc_wrist_grip.ptr`` is not of type Pointer[c_int]
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -983,23 +983,23 @@ def gripperForceToMotor(
     :param int f:
         Force on the gripper end-effector (in [N]).
 
-    :param CIntArrayLike enc_wrist:
+    :param Array[int, int] enc_wrist:
         An output buffer to store the wrist encoding readings.
 
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``f`` is not implicitly convertible to a C double.
 
     :raises AttributeError:
         If ``enc_wrist_grip.ptr`` is not a valid attribute of
         ``enc_wrist_grip``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``enc_wrist_grip.ptr`` is not of type Pointer[c_int]
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1037,14 +1037,14 @@ def getEnc(out: SupportsPtr[c_int], mask: int=0xff, ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of
         :data:`forcedimension_core.dhd.constants.MAX_DOF` ``Pointer[c_int]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C uchar.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1079,11 +1079,11 @@ def getDeltaJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1114,10 +1114,10 @@ def getDeltaJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :raises AttributeError:
         If ``out.ptr`` is not a valid attribute of ``out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptr`` is not of type Pointer[c_double]
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1129,7 +1129,7 @@ def getDeltaJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
 def deltaJointAnglesToJacobian(
-    joint_angles: CFloatArrayLike,
+    joint_angles: Array[int, float],
     out: SupportsPtr[c_double],
     ID: int = -1,
 ) -> int:
@@ -1145,7 +1145,7 @@ def deltaJointAnglesToJacobian(
     :func:`forcedimension_core.dhd.direct_expert.getDeltaJacobian()`
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of (j0, j1, j2) where ``j0``, ``j1``, and ``j2`` refer to the
         joint angles (in [rad]) for axis 0, 1, and 2, respectively.
 
@@ -1158,10 +1158,10 @@ def deltaJointAnglesToJacobian(
     :raises AttributeError:
         If ``out.ptr`` is not a valid attribute of ``out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptr`` is not of type Pointer[c_double]
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to C
         double.
 
@@ -1171,7 +1171,7 @@ def deltaJointAnglesToJacobian(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1186,7 +1186,7 @@ def deltaJointAnglesToJacobian(
 
 
 def deltaJointTorquesExtrema(
-    joint_angles: CFloatArrayLike,
+    joint_angles: Array[int, float],
     minq_out: SupportsPtr[c_double],
     maxq_out: SupportsPtr[c_double],
     ID: int = -1
@@ -1204,7 +1204,7 @@ def deltaJointTorquesExtrema(
     :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of (j0, j1, j2) where ``j0``, ``j1``, and ``j2`` refer to the
         joint angles (in [rad]) for axis 0, 1, and 2, respectively.
 
@@ -1222,7 +1222,7 @@ def deltaJointTorquesExtrema(
     :raises TypeError:
         If ``minq_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``minq_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
@@ -1232,11 +1232,11 @@ def deltaJointTorquesExtrema(
     :raises TypeError:
         If ``maxq_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``maxq_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -1246,7 +1246,7 @@ def deltaJointTorquesExtrema(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1264,7 +1264,7 @@ def deltaJointTorquesExtrema(
 
 
 def deltaEncodersToJointAngles(
-    enc: CIntArrayLike,
+    enc: Array[int, int],
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
@@ -1278,7 +1278,7 @@ def deltaEncodersToJointAngles(
     :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
 
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
@@ -1295,11 +1295,11 @@ def deltaEncodersToJointAngles(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -1308,7 +1308,7 @@ def deltaEncodersToJointAngles(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1325,7 +1325,7 @@ def deltaEncodersToJointAngles(
 
 
 def deltaJointAnglesToEncoders(
-    joint_angles: CFloatArrayLike,
+    joint_angles: Array[int, float],
     out: SupportsPtrs3[c_int],
     ID: int = -1,
 ) -> int:
@@ -1339,7 +1339,7 @@ def deltaJointAnglesToEncoders(
     :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
 
 
-    :param CFloatArrayLike enc:
+    :param Array[int, float] enc:
         Sequence of ``(j0, j1, j1)`` where ``j0``, ``j1``, and ``j2`` refer to
         DELTA joint angles (in [rad]) for axes 0, 1, and 2, respectively.
 
@@ -1349,7 +1349,7 @@ def deltaJointAnglesToEncoders(
     :param SupportsPtrs3[c_double] out:
         An output buffer to store the DELTA encoder values.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -1359,7 +1359,7 @@ def deltaJointAnglesToEncoders(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1399,11 +1399,11 @@ def getWristJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1434,10 +1434,10 @@ def getWristJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :raises AttributeError:
         If ``out.ptr`` is not a valid attribute of ``out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptr`` is not a ``Pointer[c_double]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1449,7 +1449,7 @@ def getWristJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
 def wristJointAnglesToJacobian(
-    joint_angles: CFloatArrayLike,
+    joint_angles: Array[int, float],
     out: SupportsPtr[c_double],
     ID: int = -1,
 ) -> int:
@@ -1464,7 +1464,7 @@ def wristJointAnglesToJacobian(
     :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, and ``j2`` refer to
         the joint angles for wrist axis 0, 1, and 2, respectively.
 
@@ -1477,10 +1477,10 @@ def wristJointAnglesToJacobian(
     :raises AttributeError:
         If ``out.ptr`` is not a valid attribute of ``out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptr`` is not a ``Pointer[c_double]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -1490,7 +1490,7 @@ def wristJointAnglesToJacobian(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1507,7 +1507,7 @@ def wristJointAnglesToJacobian(
 
 
 def wristJointTorquesExtrema(
-    joint_angles: CFloatArrayLike,
+    joint_angles: Array[int, float],
     minq_out: SupportsPtr[c_double],
     maxq_out: SupportsPtr[c_double],
     ID: int = -1
@@ -1527,7 +1527,7 @@ def wristJointTorquesExtrema(
 
 
 
-    :param CFloatArrayLike joint_angles:
+    :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, ``j2`` refer to the
         joint angles for wrist axes 0, 1, and 2, respectively.
 
@@ -1542,7 +1542,7 @@ def wristJointTorquesExtrema(
     :param int ID:
         Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to C
         double.
 
@@ -1558,7 +1558,7 @@ def wristJointTorquesExtrema(
     :raises TypeError:
         If ``minq_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``minq_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
@@ -1568,11 +1568,11 @@ def wristJointTorquesExtrema(
     :raises TypeError:
         If ``maxq_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``maxq_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1602,7 +1602,7 @@ _runtime._libdhd.dhdWristEncodersToJointAngles.restype = c_int
 
 
 def wristEncodersToJointAngles(
-    enc: CIntArrayLike,
+    enc: Array[int, int],
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
@@ -1617,7 +1617,7 @@ def wristEncodersToJointAngles(
     :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
 
 
-    :param CIntArrayLike enc:
+    :param Array[int, int] enc:
         Sequence of (enc0, enc1, enc2) where ``enc0``, ``enc1``, and ``enc2``
         refer to encoder values on wrist axes 0, 1, and 2, respectively.
 
@@ -1634,11 +1634,11 @@ def wristEncodersToJointAngles(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``enc`` is not implicitly convertible to a C int.
 
     :raises IndexError:
@@ -1647,7 +1647,7 @@ def wristEncodersToJointAngles(
     :raises TypeError:
         If ``enc`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1660,7 +1660,7 @@ def wristEncodersToJointAngles(
 
 
 def wristJointAnglesToEncoders(
-    joint_angles: CFloatArrayLike,
+    joint_angles: Array[int, float],
     out: SupportsPtrs3[c_int],
     ID: int = -1
 ) -> int:
@@ -1674,11 +1674,11 @@ def wristJointAnglesToEncoders(
     :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
 
 
-    :param CFloatArrayLike enc:
+    :param Array[int, float] enc:
         Sequence of ``(j0, j1, j1)`` where ``j0``, ``j1``, and ``j2`` refer to
         wrist joint angles (in [rad]) for axes 0, 1, and 2, respectively.
 
-    :param CIntArrayLike out:
+    :param Array[int, int] out:
         An output buffer to store the wrist encoder values.
 
     :param int ID:
@@ -1690,11 +1690,11 @@ def wristJointAnglesToEncoders(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_int]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If any element of ``joint_angles`` is not implicitly convertible to
         a C double.
 
@@ -1704,7 +1704,7 @@ def wristJointAnglesToEncoders(
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1753,12 +1753,12 @@ def getJointAngles(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of
         :data:`forcedimension_core.dhd.constants.MAX_DOF`
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1791,12 +1791,12 @@ def getJointVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of
         :data:`forcedimension_core.dhd.constants.MAX_DOF`
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1830,12 +1830,12 @@ def getEncVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of
         :data:`forcedimension_core.dhd.constants.MAX_DOF`
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1878,16 +1878,16 @@ def jointAnglesToIntertiaMatrix(
     :raises TypeError:
         If ``joint_angles.ptrs`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``joint_angles.ptr`` is not of type ``Pointer[c_double]``.
 
     :raises AttributeError:
         If ``out.ptr`` is not a valid attribute of ``out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptr`` is not a ``Pointer[c_double]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
@@ -1931,16 +1931,16 @@ def jointAnglesToGravityJointTorques(
     :raises TypeError:
         If ``joint_angles.ptrs`` is not subscriptable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``joint_angles.ptr`` is not of type ``Pointer[c_double]``.
 
     :raises AttributeError:
         If ``out.ptr`` is not a valid attribute of ``out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptr`` is not a ``Pointer[c_double]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:

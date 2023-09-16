@@ -31,11 +31,11 @@ def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -78,11 +78,11 @@ def getForce(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -147,11 +147,11 @@ def getOrientationRad(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -217,11 +217,11 @@ def getOrientationDeg(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -290,7 +290,7 @@ def getPositionAndOrientationRad(
     :raises TypeError:
         If ``p_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``p_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
@@ -304,11 +304,11 @@ def getPositionAndOrientationRad(
     :raises TypeError:
         If ``o_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``o_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -379,7 +379,7 @@ def getPositionAndOrientationDeg(
     :raises TypeError:
         If ``p_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``p_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
@@ -393,11 +393,11 @@ def getPositionAndOrientationDeg(
     :raises TypeError:
         If ``o_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``o_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -461,17 +461,17 @@ def getPositionAndOrientationFrame(
     :raises TypeError:
         If ``p_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``p_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
     :raises AttributeError:
         If ``matrix_out.ptr`` is not a valid attribute of ``matrix_out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``p_out.ptr`` is not a ``Pointer[c_double]`` type.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -521,7 +521,7 @@ def getForceAndTorque(
     :raises TypeError:
         If ``f_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``f_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
@@ -531,11 +531,11 @@ def getForceAndTorque(
     :raises TypeError:
         If ``t_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``t_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -561,13 +561,13 @@ def getOrientationFrame(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :param SupportsPtr[c_double] out:
         An output buffer to store the orientation frame.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :raises AttributeError:
         If ``out.ptr`` is not a valid attribute of ``p_out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptr`` is not a ``Pointer[c_double]`` type.
 
     :returns:
@@ -606,7 +606,7 @@ def getGripperAngleDeg(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -645,7 +645,7 @@ def getGripperAngleRad(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -684,7 +684,7 @@ def getGripperGap(out: c_double, ID: int = -1) -> int:
     :param int ID:
          Device ID (see multiple devices section for details).
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -731,11 +731,11 @@ def getGripperThumbPos(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -783,11 +783,11 @@ def getGripperFingerPos(
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -833,7 +833,7 @@ def getForceAndTorqueAndGripperForce(
     :raises TypeError:
         If ``f_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``f_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
@@ -843,17 +843,17 @@ def getForceAndTorqueAndGripperForce(
     :raises TypeError:
         If ``t_out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``t_out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
     :raises AttributeError:
         If ``fg_out.ptr`` is not a valid attribute of ``fg_out``
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``fg_out.ptr`` is not a ``Pointer[c_double]``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -904,12 +904,12 @@ def getLinearVelocity(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
 
-   :raises ArgumentError:
+   :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -956,12 +956,12 @@ def getAngularVelocityRad(
    :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1009,12 +1009,12 @@ def getAngularVelocityDeg(
    :raises TypeError:
         If ``out.ptrs`` is not iterable.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``out.ptrs`` does not expand into a tuple of 3
         ``Pointer[c_double]`` types.
 
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1060,7 +1060,7 @@ def getGripperLinearVelocity(out: c_double, ID: int = -1) -> int:
     :raises IndexError:
         If ``len(out) < 3``.
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
@@ -1099,7 +1099,7 @@ def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
     :param c_double out:
         An output buffer to store the gripper angular velocity (in [rad/s])
 
-    :raises ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
