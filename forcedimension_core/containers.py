@@ -15,8 +15,9 @@ from forcedimension_core.typing import (
 class VersionTuple(NamedTuple):
     """
     Adapts the four seperate number return into a single grouped
-    NamedTuple.
+    :class:`typing.NamedTuple`.
     """
+
     major: int
     minor: int
     release: int
@@ -203,7 +204,7 @@ class Status(ct.Structure):
 class Vector3(array):
     """
     Represents a vector with attributes x, y, and z corresponding to the 0th,
-    1st, and 2nd indicies, respectively, as a Python `array.array`.
+    1st, and 2nd indicies, respectively, as a Python ``array.array``.
     """
 
     def __new__(
@@ -264,6 +265,10 @@ class Vector3(array):
 
     @property
     def x(self) -> float:
+        """
+        Alias to 0th element
+        """
+
         return self[0]
 
     @x.setter
@@ -272,6 +277,10 @@ class Vector3(array):
 
     @property
     def y(self) -> float:
+        """
+        Alias to 1st element
+        """
+
         return self[1]
 
     @y.setter
@@ -280,6 +289,10 @@ class Vector3(array):
 
     @property
     def z(self) -> float:
+        """
+        Alias to 2nd element
+        """
+
         return self[2]
 
     @z.setter
@@ -290,7 +303,7 @@ class Vector3(array):
 class Enc3(array):
     """
     Represents the type of a 3-axis encoder array (e.g. delta or wrist encoder
-    arrays) as a Python `array.array`.
+    arrays) as a Python ``array.array``.
     """
 
     def __new__(
@@ -353,7 +366,7 @@ class Enc3(array):
 class Enc4(array):
     """
     Represents an array of wrist encoders and a gripper encoder as a Python
-    `array.array`
+    ``array.array``
     """
 
     def __new__(
@@ -390,13 +403,17 @@ class Enc4(array):
 
     @property
     def ptr(self) -> c_int_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
 
 
 class DOFInt(array):
     """
     Represents an array of encoders for each degree-of-freedom as a Python
-    `array.array`
+    ``array.array``
     """
 
     def __new__(
@@ -436,28 +453,49 @@ class DOFInt(array):
 
     @property
     def ptr(self) -> c_int_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
 
     @property
     def delta(self) -> Enc3:
+        """
+        A slice of the part internal data that represents the DELTA DOFs.
+        """
+
         return self._delta
 
     @property
     def wrist(self) -> Enc3:
+        """
+        A slice of the part internal data that represents the WRIST DOFs.
+        """
+
         return self._wrist
 
     @property
     def wrist_grip(self) -> Enc4:
+        """
+        A slice of the part internal data that represents the WRIST and gripper
+        DOFs.
+        """
+
         return self._wrist_grip
 
     @property
     def gripper(self) -> c_int:
+        """
+        A slice of the part internal data that represents the gripper DOF.
+        """
+
         return self._gripper
 
 
 class DOFMotorArray(array):
     """
-    Represents an array of motor commands as a Python `array.array`.
+    Represents an array of motor commands as a Python ``array.array``.
     """
 
     def __new__(
@@ -491,12 +529,16 @@ class DOFMotorArray(array):
 
     @property
     def ptr(self) -> c_ushort_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
 
 
 class DOFFloat(array):
     """
-    Represents an array of joint angles as a Python `array.array`.
+    Represents an array of joint angles as a Python ``array.array``.
     """
 
     def __new__(
@@ -536,24 +578,40 @@ class DOFFloat(array):
 
     @property
     def ptr(self) -> c_double_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
 
     @property
     def delta(self) -> Vector3:
+        """
+        A slice of the part internal data that represents the DELTA DOFs.
+        """
+
         return self._delta
 
     @property
     def wrist(self) -> Vector3:
+        """
+        A slice of the part internal data that represents the WRIST DOFs.
+        """
+
         return self._wrist
 
     @property
     def gripper(self) -> c_double:
+        """
+        A slice of the part internal data that represents the gripper DOFs.
+        """
+
         return self._gripper
 
 
 class Mat3x3(array):
     """
-    Represents the type of a coordinate frame matrix as a Python `array.array`.
+    Represents the type of a coordinate frame matrix as a Python ``array.array``.
     """
 
     def __new__(
@@ -602,12 +660,17 @@ class Mat3x3(array):
 
     @property
     def ptr(self) -> c_double_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
 
 
 class Mat6x6(array):
     """
-    Represents the type of an inertia matrix as a list of Python `array.array`.
+    Represents the type of an inertia matrix as a list of Python
+    ``array.array``.
     """
     def __new__(
         cls, initializer: Iterable[float] = (0. for _ in range(36))
@@ -655,4 +718,8 @@ class Mat6x6(array):
 
     @property
     def ptr(self) -> c_double_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
