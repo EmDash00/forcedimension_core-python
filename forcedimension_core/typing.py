@@ -15,12 +15,22 @@ ComModeStr = Literal['sync', 'async', 'virtual', 'network']
 
 
 class Array(Sized, Container[_VT_co], Protocol[_KT_contra, _VT_co]):
+    """
+    A set of values (all the same type) indexed by keys
+    (all the same type).
+    """
+
     def __getitem__(self, __k: _KT_contra) -> _VT_co: ...
 
 
 class MutableArray(
     Array[_KT_contra, _VT], Protocol[_KT_contra, _VT]
 ):
+    """
+    A set of values (all the same type) indexed by keys
+    (all the same type) that allows setting items.
+    """
+
     def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
 
 
