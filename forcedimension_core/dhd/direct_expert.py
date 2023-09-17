@@ -13,16 +13,10 @@ def getDeltaEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
     """
     Read all encoders values of the DELTA structure.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaEncoderToPosition()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param SupportsPtrs3[c_int] out:
+    :param SupportsPtrs3[ctypes.c_int] out:
         An output buffer to store the delta encoder values.
 
     :raises IndexError:
@@ -44,6 +38,11 @@ def getDeltaEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success, and
         -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncoderToPosition()`
     """
 
     return _runtime._libdhd.dhdGetDeltaEncoders(*out.ptrs, ID)
@@ -53,28 +52,14 @@ def getWristEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
     """
     Read all encoders values of the wrist structure.
 
+
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
+    This feature only applies to devices with a wrist. See
+    the :ref:`device_types` section for more details.
 
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.wristEncodersToOrientation()`
-    :func:`forcedimension_core.dhd.wristEncodersToJointAngles()`
-    :func:`forcedimension_core.dhd.wristOrientationToEncoder()`
-
-
-    :param SupportsPtrs3[c_int] out:
+    :param SupportsPtrs3[ctypes.c_int] out:
         An output buffer to store the wrist encoder values.
 
     :param int ID:
@@ -96,6 +81,12 @@ def getWristEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
         -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.wristEncodersToOrientation()`
+    | :func:`forcedimension_core.dhd.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.wristOrientationToEncoder()`
     """
 
     return _runtime._libdhd.dhdGetWristEncoders(*out.ptrs, ID)
@@ -110,13 +101,6 @@ def deltaEncoderToPosition(
     This routine computes and returns the position of the end-effector about
     the X, Y, and Z axes (in [m]) for a given set of encoder values.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getDeltaEncoders()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaPositionToEncoder()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
-
-
     :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to raw encoder values on axis 0, 1, and 2,
@@ -125,7 +109,7 @@ def deltaEncoderToPosition(
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the position about the X, Y, and Z axes
         (in [m]).
 
@@ -153,6 +137,12 @@ def deltaEncoderToPosition(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaPositionToEncoder()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdDeltaEncoderToPosition(
@@ -169,13 +159,6 @@ def deltaPositionToEncoder(
     Computes and returns the encoder values of the end-effector
     for a given end-effector position.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getDeltaEncoders()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaEncoderToPosition()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
-
-
     :param Array[int, float] pos:
         Sequence of ``(px, py, pz)`` where ``px``, ``py``, and ``pz``
         refer to the end-effector position on the X, Y, and Z axes,
@@ -184,7 +167,7 @@ def deltaPositionToEncoder(
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param SupportsPtrs3[c_int] out:
+    :param SupportsPtrs3[ctypes.c_int] out:
         An output buffer to store the delta encoder values.
 
     :raises AttributeError:
@@ -211,6 +194,12 @@ def deltaPositionToEncoder(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncoderToPosition()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdDeltaPositionToEncoder(
@@ -229,11 +218,6 @@ def deltaMotorToForce(
     about the X, Y, and Z axes (in [N]) for a given set of motor commands at a
     given position (defined by encoder readings)
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.deltaForceToMotor()`
-
-
     :param Array[int, int] mot:
         Sequence of ``(mot0, mot1, mot2)`` where ``mot0``, ``mot1``,
         and ``mot2`` are the axis 0, 1, and 2 DELTA motor commands,
@@ -244,7 +228,7 @@ def deltaMotorToForce(
         ``enc2`` refer to encoder values on axis 0, 1, and 2,
         respectively.
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the force applied to the end effector about
         the X, Y, and Z axes (in [N])
 
@@ -282,6 +266,10 @@ def deltaMotorToForce(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.deltaForceToMotor()`
     """
 
     return _runtime._libdhd.dhdDeltaMotorToForce(
@@ -303,11 +291,6 @@ def deltaForceToMotor(
     given force on the end-effector at a given position (defined by encoder
     readings).
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.deltaMotorToForce()`
-
-
     :param Array[int, float] f:
         Sequence of ``(fx, fy, fz)`` where ``fx``, ``fy``, and ``fz`` are the
         force on the DELTA end-effector on the X, Y, and Z axes, respectively
@@ -317,7 +300,7 @@ def deltaForceToMotor(
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
-    :param SupportsPtrs3[c_ushort] out:
+    :param SupportsPtrs3[ctypes.c_ushort] out:
         An output buffer to store the motor commands on axes 0, 1, and 2.
 
     :param int ID:
@@ -357,6 +340,10 @@ def deltaForceToMotor(
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED` on success,
         and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.deltaMotorToForce()`
     """
 
     return _runtime._libdhd.dhdDeltaMotorToForce(
@@ -383,23 +370,8 @@ def wristEncodersToOrientation(
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.wristOrientationToEncoder()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
+    This feature only applies to devices with a wrist. See
+    the :ref:`device_types` section for more details.
 
 
     :param Array[int, int] enc:
@@ -407,7 +379,7 @@ def wristEncodersToOrientation(
         ``enc2`` refer to wrist encoder values on the first, second, and
         third joint, respectively
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the wrist end-effector orientation about the
         first, second, and third wrist joints (in [rad]).
 
@@ -437,6 +409,11 @@ def wristEncodersToOrientation(
     :returns:
         0 on success, -1 otherwise.
 
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristOrientationToEncoder()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
     return _runtime._libdhd.dhdDeltaEncoderToPosition(
         enc[0], enc[1], enc[2],
@@ -452,33 +429,23 @@ def wristOrientationToEncoder(
 ) -> int:
     """
     For devices with a wrist structure, compute the encoder values from the
-    individual angle of each joint, starting witht he one located nearest to
-    the wrist plate base. For the dhd.libdhd.DeviceType.OMEGA6 and
-    dhd.libdhd.DeviceType.OMEGA6_LEFT devices, angles must be expressed
-    withrespect to their internal reference frame, which is rotated 45 degrees
-    or π/4 radians about the Y axis. Please refer to your device user manual
-    for more information on your device coordinate system.
+    individual angle of each joint, starting with the one located nearest to
+    the wrist plate base.
+
+    Note
+    ----
+    For the :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6` and
+    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT` devices,
+    angles must be expressed with respect to their internal reference frame,
+    which is rotated 45 degrees or π/4 radians about the Y axis. Please refer
+    to your device user manual for more information on your device coordinate
+    system.
 
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.wristEncodersToOrientation()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
+    This feature only applies to devices with an wrist. See
+    the :ref:`device_types` section for more details.
 
 
     :param Array[int, float] orientation:
@@ -486,7 +453,7 @@ def wristOrientationToEncoder(
         wrist end effector orientation (in [rad]) around the X, Y, and Z axes,
         respectively.
 
-    :param SupportsPtrs3[c_int] out:
+    :param SupportsPtrs3[ctypes.c_int] out:
         An output buffer to store the encoder values.
 
     :param int ID:
@@ -518,6 +485,12 @@ def wristOrientationToEncoder(
 
     :returns:
         0 on success, -1 otherwise
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToOrientation()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
 
     return _runtime._libdhd.dhdDeltaEncoderToPosition(
@@ -540,16 +513,8 @@ def wristMotorToTorque(
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristTorqueToMotor()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
+    This feature only applies to devices with an active wrist. See
+    the :ref:`device_types` section for more details.
 
 
     :param Array[int, int] cmd:
@@ -564,7 +529,7 @@ def wristMotorToTorque(
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the torques applied to the wrist about the
         X, Y, and Z axes (in [Nm]).
 
@@ -601,6 +566,11 @@ def wristMotorToTorque(
 
     :returns:
         0 on success, -1, otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristTorqueToMotor()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
     """
 
     return _runtime._libdhd.dhdDeltaMotorToForce(
@@ -630,11 +600,6 @@ def wristTorqueToMotor(
     :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
 
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristTorqueToMotor()`
-
-
     :param Array[int, float] t:
         Sequence of ``(t0, t1, t2)`` where ``t0``, ``t1``, and ``t2`` are the
         DELTA axis torque commands (in [Nm]) for axes 0, 1, and 2, respectively.
@@ -643,7 +608,7 @@ def wristTorqueToMotor(
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
 
-    :param SupportsPtrs3[c_ushort] out:
+    :param SupportsPtrs3[ctypes.c_ushort] out:
         An output buffer to store the wrist motor commands.
 
     :param int ID:
@@ -682,6 +647,10 @@ def wristTorqueToMotor(
 
     :returns:
         0 on success, -1 otherwise
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristTorqueToMotor()`
     """
 
     return _runtime._libdhd.dhdDeltaMotorToForce(
@@ -711,20 +680,8 @@ def gripperEncoderToAngleRad(
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.gripperAngleRadToEncoder()`
-    :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToGap()`
+    This feature only applies to devices with a gripper. See
+    the :ref:`device_types` section for more details.
 
 
     :param int enc:
@@ -748,6 +705,11 @@ def gripperEncoderToAngleRad(
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
         -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.gripperAngleRadToEncoder()`
+    | :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToGap()`
     """
 
     return _runtime._libdhd.dhdGripperEncoderToAngleRad(enc, out, ID)
@@ -760,20 +722,8 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.gripperGapToEncoder()`
-    :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToAngleRad()`
+    This feature only applies to devices with a gripper. See
+    the :ref:`device_types` section for more details.
 
 
     :param int enc:
@@ -795,6 +745,11 @@ def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
     :returns:
         A tuple in the form ``(gap, err)``. ``gap`` is the gripper opening in
         [m] ``err`` is 0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.gripperGapToEncoder()`
+    | :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToAngleRad()`
     """
 
     return _runtime._libdhd.dhdGripperEncoderToGap(enc, out, ID)
@@ -808,20 +763,8 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToAngleRad()`
-    :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToGap()`
+    This feature only applies to devices with a gripper. See
+    the :ref:`device_types` section for more details.
 
 
     :param float angle:
@@ -842,6 +785,10 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
     :returns:
         0 on success, -1 otherwise.
 
+    See Also
+    --------
+    :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToAngleRad()`
+    :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToGap()`
     """
 
     return _runtime._libdhd.dhdGripperEncoderToAngleRad(angle, out, ID)
@@ -854,21 +801,8 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToAngleRad()`
-    :func:`forcedimension_core.dhd.direct_expert.gripperAngleRadToEncoder()`
-    :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToGap()`
+    This feature only applies to the following devices with a gripper.
+    See the :ref:`device_types` section for more details.
 
 
     :param float gap:
@@ -888,6 +822,12 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToAngleRad()`
+    | :func:`forcedimension_core.dhd.direct_expert.gripperAngleRadToEncoder()`
+    | :func:`forcedimension_core.dhd.direct_expert.gripperEncoderToGap()`
     """
 
     return _runtime._libdhd.dhdGripperEncoderToGap(gap, out, ID)
@@ -905,19 +845,8 @@ def gripperMotorToForce(
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.gripperForceToMotor()`
+    This feature only applies to devices with an active gripper. See
+    the :ref:`device_types` section for more details.
 
 
     :param int output:
@@ -948,6 +877,10 @@ def gripperMotorToForce(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.gripperForceToMotor()`
     """
 
     return _runtime._libdhd.dhdGripperMotorToForce(cmd, out, enc_wrist_grip.ptr, ID)
@@ -965,19 +898,8 @@ def gripperForceToMotor(
 
     Note
     ----
-    This feature only applies to the following devices:
-
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.LAMBDA7_LEFT`
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.gripperForceToMotor()`
+    This feature only applies to devices with an active gripper. See
+    the :ref:`device_types` section for more details.
 
 
     :param int f:
@@ -1007,6 +929,10 @@ def gripperForceToMotor(
         the gripper axis. ``err`` is 0 or
         :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED` on success,
         -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.gripperForceToMotor()`
     """
 
     return _runtime._libdhd.dhdGripperForceToMotor(f, out, enc_wrist_grip.ptr, ID)
@@ -1016,11 +942,6 @@ def getEnc(out: SupportsPtr[c_int], mask: int=0xff, ID: int = -1) -> int:
     """
     Get a selective list of encoder values. Particularly useful when using the
     generic controller directly, without a device model attached.
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getEncVelocities()`
-
 
     :param SupportsPtr[c_int] out:
         An output buffer to store the encoder values.
@@ -1050,6 +971,10 @@ def getEnc(out: SupportsPtr[c_int], mask: int=0xff, ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success, -1
         otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getEncVelocities()`
     """
 
     return  _runtime._libdhd.dhdGetEnc(out.ptr, mask, ID)
@@ -1059,17 +984,10 @@ def getDeltaJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     """
     Retrieve the joint angles (in [rad]) for the DELTA structure.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the joint angles (in [rad]) of the DELTA
         structure for axes 0, 1, and 2.
 
@@ -1089,6 +1007,12 @@ def getDeltaJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
         -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
     """
 
     return _runtime._libdhd.dhdGetDeltaJointAngles(*out.ptrs, ID)
@@ -1099,11 +1023,6 @@ def getDeltaJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
     Retrieve the 3x3 jacobian matrix for the DELTA structure based on the
     current end-effector position. Please refer to your device user manual for
     more information on your device coordinate system.
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
-
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1123,6 +1042,10 @@ def getDeltaJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
         -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
     """
 
     return _runtime._libdhd.dhdGetDeltaJacobian(out.ptr, ID)
@@ -1137,13 +1060,6 @@ def deltaJointAnglesToJacobian(
     Retrieve the 3x3 jacobian matrix for the DELTA structure
     based on a given joint configuration. Please refer to your device user
     manual for more information on your device coordinate system.
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.getDeltaJacobian()`
-
 
     :param Array[int, float] joint_angles:
         Sequence of (j0, j1, j2) where ``j0``, ``j1``, and ``j2`` refer to the
@@ -1176,6 +1092,12 @@ def deltaJointAnglesToJacobian(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJacobian()`
     """
 
     return _runtime._libdhd.dhdDeltaJointAnglesToJacobian(
@@ -1197,22 +1119,15 @@ def deltaJointTorquesExtrema(
     Please refer to your device user manual for more information on your device
     coordinate system.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
-    :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
-
-
     :param Array[int, float] joint_angles:
         Sequence of (j0, j1, j2) where ``j0``, ``j1``, and ``j2`` refer to the
         joint angles (in [rad]) for axis 0, 1, and 2, respectively.
 
-    :param SupportsPtrs3[c_double] minq_out:
+    :param SupportsPtrs3[ctypes.c_double] minq_out:
         An output buffer to store the minimum appliable DELTA joint torques
         about axes 0, 1, and 2 (in [Nm]).
 
-    :param SupportsPtrs3[c_double] maxq_out:
+    :param SupportsPtrs3[ctypes.c_double] maxq_out:
         An output buffer to store the maximum appliable DELTA joint torques
         about axes 0, 1, and 2 (in [Nm]).
 
@@ -1251,6 +1166,12 @@ def deltaJointTorquesExtrema(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
     """
 
     return _runtime._libdhd.dhdDeltaJointTorquesExtrema(
@@ -1272,12 +1193,6 @@ def deltaEncodersToJointAngles(
     This routine computes and returns the DELTA joint angles (in [rad]) for a
     given set of encoder values.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
-
-
     :param Array[int, int] enc:
         Sequence of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` refer to encoder values on axis 0, 1, and 2, respectively.
@@ -1285,7 +1200,7 @@ def deltaEncodersToJointAngles(
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the DELTA joint angles (in [rad]) about axes
         0, 1, and 2.
 
@@ -1313,6 +1228,11 @@ def deltaEncodersToJointAngles(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
     """
 
     return _runtime._libdhd.dhdDeltaEncodersToJointAngles(
@@ -1333,12 +1253,6 @@ def deltaJointAnglesToEncoders(
     This routine computes and returns the DELTA encoder values for a given
     set of joint angles (in [rad]).
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
-
-
     :param Array[int, float] enc:
         Sequence of ``(j0, j1, j1)`` where ``j0``, ``j1``, and ``j2`` refer to
         DELTA joint angles (in [rad]) for axes 0, 1, and 2, respectively.
@@ -1346,7 +1260,7 @@ def deltaJointAnglesToEncoders(
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the DELTA encoder values.
 
     :raises ctypes.ArgumentError:
@@ -1364,6 +1278,11 @@ def deltaJointAnglesToEncoders(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdDeltaJointAnglesToEncoders(
@@ -1379,18 +1298,10 @@ def getWristJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     """
     Retrieve the joint angles (in [rad]) for the wrist structure.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.dhdWristJointAnglesToJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.dhdWristJointTorquesExtrema()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
-    :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the wrist joint angles.
 
     :raises AttributeError:
@@ -1409,6 +1320,13 @@ def getWristJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
         -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.dhdWristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.dhdWristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdGetWristJointAngles(*out.ptrs, ID)
@@ -1419,11 +1337,6 @@ def getWristJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
     Retrieve the 3x3 jacobian matrix for the wrist structure based on the
     current end-effector position. Please refer to your device user manual for
     more information on your device coordinate system.
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
-
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1443,6 +1356,10 @@ def getWristJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
         and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
     """
 
     return _runtime._libdhd.dhdGetWristJacobian(out.ptr, ID)
@@ -1457,12 +1374,6 @@ def wristJointAnglesToJacobian(
     Retrieve the 3x3 jacobian matrix for the wrist structure
     based on a given joint configuration. Please refer to your device user
     manual for more information on your device coordinate system.
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
-
 
     :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, and ``j2`` refer to
@@ -1495,6 +1406,11 @@ def wristJointAnglesToJacobian(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
     """
 
     return _runtime._libdhd.dhdWristJointAnglesToJacobian(
@@ -1517,25 +1433,15 @@ def wristJointTorquesExtrema(
     angle configuration. Please refer to your device user manual for more
     information on your device coordinate system.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
-
-
-
     :param Array[int, float] joint_angles:
         Sequence of ``(j0, j1, j2)`` where ``j0``, ``j1``, ``j2`` refer to the
         joint angles for wrist axes 0, 1, and 2, respectively.
 
-    :param SupportsPtrs3[c_double] minq_out:
+    :param SupportsPtrs3[ctypes.c_double] minq_out:
         An output buffer to store the minimum appliable DELTA joint torques
         about axes 0, 1, and 2 (in [Nm]).
 
-    :param SupportsPtrs3[c_double] maxq_out:
+    :param SupportsPtrs3[ctypes.c_double] maxq_out:
         An output buffer to store the maximum appliable DELTA joint torques
         about axes 0, 1, and 2 (in [Nm]).
 
@@ -1577,6 +1483,14 @@ def wristJointTorquesExtrema(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
 
     return _runtime._libdhd.dhdWristJointTorquesExtrema(
@@ -1610,18 +1524,11 @@ def wristEncodersToJointAngles(
     This routine computes and returns the wrist joint angles (in [rad])
     for a given set of encoder values.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
-
-
     :param Array[int, int] enc:
         Sequence of (enc0, enc1, enc2) where ``enc0``, ``enc1``, and ``enc2``
         refer to encoder values on wrist axes 0, 1, and 2, respectively.
 
-    :param SupportsPtrs3[c_double] out:
+    :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the joint angles (in [rad]) about wrist
         joint axes 0, 1, and 2.
 
@@ -1652,6 +1559,12 @@ def wristEncodersToJointAngles(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
 
     return _runtime._libdhd.dhdWristEncodersToJointAngles(
@@ -1667,12 +1580,6 @@ def wristJointAnglesToEncoders(
     """
     This routine computes and returns the wrist encoder values for a given
     set of wrist joint angles (in [rad]).
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
-
 
     :param Array[int, float] enc:
         Sequence of ``(j0, j1, j1)`` where ``j0``, ``j1``, and ``j2`` refer to
@@ -1709,6 +1616,11 @@ def wristJointAnglesToEncoders(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdWristJointAnglesToEncoders(
@@ -1724,21 +1636,6 @@ def getJointAngles(out: SupportsPtr[c_double], ID: int = -1) -> int:
     """
     Retrieve the joint angles (in [rad]) for all sensed degrees-of-freedom of
     the current device.
-
-    See Also
-    ---------
-    :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointTorquesExtrema()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
-    :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.jointAnglesToIntertiaMatrix()`
-    :func:`forcedimension_core.dhd.direct_expert.jointAnglesToGravityJointTorques()`
-    :func:`forcedimension_core.dhd.direct_expert.getJointVelocities()`
-
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1764,6 +1661,20 @@ def getJointAngles(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
         -1 otherwise.
+
+    See Also
+    ---------
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.jointAnglesToIntertiaMatrix()`
+    | :func:`forcedimension_core.dhd.direct_expert.jointAnglesToGravityJointTorques()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointVelocities()`
     """
 
     return _runtime._libdhd.dhdGetJointAngles(out.ptr, ID)
@@ -1773,13 +1684,6 @@ def getJointVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
     """
     Retrieve the joint angle velocities (in [rad/s]) for all sensed
     degrees-of-freedom of the current device.
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
-    :func:`forcedimension_core.dhd.direct_expert.getDeltaJacobian()`
-    :func:`forcedimension_core.dhd.direct_expert.getWristJacobian()`
-
 
     :param SupportsPtr[c_double] out:
         An output buffer to store the joint velocities (in [rad/s]) for all
@@ -1802,6 +1706,12 @@ def getJointVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :returns:
         0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
         -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.getWristJacobian()`
     """
 
     return _runtime._libdhd.dhdGetJointVelocities(out.ptr, ID)
@@ -1810,12 +1720,7 @@ def getJointVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
 def getEncVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
     """
     Retrieve the encoder angle velocities (in [inc/s]) for all sensed
-    degrees-of-freedom of the current device
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getEnc()`
-
+    degrees-of-freedom of the current device.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1841,6 +1746,10 @@ def getEncVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
     :returns:
        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
        -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getEnc()`
     """
 
     return _runtime._libdhd.dhdGetEncVelocities(out.ptr, ID)
@@ -1854,13 +1763,7 @@ def jointAnglesToIntertiaMatrix(
     """
     Retrieve the inertia matrix based on a given joint
     configuration. Please refer to your device user manual for more information
-
     on your device coordinate system.
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
-
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1892,6 +1795,10 @@ def jointAnglesToIntertiaMatrix(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
     """
 
     return _runtime._libdhd.dhdJointAnglesToInertiaMatrix(
@@ -1909,11 +1816,6 @@ def jointAnglesToGravityJointTorques(
     This function computes the joint torques (in [Nm]) required to provide
     gravity compensation on all actuated degrees-of-freedom of the current
     device for a given joint angles configuration (in [rad])
-
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
-
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1945,6 +1847,10 @@ def jointAnglesToGravityJointTorques(
 
     :returns:
         0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
     """
 
     return _runtime._libdhd.dhdJointAnglesToInertiaMatrix(

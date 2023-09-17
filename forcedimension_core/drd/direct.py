@@ -166,12 +166,6 @@ def moveTo(pos: SupportsPtr[c_double], block: bool, ID: int = -1):
     :func:`forcedimension_core.dhd.track()`. For more information see
     :ref:`regulation`.
 
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.moveToAllEnc()`
-
-
     :param SupportsPtr[c_double] pos:
         Buffer of target positions/orientations for each DOF.
         DOFs 0-2 correspond to position about the X, Y, and Z axes (in [m]).
@@ -197,6 +191,11 @@ def moveTo(pos: SupportsPtr[c_double], block: bool, ID: int = -1):
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.moveToAllEnc()`
+
     """
 
     return _runtime._libdrd.drdMoveTo(pos.ptr, block, ID)
@@ -216,12 +215,6 @@ def moveToAllEnc(enc: SupportsPtr[c_int], block: bool, ID: int = -1):
     the process of being executed. If you want to guaruntee continuity use
     :func:`forcedimension_core.dhd.trackAllEnc()`.
     For more information see :ref:`regulation`.
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.direct.moveTo()`
-
 
     :param SupportsPtr[c_int] enc:
         Target encoder positions.
@@ -244,6 +237,10 @@ def moveToAllEnc(enc: SupportsPtr[c_int], block: bool, ID: int = -1):
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.direct.moveTo()`
     """
     return _runtime._libdrd.drdMoveToAllEnc(enc.ptr, block, ID)
 
@@ -259,11 +256,6 @@ def track(pos: SupportsPtr[c_double], ID: int = -1):
     Note
     ----
     For more information see :ref:`regulation`.
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.direct.trackAllEnc()`
 
 
     :param SupportsPtr[c_double] pos:
@@ -287,6 +279,10 @@ def track(pos: SupportsPtr[c_double], ID: int = -1):
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.direct.trackAllEnc()`
     """
 
     return _runtime._libdrd.drdTrack(pos.ptr, ID)
@@ -308,11 +304,6 @@ def trackAllEnc(enc: SupportsPtr[c_int], ID: int = -1):
     For more information see :ref:`regulation`.
 
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.direct.track()`
-
-
     :param SupportsPtr[c_int] enc:
         Target encoder positions.
 
@@ -330,5 +321,9 @@ def trackAllEnc(enc: SupportsPtr[c_int], ID: int = -1):
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.direct.track()`
     """
     return _runtime._libdrd.drdTrackAllEnc(enc.ptr, ID)

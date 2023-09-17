@@ -39,15 +39,14 @@ def open() -> int:
     opened device. See the multiple device section for more information on
     using multiple devices on the same computer.
 
-    See Also
-    --------
-    :func:`forcedimension_core.dhd.openID()`
-    :func:`forcedimension_core.drd.close()`
-
-
     :returns: The device ID on success, -1 otherwise.
 
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.openID()`
+    | :func:`forcedimension_core.drd.close()`
     """
+
     return _runtime._libdrd.drdOpen()
 
 
@@ -66,12 +65,6 @@ def openID(ID: int) -> int:
     opened device. See the multiple device section for more information on
     using multiple devices on the same computer.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.open()`
-    :func:`forcedimension_core.drd.close()`
-
-
     :param int ID:
         The device enumeration index, as assigned by the underlying operating
         system (must be between 0 and the number of devices connected to the
@@ -81,6 +74,11 @@ def openID(ID: int) -> int:
         index is not convertible to a C int.
 
     :returns: The device ID on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.open()`
+    | :func:`forcedimension_core.drd.close()`
     """
 
     return _runtime._libdrd.drdOpenID(ID)
@@ -98,11 +96,6 @@ def setDevice(ID: int) -> int:
     address. Any subsequent API call that does not specifically mention the
     device ID in its parameter list will be sent to that device.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.getDeviceID()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -111,7 +104,12 @@ def setDevice(ID: int) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.getDeviceID()`
     """
+
     return _runtime._libdrd.drdSetDevice(ID)
 
 
@@ -123,14 +121,14 @@ def getDeviceID() -> int:
     """
     Return the ID of the current default device.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.setDevice()`
-
-
     :returns:
         The device ID on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.setDevice()`
     """
+
     return _runtime._libdrd.drdGetDeviceID()
 
 
@@ -216,11 +214,6 @@ def isFiltering(ID: int = -1) -> bool:
     :func:`forcedimension_core.drd.trackPos()` or
     :func:`forcedimension_core.drd.trackEnc()`.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.isMoving()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -228,6 +221,10 @@ def isFiltering(ID: int = -1) -> bool:
         If ``ID`` is not convertible to a C char.'
 
     :returns: ``True`` if the motion filter is enabled, ``False`` otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.isMoving()`
     """
 
     return _runtime._libdrd.drdIsMoving(ID)
@@ -244,11 +241,6 @@ def isInitialized(ID: int = -1) -> bool:
     The robot can be (re)initialized by calling
     :func:`forcedimension_core.drd.autoInit()`.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.checkInit()`.
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -256,6 +248,10 @@ def isInitialized(ID: int = -1) -> bool:
         If ``ID`` is not convertible to a C char.'
 
     :returns: ``True`` if the robot is initialized, ``False`` otherwise
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.checkInit()`.
     """
 
     return _runtime._libdrd.drdIsInitialized(ID)
@@ -274,11 +270,6 @@ def isMoving(ID: int = -1) -> bool:
     :func:`forcedimension_core.drd.trackEnc()`),
     as opposed to holding the target position after successfully reaching it.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.isFiltering()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -286,6 +277,10 @@ def isMoving(ID: int = -1) -> bool:
         If ``ID`` is not convertible to a C char.'
 
     :returns: ``True`` if the robot is moving, ``False`` otherwise
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.isFiltering()`
     """
 
     return _runtime._libdrd.drdIsMoving(ID)
@@ -301,13 +296,6 @@ def autoInit(ID: int = -1) -> int:
     moving to a known position and reseting encoder counters to their correct
     values.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.precisionInit()`
-    :func:`forcedimension_core.drd.checkInit()`
-    :func:`forcedimension_core.drd.isInitialized()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -316,6 +304,12 @@ def autoInit(ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.precisionInit()`
+    | :func:`forcedimension_core.drd.checkInit()`
+    | :func:`forcedimension_core.drd.isInitialized()`
     """
 
     return _runtime._libdrd.drdAutoInit(ID)
@@ -334,14 +328,6 @@ def checkInit(ID: int = -1) -> int:
     routine as :func:`forcedimension_core.drd.autoInit()` before running the endstop
     check.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.autoInit()`.
-    :func:`forcedimension_core.drd.precisionInit()`
-    :func:`forcedimension_core.drd.isInitialized()`
-
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -350,6 +336,12 @@ def checkInit(ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.autoInit()`.
+    | :func:`forcedimension_core.drd.precisionInit()`
+    | :func:`forcedimension_core.drd.isInitialized()`
     """
 
     return _runtime._libdrd.drdCheckInit(ID)
@@ -376,16 +368,14 @@ def precisionInit(ID: int = -1) -> int:
     :func:`forcedimension_core.drd.checkInit()` is not necessary if this
     function succeeds.
 
+    :returns:
+        0 on success, -1 otherwise
 
     See Also
     --------
-    :func:`forcedimension_core.drd.autoInit()`.
-    :func:`forcedimension_core.drd.precisionInit()`
-    :func:`forcedimension_core.drd.isInitialized()`
-
-
-    :returns:
-        0 on success, -1 otherwise
+    | :func:`forcedimension_core.drd.autoInit()`.
+    | :func:`forcedimension_core.drd.precisionInit()`
+    | :func:`forcedimension_core.drd.isInitialized()`
     """
 
     return _runtime._libdrd.drdPrecisionInit(ID)
@@ -438,15 +428,6 @@ def start(ID: int = -1) -> int:
     The robot must be initialized before this function can be called
     successfully.
 
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.autoInit()`
-    :func:`forcedimension_core.drd.precisionInit()`
-    :func:`forcedimension_core.drd.checkInit()`
-    :func:`forcedimension_core.drd.stop()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -455,6 +436,13 @@ def start(ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.autoInit()`
+    | :func:`forcedimension_core.drd.precisionInit()`
+    | :func:`forcedimension_core.drd.checkInit()`
+    | :func:`forcedimension_core.drd.stop()`
     """
 
     return _runtime._libdrd.drdStart(ID)
@@ -598,7 +586,7 @@ def setForceAndTorqueAndGripperForce(
     :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
     this function returns immediately. The function sets an internal buffer
     for the robotic control loop to send out to the device. For more
-    information about regulation see :ref:`regulation`.
+    information about regulation see the :ref:`regulation` section.
 
 
     :param VectorLike f:
@@ -692,7 +680,7 @@ def setForceAndWristJointTorquesAndGripperForce(
     Unlike :func:`forcedimension_core.dhd.setForceAndTorqueAndGripperForce()`
     this function returns immediately. The function sets an internal buffer
     for the robotic control loop to send out to the device. For more
-    information about regulation see :ref:`regulation`.
+    information about regulation see the :ref:`regulation` section.
 
 
     :param Array[int, float] f:
@@ -781,7 +769,7 @@ def getPositionAndOrientation(
     Unlike :func:`forcedimension_core.dhd.getPositionAndOrientation()`, this
     function returns immediately. It loads from an internal buffer that is
     refreshed by the robotic control loop. For more
-    information about regulation see :ref:`regulation`.
+    information about regulation see the :ref:`regulation` section.
 
 
     :param VectorLike p_out:
@@ -892,7 +880,7 @@ def getVelocity(
     :func:`forcedimension_core.dhd.getAngularVelocityDeg()` this
     function returns immediately. It loads from an internal buffer that is
     refreshed by the robotic control loop. For more
-    information about regulation see :ref:`regulation`.
+    information about regulation see the :ref:`regulation` section.
 
 
     :param int ID:
@@ -993,12 +981,6 @@ def moveToPos(pos: Array[int, float], block: bool, ID: int = -1):
     :func:`forcedimension_core.dhd.trackPos()`. For more information see
     :ref:`regulation`.
 
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.moveTo()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1016,7 +998,11 @@ def moveToPos(pos: Array[int, float], block: bool, ID: int = -1):
     :returns:
         0 on success, and -1 otherwise.
 
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.moveTo()`
     """
+
     return _runtime._libdrd.drdMoveToPos(pos[0], pos[1], pos[2], block, ID)
 
 
@@ -1038,12 +1024,6 @@ def moveToRot(orientation: Array[int, float], block: bool, ID: int = -1):
     the process of being executed. if you want to guaruntee continuity use
     :func:`forcedimension_core.dhd.trackRot()`
 
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.moveTo()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1062,7 +1042,11 @@ def moveToRot(orientation: Array[int, float], block: bool, ID: int = -1):
     :returns:
         0 on success, and -1 otherwise.
 
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.moveTo()`
     """
+
     return _runtime._libdrd.drdMoveToRot(
         orientation[0], orientation[1], orientation[2], block, ID
     )
@@ -1087,12 +1071,6 @@ def moveToGrip(pg: float, block: bool, ID: int = -1):
     :func:`forcedimension_core.dhd.trackGrip()`. For more information see
     :ref:`regulation`.
 
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.moveTo()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1109,7 +1087,11 @@ def moveToGrip(pg: float, block: bool, ID: int = -1):
     :returns:
         0 on success, and -1 otherwise.
 
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.moveTo()`
     """
+
     return _runtime._libdrd.drdMoveToGrip(pg, block, ID)
 
 
@@ -1131,11 +1113,6 @@ def moveTo(pos: Array[int, float], block: bool, ID: int = -1):
     the process of being executed. If you want to guaruntee continuity use
     :func:`forcedimension_core.dhd.track()`. For more information see
     :ref:`regulation`.
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.moveToAllEnc()`
 
 
     :param float pos:
@@ -1166,6 +1143,10 @@ def moveTo(pos: Array[int, float], block: bool, ID: int = -1):
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.moveToAllEnc()`
     """
 
     pos_arr = (c_double * 8)(
@@ -1205,13 +1186,6 @@ def moveToEnc(enc: Array[int, int], block: bool, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.trackEnc()`. For more information see
     :ref:`regulation`.
 
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.moveToAllEnc()`
-    :func:`forcedimension_core.drd.moveTo()`
-
-
     :param int enc:
         A vector of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` are the target encoder position on axis 0, 1, and 2.
@@ -1240,6 +1214,11 @@ def moveToEnc(enc: Array[int, int], block: bool, ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.moveToAllEnc()`
+    | :func:`forcedimension_core.drd.moveTo()`
     """
 
     return _runtime._libdrd.drdMoveToEnc(enc[0], enc[1], enc[2], block, ID)
@@ -1255,11 +1234,6 @@ def moveToAllEnc(enc: Array[int, int], block: bool, ID: int = -1):
     follows a straight line in the encoder space, with smooth
     acceleration/deceleration. The acceleration and velocity profiles can be
     controlled by adjusting the trajectory generation parameters.
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.moveToEnc()`
-    :func:`forcedimension_core.drd.moveTo()`
 
     :param int enc:
         Target encoder positions.
@@ -1288,6 +1262,11 @@ def moveToAllEnc(enc: Array[int, int], block: bool, ID: int = -1):
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.moveToEnc()`
+    | :func:`forcedimension_core.drd.moveTo()`
     """
 
     enc_arr = (c_int * MAX_DOF)(
@@ -1316,11 +1295,6 @@ def hold(ID: int = -1) -> int:
     Immediately make the robot hold its current position. All motion commands
     are abandoned.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.lock()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1330,6 +1304,9 @@ def hold(ID: int = -1) -> int:
     :returns:
         0 on success, and -1 otherwise.
 
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.lock()`
     """
 
     return _runtime._libdrd.drdHold(ID)
@@ -1354,12 +1331,6 @@ def lock(mask: int, init: bool, ID: int = -1) -> int:
     If the device has just been parked, it is recommended to call
     :func:`forcedimension_core.drd.stop()` to disable regulation.
 
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.hold()`
-
-
     This function only applies to devices equipped with mechanical locks, and
     will return an error when called on other devices.
 
@@ -1378,6 +1349,9 @@ def lock(mask: int, init: bool, ID: int = -1) -> int:
     :returns:
         0 on success, and -1 otherwise.
 
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.hold()`
     """
 
     return _runtime._libdrd.drdLock(mask, init, ID)
@@ -1391,11 +1365,6 @@ def stop(ID: int = -1) -> int:
     """
     Stop the robotic control loop for the given robot.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.start()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1404,6 +1373,10 @@ def stop(ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.start()`
     """
 
     return _runtime._libdrd.drdStop(ID)
@@ -1419,11 +1392,6 @@ def getPriorities(ID: int = -1) -> Tuple[int, int, int]:
     thread and the calling thread. Thread priority is system dependent, as
     described in thread priorities.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.setPriorities()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1432,7 +1400,12 @@ def getPriorities(ID: int = -1) -> Tuple[int, int, int]:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.setPriorities()`
     """
+
     prio = c_int()
     ctrlprio = c_int()
 
@@ -1458,11 +1431,6 @@ def setPriorities(prio: int, ctrlprio: int, ID: int = -1) -> int:
     ``prio`` is always applied to the calling thread, even when the call
     returns an error.
 
-    See Also
-    --------
-    :func:`forcedimension_core.drd.setPriorities()`
-
-
     :param int prio:
         Calling thread priority level (value is system dependent)
 
@@ -1483,6 +1451,10 @@ def setPriorities(prio: int, ctrlprio: int, ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.setPriorities()`
     """
 
     return _runtime._libdrd.drdSetPriorities(prio, ctrlprio, ID)
@@ -1497,11 +1469,6 @@ def getEncPGain(gain: float, ID: int = -1) -> int:
     Set the P term of the PID controller that regulates the base joint
     positions. In practice, this affects the stiffness of the regulation.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setEncPGain()`
-
-
     :param float gain: P parameter of the PID regulator
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1514,6 +1481,10 @@ def getEncPGain(gain: float, ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setEncPGain()`
     """
 
     return _runtime._libdrd.drdSetEncPGain(gain, ID)
@@ -1528,11 +1499,6 @@ def setEncPGain(ID: int = -1) -> int:
     Retrieve the P term of the PID controller that regulates the base joint
     positions.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getEncPGain()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1542,6 +1508,10 @@ def setEncPGain(ID: int = -1) -> int:
     :returns:
         The P term of the PID controller that regulates the base joint
         positions.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getEncPGain()`
     """
 
     return _runtime._libdrd.drdGetEncPGain(ID)
@@ -1555,11 +1525,6 @@ def setEncIGain(gain: float, ID: int = -1) -> int:
     """
     Set the I term of the PID controller that regulates the base joint
     positions. In practice, this affects the precision of the regulation.
-
-    See Also
-    --------
-    :func:`forcedimension_core.getEncIGain()`
-
 
     :param float gain:
         I parameter of the PID regulator.
@@ -1575,6 +1540,10 @@ def setEncIGain(gain: float, ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getEncIGain()`
     """
 
     return _runtime._libdrd.drdSetEncIGain(gain, ID)
@@ -1589,11 +1558,6 @@ def getEncIGain(ID: int = -1) -> int:
     Retrieve the P term of the PID controller that regulates the base joint
     positions.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setEncIGain()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1603,6 +1567,10 @@ def getEncIGain(ID: int = -1) -> int:
     :returns:
         The I term of the PID controller that regulates the base joint
         positions.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setEncIGain()`
     """
 
     return _runtime._libdrd.drdGetEncIGain(ID)
@@ -1616,11 +1584,6 @@ def setEncDGain(gain: float, ID: int = -1) -> int:
     """
     Set the D term of the PID controller that regulates the base joint
     positions. In practice, this affects the velocity of the regulation.
-
-    See Also
-    --------
-    :func:`forcedimension_core.getEncDGain()`
-
 
     :param float gain:
         D parameter of the PID regulator.
@@ -1636,6 +1599,10 @@ def setEncDGain(gain: float, ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getEncDGain()`
     """
 
     return _runtime._libdrd.drdSetEncDGain(gain, ID)
@@ -1650,11 +1617,6 @@ def getEncDGain(ID: int = -1) -> int:
     Retrieve the D term of the PID controller that regulates the base joint
     positions.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setEncDGain()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1664,6 +1626,10 @@ def getEncDGain(ID: int = -1) -> int:
     :returns:
         The D term of the PID controller that regulates the base joint
         positions.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setEncDGain()`
     """
 
     return _runtime._libdrd.drdGetEncDGain(ID)
@@ -1767,12 +1733,7 @@ def track(pos: Array[int, float], ID: int = -1):
 
     Note
     ----
-    For more information see :ref:`regulation`.
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.trackAllEnc()`
+    For more information see the :ref:`regulation` section.
 
 
     :param float pos:
@@ -1799,6 +1760,10 @@ def track(pos: Array[int, float], ID: int = -1):
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.trackAllEnc()`
     """
 
     pos_arr = (c_double * 8)(
@@ -1828,13 +1793,7 @@ def trackEnc(enc: Array[int, int], ID: int = -1) -> int:
 
     Note
     ----
-    For more information see :ref:`regulation`.
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.trackAllEnc()`
-    :func:`forcedimension_core.drd.track()`
+    For more information see the :ref:`regulation` section.
 
 
     :param int enc:
@@ -1861,6 +1820,11 @@ def trackEnc(enc: Array[int, int], ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.trackAllEnc()`
+    | :func:`forcedimension_core.drd.track()`
     """
 
     return _runtime._libdrd.drdTrackEnc(enc[0], enc[1], enc[2], ID)
@@ -1879,13 +1843,7 @@ def trackAllEnc(enc: Array[int, int], ID: int = -1):
 
     Note
     ----
-    For more information see :ref:`regulation`.
-
-
-    See Also
-    --------
-    :func:`forcedimension_core.drd.trackAllEnc()`
-    :func:`forcedimension_core.drd.track()`
+    For more information see the :ref:`regulation` section.
 
 
     :param int enc:
@@ -1911,6 +1869,11 @@ def trackAllEnc(enc: Array[int, int], ID: int = -1):
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.drd.trackAllEnc()`
+    | :func:`forcedimension_core.drd.track()`
     """
 
     enc_arr = (c_int * MAX_DOF)(
@@ -1939,11 +1902,6 @@ def setMotRatioMax(scale: float, ID: int = -1) -> int:
     making it potentially safer to operate in environments where humans or
     delicate obstacles are present.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getMotRatioMax()`
-
-
     :param float scale:
         The joint torque scaling factor (must be between ``0.0`` and ``1.0``).
 
@@ -1958,6 +1916,10 @@ def setMotRatioMax(scale: float, ID: int = -1) -> int:
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getMotRatioMax()`
     """
 
     return _runtime._libdrd.drdSetMotRatioMax(scale, ID)
@@ -1972,11 +1934,6 @@ def getMotRatioMax(ID: int = -1) -> float:
     Retrieve the maximum joint torque applied to all regulated joints expressed
     as a fraction of the maximum torque available for each joint.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setMotRatioMax()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -1985,6 +1942,10 @@ def getMotRatioMax(ID: int = -1) -> float:
 
     :returns:
         The maximum joint torque ratio (between ``0.0`` and ``1.0``)
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setMotRatioMax()`
     """
 
     return _runtime._libdrd.drdGetMotRatioMax(ID)
@@ -2002,13 +1963,6 @@ def setEncMoveParam(
     """
     Sets the encoder positioning trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getEncTrackParam()`
-    :func:`forcedimension_core.getEncMoveParam()`
-    :func:`forcedimension_core.setEncTrackParam()`
-
-
     :param float vmax:
         max velocity (in [m/s])
 
@@ -2035,6 +1989,12 @@ def setEncMoveParam(
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getEncTrackParam()`
+    | :func:`forcedimension_core.getEncMoveParam()`
+    | :func:`forcedimension_core.setEncTrackParam()`
     """
 
     return _runtime._libdrd.drdSetEncMoveParam(amax, vmax, jerk, ID)
@@ -2052,13 +2012,6 @@ def setEncTrackParam(
     """
     Sets the encoder tracking trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getEncTrackParam()`
-    :func:`forcedimension_core.getEncMoveParam()`
-    :func:`forcedimension_core.setEncMoveParam()`
-
-
     :param float vmax:
         max velocity (in [m/s])
 
@@ -2085,6 +2038,12 @@ def setEncTrackParam(
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getEncTrackParam()`
+    | :func:`forcedimension_core.getEncMoveParam()`
+    | :func:`forcedimension_core.setEncMoveParam()`
     """
 
     return _runtime._libdrd.drdSetEncTrackParam(amax, vmax, jerk, ID)
@@ -2100,13 +2059,6 @@ def setPosMoveParam(
     """
     Sets the cartesian positioning trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getPosTrackParam()`
-    :func:`forcedimension_core.getPosMoveParam()`
-    :func:`forcedimension_core.setPosTrackParam()`
-
-
     :param float vmax:
         max velocity (in [m/s])
 
@@ -2120,7 +2072,7 @@ def setPosMoveParam(
         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
-        If ``ID`` is not convertible to a C char.'
+        If ``ID`` is not convertible to a C char.
 
     :raises ctypes.ArgumentError:
         If ``vmax`` is not convertible to a C int.
@@ -2133,7 +2085,14 @@ def setPosMoveParam(
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getPosTrackParam()`
+    | :func:`forcedimension_core.getPosMoveParam()`
+    | :func:`forcedimension_core.setPosTrackParam()`
     """
+
 
     return _runtime._libdrd.drdSetPosMoveParam(amax, vmax, jerk, ID)
 
@@ -2148,12 +2107,6 @@ def setPosTrackParam(
     """
     Sets the cartesian tracking trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getPosTrackParam()`
-    :func:`forcedimension_core.getPosMoveParam()`
-    :func:`forcedimension_core.setPosMoveParam()`
-
     :param float vmax:
         max velocity (in [m/s])
 
@@ -2180,6 +2133,12 @@ def setPosTrackParam(
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getPosTrackParam()`
+    | :func:`forcedimension_core.getPosMoveParam()`
+    | :func:`forcedimension_core.setPosMoveParam()`
     """
 
     return _runtime._libdrd.drdSetPosTrackParam(amax, vmax, jerk, ID)
@@ -2195,13 +2154,6 @@ def setRotMoveParam(
     """
     Sets the cartesian rotation trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getRotTrackParam()`
-    :func:`forcedimension_core.getRotMoveParam()`
-    :func:`forcedimension_core.setRotTrackParam()`
-
-
     :param float vmax:
         max velocity (in [m/s])
 
@@ -2228,6 +2180,12 @@ def setRotMoveParam(
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getRotTrackParam()`
+    | :func:`forcedimension_core.getRotMoveParam()`
+    | :func:`forcedimension_core.setRotTrackParam()`
     """
 
     return _runtime._libdrd.drdSetRotMoveParam(amax, vmax, jerk, ID)
@@ -2243,12 +2201,6 @@ def setRotTrackParam(
     """
     Sets the cartesian rotation tracking trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getRotTrackParam()`
-    :func:`forcedimension_core.getRotMoveParam()`
-    :func:`forcedimension_core.setRotMoveParam()`
-
     :param float vmax:
         max velocity (in [m/s])
 
@@ -2275,6 +2227,12 @@ def setRotTrackParam(
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getRotTrackParam()`
+    | :func:`forcedimension_core.getRotMoveParam()`
+    | :func:`forcedimension_core.setRotMoveParam()`
     """
 
     return _runtime._libdrd.drdSetRotTrackParam(amax, vmax, jerk, ID)
@@ -2290,13 +2248,6 @@ def setGripMoveParam(
     """
     Sets the gripper trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getGripTrackParam()`
-    :func:`forcedimension_core.getGripMoveParam()`
-    :func:`forcedimension_core.setGripTrackParam()`
-
-
     :param float vmax:
         max velocity (in [m/s])
 
@@ -2323,6 +2274,12 @@ def setGripMoveParam(
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getGripTrackParam()`
+    | :func:`forcedimension_core.getGripMoveParam()`
+    | :func:`forcedimension_core.setGripTrackParam()`
     """
 
     return _runtime._libdrd.drdSetGripMoveParam(amax, vmax, jerk, ID)
@@ -2338,13 +2295,6 @@ def setGripTrackParam(
     """
     Sets the gripper trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.getGripTrackParam()`
-    :func:`forcedimension_core.getGripMoveParam()`
-    :func:`forcedimension_core.setGripMoveParam()`
-
-
     :param float vmax:
         max velocity (in [m/s])
 
@@ -2371,6 +2321,12 @@ def setGripTrackParam(
 
     :returns:
         0 on success, and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.getGripTrackParam()`
+    | :func:`forcedimension_core.getGripMoveParam()`
+    | :func:`forcedimension_core.setGripMoveParam()`
     """
 
     return _runtime._libdrd.drdSetGripTrackParam(amax, vmax, jerk, ID)
@@ -2386,13 +2342,6 @@ def getEncMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     """
     Retrieve encoder positioning trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setEncMoveParam()`
-    :func:`forcedimension_core.setEncTrackParam()`
-    :func:`forcedimension_core.getEncTrackParam()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -2403,6 +2352,12 @@ def getEncMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setEncMoveParam()`
+    | :func:`forcedimension_core.setEncTrackParam()`
+    | :func:`forcedimension_core.getEncTrackParam()`
     """
     a_max = c_double()
     v_max = c_double()
@@ -2423,13 +2378,6 @@ def getEncTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     """
     Retrieve encoder tracking trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setEncMoveParam()`
-    :func:`forcedimension_core.setEncTrackParam()`
-    :func:`forcedimension_core.getEncMoveParam()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -2440,6 +2388,12 @@ def getEncTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setEncMoveParam()`
+    | :func:`forcedimension_core.setEncTrackParam()`
+    | :func:`forcedimension_core.getEncMoveParam()`
     """
 
     amax = c_double()
@@ -2461,13 +2415,6 @@ def getPosMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     """
     Retrieve cartesian positioning trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setPosMoveParam()`
-    :func:`forcedimension_core.setPosTrackParam()`
-    :func:`forcedimension_core.getPosTrackParam()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -2478,7 +2425,14 @@ def getPosMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setPosMoveParam()`
+    | :func:`forcedimension_core.setPosTrackParam()`
+    | :func:`forcedimension_core.getPosTrackParam()`
     """
+
     amax = c_double()
     vmax = c_double()
     jerk = c_double()
@@ -2498,13 +2452,6 @@ def getPosTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     """
     Retrieve cartesian tracking trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setPosMoveParam()`
-    :func:`forcedimension_core.setPosTrackParam()`
-    :func:`forcedimension_core.getPosMoveParam()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -2515,7 +2462,14 @@ def getPosTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setPosMoveParam()`
+    | :func:`forcedimension_core.setPosTrackParam()`
+    | :func:`forcedimension_core.getPosMoveParam()`
     """
+
     amax = c_double()
     vmax = c_double()
     jerk = c_double()
@@ -2535,13 +2489,6 @@ def getRotMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     """
     Retrieve cartesian positioning trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setRotMoveParam()`
-    :func:`forcedimension_core.setRotTrackParam()`
-    :func:`forcedimension_core.getRotTrackParam()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -2552,7 +2499,14 @@ def getRotMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setRotMoveParam()`
+    | :func:`forcedimension_core.setRotTrackParam()`
+    | :func:`forcedimension_core.getRotTrackParam()`
     """
+
     amax = c_double()
     vmax = c_double()
     jerk = c_double()
@@ -2572,13 +2526,6 @@ def getRotTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     """
     Retrieve cartesian tracking trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setRotMoveParam()`
-    :func:`forcedimension_core.setRotTrackParam()`
-    :func:`forcedimension_core.getRotMoveParam()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -2589,7 +2536,14 @@ def getRotTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setRotMoveParam()`
+    | :func:`forcedimension_core.setRotTrackParam()`
+    | :func:`forcedimension_core.getRotMoveParam()`
     """
+
     amax = c_double()
     vmax = c_double()
     jerk = c_double()
@@ -2609,13 +2563,6 @@ def getGripMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     """
     Retrieve cartesian positioning trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setGripMoveParam()`
-    :func:`forcedimension_core.setGripTrackParam()`
-    :func:`forcedimension_core.getGripTrackParam()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -2626,7 +2573,14 @@ def getGripMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setGripMoveParam()`
+    | :func:`forcedimension_core.setGripTrackParam()`
+    | :func:`forcedimension_core.getGripTrackParam()`
     """
+
     amax = c_double()
     vmax = c_double()
     jerk = c_double()
@@ -2646,13 +2600,6 @@ def getGripTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
     """
     Retrieve cartesian tracking trajectory generation parameters.
 
-    See Also
-    --------
-    :func:`forcedimension_core.setGripMoveParam()`
-    :func:`forcedimension_core.setGripTrackParam()`
-    :func:`forcedimension_core.getGripMoveParam()`
-
-
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
@@ -2663,7 +2610,14 @@ def getGripTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.setGripMoveParam()`
+    | :func:`forcedimension_core.setGripTrackParam()`
+    | :func:`forcedimension_core.getGripMoveParam()`
     """
+
     amax = c_double()
     vmax = c_double()
     jerk = c_double()
