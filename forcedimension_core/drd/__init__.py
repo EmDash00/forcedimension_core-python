@@ -1350,6 +1350,7 @@ def lock(enable: bool, init: bool, ID: int = -1) -> int:
     position after unlocking), :func:`forcedimension_core.drd.stop()` should be
     called to disable regulation.
 
+
     :param bool mask:
         ``True`` to engage the locks, ``False`` to disable the locks.
 
