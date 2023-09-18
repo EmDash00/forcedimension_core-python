@@ -7,7 +7,7 @@ MAX_BUTTONS: Final[int] = 16  #: Maximum number of buttons a device can have
 VELOCITY_WINDOWING: Final[int] = 0  #: Velocity Windowing Mode
 DEFAULT_VELOCITY_WINDOW: Final[int] = 20   #: Default velocity window size
 
-MAX_STATUS: Final[int] = 16  #: Maximum number of elements in a status tuple
+MAX_STATUS: Final[int] = 17  #: Maximum number of elements in a status tuple
 
 #: Return value used when the TimeGuard feature prevented an unnecessary
 #: communication with the device.
