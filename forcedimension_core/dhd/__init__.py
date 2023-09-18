@@ -19,7 +19,7 @@ from forcedimension_core.dhd.constants import (
     ErrorNum,
 )
 
-from . import expert, os_independent
+from . import expert, os_independent, deprecated
 
 
 _runtime._libdhd.dhdErrorGetLast.argtypes = []
