@@ -1492,7 +1492,7 @@ _runtime._libdrd.drdSetEncPGain.argtypes = [c_double, c_byte]
 _runtime._libdrd.drdSetEncPGain.restype = c_int
 
 
-def getEncPGain(gain: float, ID: int = -1) -> int:
+def setEncPGain(gain: float, ID: int = -1) -> int:
     """
     Set the P term of the PID controller that regulates the base joint
     positions. In practice, this affects the stiffness of the regulation.
@@ -1522,7 +1522,7 @@ _runtime._libdrd.drdGetEncPGain.argtypes = [c_byte]
 _runtime._libdrd.drdGetEncPGain.restype = c_double
 
 
-def setEncPGain(ID: int = -1) -> int:
+def getEncPGain(ID: int = -1) -> int:
     """
     Retrieve the P term of the PID controller that regulates the base joint
     positions.
