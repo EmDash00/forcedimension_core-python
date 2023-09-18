@@ -1189,6 +1189,7 @@ def moveToEnc(enc: Array[int, int], block: bool, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.trackEnc()`. For more information see
     :ref:`regulation`.
 
+
     :param int enc:
         A vector of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
         ``enc2`` are the target encoder position on axis 0, 1, and 2.
