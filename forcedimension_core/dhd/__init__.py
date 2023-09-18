@@ -12,21 +12,11 @@ from forcedimension_core.typing import (
 )
 
 from forcedimension_core.dhd.constants import (
-    MAX_BUTTONS,
-    MAX_DOF,
-    MAX_STATUS,
-    MOTOR_SATURATED,
-    DEFAULT_TIMEGUARD_US,
-    TIMEGUARD,
     DEFAULT_VELOCITY_WINDOW,
     VelocityEstimatorMode,
     ComMode,
-    DELTA_IDX,
     DeviceType,
     ErrorNum,
-    StatusIndex,
-    ThreadPriority,
-    WRIST_IDX
 )
 
 from . import expert, os_independent
