@@ -2,7 +2,7 @@ from enum import IntEnum
 from typing import Final, Literal, Tuple
 
 MAX_DOF: Final[int] = 8   #: Maximum number of DOF a device can have
-MAX_BUTTONS: Final[int] = 16  #: Maximum number of buttons a device can have
+MAX_BUTTONS: Final[int] = 32  #: Maximum number of buttons a device can have
 
 VELOCITY_WINDOWING: Final[int] = 0  #: Velocity Windowing Mode
 DEFAULT_VELOCITY_WINDOW: Final[int] = 20   #: Default velocity window size
