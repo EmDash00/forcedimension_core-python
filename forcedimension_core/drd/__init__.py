@@ -428,6 +428,7 @@ def start(ID: int = -1) -> int:
     The robot must be initialized before this function can be called
     successfully.
 
+
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
