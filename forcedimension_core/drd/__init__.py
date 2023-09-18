@@ -1440,6 +1440,7 @@ def setPriorities(prio: int, ctrlprio: int, ID: int = -1) -> int:
     ``prio`` is always applied to the calling thread, even when the call
     returns an error.
 
+
     :param int prio:
         Calling thread priority level (value is system dependent)
 
