@@ -1351,7 +1351,7 @@ def lock(enable: bool, init: bool, ID: int = -1) -> int:
     called to disable regulation.
 
 
-    :param bool mask:
+    :param bool enable:
         ``True`` to engage the locks, ``False`` to disable the locks.
 
     :param bool init:
@@ -1362,7 +1362,7 @@ def lock(enable: bool, init: bool, ID: int = -1) -> int:
         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
-        If ``mask`` is not convertible to a C bool.
+        If ``enable`` is not convertible to a C bool.
 
     :raises ctypes.ArgumentError:
         If ``init`` is not convertible to a C bool.
