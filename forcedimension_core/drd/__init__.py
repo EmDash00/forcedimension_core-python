@@ -62,8 +62,8 @@ def openID(ID: int) -> int:
     ID is returned.
 
     If this call is successful, the default device ID is set to the newly
-    opened device. See the multiple device section for more information on
-    using multiple devices on the same computer.
+    opened device. See the :ref:`multiple_devices` section for more
+    information.
 
     :param int ID:
         The device enumeration index, as assigned by the underlying operating
@@ -1636,7 +1636,7 @@ def setEncDGain(gain: float, ID: int = -1) -> int:
     return _runtime._libdrd.drdSetEncDGain(gain, ID)
 
 
-_runtime._libdrd.drdGetEncDGain.argtypes = [c_int]
+_runtime._libdrd.drdGetEncDGain.argtypes = [c_byte]
 _runtime._libdrd.drdGetEncDGain.restype = c_double
 
 
