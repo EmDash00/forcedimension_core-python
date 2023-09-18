@@ -2766,7 +2766,7 @@ def getForceAndTorqueAndGripperForce(
 
 def configLinearVelocity(
     ms: int = DEFAULT_VELOCITY_WINDOW,
-    mode: int = VelocityEstimatorMode.WINDOWING,
+    mode: VelocityEstimatorMode = VelocityEstimatorMode.WINDOWING,
     ID: int = -1
 ) -> int:
     """
@@ -2777,9 +2777,8 @@ def configLinearVelocity(
     :param int ms:
         Time interval used to compute velocity (in [ms]).
 
-    :param int mode:
-        Velocity estimator mode (see [velocity estimator] modes section for
-        details).
+    :param VelocityEstimator mode:
+        Velocity estimator mode to use.
 
     :param int ID:
          Device ID (see :ref:`multiple_devices` section for details).
@@ -2871,7 +2870,7 @@ def getLinearVelocity(out: MutableArray[int, float], ID: int = -1) -> int:
 
 def configAngularVelocity(
     ms: int = DEFAULT_VELOCITY_WINDOW,
-    mode: int = VelocityEstimatorMode.WINDOWING,
+    mode: VelocityEstimatorMode = VelocityEstimatorMode.WINDOWING,
     ID: int = -1
 
 ) -> int:
@@ -2880,13 +2879,11 @@ def configAngularVelocity(
     This only applies to the device wrist.
     For more information refer to :ref:`velocity_estimator`.
 
-
     :param int ms:
-        time interval used to compute velocity (in [ms]).
+        Time interval used to compute velocity (in [ms]).
 
-    :param int mode:
-        velocity estimator mode (see [velocity estimator] modes section for
-        details).
+    :param VelocityEstimator mode:
+        Velocity estimator mode to use.
 
     :param int ID:
          Device ID (see :ref:`multiple_devices` section for details).
@@ -3047,8 +3044,8 @@ _runtime._libdhd.dhdConfigGripperVelocity.restype = c_int
 
 
 def configGripperVelocity(
-    ms: int,
-    mode: int,
+    ms: int = DEFAULT_VELOCITY_WINDOW,
+    mode: VelocityEstimatorMode = VelocityEstimatorMode.WINDOWING,
     ID: int = -1
 ) -> int:
     """
@@ -3057,11 +3054,10 @@ def configGripperVelocity(
     :ref:`velocity_estimator`.
 
     :param int ms:
-        time interval used to compute velocity (in [ms]).
+        Time interval used to compute velocity (in [ms]).
 
-    :param int mode:
-        velocity estimator mode (see [velocity estimator] modes section for
-        details).
+   :param VelocityEstimator mode:
+        Velocity estimator mode to use.
 
     :param int ID:
          Device ID (see :ref:`multiple_devices` section for details).
