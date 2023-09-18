@@ -50,7 +50,7 @@ def open() -> int:
     return _runtime._libdrd.drdOpen()
 
 
-_runtime._libdrd.drdOpenID.argtypes = [c_int]
+_runtime._libdrd.drdOpenID.argtypes = [c_byte]
 _runtime._libdrd.drdOpenID.restype = c_int
 
 
@@ -71,7 +71,7 @@ def openID(ID: int) -> int:
         system)
 
     :raises ctypes.ArgumentError:
-        index is not convertible to a C int.
+        If ``ID`` is not implicitly convertible to a C byte.
 
     :returns: The device ID on success, -1 otherwise.
 
