@@ -1320,11 +1320,11 @@ def hold(ID: int = -1) -> int:
     return _runtime._libdrd.drdHold(ID)
 
 
-_runtime._libdrd.drdLock.argtypes = [c_ubyte, c_bool, c_byte]
+_runtime._libdrd.drdLock.argtypes = [c_bool, c_bool, c_byte]
 _runtime._libdrd.drdLock.restype = c_int
 
 
-def lock(mask: int, init: bool, ID: int = -1) -> int:
+def lock(enable: bool, init: bool, ID: int = -1) -> int:
     """
     Depending on the value of the mask parameter, either:
 
@@ -1335,21 +1335,36 @@ def lock(mask: int, init: bool, ID: int = -1) -> int:
 
     Note
     ----
-    If the device has just been parked, it is recommended to call
-    :func:`forcedimension_core.drd.stop()` to disable regulation.
+    This function only applies to devices equipped with mechanical locks,
+    and will return an error when called on other devices.
 
 
-    This function only applies to devices equipped with mechanical locks, and
-    will return an error when called on other devices.
+    Note
+    ----
+    It is recommended to set the ``init`` argument to ``True`` when engaging
+    the lock.
+
+    When this funnction returns, the robotic regulation is running and the
+    device is held in its current position (locked or unlocked). Unless,
+    the device is to be used in robotic mode (e.g. to move to a desired
+    position after unlocking), :func:`forcedimension_core.drd.stop()` should be
+    called to disable regulation.
+
+    :param bool mask:
+        ``True`` to engage the locks, ``False`` to disable the locks.
+
+    :param bool init:
+        If ``True``, then the device will auto-initialize before the locks are
+        engaged or after the locks are disengaged.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
-        If ``mask`` is not convertible to a C unsigned char.
+        If ``mask`` is not convertible to a C bool.
 
     :raises ctypes.ArgumentError:
-        If ``init`` is not convertible to a C unsigned char.
+        If ``init`` is not convertible to a C bool.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1361,9 +1376,10 @@ def lock(mask: int, init: bool, ID: int = -1) -> int:
     See Also
     --------
     | :func:`forcedimension_core.drd.hold()`
+    | :func:`forcedimension_core.drd.autoInit()`
     """
 
-    return _runtime._libdrd.drdLock(mask, init, ID)
+    return _runtime._libdrd.drdLock(enable, init, ID)
 
 
 _runtime._libdrd.drdStop.argtypes = [c_byte]
