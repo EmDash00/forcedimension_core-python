@@ -1329,11 +1329,11 @@ def lock(mask: int, init: bool, ID: int = -1) -> int:
 
     Upon success, the robotic regulation is running when the function returns.
 
-
     Note
     ----
     If the device has just been parked, it is recommended to call
     :func:`forcedimension_core.drd.stop()` to disable regulation.
+
 
     This function only applies to devices equipped with mechanical locks, and
     will return an error when called on other devices.
