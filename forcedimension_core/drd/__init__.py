@@ -1522,7 +1522,7 @@ _runtime._libdrd.drdGetEncPGain.argtypes = [c_byte]
 _runtime._libdrd.drdGetEncPGain.restype = c_double
 
 
-def getEncPGain(ID: int = -1) -> int:
+def getEncPGain(ID: int = -1) -> float:
     """
     Retrieve the P term of the PID controller that regulates the base joint
     positions.
@@ -1581,7 +1581,7 @@ _runtime._libdrd.drdGetEncIGain.argtypes = [c_byte]
 _runtime._libdrd.drdGetEncIGain.restype = c_double
 
 
-def getEncIGain(ID: int = -1) -> int:
+def getEncIGain(ID: int = -1) -> float:
     """
     Retrieve the P term of the PID controller that regulates the base joint
     positions.
@@ -1640,7 +1640,7 @@ _runtime._libdrd.drdGetEncDGain.argtypes = [c_int]
 _runtime._libdrd.drdGetEncDGain.restype = c_double
 
 
-def getEncDGain(ID: int = -1) -> int:
+def getEncDGain(ID: int = -1) -> float:
     """
     Retrieve the D term of the PID controller that regulates the base joint
     positions.
@@ -1661,6 +1661,7 @@ def getEncDGain(ID: int = -1) -> int:
     """
 
     return _runtime._libdrd.drdGetEncDGain(ID)
+
 
 _runtime._libdrd.drdTrackPos.argtypes = [c_double, c_double, c_double, c_byte]
 _runtime._libdrd.drdTrackPos.restype = c_int
