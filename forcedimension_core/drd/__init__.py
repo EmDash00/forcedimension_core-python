@@ -590,12 +590,12 @@ def setForceAndTorqueAndGripperForce(
     information about regulation see the :ref:`regulation` section.
 
 
-    :param VectorLike f:
+    :param Array[int, float] f:
         Translational force vector ``(fx, fy, fz)`` where ``fx``, ``fy``, and
         ``fz`` are the translation force (in [N]) on the end-effector about the
         X, Y, and Z axes, respectively.
 
-    :param VectorLike t:
+    :param Array[int, float] t:
         Torque vector ``(tx, ty, tz)`` where ``tx``, ``ty``, and ``tz``
         are the torque (in [Nm]) on the end-effector about the X, Y, and Z
         axes, respectively.
@@ -773,13 +773,13 @@ def getPositionAndOrientation(
     information about regulation see the :ref:`regulation` section.
 
 
-    :param VectorLike p_out:
+    :param MutableArray[int, float] p_out:
         Output buffer to store the end-effector position (in [m]).
 
-    :param VectorLike o_out:
+    :param MutableArray[int, float] o_out:
         Output buffer to store the angle of each joint (in [rad]).
 
-    :param MutableFloatMatrixLike matrix_out:
+    :param MutableArray[int, MutableArray[int, float]] matrix_out:
         Output buffer to store the orientation matrix.
 
     :param int ID:
@@ -887,13 +887,13 @@ def getVelocity(
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
-    :param VectorLike v_out:
+    :param MutableArray[int, float] v_out:
         Output buffer for the linear velocity (in [m/s]).
 
-    :param VectorLike w_out:
+    :param MutableArray[int, float] w_out:
         Output buffer for the angular velocity (in [rad/s]).
 
-    :param VectorLike vg_out:
+    :param MutableArray[int, float] vg_out:
         Output buffer for the gripper linear velocity (in [m/s]).
 
     :raises TypeError:
