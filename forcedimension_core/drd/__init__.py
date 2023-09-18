@@ -1009,7 +1009,9 @@ def moveToPos(pos: Array[int, float], block: bool, ID: int = -1):
     return _runtime._libdrd.drdMoveToPos(pos[0], pos[1], pos[2], block, ID)
 
 
-_runtime._libdrd.drdMoveToRot.argtypes = [c_double, c_double, c_double, c_bool, c_byte]
+_runtime._libdrd.drdMoveToRot.argtypes = [
+    c_double, c_double, c_double, c_bool, c_byte
+]
 _runtime._libdrd.drdMoveToRot.restype = c_int
 
 
