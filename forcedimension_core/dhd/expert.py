@@ -1504,7 +1504,7 @@ def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.expert.gripperEncoderToGap()`
     """
 
-    return _runtime._libdhd.dhdGripperEncoderToAngleRad(angle, out, ID)
+    return _runtime._libdhd.dhdGripperAngleRadToEncoder(angle, out, ID)
 
 
 _runtime._libdhd.dhdGripperGapToEncoder.argtypes = [
