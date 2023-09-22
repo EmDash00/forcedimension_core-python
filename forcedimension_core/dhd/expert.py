@@ -1512,7 +1512,7 @@ _runtime._libdhd.dhdGripperGapToEncoder.argtypes = [
     c_int_ptr,
     c_byte
 ]
-_runtime._libdhd.dhdGripperEncoderToGap.restype = c_int
+_runtime._libdhd.dhdGripperGapToEncoder.restype = c_int
 
 
 def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
