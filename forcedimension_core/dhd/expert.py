@@ -3373,7 +3373,7 @@ def jointAnglesToGravityJointTorques(
             joint_angles[7]
         )
 
-    err = _runtime._libdhd.dhdJointAnglesToInertiaMatrix(
+    err = _runtime._libdhd.dhdJointAnglesToGravityJointTorques(
         ct.cast(joint_angles_arr, c_double_ptr),
         ct.cast(q, c_double_ptr),
         mask,
