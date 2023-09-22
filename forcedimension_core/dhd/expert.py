@@ -543,8 +543,8 @@ def setWristMotor(output: Array[int, int], ID: int = -1) -> int:
     return _runtime._libdhd.dhdSetWristMotor(output[0], output[1], output[2], ID)
 
 
-_runtime._libdhd.dhdSetWristMotor.argtypes = [c_ushort, c_byte]
-_runtime._libdhd.dhdSetWristMotor.restype = c_int
+_runtime._libdhd.dhdSetGripperMotor.argtypes = [c_ushort, c_byte]
+_runtime._libdhd.dhdSetGripperMotor.restype = c_int
 
 
 def setGripperMotor(output: int, ID: int = -1) -> int:
@@ -662,12 +662,12 @@ def deltaEncoderToPosition(
 
 
 _runtime._libdhd.dhdDeltaPositionToEncoder.argtypes = [
-    c_int,
-    c_int,
-    c_int,
-    c_double_ptr,
-    c_double_ptr,
-    c_double_ptr,
+    c_double,
+    c_double,
+    c_double,
+    c_int_ptr,
+    c_int_ptr,
+    c_int_ptr,
     c_byte
 ]
 _runtime._libdhd.dhdDeltaPositionToEncoder.restype = c_int
