@@ -1401,7 +1401,7 @@ def stop(force_on: bool, ID: int = -1) -> int:
         details.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see the :ref:`multiple_devices` section for details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
