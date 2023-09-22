@@ -3530,7 +3530,9 @@ def getEncRange(
     return err
 
 
-_runtime._libdhd.dhdGetJointAngleRange.argtypes = [c_double_ptr, c_double_ptr, c_byte]
+_runtime._libdhd.dhdGetJointAngleRange.argtypes = [
+    c_double_ptr, c_double_ptr, c_byte
+]
 _runtime._libdhd.dhdGetJointAngleRange.restype = c_int
 
 
