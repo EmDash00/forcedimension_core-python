@@ -729,7 +729,7 @@ def deltaPositionToEncoder(
     enc1 = c_int()
     enc2 = c_int()
 
-    err = _runtime._libdhd.dhdDeltaEncoderToPosition(
+    err = _runtime._libdhd.dhdDeltaPositionToEncoder(
         pos[0],
         pos[1],
         pos[2],
