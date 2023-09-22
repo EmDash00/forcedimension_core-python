@@ -3177,7 +3177,7 @@ def getGripperAngularVelocityDeg(out: c_double, ID: int = -1) -> int:
 
     """
 
-    return _runtime._libdhd.dhdGetGripperAngularelocityDeg(out, ID)
+    return _runtime._libdhd.dhdGetGripperAngularVelocityDeg(out, ID)
 
 
 
