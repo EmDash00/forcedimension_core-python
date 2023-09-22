@@ -175,7 +175,7 @@ def setDevice(ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.getDeviceID()`
     """
 
-    return _runtime._libdhd.setDevice(ID)
+    return _runtime._libdhd.dhdSetDevice(ID)
 
 
 _runtime._libdhd.dhdGetDeviceID.argtypes = []
