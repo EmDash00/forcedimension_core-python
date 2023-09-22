@@ -2833,6 +2833,10 @@ def getLinearVelocity(out: MutableArray[int, float], ID: int = -1) -> int:
     return err
 
 
+_runtime._libdhd.dhdConfigAngularVelocity.argtypes = [c_int, c_int, c_byte]
+_runtime._libdhd.dhdConfigAngularVelocity.restype = c_int
+
+
 def configAngularVelocity(
     ms: int = DEFAULT_VELOCITY_WINDOW,
     mode: VelocityEstimatorMode = VelocityEstimatorMode.WINDOWING,
