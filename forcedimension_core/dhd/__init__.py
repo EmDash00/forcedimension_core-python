@@ -1365,8 +1365,8 @@ def setDeviceAngleRad(angle: float, ID: int = -1) -> int:
     return _runtime._libdhd.dhdSetDeviceAngleRad(angle, ID)
 
 
-_runtime._libdhd.dhdSetDeviceAngleRad.argtypes = [c_double, c_byte]
-_runtime._libdhd.dhdSetDeviceAngleRad.restype = c_int
+_runtime._libdhd.dhdSetDeviceAngleDeg.argtypes = [c_double, c_byte]
+_runtime._libdhd.dhdSetDeviceAngleDeg.restype = c_int
 
 
 def setDeviceAngleDeg(angle: float, ID: int = -1) -> int:
