@@ -28,13 +28,13 @@ def getPositionAndOrientation(
     information about regulation see :ref:`regulation`.
 
 
-    :param SupportsPtrs3[c_double] p_out:
+    :param SupportsPtrs3[ctypes.c_double] p_out:
         Output buffer to store the end-effector position (in [m]).
 
-    :param SupportsPtrs3[c_double] o_out:
+    :param SupportsPtrs3[ctypes.c_double] o_out:
         Output buffer to store the angle of each joint (in [rad]).
 
-    :param c_double pg_out:
+    :param ctypes.c_double pg_out:
         Output buffer to store the gripper opening gap (in [m]).
 
     :param MutableFloatMatrixLike matrix_out:
@@ -110,13 +110,13 @@ def getVelocity(
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details)
 
-    :param SupportsPtrs3[c_double] v_out:
+    :param SupportsPtrs3[ctypes.c_double] v_out:
         Output buffer for the linear velocity (in [m/s]).
 
-    :param SupportsPtrs3[c_double] w_out:
+    :param SupportsPtrs3[ctypes.c_double] w_out:
         Output buffer for the angular velocity (in [rad/s]).
 
-    :param SupportsPtrs3[c_double] vg_out:
+    :param SupportsPtrs3[ctypes.c_double] vg_out:
         Output buffer for the gripper linear velocity (in [m/s]).
 
     :raises AttributeError:
@@ -166,7 +166,8 @@ def moveTo(pos: SupportsPtr[c_double], block: bool, ID: int = -1):
     :func:`forcedimension_core.dhd.track()`. For more information see
     :ref:`regulation`.
 
-    :param SupportsPtr[c_double] pos:
+
+    :param SupportsPtr[ctypes.c_double] pos:
         Buffer of target positions/orientations for each DOF.
         DOFs 0-2 correspond to position about the X, Y, and Z axes (in [m]).
         DOFs 3-6 correspond to the target orientation about the first, second
@@ -216,7 +217,8 @@ def moveToAllEnc(enc: SupportsPtr[c_int], block: bool, ID: int = -1):
     :func:`forcedimension_core.dhd.trackAllEnc()`.
     For more information see :ref:`regulation`.
 
-    :param SupportsPtr[c_int] enc:
+
+    :param SupportsPtr[ctypes.c_int] enc:
         Target encoder positions.
 
     :param int ID:
@@ -258,7 +260,7 @@ def track(pos: SupportsPtr[c_double], ID: int = -1):
     For more information see :ref:`regulation`.
 
 
-    :param SupportsPtr[c_double] pos:
+    :param SupportsPtr[ctypes.c_double] pos:
         Buffer of target positions/orientations for each DOF.
         DOFs 0-2 correspond to position about the X, Y, and Z axes (in [m]).
         DOFs 3-6 correspond to the target orientation about the first, second
@@ -304,7 +306,7 @@ def trackAllEnc(enc: SupportsPtr[c_int], ID: int = -1):
     For more information see :ref:`regulation`.
 
 
-    :param SupportsPtr[c_int] enc:
+    :param SupportsPtr[ctypes.c_int] enc:
         Target encoder positions.
 
     :param int ID:
