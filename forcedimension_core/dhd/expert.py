@@ -3407,6 +3407,10 @@ def setComMode(mode: ComMode, ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns: 0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :func:`forcedimension_core.dhd.expert.setComModePriority`
     """
 
     return _runtime._libdhd.dhdSetComMode(mode, ID)
