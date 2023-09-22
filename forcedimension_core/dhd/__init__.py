@@ -314,7 +314,7 @@ def openSerial(serial: int) -> int:
     return _runtime._libdhd.dhdOpenSerial(serial)
 
 
-_runtime._libdhd.dhdOpenID.argtypes = [c_int]
+_runtime._libdhd.dhdOpenID.argtypes = [c_byte]
 _runtime._libdhd.dhdOpenID.restype = c_int
 
 
