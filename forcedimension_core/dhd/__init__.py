@@ -1291,7 +1291,7 @@ def setGravityCompensation(enable: bool, ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.setStandardGravity()`
     """
 
-    return _runtime._libdhd.dhdSetStandardGravity(enable, ID)
+    return _runtime._libdhd.dhdSetGravityCompensation(enable, ID)
 
 
 _runtime._libdhd.dhdSetBrakes.argtypes = [c_bool, c_byte]
