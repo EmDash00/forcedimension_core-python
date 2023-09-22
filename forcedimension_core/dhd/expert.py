@@ -1893,13 +1893,13 @@ _runtime._libdhd.dhdGetEnc.argtypes = [c_int_ptr, c_ubyte, c_byte]
 _runtime._libdhd.dhdGetEnc.restype = c_int
 
 
-def getEnc(mask: int, out: MutableArray[int, int], ID: int = -1) -> int:
+def getEnc(out: MutableArray[int, int], mask: int=0xff, ID: int = -1) -> int:
     """
     Get a selective list of encoder values. Particularly useful when using the
     generic controller directly, without a device model attached.
 
     :param int mask:
-        Bitwise mask of which motor should be set, default to ``0xff``
+        Bitwise mask of which motor should be set.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
