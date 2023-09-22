@@ -2269,7 +2269,7 @@ _runtime._libdhd.dhdSetDeltaJointTorques.restype = c_int
 
 
 def setDeltaJointTorques(
-    t: Array[int, float],
+    q: Array[int, float],
     ID: int = -1
 ) -> int:
     """
@@ -2301,7 +2301,7 @@ def setDeltaJointTorques(
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorques()`
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
     """
-    return _runtime._libdhd.dhdSetDeltaJointTorques(t[0], t[1], t[2], ID)
+    return _runtime._libdhd.dhdSetDeltaJointTorques(q[0], q[1], q[2], ID)
 
 
 _runtime._libdhd.dhdDeltaEncodersToJointAngles.argtypes = [
