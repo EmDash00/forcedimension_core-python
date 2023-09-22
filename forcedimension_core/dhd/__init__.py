@@ -2195,7 +2195,7 @@ _runtime._libdhd.dhdGetOrientationFrame.restype = c_int
 
 
 def getOrientationFrame(
-    out: MutableArray[int, MutableArray[int, float]],
+    out: Array[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
     """
