@@ -258,7 +258,7 @@ def isInitialized(ID: int = -1) -> bool:
 
 
 _runtime._libdrd.drdIsMoving.argtypes = [c_byte]
-_runtime._libdrd.drdIsMoving.restype = c_int
+_runtime._libdrd.drdIsMoving.restype = c_bool
 
 
 def isMoving(ID: int = -1) -> bool:
