@@ -249,6 +249,7 @@ def open() -> int:
     | :func:`forcedimension_core.dhd.openID()`
     | :func:`forcedimension_core.dhd.close()`
     """
+
     return _runtime._libdhd.dhdOpen()
 
 
