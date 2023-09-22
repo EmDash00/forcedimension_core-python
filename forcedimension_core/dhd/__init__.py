@@ -32,8 +32,8 @@ def errorGetLast() -> ErrorNum:
     See :ref:`error_management` for details.
 
     :returns:
-        :class:`forcedimension_core.dhd.adaptors.ErrorNum` enum elements refering
-        to the last error encountered in the current thread.
+        :class:`forcedimension_core.dhd.adaptors.ErrorNum` enum elements
+        refering to the last error encountered in the current thread.
 
 
     See Also
