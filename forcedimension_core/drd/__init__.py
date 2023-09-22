@@ -156,7 +156,7 @@ _runtime._libdrd.drdIsSupported.argtypes = [c_byte]
 _runtime._libdrd.drdIsSupported.restype = c_bool
 
 
-def isSupported(ID: int) -> bool:
+def isSupported(ID: int = -1) -> bool:
     """
     Determine if the device is supported out-of-the-box by the DRD. The
     regulation gains of supported devices are configured internally so that
