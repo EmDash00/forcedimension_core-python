@@ -928,7 +928,7 @@ def deltaForceToMotor(
     output1 = c_ushort()
     output2 = c_ushort()
 
-    err = _runtime._libdhd.dhdDeltaMotorToForce(
+    err = _runtime._libdhd.dhdDeltaForceToMotor(
         f[0],
         f[1],
         f[2],
@@ -937,7 +937,8 @@ def deltaForceToMotor(
         enc[2],
         output0,
         output1,
-        output2
+        output2,
+        ID
     )
 
     out[0] = output0.value
