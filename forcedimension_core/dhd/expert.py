@@ -765,6 +765,7 @@ def deltaMotorToForce(
     mot: Array[int, int],
     enc: Array[int, int],
     out: MutableArray[int, float],
+    ID: int = -1
 ) -> int:
     """
     Compute and return the force applied to the end-effector for
@@ -869,7 +870,8 @@ _runtime._libdhd.dhdDeltaForceToMotor.restype = c_int
 def deltaForceToMotor(
     f: Array[int, float],
     enc: Array[int, int],
-    out: MutableArray[int, int]
+    out: MutableArray[int, int],
+    ID: int = -1
 ) -> int:
     """
     Compute and return the motor commands necessary to obtain a
