@@ -2044,7 +2044,7 @@ _runtime._libdhd.dhdGetDeltaJacobian.restype = c_int
 
 
 def getDeltaJacobian(
-    out: MutableArray[int, MutableArray[int, float]],
+    out: Array[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
     """
