@@ -1347,7 +1347,7 @@ def wristTorqueToMotor(
     output1 = c_ushort()
     output2 = c_ushort()
 
-    err = _runtime._libdhd.dhdDeltaMotorToForce(
+    err = _runtime._libdhd.dhdWristTorqueToMotor(
         t[0],
         t[1],
         t[2],
@@ -1356,7 +1356,8 @@ def wristTorqueToMotor(
         enc[2],
         output0,
         output1,
-        output2
+        output2,
+        ID
     )
 
     out[0] = output0.value
