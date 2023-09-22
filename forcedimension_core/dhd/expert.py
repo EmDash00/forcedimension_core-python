@@ -1276,7 +1276,8 @@ _runtime._libdhd.dhdWristTorqueToMotor.restype = c_int
 def wristTorqueToMotor(
     t: Array[int, float],
     enc: Array[int, int],
-    out: MutableArray[int, int]
+    out: MutableArray[int, int],
+    ID: int = -1
 ) -> int:
     """
     Compute and return the wrist motor commands necessary to
