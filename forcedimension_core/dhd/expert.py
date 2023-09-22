@@ -492,7 +492,9 @@ def setDeltaMotor(mot: Array[int, int], ID: int = -1) -> int:
     return _runtime._libdhd.dhdSetDeltaMotor(mot[0], mot[1], mot[2], ID)
 
 
-_runtime._libdhd.dhdSetWristMotor.argtypes = [c_ushort, c_ushort, c_ushort, c_byte]
+_runtime._libdhd.dhdSetWristMotor.argtypes = [
+    c_ushort, c_ushort, c_ushort, c_byte
+]
 _runtime._libdhd.dhdSetWristMotor.restype = c_int
 
 
