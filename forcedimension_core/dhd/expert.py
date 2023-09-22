@@ -3484,14 +3484,32 @@ _runtime._libdhd.dhdGetEncRange.argtypes = [c_int_ptr, c_int_ptr, c_byte]
 _runtime._libdhd.dhdGetEncRange.restype = c_int
 
 
-def getEncRange(ID: int = -1) -> Tuple[IntDOFTuple, IntDOFTuple, int]:
+def getEncRange(
+    enc_min_out: MutableArray[int, int],
+    enc_max_out: MutableArray[int, int],
+    ID: int = -1
+) -> int:
     """
     Get the expected min and max encoder values for all axes present on the
     current device. Axis indices that do not exist on the device will return
     a range of 0.
 
+    :param MutableArray[int, int] encmin_out:
+        An output buffer to store the minimum encoder values for each axis.
+
+    :param MutableArray[int, int] encmax_out:
+        An output buffer to store the maximum encoder values for each axis.
+
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
+
+    :raises TypeError:
+        If one of enc_min_out or enc_max_out either are not subscriptable or do
+        not support item assignment.
+
+    :raises IndexError:
+        If either enc_min_out or enc_max_out have length less than
+        :data:`forcedimension_core.dhd.constants.MAX_DOF`
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -3500,12 +3518,16 @@ def getEncRange(ID: int = -1) -> Tuple[IntDOFTuple, IntDOFTuple, int]:
         0 on success, -1 otherwise.
     """
 
-    encMin = (c_int * MAX_DOF)()
-    encMax = (c_int * MAX_DOF)()
+    enc_min = (c_int * MAX_DOF)()
+    enc_max = (c_int * MAX_DOF)()
 
-    err = _runtime._libdhd.dhdGetEncRange(encMin, encMax, ID)
+    err = _runtime._libdhd.dhdGetEncRange(enc_min, enc_max, ID)
 
-    return (tuple(encMin), tuple(encMax), err)
+    for i in range(MAX_DOF):
+        enc_min_out[i] = enc_min[i]
+        enc_max_out[i] = enc_max[i]
+
+    return err
 
 
 _runtime._libdhd.dhdGetJointAngleRange.argtypes = [c_double_ptr, c_double_ptr, c_byte]
