@@ -755,7 +755,8 @@ _runtime._libdrd.drdGetPositionAndOrientation.restype = c_int
 def getPositionAndOrientation(
     p_out: MutableArray[int, float],
     o_out: MutableArray[int, float],
-    matrix_out: MutableArray[int, MutableArray[int, float]],
+    pg_out: c_double,
+    matrix_out: Array[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
     """
@@ -779,7 +780,10 @@ def getPositionAndOrientation(
     :param MutableArray[int, float] o_out:
         Output buffer to store the angle of each joint (in [rad]).
 
-    :param MutableArray[int, MutableArray[int, float]] matrix_out:
+    :param c_double pg_out:
+        Output buffer to store the device gripper opening gap (in [m]).
+
+    :param Array[int, MutableArray[int, float]] matrix_out:
         Output buffer to store the orientation matrix.
 
     :param int ID:
@@ -822,14 +826,12 @@ def getPositionAndOrientation(
     ob = c_double()
     og = c_double()
 
-    pg = c_double()
-
     matrix = ((c_double * 3) * 3)()
 
     err: int = _runtime._libdrd.drdGetPositionAndOrientation(
         px, py, pz,
         oa, ob, og,
-        pg,
+        pg_out,
         ct.cast(matrix, c_double_ptr),
         ID
     )
