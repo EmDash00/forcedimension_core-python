@@ -3050,7 +3050,7 @@ def configGripperVelocity(
     | :func:`forcedimension_core.dhd.getGripperAngularVelocityDeg()`
     """
 
-    return _runtime._libdhd.dhdConfigAngularVelocity(ms, mode, ID)
+    return _runtime._libdhd.dhdConfigGripperVelocity(ms, mode, ID)
 
 
 _runtime._libdhd.dhdGetGripperLinearVelocity.argtypes = [c_double_ptr, c_byte]
