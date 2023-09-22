@@ -1955,7 +1955,7 @@ _runtime._libdhd.dhdGetPositionAndOrientationFrame.restype = c_int
 
 def getPositionAndOrientationFrame(
     p_out: MutableArray[int, float],
-    matrix_out: MutableArray[int, MutableArray[int, float]],
+    matrix_out: Array[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
     """
