@@ -732,12 +732,12 @@ def getComponentVersionStr(
     if N < 1:
         raise ValueError("Buffer size must be at least 1.")
 
-    buff = ct.create_string_buffer(N)
+    buffer = ct.create_string_buffer(N)
 
-    if _runtime._libdhd.dhdGetComponentVersionStr(component, buff, N, ID):
+    if _runtime._libdhd.dhdGetComponentVersionStr(component, buffer, N, ID):
         return ""
 
-    return bytes(buff).split(b'\x00')[0].decode('utf-8')
+    return bytes(buffer).split(b'\x00')[0].decode('utf-8')
 
 
 
