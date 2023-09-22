@@ -3536,7 +3536,11 @@ _runtime._libdhd.dhdGetJointAngleRange.argtypes = [
 _runtime._libdhd.dhdGetJointAngleRange.restype = c_int
 
 
-def getJointAngleRange(ID: int = -1) -> Tuple[
+def getJointAngleRange(
+    jmin_out: MutableArray[int, float],
+    jmax_out: MutableArray[int, float],
+    ID: int = -1
+) -> Tuple[
     FloatDOFTuple, FloatDOFTuple, int
 ]:
     """
@@ -3544,26 +3548,42 @@ def getJointAngleRange(ID: int = -1) -> Tuple[
     for all sensed degrees-of-freedom on the current device. Axis indices that
     do not exist on the device will return a range of 0.0.
 
+    :param MutableArray[int, int] jmin_out:
+        An output buffer to store the minimum encoder values for each axis.
+
+    :param MutableArray[int, int] jmax_out:
+        An output buffer to store the maximum encoder values for each axis.
+
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
+
+    :raises TypeError:
+        If one of jmin_out or jmax_out either are not subscriptable or do not
+        support item assignment.
+
+    :raises IndexError:
+        If either jmin_out or jmax_out have length less than
+        :data:`forcedimension_core.dhd.constants.MAX_DOF`
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        A tuple of (jmin, jmax, err). jmin and jmax are tuples of
-        floats representing the min and max joint angles for each
-        degree-of-freedom (in [rad]). err is 0 on success and -1 otherwise.
+        0 on success and -1 otherwise.
     """
 
     jmin = (c_double * MAX_DOF)()
     jmax = (c_double * MAX_DOF)()
 
-    err = _runtime._libdhd.dhdGetEncRange(
+    err = _runtime._libdhd.dhdGetJointAngleRange(
         ct.cast(jmin, c_double_ptr), ct.cast(jmax, c_double_ptr), ID
     )
 
-    return (tuple(jmin), tuple(jmax), err)
+    for i in range(MAX_DOF):
+        jmin_out[i] = jmin[i]
+        jmax_out[i] = jmax[i]
+
+    return err
 
 
 _runtime._libdhd.dhdControllerSetDevice.argtypes = [c_int, c_byte]
