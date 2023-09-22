@@ -738,7 +738,7 @@ class MockDRD:
             return MockDRD.drdHold.ret
 
     class drdLock:
-        argtypes = [c_ubyte, c_bool, c_byte]
+        argtypes = [c_bool, c_bool, c_byte]
         restype = c_int
 
         mask = 0
@@ -2318,23 +2318,24 @@ class TestRoboticSDK(unittest.TestCase):
         libdrd.drdLock = MockDRD.drdLock.mock  # type: ignore
 
 
-        drd.lock(0, True)
+        drd.lock(True, True)
         self.assertTrue(MockDRD.drdLock.init)
+        self.assertTrue(MockDRD.drdLock.mask)
 
-        drd.lock(0, False)
+        drd.lock(True, False)
         self.assertFalse(MockDRD.drdLock.init)
 
-        for mask in range(255):
-            drd.lock(mask, False)
-            self.assertFalse(MockDRD.drdLock.init)
+        drd.lock(False, False)
+        self.assertFalse(MockDRD.drdLock.mask)
+
 
         self.assertIDImpl(
-            lambda ID = -1: drd.lock(0, True, ID),
+            lambda ID = -1: drd.lock(True, True, ID),
             MockDRD.drdLock
         )
 
         self.assertRetImpl(
-            lambda: drd.lock(0, True),
+            lambda: drd.lock(True, True),
             MockDRD.drdLock
         )
 
