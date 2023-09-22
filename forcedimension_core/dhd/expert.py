@@ -1132,7 +1132,7 @@ def wristOrientationToEncoder(
     enc1 = c_int()
     enc2 = c_int()
 
-    err = _runtime._libdhd.dhdDeltaEncoderToPosition(
+    err = _runtime._libdhd.dhdWristOrientationToEncoder(
         orientation[0],
         orientation[1],
         orientation[2],
