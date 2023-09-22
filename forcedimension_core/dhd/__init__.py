@@ -1,5 +1,6 @@
 from ctypes import (
-    c_bool, c_byte, c_char_p, c_double, c_int, c_size_t, c_uint, c_uint32, c_ushort
+    c_bool, c_byte, c_char_p, c_double, c_int, c_size_t, c_uint, c_uint32,
+    c_ushort
 )
 import ctypes as ct
 from typing import Optional, Union
