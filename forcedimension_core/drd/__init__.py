@@ -1506,7 +1506,9 @@ def setEncPGain(gain: float, ID: int = -1) -> int:
     Set the P term of the PID controller that regulates the base joint
     positions. In practice, this affects the stiffness of the regulation.
 
-    :param float gain: P parameter of the PID regulator
+    :param float gain:
+        P parameter of the PID regulator.
+
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
 
