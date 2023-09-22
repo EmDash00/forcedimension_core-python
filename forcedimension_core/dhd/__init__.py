@@ -1220,11 +1220,13 @@ def waitForReset(timeout: Optional[int] = None, ID: int = -1) -> int:
 
     """
 
-    if timeout is not None:
-        return _runtime._libdhd.dhdWaitForReset(timeout, ID)
-    else:
-        return _runtime._libdhd.dhdWaitForReset(ID)
+    if timeout is None:
+        return _runtime._libdhd.dhdWaitForReset(0, ID)
 
+    if timeout <= 0:
+        raise ValueError("timeout must be greater than 0 if specified.")
+
+    return _runtime._libdhd.dhdWaitForReset(timeout, ID)
 
 _runtime._libdhd.dhdSetStandardGravity.argtypes = [c_double, c_byte]
 _runtime._libdhd.dhdSetStandardGravity.restype = c_int
