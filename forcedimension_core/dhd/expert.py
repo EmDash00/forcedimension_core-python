@@ -3472,9 +3472,9 @@ def getWatchdog(ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.expert.setWatchdog()`
     """
 
-    duration = c_int()
+    duration = c_ubyte()
 
-    if _runtime._libdhd.dhdSetWatchdog(duration, ID):
+    if _runtime._libdhd.dhdGetWatchdog(duration, ID):
         return -1
 
     return duration.value
