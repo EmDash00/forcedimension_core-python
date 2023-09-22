@@ -1551,7 +1551,7 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.expert.gripperEncoderToGap()`
     """
 
-    return  _runtime._libdhd.dhdGripperEncoderToGap(gap, out, ID)
+    return  _runtime._libdhd.dhdGripperGapToEncoder(gap, out, ID)
 
 
 _runtime._libdhd.dhdGripperMotorToForce.argtypes = [
