@@ -584,7 +584,8 @@ def getSystemRev(ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.getVersion()`
 
     """
-    return _runtime._libdhd.getSystemRev(ID)
+
+    return _runtime._libdhd.dhdGetSystemRev(ID)
 
 
 
