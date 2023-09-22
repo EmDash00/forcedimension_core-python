@@ -840,7 +840,8 @@ def deltaMotorToForce(
         enc[2],
         fx,
         fy,
-        fz
+        fz,
+        ID
     )
 
     out[0] = fx.value
