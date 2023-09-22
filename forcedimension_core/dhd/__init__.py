@@ -856,7 +856,7 @@ def getEffectorMass(ID: int = -1) -> float:
 
     mass = c_double()
     if _runtime._libdhd.dhdGetEffectorMass(mass, ID):
-        return -1
+        return -1.0
 
     return mass.value
 
