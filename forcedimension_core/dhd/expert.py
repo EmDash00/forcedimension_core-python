@@ -967,12 +967,17 @@ def wristEncoderToOrientation(
 ) -> int:
     """
     For devices with a wrist structure, compute the individual angle of each
-    joint, starting with the one located nearest to the wrist base plate. For
-    the :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and the
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT` devices,
-    angles are computed with respect to their internal reference frame, which
-    is rotated 45 degrees or π/4 radians about the Y axis. Please refer to your
-    device user manual for more information on your device coordinate system.
+    joint, starting with the one located nearest to the wrist base plate.
+
+    Note
+    ----
+    For the :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    and the :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
+    devices, angles are computed with respect to their internal reference
+    frame, which is rotated 45 degrees or π/4 radians about the Y axis. Please
+    refer to your device user manual for more information on your device
+    coordinate system.
+
 
     Note
     ----
@@ -1061,12 +1066,18 @@ def wristOrientationToEncoder(
     """
     For devices with a wrist structure, compute the encoder values from the
     individual angle of each joint, starting witht he one located nearest to
-    the wrist plate base. For the
+    the wrist plate base.
+
+    Note
+    ----
+    For the
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6` and
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT` devices, angles
-    must be expressed with respect to their internal reference frame, which is
-    rotated 45 degrees or π/4 radians about the Y axis. Please refer to your
-    device user manual for more information on your device coordinate system.
+    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT` devices,
+    angles must be expressed with respect to their internal reference frame,
+    which is rotated 45 degrees or π/4 radians about the Y axis. Please refer
+    to  your device user manual for more information on your device coordinate
+    system.
+
 
     Note
     ----
