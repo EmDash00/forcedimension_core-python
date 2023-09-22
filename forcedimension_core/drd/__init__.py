@@ -1417,7 +1417,7 @@ def stop(force_on: bool, ID: int = -1) -> int:
     return _runtime._libdrd.drdStop(force_on, ID)
 
 
-_runtime._libdrd.drdGetPriorities.argtypes = [c_byte]
+_runtime._libdrd.drdGetPriorities.argtypes = [c_int_ptr, c_int_ptr, c_byte]
 _runtime._libdrd.drdGetPriorities.restype = c_int
 
 
