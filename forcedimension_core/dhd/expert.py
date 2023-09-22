@@ -351,7 +351,7 @@ def getWristEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
 
 
 _runtime._libdhd.dhdGetGripperEncoder.argtypes = [c_int_ptr, c_byte]
-_runtime._libdhd.dhdGetGripperEncoder.argtypes = [c_int]
+_runtime._libdhd.dhdGetGripperEncoder.restype = c_int
 
 
 def getGripperEncoder(out: c_int, ID: int = -1) -> int:
