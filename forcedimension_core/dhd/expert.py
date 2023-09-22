@@ -2528,7 +2528,7 @@ _runtime._libdhd.dhdGetWristJacobian.restype = c_int
 
 
 def getWristJacobian(
-    out: MutableArray[int, MutableArray[int, float]],
+    out: Array[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
     """
