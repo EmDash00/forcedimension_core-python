@@ -3137,7 +3137,9 @@ def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
     return _runtime._libdhd.dhdGetGripperAngularVelocityRad(out, ID)
 
 
-_runtime._libdhd.dhdGetGripperAngularVelocityDeg.argtypes = [c_double_ptr, c_byte]
+_runtime._libdhd.dhdGetGripperAngularVelocityDeg.argtypes = [
+    c_double_ptr, c_byte
+]
 _runtime._libdhd.dhdGetGripperAngularVelocityDeg.restype = c_int
 
 
