@@ -3526,10 +3526,10 @@ def setMaxForce(limit: float, ID: int = -1) -> int:
     """
     Define a limit (in [N]) to the magnitude of the force that can be applied
     to the haptic device. The limit applies to all
-    :func:`forcedimension_core.dhd.setForce()` and related calls, and ensures the
-    force applied to the device end-effector remains below the requested value.
-    If a negative limit is set, there is no max force and the full range of
-    force can be applied.
+    :func:`forcedimension_core.dhd.setForce()` and related calls, and ensures
+    the force applied to the device end-effector remains below the requested
+    value. If a negative limit is set, there is no max force and the full range
+    of force can be applied.
 
     Note
     ----
@@ -3539,7 +3539,7 @@ def setMaxForce(limit: float, ID: int = -1) -> int:
 
 
     :param float limit:
-        max magnitude of force that can be applied (in [N]).
+        Max magnitude of force that can be applied (in [N]).
 
     :param int ID:
          Device ID (see :ref:`multiple_devices` section for details).
