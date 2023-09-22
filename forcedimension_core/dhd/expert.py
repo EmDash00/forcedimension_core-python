@@ -1811,7 +1811,7 @@ def setJointTorques(q: Array[int, float], mask: int = 0xff, ID: int = -1):
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
     """
 
-    cmd_arr = (c_ushort * MAX_DOF)(
+    cmd_arr = (c_double * MAX_DOF)(
             q[0],
             q[1],
             q[2],
