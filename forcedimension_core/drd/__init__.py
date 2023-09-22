@@ -2378,7 +2378,7 @@ _runtime._libdrd.drdGetEncMoveParam.argtypes = [
 _runtime._libdrd.drdGetEncMoveParam.restype = c_int
 
 
-def getEncMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
+def getEncMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
     Retrieve encoder positioning trajectory generation parameters.
 
@@ -2389,7 +2389,7 @@ def getEncMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
+        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
 
@@ -2405,7 +2405,7 @@ def getEncMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
 
     err = _runtime._libdrd.drdGetEncMoveParam(a_max, v_max, jerk_max, ID)
 
-    return (v_max.value, a_max.value, jerk_max.value), err
+    return v_max.value, a_max.value, jerk_max.value, err
 
 
 _runtime._libdrd.drdGetEncTrackParam.argtypes = [
@@ -2414,7 +2414,7 @@ _runtime._libdrd.drdGetEncTrackParam.argtypes = [
 _runtime._libdrd.drdGetEncTrackParam.restype = c_int
 
 
-def getEncTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
+def getEncTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
     Retrieve encoder tracking trajectory generation parameters.
 
@@ -2425,7 +2425,7 @@ def getEncTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
+        Tuple of ``(v_max, a_max, jerk_max, err)``` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
 
@@ -2442,7 +2442,7 @@ def getEncTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
 
     err = _runtime._libdrd.drdGetEncTrackParam(amax, vmax, jerk, ID)
 
-    return (vmax.value, amax.value, jerk.value), err
+    return vmax.value, amax.value, jerk.value, err
 
 
 _runtime._libdrd.drdGetPosMoveParam.argtypes = [
@@ -2451,7 +2451,7 @@ _runtime._libdrd.drdGetPosMoveParam.argtypes = [
 _runtime._libdrd.drdGetPosMoveParam.restype = c_int
 
 
-def getPosMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
+def getPosMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
     Retrieve cartesian positioning trajectory generation parameters.
 
@@ -2462,7 +2462,7 @@ def getPosMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
+        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
 
@@ -2479,7 +2479,7 @@ def getPosMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
 
     err = _runtime._libdrd.drdGetPosMoveParam(amax, vmax, jerk, ID)
 
-    return (vmax.value, amax.value, jerk.value), err
+    return vmax.value, amax.value, jerk.value, err
 
 
 _runtime._libdrd.drdGetPosTrackParam.argtypes = [
@@ -2488,7 +2488,7 @@ _runtime._libdrd.drdGetPosTrackParam.argtypes = [
 _runtime._libdrd.drdGetPosTrackParam.restype = c_int
 
 
-def getPosTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
+def getPosTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
     Retrieve cartesian tracking trajectory generation parameters.
 
@@ -2499,7 +2499,7 @@ def getPosTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
+        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
 
@@ -2516,7 +2516,7 @@ def getPosTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
 
     err = _runtime._libdrd.drdGetPosTrackParam(amax, vmax, jerk, ID)
 
-    return (vmax.value, amax.value, jerk.value), err
+    return vmax.value, amax.value, jerk.value, err
 
 
 _runtime._libdrd.drdGetRotMoveParam.argtypes = [
@@ -2525,7 +2525,7 @@ _runtime._libdrd.drdGetRotMoveParam.argtypes = [
 _runtime._libdrd.drdGetRotMoveParam.restype = c_int
 
 
-def getRotMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
+def getRotMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
     Retrieve cartesian positioning trajectory generation parameters.
 
@@ -2536,7 +2536,7 @@ def getRotMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
+        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
 
@@ -2553,7 +2553,7 @@ def getRotMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
 
     err = _runtime._libdrd.drdGetRotMoveParam(amax, vmax, jerk, ID)
 
-    return (vmax.value, amax.value, jerk.value), err
+    return vmax.value, amax.value, jerk.value, err
 
 
 _runtime._libdrd.drdGetRotTrackParam.argtypes = [
@@ -2562,7 +2562,7 @@ _runtime._libdrd.drdGetRotTrackParam.argtypes = [
 _runtime._libdrd.drdGetRotTrackParam.restype = c_int
 
 
-def getRotTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
+def getRotTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
     Retrieve cartesian tracking trajectory generation parameters.
 
@@ -2573,7 +2573,7 @@ def getRotTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
+        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
 
@@ -2590,7 +2590,7 @@ def getRotTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
 
     err = _runtime._libdrd.drdGetRotTrackParam(amax, vmax, jerk, ID)
 
-    return (vmax.value, amax.value, jerk.value), err
+    return vmax.value, amax.value, jerk.value, err
 
 
 _runtime._libdrd.drdGetGripMoveParam.argtypes = [
@@ -2599,7 +2599,7 @@ _runtime._libdrd.drdGetGripMoveParam.argtypes = [
 _runtime._libdrd.drdGetGripMoveParam.restype = c_int
 
 
-def getGripMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
+def getGripMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
     Retrieve cartesian positioning trajectory generation parameters.
 
@@ -2610,7 +2610,7 @@ def getGripMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
+        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
 
@@ -2627,7 +2627,7 @@ def getGripMoveParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
 
     err = _runtime._libdrd.drdGetGripMoveParam(amax, vmax, jerk, ID)
 
-    return (vmax.value, amax.value, jerk.value), err
+    return vmax.value, amax.value, jerk.value, err
 
 
 _runtime._libdrd.drdGetGripTrackParam.argtypes = [
@@ -2636,7 +2636,7 @@ _runtime._libdrd.drdGetGripTrackParam.argtypes = [
 _runtime._libdrd.drdGetGripTrackParam.restype = c_int
 
 
-def getGripTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
+def getGripTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
     Retrieve cartesian tracking trajectory generation parameters.
 
@@ -2647,7 +2647,7 @@ def getGripTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        tuple of `((v_max, a_max, jerk_max), err)` where v_max (in [m/s]),
+        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
         a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
         acceeleration. err is 0 on success and -1 otherwise.
 
@@ -2664,7 +2664,7 @@ def getGripTrackParam(ID: int = -1) -> Tuple[Tuple[float, float, float], int]:
 
     err = _runtime._libdrd.drdGetGripTrackParam(amax, vmax, jerk, ID)
 
-    return (vmax.value, amax.value, jerk.value), err
+    return vmax.value, amax.value, jerk.value, err
 
 
 _runtime._libdrd.drdWaitForTick.argtypes = [c_byte]
