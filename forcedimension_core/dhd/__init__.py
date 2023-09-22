@@ -646,7 +646,7 @@ def getVersion(ID: int = -1) -> float:
 
     ver = c_double()
 
-    if _runtime._libdhd.getVersion(ver, ID):
+    if _runtime._libdhd.dhdGetVersion(ver, ID):
         return -1.0
 
     return ver.value
