@@ -2724,6 +2724,11 @@ def getForceAndTorqueAndGripperForce(
 
     return err
 
+
+_runtime._libdhd.dhdConfigLinearVelocity.argtypes = [c_int, c_int, c_byte]
+_runtime._libdhd.dhdConfigLinearVelocity.restype = c_int
+
+
 def configLinearVelocity(
     ms: int = DEFAULT_VELOCITY_WINDOW,
     mode: VelocityEstimatorMode = VelocityEstimatorMode.WINDOWING,
