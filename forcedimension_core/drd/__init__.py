@@ -1387,13 +1387,18 @@ def lock(enable: bool, init: bool, ID: int = -1) -> int:
     return _runtime._libdrd.drdLock(enable, init, ID)
 
 
-_runtime._libdrd.drdStop.argtypes = [c_byte]
+_runtime._libdrd.drdStop.argtypes = [c_bool, c_byte]
 _runtime._libdrd.drdStop.restype = c_int
 
 
-def stop(ID: int = -1) -> int:
+def stop(force_on: bool, ID: int = -1) -> int:
     """
     Stop the robotic control loop for the given robot.
+
+    :param bool force_on:
+        If ``False``, puts the device in BRAKE mode upon exiting. Otherwise
+        leaves the device in FORCE mode. See :ref:`device_modes` for more
+        details.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1409,7 +1414,7 @@ def stop(ID: int = -1) -> int:
     | :func:`forcedimension_core.drd.start()`
     """
 
-    return _runtime._libdrd.drdStop(ID)
+    return _runtime._libdrd.drdStop(force_on, ID)
 
 
 _runtime._libdrd.drdGetPriorities.argtypes = [c_byte]
