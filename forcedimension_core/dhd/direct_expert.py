@@ -573,7 +573,7 @@ def wristMotorToTorque(
     | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
     """
 
-    return _runtime._libdhd.dhdDeltaMotorToForce(
+    return _runtime._libdhd.dhdWristMotorToTorque(
         output[0], output[1], output[2],
         enc[0], enc[1], enc[2],
         *out.ptrs,
