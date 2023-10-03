@@ -479,8 +479,6 @@ class DOFInt(array):
         return arr
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         self._ptr = ct.cast(self.buffer_info()[0], c_int_ptr)
 
     @classmethod
@@ -611,8 +609,6 @@ class Mat3x3(array):
         return arr
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         self._ptr = ct.cast(self.buffer_info()[0], c_double_ptr)
 
     def __getitem__(self, indicies: Tuple[int, int]) -> float:
