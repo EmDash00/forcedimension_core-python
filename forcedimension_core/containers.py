@@ -361,6 +361,59 @@ class Enc3(array):
 
         return self._ptrs
 
+class Mot3(array):
+    """
+    Represents an array of motor commands as a Python ``array.array``.
+    """
+
+    def __new__(
+        cls, initializer: Iterable[int] = tuple(0 for _ in range(3))
+    ):
+        arr = super(Mot3, cls).__new__(
+            cls, 'H', initializer  # type: ignore
+        )
+
+        if len(arr) != 3:
+            raise ValueError()
+
+        return arr
+
+    def __init__(self, *args, **kwargs):
+        ptr = self.buffer_info()[0]
+        self._ptrs = (
+            ct.cast(ptr, c_ushort_ptr),
+            ct.cast(ptr + self.itemsize, c_ushort_ptr),
+            ct.cast(ptr + 2 * self.itemsize, c_ushort_ptr),
+        )
+
+    @classmethod
+    def __get_pydantic_core_schema__(
+        cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
+    ) -> pyd_core.CoreSchema:
+        return pyd_core.core_schema.no_info_after_validator_function(
+            cls,
+            handler(cls.__init__),
+            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+                lambda arr: arr.tolist()
+            )
+        )
+
+    @property
+    def ptr(self) -> c_ushort_ptr:
+        """
+        A pointer to the front of the array.
+        """
+
+        return self._ptrs[0]
+
+    @property
+    def ptrs(self) -> Tuple[c_ushort_ptr, c_ushort_ptr, c_ushort_ptr]:
+        """
+        A tuple of pointers to each element of the array in order.
+        """
+
+        return self._ptrs
+
 
 class Enc4(array):
     """
