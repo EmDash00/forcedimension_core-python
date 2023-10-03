@@ -493,7 +493,7 @@ def wristOrientationToEncoder(
     | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
 
-    return _runtime._libdhd.dhdDeltaEncoderToPosition(
+    return _runtime._libdhd.dhdWristOrientationToEncoder(
         orientation[0], orientation[1], orientation[2],
         *out.ptrs,
         ID
