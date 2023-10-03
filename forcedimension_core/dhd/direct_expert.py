@@ -354,7 +354,7 @@ def deltaForceToMotor(
     )
 
 
-def wristEncodersToOrientation(
+def wristEncoderToOrientation(
     enc: Array[int, int],
     out: SupportsPtrs3[c_double],
     ID: int = -1,
