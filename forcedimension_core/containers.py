@@ -551,7 +551,7 @@ class DOFFloat(array):
     """
 
     def __new__(
-        cls, initializer: Iterable[float] = (0 for _ in range(MAX_DOF))
+        cls, initializer: Iterable[float] = tuple(0 for _ in range(MAX_DOF))
     ):
         arr = super(DOFFloat, cls).__new__(
             cls, 'd', initializer  # type: ignore
@@ -563,15 +563,7 @@ class DOFFloat(array):
         return arr
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         self._ptr = ct.cast(self.buffer_info()[0], c_double_ptr)
-
-        self._delta = Vector3(self[:3])
-        self._wrist = Vector3(self[3:6])
-        self._gripper = self._gripper = ct.cast(
-            self.buffer_info()[0] + 7 * self.itemsize, c_double_ptr
-        ).contents
 
     @classmethod
     def __get_pydantic_core_schema__(
