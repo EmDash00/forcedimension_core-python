@@ -1853,7 +1853,7 @@ def jointAnglesToGravityJointTorques(
     | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
     """
 
-    return _runtime._libdhd.dhdJointAnglesToInertiaMatrix(
+    return _runtime._libdhd.dhdJointAnglesToGravityJointTorques(
         joint_angles.ptr,
         out.ptr,
         mask,
