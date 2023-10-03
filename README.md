@@ -1,8 +1,7 @@
 # forcedimension_core-python
 
-[![Build Status](https://app.travis-ci.com/EmDash00/forcedimension_core-python.svg?branch=v1.0.0-dev)](https://app.travis-ci.com/EmDash00/forcedimension_core-python)
-
 ![license](https://img.shields.io/github/v/release/EmDash00/forcedimension_core-python?display_name=tag)
+[![Build Status](https://app.travis-ci.com/EmDash00/forcedimension_core-python.svg?branch=v1.0.0-dev)](https://app.travis-ci.com/EmDash00/forcedimension_core-python)
 
 Looking for the documentation? You can find it here:
 
