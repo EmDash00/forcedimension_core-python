@@ -671,7 +671,7 @@ class Mat6x6(array):
     ``array.array``.
     """
     def __new__(
-        cls, initializer: Iterable[float] = (0. for _ in range(36))
+        cls, initializer: Iterable[float] = tuple(0. for _ in range(36))
     ):
         if isinstance(initializer, array):
             return initializer
@@ -689,8 +689,6 @@ class Mat6x6(array):
         return arr
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         self._ptr = ct.cast(self.buffer_info()[0], c_double_ptr)
 
     def __getitem__(self, key: int):
