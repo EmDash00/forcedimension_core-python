@@ -114,8 +114,8 @@ def load(
     silent=False
 ):
     should_mock = (
-        globals().get('__sphinx_build__', False) or
-        globals().get('__unittest__', False)
+        os.environ.get('__sphinx_build__', 'False') == 'True' or
+        os.environ.get('__forcedim_unittest__', 'False') == 'True'
     )
 
     if should_mock:
