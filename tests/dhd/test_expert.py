@@ -4,6 +4,7 @@ import unittest
 from array import array
 from ctypes import (CFUNCTYPE, POINTER, c_byte, c_char_p, c_double, c_int,
                     c_ubyte, c_uint, c_ushort)
+from forcedimension_core import containers
 
 import forcedimension_core.dhd as dhd
 import forcedimension_core.runtime as runtime
@@ -1813,6 +1814,32 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdGetDeltaEncoders
         )
 
+    def test_getDeltaEncodersDirect(self):
+        libdhd.dhdGetDeltaEncoders = (  # type: ignore
+            MockDHD.dhdGetDeltaEncoders.mock
+        )
+        out = containers.Enc3()
+
+        for _ in range(100):
+            MockDHD.dhdGetDeltaEncoders.enc0 = randint(0, 100)
+            MockDHD.dhdGetDeltaEncoders.enc1 = randint(0, 100)
+            MockDHD.dhdGetDeltaEncoders.enc2 = randint(0, 100)
+
+            dhd.expert.direct.getDeltaEncoders(out)
+
+            self.assertEqual(out[0], MockDHD.dhdGetDeltaEncoders.enc0)
+            self.assertEqual(out[1], MockDHD.dhdGetDeltaEncoders.enc1)
+            self.assertEqual(out[2], MockDHD.dhdGetDeltaEncoders.enc2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getDeltaEncoders(out, ID),
+            MockDHD.dhdGetDeltaEncoders
+        )
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getDeltaEncoders(out),
+            MockDHD.dhdGetDeltaEncoders
+        )
+
     def test_getWristEncoders(self):
         self.assertSignaturesEqual(
             libdhd.dhdGetWristEncoders, MockDHD.dhdGetWristEncoders
@@ -1840,6 +1867,32 @@ class TestExpertSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.expert.getWristEncoders(out),
+            MockDHD.dhdGetWristEncoders
+        )
+
+    def test_getWristEncodersDirect(self):
+        libdhd.dhdGetWristEncoders = (  # type: ignore
+            MockDHD.dhdGetWristEncoders.mock
+        )
+        out = containers.Enc3()
+
+        for _ in range(100):
+            MockDHD.dhdGetWristEncoders.enc0 = randint(0, 100)
+            MockDHD.dhdGetWristEncoders.enc1 = randint(0, 100)
+            MockDHD.dhdGetWristEncoders.enc2 = randint(0, 100)
+
+            dhd.expert.direct.getWristEncoders(out)
+
+            self.assertEqual(out[0], MockDHD.dhdGetWristEncoders.enc0)
+            self.assertEqual(out[1], MockDHD.dhdGetWristEncoders.enc1)
+            self.assertEqual(out[2], MockDHD.dhdGetWristEncoders.enc2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getWristEncoders(out, ID),
+            MockDHD.dhdGetWristEncoders
+        )
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getWristEncoders(out),
             MockDHD.dhdGetWristEncoders
         )
 
@@ -1925,37 +1978,6 @@ class TestExpertSDK(unittest.TestCase):
         )
 
 
-    def test_setDeltaMotor(self):
-        self.assertSignaturesEqual(
-            libdhd.dhdSetDeltaMotor, MockDHD.dhdSetDeltaMotor
-        )
-
-        libdhd.dhdSetDeltaMotor = (  # type: ignore
-            MockDHD.dhdSetDeltaMotor.mock
-        )
-
-        mot = [0, 0, 0]
-        for _ in range(100):
-            mot[0] = randint(0, 100)
-            mot[1] = randint(0, 100)
-            mot[2] = randint(0, 100)
-
-            dhd.expert.setDeltaMotor(mot)
-
-            self.assertEqual(mot[0], MockDHD.dhdSetDeltaMotor.mot0)
-            self.assertEqual(mot[1], MockDHD.dhdSetDeltaMotor.mot1)
-            self.assertEqual(mot[2], MockDHD.dhdSetDeltaMotor.mot2)
-
-        self.assertIDImpl(
-            lambda ID = -1: dhd.expert.setDeltaMotor(mot, ID),
-            MockDHD.dhdSetDeltaMotor
-        )
-
-        self.assertRetImpl(
-            lambda: dhd.expert.setDeltaMotor(mot),
-            MockDHD.dhdSetDeltaMotor
-        )
-
     def test_setWristMotor(self):
         self.assertSignaturesEqual(
             libdhd.dhdSetWristMotor, MockDHD.dhdSetWristMotor
@@ -1985,6 +2007,33 @@ class TestExpertSDK(unittest.TestCase):
         self.assertRetImpl(
             lambda: dhd.expert.setWristMotor(mot),
             MockDHD.dhdSetWristMotor
+        )
+
+    def test_setDeltaMotor(self):
+        libdhd.dhdSetDeltaMotor = (  # type: ignore
+            MockDHD.dhdSetDeltaMotor.mock
+        )
+
+        mot = [0, 0, 0]
+        for _ in range(100):
+            mot[0] = randint(0, 100)
+            mot[1] = randint(0, 100)
+            mot[2] = randint(0, 100)
+
+            dhd.expert.setDeltaMotor(mot)
+
+            self.assertEqual(mot[0], MockDHD.dhdSetDeltaMotor.mot0)
+            self.assertEqual(mot[1], MockDHD.dhdSetDeltaMotor.mot1)
+            self.assertEqual(mot[2], MockDHD.dhdSetDeltaMotor.mot2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.setDeltaMotor(mot, ID),
+            MockDHD.dhdSetDeltaMotor
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.setDeltaMotor(mot),
+            MockDHD.dhdSetDeltaMotor
         )
 
     def test_deltaEncoderToPosition(self):
@@ -2032,6 +2081,49 @@ class TestExpertSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: dhd.expert.deltaEncoderToPosition(enc, out),
+            MockDHD.dhdDeltaEncoderToPosition
+        )
+
+    def test_deltaEncoderToPositionDirect(self):
+        libdhd.dhdDeltaEncoderToPosition = (  # type: ignore
+            MockDHD.dhdDeltaEncoderToPosition.mock
+        )
+
+        enc = containers.Enc3()
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdDeltaEncoderToPosition.px = random()
+            MockDHD.dhdDeltaEncoderToPosition.py = random()
+            MockDHD.dhdDeltaEncoderToPosition.pz = random()
+
+            enc[0] = randint(0, 100)
+            enc[1] = randint(0, 100)
+            enc[2] = randint(0, 100)
+
+            dhd.expert.direct.deltaEncoderToPosition(enc, out)
+
+            self.assertAlmostEqual(
+                out[0], MockDHD.dhdDeltaEncoderToPosition.px
+            )
+            self.assertAlmostEqual(
+                out[1], MockDHD.dhdDeltaEncoderToPosition.py
+            )
+            self.assertAlmostEqual(
+                out[2], MockDHD.dhdDeltaEncoderToPosition.pz
+            )
+
+            self.assertEqual(enc[0], MockDHD.dhdDeltaEncoderToPosition.enc0)
+            self.assertEqual(enc[1], MockDHD.dhdDeltaEncoderToPosition.enc1)
+            self.assertEqual(enc[2], MockDHD.dhdDeltaEncoderToPosition.enc2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.deltaEncoderToPosition(enc, out, ID),
+            MockDHD.dhdDeltaEncoderToPosition
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.deltaEncoderToPosition(enc, out),
             MockDHD.dhdDeltaEncoderToPosition
         )
 
@@ -2083,6 +2175,49 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdDeltaPositionToEncoder
         )
 
+    def test_deltaPositionToEncoderDirect(self):
+        libdhd.dhdDeltaPositionToEncoder = (  # type: ignore
+            MockDHD.dhdDeltaPositionToEncoder.mock
+        )
+
+        pos = containers.Vector3()
+        out = containers.Enc3()
+
+        for _ in range(100):
+            MockDHD.dhdDeltaPositionToEncoder.enc0 = randint(0, 100)
+            MockDHD.dhdDeltaPositionToEncoder.enc1 = randint(0, 100)
+            MockDHD.dhdDeltaPositionToEncoder.enc2 = randint(0, 100)
+
+            pos[0] = random()
+            pos[1] = random()
+            pos[2] = random()
+
+            dhd.expert.direct.deltaPositionToEncoder(pos, out)
+
+            self.assertAlmostEqual(
+                pos[0], MockDHD.dhdDeltaPositionToEncoder.px
+            )
+            self.assertAlmostEqual(
+                pos[1], MockDHD.dhdDeltaPositionToEncoder.py
+            )
+            self.assertAlmostEqual(
+                pos[2], MockDHD.dhdDeltaPositionToEncoder.pz
+            )
+
+            self.assertEqual(out[0], MockDHD.dhdDeltaPositionToEncoder.enc0)
+            self.assertEqual(out[1], MockDHD.dhdDeltaPositionToEncoder.enc1)
+            self.assertEqual(out[2], MockDHD.dhdDeltaPositionToEncoder.enc2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.deltaPositionToEncoder(pos, out, ID),
+            MockDHD.dhdDeltaPositionToEncoder
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.deltaPositionToEncoder(pos, out),
+            MockDHD.dhdDeltaPositionToEncoder
+        )
+
     def test_deltaMotorToForce(self):
         self.assertSignaturesEqual(
             libdhd.dhdDeltaMotorToForce,
@@ -2131,7 +2266,6 @@ class TestExpertSDK(unittest.TestCase):
             self.assertEqual(enc[1], MockDHD.dhdDeltaMotorToForce.enc1)
             self.assertEqual(enc[2], MockDHD.dhdDeltaMotorToForce.enc2)
 
-
         self.assertIDImpl(
             lambda ID = -1: dhd.expert.deltaMotorToForce(mot, enc, out, ID),
             MockDHD.dhdDeltaMotorToForce
@@ -2142,6 +2276,60 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdDeltaMotorToForce
         )
 
+    def test_deltaMotorToForceDirect(self):
+        libdhd.dhdDeltaMotorToForce = (  # type: ignore
+            MockDHD.dhdDeltaMotorToForce.mock
+        )
+
+        mot = containers.Mot3()
+        enc = containers.Enc3()
+
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdDeltaMotorToForce.fx = random()
+            MockDHD.dhdDeltaMotorToForce.fy = random()
+            MockDHD.dhdDeltaMotorToForce.fz = random()
+
+            mot[0] = randint(0, 100)
+            mot[1] = randint(0, 100)
+            mot[2] = randint(0, 100)
+
+            enc[0] = randint(0, 100)
+            enc[1] = randint(0, 100)
+            enc[2] = randint(0, 100)
+
+            dhd.expert.direct.deltaMotorToForce(mot, enc, out)
+
+            self.assertAlmostEqual(
+                out[0], MockDHD.dhdDeltaMotorToForce.fx
+            )
+            self.assertAlmostEqual(
+                out[1], MockDHD.dhdDeltaMotorToForce.fy
+            )
+            self.assertAlmostEqual(
+                out[2], MockDHD.dhdDeltaMotorToForce.fz
+            )
+
+            self.assertEqual(mot[0], MockDHD.dhdDeltaMotorToForce.mot0)
+            self.assertEqual(mot[1], MockDHD.dhdDeltaMotorToForce.mot1)
+            self.assertEqual(mot[2], MockDHD.dhdDeltaMotorToForce.mot2)
+
+            self.assertEqual(enc[0], MockDHD.dhdDeltaMotorToForce.enc0)
+            self.assertEqual(enc[1], MockDHD.dhdDeltaMotorToForce.enc1)
+            self.assertEqual(enc[2], MockDHD.dhdDeltaMotorToForce.enc2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.deltaMotorToForce(
+                mot, enc, out, ID
+            ),
+            MockDHD.dhdDeltaMotorToForce
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.deltaMotorToForce(mot, enc, out),
+            MockDHD.dhdDeltaMotorToForce
+        )
 
     def test_deltaForceToMotor(self):
         self.assertSignaturesEqual(
@@ -2202,6 +2390,64 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdDeltaForceToMotor
         )
 
+    def test_deltaMotorToForceDirectDirect(self):
+        libdhd.dhdDeltaForceToMotor = (  # type: ignore
+            MockDHD.dhdDeltaForceToMotor.mock
+        )
+
+        f = [0.0, 0.0, 0.0]
+        enc = [0, 0, 0]
+
+        out = containers.Mot3()
+
+        for _ in range(100):
+            MockDHD.dhdDeltaForceToMotor.mot0 = randint(0, 100)
+            MockDHD.dhdDeltaForceToMotor.mot1 = randint(0, 100)
+            MockDHD.dhdDeltaForceToMotor.mot2 = randint(0, 100)
+
+            f[0] = random()
+            f[1] = random()
+            f[2] = random()
+
+            enc[0] = randint(0, 100)
+            enc[1] = randint(0, 100)
+            enc[2] = randint(0, 100)
+
+            dhd.expert.direct.deltaForceToMotor(
+                f, enc, out
+            )
+
+            self.assertAlmostEqual(
+                f[0], MockDHD.dhdDeltaForceToMotor.fx
+            )
+            self.assertAlmostEqual(
+                f[1], MockDHD.dhdDeltaForceToMotor.fy
+            )
+            self.assertAlmostEqual(
+                f[2], MockDHD.dhdDeltaForceToMotor.fz
+            )
+
+            self.assertEqual(out[0], MockDHD.dhdDeltaForceToMotor.mot0)
+            self.assertEqual(out[1], MockDHD.dhdDeltaForceToMotor.mot1)
+            self.assertEqual(out[2], MockDHD.dhdDeltaForceToMotor.mot2)
+
+            self.assertEqual(enc[0], MockDHD.dhdDeltaForceToMotor.enc0)
+            self.assertEqual(enc[1], MockDHD.dhdDeltaForceToMotor.enc1)
+            self.assertEqual(enc[2], MockDHD.dhdDeltaForceToMotor.enc2)
+
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.deltaForceToMotor(
+                f, enc, out, ID
+            ),
+            MockDHD.dhdDeltaForceToMotor
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.deltaForceToMotor(f, enc, out),
+            MockDHD.dhdDeltaForceToMotor
+        )
+
     def test_wristEncoderToOrientation(self):
         self.assertSignaturesEqual(
             libdhd.dhdWristEncoderToOrientation,
@@ -2247,6 +2493,51 @@ class TestExpertSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: dhd.expert.wristEncoderToOrientation(enc, out),
+            MockDHD.dhdWristEncoderToOrientation
+        )
+
+    def test_wristEncoderToOrientationDirect(self):
+        libdhd.dhdWristEncoderToOrientation = (  # type: ignore
+            MockDHD.dhdWristEncoderToOrientation.mock
+        )
+
+        enc = [0, 0, 0]
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdWristEncoderToOrientation.oa = random()
+            MockDHD.dhdWristEncoderToOrientation.ob = random()
+            MockDHD.dhdWristEncoderToOrientation.og = random()
+
+            enc[0] = randint(0, 100)
+            enc[1] = randint(0, 100)
+            enc[2] = randint(0, 100)
+
+            dhd.expert.direct.wristEncoderToOrientation(enc, out)
+
+            self.assertAlmostEqual(
+                out[0], MockDHD.dhdWristEncoderToOrientation.oa
+            )
+            self.assertAlmostEqual(
+                out[1], MockDHD.dhdWristEncoderToOrientation.ob
+            )
+            self.assertAlmostEqual(
+                out[2], MockDHD.dhdWristEncoderToOrientation.og
+            )
+
+            self.assertEqual(enc[0], MockDHD.dhdWristEncoderToOrientation.enc0)
+            self.assertEqual(enc[1], MockDHD.dhdWristEncoderToOrientation.enc1)
+            self.assertEqual(enc[2], MockDHD.dhdWristEncoderToOrientation.enc2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.wristEncoderToOrientation(
+                enc, out, ID
+            ),
+            MockDHD.dhdWristEncoderToOrientation
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.wristEncoderToOrientation(enc, out),
             MockDHD.dhdWristEncoderToOrientation
         )
 
@@ -2297,6 +2588,53 @@ class TestExpertSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: dhd.expert.wristOrientationToEncoder(orientation, out),
+            MockDHD.dhdWristOrientationToEncoder
+        )
+
+    def test_wristOrientationToEncoderDirect(self):
+        libdhd.dhdWristOrientationToEncoder = (  # type: ignore
+            MockDHD.dhdWristOrientationToEncoder.mock
+        )
+
+        orientation = [0.0, 0.0, 0.0]
+        out = containers.Enc3()
+
+        for _ in range(100):
+            MockDHD.dhdWristOrientationToEncoder.enc0 = randint(0, 100)
+            MockDHD.dhdWristOrientationToEncoder.enc1 = randint(0, 100)
+            MockDHD.dhdWristOrientationToEncoder.enc2 = randint(0, 100)
+
+            orientation[0] = random()
+            orientation[1] = random()
+            orientation[2] = random()
+
+            dhd.expert.direct.wristOrientationToEncoder(orientation, out)
+
+            self.assertAlmostEqual(
+                orientation[0], MockDHD.dhdWristOrientationToEncoder.oa
+            )
+            self.assertAlmostEqual(
+                orientation[1], MockDHD.dhdWristOrientationToEncoder.ob
+            )
+            self.assertAlmostEqual(
+                orientation[2], MockDHD.dhdWristOrientationToEncoder.og
+            )
+
+            self.assertEqual(out[0], MockDHD.dhdWristOrientationToEncoder.enc0)
+            self.assertEqual(out[1], MockDHD.dhdWristOrientationToEncoder.enc1)
+            self.assertEqual(out[2], MockDHD.dhdWristOrientationToEncoder.enc2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.wristOrientationToEncoder(
+                orientation, out, ID
+            ),
+            MockDHD.dhdWristOrientationToEncoder
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.wristOrientationToEncoder(
+                orientation, out
+            ),
             MockDHD.dhdWristOrientationToEncoder
         )
 
@@ -2360,6 +2698,61 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdWristMotorToTorque
         )
 
+    def test_wristMotorToTorqueDirect(self):
+        libdhd.dhdWristMotorToTorque = (  # type: ignore
+            MockDHD.dhdWristMotorToTorque.mock
+        )
+
+        mot = [0, 0, 0]
+        enc = [0, 0, 0]
+
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdWristMotorToTorque.tx = random()
+            MockDHD.dhdWristMotorToTorque.ty = random()
+            MockDHD.dhdWristMotorToTorque.tz = random()
+
+            mot[0] = randint(0, 100)
+            mot[1] = randint(0, 100)
+            mot[2] = randint(0, 100)
+
+            enc[0] = randint(0, 100)
+            enc[1] = randint(0, 100)
+            enc[2] = randint(0, 100)
+
+            dhd.expert.direct.wristMotorToTorque(mot, enc, out)
+
+            self.assertAlmostEqual(
+                out[0], MockDHD.dhdWristMotorToTorque.tx
+            )
+            self.assertAlmostEqual(
+                out[1], MockDHD.dhdWristMotorToTorque.ty
+            )
+            self.assertAlmostEqual(
+                out[2], MockDHD.dhdWristMotorToTorque.tz
+            )
+
+            self.assertEqual(mot[0], MockDHD.dhdWristMotorToTorque.mot0)
+            self.assertEqual(mot[1], MockDHD.dhdWristMotorToTorque.mot1)
+            self.assertEqual(mot[2], MockDHD.dhdWristMotorToTorque.mot2)
+
+            self.assertEqual(enc[0], MockDHD.dhdWristMotorToTorque.enc0)
+            self.assertEqual(enc[1], MockDHD.dhdWristMotorToTorque.enc1)
+            self.assertEqual(enc[2], MockDHD.dhdWristMotorToTorque.enc2)
+
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.wristMotorToTorque(
+                mot, enc, out, ID
+            ),
+            MockDHD.dhdWristMotorToTorque
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.wristMotorToTorque(mot, enc, out),
+            MockDHD.dhdWristMotorToTorque
+        )
 
     def test_wristTorqueToMotor(self):
         self.assertSignaturesEqual(
@@ -2417,6 +2810,62 @@ class TestExpertSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: dhd.expert.wristTorqueToMotor(t, enc, out),
+            MockDHD.dhdWristTorqueToMotor
+        )
+
+    def test_wristTorqueToMotorDirect(self):
+        libdhd.dhdWristTorqueToMotor = (  # type: ignore
+            MockDHD.dhdWristTorqueToMotor.mock
+        )
+
+        t = [0.0, 0.0, 0.0]
+        enc = [0, 0, 0]
+
+        out = containers.Mot3()
+
+        for _ in range(100):
+            MockDHD.dhdWristTorqueToMotor.mot0 = randint(0, 100)
+            MockDHD.dhdWristTorqueToMotor.mot1 = randint(0, 100)
+            MockDHD.dhdWristTorqueToMotor.mot2 = randint(0, 100)
+
+            t[0] = random()
+            t[1] = random()
+            t[2] = random()
+
+            enc[0] = randint(0, 100)
+            enc[1] = randint(0, 100)
+            enc[2] = randint(0, 100)
+
+            dhd.expert.direct.wristTorqueToMotor(t, enc, out)
+
+            self.assertAlmostEqual(
+                t[0], MockDHD.dhdWristTorqueToMotor.tx
+            )
+            self.assertAlmostEqual(
+                t[1], MockDHD.dhdWristTorqueToMotor.ty
+            )
+            self.assertAlmostEqual(
+                t[2], MockDHD.dhdWristTorqueToMotor.tz
+            )
+
+            self.assertEqual(out[0], MockDHD.dhdWristTorqueToMotor.mot0)
+            self.assertEqual(out[1], MockDHD.dhdWristTorqueToMotor.mot1)
+            self.assertEqual(out[2], MockDHD.dhdWristTorqueToMotor.mot2)
+
+            self.assertEqual(enc[0], MockDHD.dhdWristTorqueToMotor.enc0)
+            self.assertEqual(enc[1], MockDHD.dhdWristTorqueToMotor.enc1)
+            self.assertEqual(enc[2], MockDHD.dhdWristTorqueToMotor.enc2)
+
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.wristTorqueToMotor(
+                t, enc, out, ID
+            ),
+            MockDHD.dhdWristTorqueToMotor
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.wristTorqueToMotor(t, enc, out),
             MockDHD.dhdWristTorqueToMotor
         )
 
@@ -2612,7 +3061,6 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdGripperMotorToForce
         )
 
-
     def test_gripperForceToMotor(self):
         self.assertSignaturesEqual(
             libdhd.dhdGripperForceToMotor,
@@ -2781,6 +3229,30 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdGetEnc
         )
 
+    def test_getEncDirect(self):
+        libdhd.dhdGetEnc = MockDHD.dhdGetEnc.mock  # type: ignore
+
+        mask = 0
+        enc = containers.DOFInt()
+
+        for _ in range(100):
+            dhd.expert.direct.getEnc(enc, mask)
+
+            for i in range(MAX_DOF):
+                self.assertEqual(enc[i], MockDHD.dhdGetEnc.enc[i])
+
+            self.assertEqual(mask, MockDHD.dhdGetEnc.mask)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getEnc(enc, mask, ID),
+            MockDHD.dhdGetEnc
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getEnc(enc, mask),
+            MockDHD.dhdGetEnc
+        )
+
     def test_setBrk(self):
         self.assertSignaturesEqual(
             libdhd.dhdSetBrk, MockDHD.dhdSetBrk
@@ -2804,7 +3276,6 @@ class TestExpertSDK(unittest.TestCase):
             lambda: dhd.expert.setBrk(mask),
             MockDHD.dhdSetBrk
         )
-
 
     def test_getDeltaJointAngles(self):
         self.assertSignaturesEqual(
@@ -2836,6 +3307,36 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdGetDeltaJointAngles
         )
 
+    def test_getDeltaJointAnglesDirect(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdGetDeltaJointAngles, MockDHD.dhdGetDeltaJointAngles
+        )
+
+        libdhd.dhdGetDeltaJointAngles = (  # type: ignore
+            MockDHD.dhdGetDeltaJointAngles.mock
+        )
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetDeltaJointAngles.j0 = random()
+            MockDHD.dhdGetDeltaJointAngles.j1 = random()
+            MockDHD.dhdGetDeltaJointAngles.j2 = random()
+
+            dhd.expert.direct.getDeltaJointAngles(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetDeltaJointAngles.j0)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetDeltaJointAngles.j1)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetDeltaJointAngles.j2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getDeltaJointAngles(out, ID),
+            MockDHD.dhdGetDeltaJointAngles
+        )
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getDeltaJointAngles(out),
+            MockDHD.dhdGetDeltaJointAngles
+        )
+
     def test_getDeltaJacobian(self):
         self.assertSignaturesEqual(
             libdhd.dhdGetDeltaJacobian, MockDHD.dhdGetDeltaJacobian
@@ -2861,6 +3362,34 @@ class TestExpertSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.expert.getDeltaJacobian(out),
+            MockDHD.dhdGetDeltaJacobian
+        )
+
+    def test_getDeltaJacobianDirect(self):
+        libdhd.dhdGetDeltaJacobian = (  # type: ignore
+            MockDHD.dhdGetDeltaJacobian.mock
+        )
+        out = containers.Mat3x3()
+
+        for _ in range(100):
+            for i in range(3):
+                for j in range(3):
+                    MockDHD.dhdGetDeltaJacobian.jcb[i][j] = random()
+
+            dhd.expert.direct.getDeltaJacobian(out)
+
+            for i in range(3):
+                for j in range(3):
+                    self.assertAlmostEqual(
+                        out[i, j], MockDHD.dhdGetDeltaJacobian.jcb[i][j]
+                    )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getDeltaJacobian(out, ID),
+            MockDHD.dhdGetDeltaJacobian
+        )
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getDeltaJacobian(out),
             MockDHD.dhdGetDeltaJacobian
         )
 
@@ -2996,6 +3525,45 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdDeltaEncodersToJointAngles
         )
 
+    def test_deltaEncodersToJointAnglesDirect(self):
+        libdhd.dhdDeltaEncodersToJointAngles = (  # type: ignore
+            MockDHD.dhdDeltaEncodersToJointAngles.mock
+        )
+
+        enc = [0, 0, 0]
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdDeltaEncodersToJointAngles.j0 = random()
+            MockDHD.dhdDeltaEncodersToJointAngles.j1 = random()
+            MockDHD.dhdDeltaEncodersToJointAngles.j2 = random()
+
+            dhd.expert.direct.deltaEncodersToJointAngles(enc, out)
+
+            self.assertAlmostEqual(
+                out[0], MockDHD.dhdDeltaEncodersToJointAngles.j0
+            )
+
+            self.assertAlmostEqual(
+                out[1], MockDHD.dhdDeltaEncodersToJointAngles.j1
+            )
+
+            self.assertAlmostEqual(
+                out[2], MockDHD.dhdDeltaEncodersToJointAngles.j2
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.deltaEncodersToJointAngles(
+                enc, out, ID
+            ),
+            MockDHD.dhdDeltaEncodersToJointAngles
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.deltaEncodersToJointAngles(enc, out),
+            MockDHD.dhdDeltaEncodersToJointAngles
+        )
+
     def test_deltaJointAnglesToEncoders(self):
         self.assertSignaturesEqual(
             libdhd.dhdDeltaJointAnglesToEncoders,
@@ -3040,6 +3608,45 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdDeltaJointAnglesToEncoders
         )
 
+    def test_deltaJointAnglesToEncodersDirect(self):
+        libdhd.dhdDeltaJointAnglesToEncoders = (  # type: ignore
+            MockDHD.dhdDeltaJointAnglesToEncoders.mock
+        )
+
+        joint_angles = [0.0, 0.0, 0.0]
+        out = containers.Enc3()
+
+        for _ in range(100):
+            MockDHD.dhdDeltaJointAnglesToEncoders.enc0 = randint(0, 100)
+            MockDHD.dhdDeltaJointAnglesToEncoders.enc1 = randint(0, 100)
+            MockDHD.dhdDeltaJointAnglesToEncoders.enc2 = randint(0, 100)
+
+            dhd.expert.direct.deltaJointAnglesToEncoders(joint_angles, out)
+
+            self.assertAlmostEqual(
+                out[0], MockDHD.dhdDeltaJointAnglesToEncoders.enc0
+            )
+
+            self.assertAlmostEqual(
+                out[1], MockDHD.dhdDeltaJointAnglesToEncoders.enc1
+            )
+
+            self.assertAlmostEqual(
+                out[2], MockDHD.dhdDeltaJointAnglesToEncoders.enc2
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.deltaJointAnglesToEncoders(
+                joint_angles, out, ID
+            ),
+            MockDHD.dhdDeltaJointAnglesToEncoders
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.deltaJointAnglesToEncoders(joint_angles, out),
+            MockDHD.dhdDeltaJointAnglesToEncoders
+        )
+
     def test_getWristJointAngles(self):
         self.assertSignaturesEqual(
             libdhd.dhdGetWristJointAngles, MockDHD.dhdGetWristJointAngles
@@ -3067,6 +3674,32 @@ class TestExpertSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.expert.getWristJointAngles(out),
+            MockDHD.dhdGetWristJointAngles
+        )
+
+    def test_getWristJointAnglesDirect(self):
+        libdhd.dhdGetWristJointAngles = (  # type: ignore
+            MockDHD.dhdGetWristJointAngles.mock
+        )
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetWristJointAngles.j0 = random()
+            MockDHD.dhdGetWristJointAngles.j1 = random()
+            MockDHD.dhdGetWristJointAngles.j2 = random()
+
+            dhd.expert.direct.getWristJointAngles(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetWristJointAngles.j0)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetWristJointAngles.j1)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetWristJointAngles.j2)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getWristJointAngles(out, ID),
+            MockDHD.dhdGetWristJointAngles
+        )
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getWristJointAngles(out),
             MockDHD.dhdGetWristJointAngles
         )
 
@@ -3098,6 +3731,33 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdGetWristJacobian
         )
 
+    def test_getWristJacobianDirect(self):
+        libdhd.dhdGetWristJacobian = (  # type: ignore
+            MockDHD.dhdGetWristJacobian.mock
+        )
+        out = containers.Mat3x3()
+
+        for _ in range(100):
+            for i in range(3):
+                for j in range(3):
+                    MockDHD.dhdGetWristJacobian.jcb[i][j] = random()
+
+            dhd.expert.direct.getWristJacobian(out)
+
+            for i in range(3):
+                for j in range(3):
+                    self.assertAlmostEqual(
+                        out[i, j], MockDHD.dhdGetWristJacobian.jcb[i][j]
+                    )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getWristJacobian(out, ID),
+            MockDHD.dhdGetWristJacobian
+        )
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getWristJacobian(out),
+            MockDHD.dhdGetWristJacobian
+        )
 
     def test_wristJointTorquesExtrema(self):
         self.assertSignaturesEqual(
@@ -3156,7 +3816,6 @@ class TestExpertSDK(unittest.TestCase):
             ),
             MockDHD.dhdWristJointTorquesExtrema
         )
-
 
     def test_setWristJointTorques(self):
         self.assertSignaturesEqual(
@@ -3242,7 +3901,6 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdSetForceAndWristJointTorques
         )
 
-
     def test_setForceAndWristJointTorquesAndGripperForce(self):
         self.assertSignaturesEqual(
             libdhd.dhdSetForceAndWristJointTorquesAndGripperForce,
@@ -3314,7 +3972,6 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdSetForceAndWristJointTorquesAndGripperForce
         )
 
-
     def test_wristEncodersToJointAngles(self):
         self.assertSignaturesEqual(
             libdhd.dhdWristEncodersToJointAngles,
@@ -3327,6 +3984,45 @@ class TestExpertSDK(unittest.TestCase):
 
         enc = [0, 0, 0]
         out = [0.0, 0.0, 0.0]
+        for _ in range(100):
+            MockDHD.dhdWristEncodersToJointAngles.j0 = random()
+            MockDHD.dhdWristEncodersToJointAngles.j1 = random()
+            MockDHD.dhdWristEncodersToJointAngles.j2 = random()
+
+            dhd.expert.wristEncodersToJointAngles(enc, out)
+
+            self.assertAlmostEqual(
+                out[0], MockDHD.dhdWristEncodersToJointAngles.j0
+            )
+
+            self.assertAlmostEqual(
+                out[1], MockDHD.dhdWristEncodersToJointAngles.j1
+            )
+
+            self.assertAlmostEqual(
+                out[2], MockDHD.dhdWristEncodersToJointAngles.j2
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.wristEncodersToJointAngles(
+                enc, out, ID
+            ),
+            MockDHD.dhdWristEncodersToJointAngles
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.wristEncodersToJointAngles(enc, out),
+            MockDHD.dhdWristEncodersToJointAngles
+        )
+
+    def test_wristEncodersToJointAnglesDirect(self):
+        libdhd.dhdWristEncodersToJointAngles = (  # type: ignore
+            MockDHD.dhdWristEncodersToJointAngles.mock
+        )
+
+        enc = [0, 0, 0]
+        out = [0.0, 0.0, 0.0]
+
         for _ in range(100):
             MockDHD.dhdWristEncodersToJointAngles.j0 = random()
             MockDHD.dhdWristEncodersToJointAngles.j1 = random()
@@ -3402,6 +4098,46 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdWristJointAnglesToEncoders
         )
 
+    def test_wristJointAnglesToEncodersDirect(self):
+        libdhd.dhdWristJointAnglesToEncoders = (  # type: ignore
+            MockDHD.dhdWristJointAnglesToEncoders.mock
+        )
+
+        joint_angles = [0.0, 0.0, 0.0]
+        out = containers.Enc3()
+
+        for _ in range(100):
+            MockDHD.dhdWristJointAnglesToEncoders.enc0 = randint(0, 100)
+            MockDHD.dhdWristJointAnglesToEncoders.enc1 = randint(0, 100)
+            MockDHD.dhdWristJointAnglesToEncoders.enc2 = randint(0, 100)
+
+            dhd.expert.direct.wristJointAnglesToEncoders(joint_angles, out)
+
+            self.assertAlmostEqual(
+                out[0], MockDHD.dhdWristJointAnglesToEncoders.enc0
+            )
+
+            self.assertAlmostEqual(
+                out[1], MockDHD.dhdWristJointAnglesToEncoders.enc1
+            )
+
+            self.assertAlmostEqual(
+                out[2], MockDHD.dhdWristJointAnglesToEncoders.enc2
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.wristJointAnglesToEncoders(
+                joint_angles, out, ID
+            ),
+            MockDHD.dhdWristJointAnglesToEncoders
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.wristJointAnglesToEncoders(joint_angles, out),
+            MockDHD.dhdWristJointAnglesToEncoders
+        )
+
+
     def test_getJointAngles(self):
         self.assertSignaturesEqual(
             libdhd.dhdGetJointAngles, MockDHD.dhdGetJointAngles
@@ -3426,6 +4162,29 @@ class TestExpertSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: dhd.expert.getJointAngles(joint_angles),
+            MockDHD.dhdGetJointAngles
+        )
+
+    def test_getJointAnglesDirect(self):
+        libdhd.dhdGetJointAngles = MockDHD.dhdGetJointAngles.mock  # type: ignore
+
+        joint_angles = containers.DOFFloat()
+
+        for _ in range(100):
+            dhd.expert.direct.getJointAngles(joint_angles)
+
+            for i in range(MAX_DOF):
+                self.assertAlmostEqual(
+                    joint_angles[i], MockDHD.dhdGetJointAngles.joint_angles[i]
+                )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getJointAngles(joint_angles, ID),
+            MockDHD.dhdGetJointAngles
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getJointAngles(joint_angles),
             MockDHD.dhdGetJointAngles
         )
 
@@ -3457,6 +4216,29 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdGetJointVelocities
         )
 
+    def test_getJointVelocitiesDirect(self):
+        libdhd.dhdGetJointVelocities = MockDHD.dhdGetJointVelocities.mock  # type: ignore
+
+        joint_v = containers.DOFFloat()
+
+        for _ in range(100):
+            dhd.expert.direct.getJointVelocities(joint_v)
+
+            for i in range(MAX_DOF):
+                self.assertAlmostEqual(
+                    joint_v[i], MockDHD.dhdGetJointVelocities.joint_v[i]
+                )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getJointVelocities(joint_v, ID),
+            MockDHD.dhdGetJointVelocities
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getJointVelocities(joint_v),
+            MockDHD.dhdGetJointVelocities
+        )
+
     def test_getEncVelocities(self):
         self.assertSignaturesEqual(
             libdhd.dhdGetEncVelocities, MockDHD.dhdGetEncVelocities
@@ -3481,6 +4263,29 @@ class TestExpertSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: dhd.expert.getEncVelocities(enc_v),
+            MockDHD.dhdGetEncVelocities
+        )
+
+    def test_getEncVelocitiesDirect(self):
+        libdhd.dhdGetEncVelocities = MockDHD.dhdGetEncVelocities.mock  # type: ignore
+
+        enc_v = containers.DOFFloat()
+
+        for _ in range(100):
+            dhd.expert.direct.getEncVelocities(enc_v)
+
+            for i in range(MAX_DOF):
+                self.assertAlmostEqual(
+                    enc_v[i], MockDHD.dhdGetEncVelocities.enc_v[i]
+                )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.getEncVelocities(enc_v, ID),
+            MockDHD.dhdGetEncVelocities
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.getEncVelocities(enc_v),
             MockDHD.dhdGetEncVelocities
         )
 
@@ -3535,6 +4340,52 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdJointAnglesToInertiaMatrix
         )
 
+    def test_jointAnglesToInertiaMatrixDirect(self):
+        libdhd.dhdJointAnglesToInertiaMatrix = (  # type: ignore
+            MockDHD.dhdJointAnglesToInertiaMatrix.mock
+        )
+
+        joint_angles = containers.DOFFloat()
+        out = containers.Mat6x6()
+
+        for _ in range(100):
+            for i in range(MAX_DOF):
+                joint_angles[i] = random()
+
+            for i in range(6):
+                for j in range(6):
+                    MockDHD.dhdJointAnglesToInertiaMatrix.inertia_matrix[i][j] = random()
+
+
+            dhd.expert.direct.jointAnglesToIntertiaMatrix(joint_angles, out)
+
+            for i in range(MAX_DOF):
+                self.assertAlmostEqual(
+                    joint_angles[i],
+                    MockDHD.dhdJointAnglesToInertiaMatrix.joint_angles[i]
+                )
+
+            for i in range(6):
+                for j in range(6):
+                    self.assertAlmostEqual(
+                        out[i, j],
+                        MockDHD.dhdJointAnglesToInertiaMatrix.inertia_matrix[i][j]
+                    )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.jointAnglesToIntertiaMatrix(
+                joint_angles, out, ID
+            ),
+            MockDHD.dhdJointAnglesToInertiaMatrix
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.jointAnglesToIntertiaMatrix(
+                joint_angles, out,
+            ),
+            MockDHD.dhdJointAnglesToInertiaMatrix
+        )
+
     def test_jointAnglesToGravityJointTorques(self):
         self.assertSignaturesEqual(
             libdhd.dhdJointAnglesToGravityJointTorques,
@@ -3584,6 +4435,50 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdJointAnglesToGravityJointTorques
         )
 
+    def test_jointAnglesToGravityJointTorquesDirect(self):
+        libdhd.dhdJointAnglesToGravityJointTorques = (  # type: ignore
+            MockDHD.dhdJointAnglesToGravityJointTorques.mock
+        )
+
+        joint_angles = containers.DOFFloat()
+        out = containers.DOFFloat()
+
+        for _ in range(100):
+            mask = randint(0, 100)
+
+            for i in range(MAX_DOF):
+                joint_angles[i] = random()
+                MockDHD.dhdJointAnglesToGravityJointTorques.q[i] = random()
+
+            dhd.expert.direct.jointAnglesToGravityJointTorques(
+                joint_angles, out, mask
+            )
+
+            for i in range(MAX_DOF):
+                self.assertAlmostEqual(
+                    joint_angles[i],
+                    MockDHD.dhdJointAnglesToGravityJointTorques.joint_angles[i]
+                )
+
+                self.assertAlmostEqual(
+                    out[i],
+                    MockDHD.dhdJointAnglesToGravityJointTorques.q[i]
+                )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.jointAnglesToGravityJointTorques(
+                joint_angles, out, 0, ID
+            ),
+            MockDHD.dhdJointAnglesToGravityJointTorques
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.jointAnglesToGravityJointTorques(
+                joint_angles, out, 0
+            ),
+            MockDHD.dhdJointAnglesToGravityJointTorques
+        )
+
     def test_setComMode(self):
         self.assertSignaturesEqual(
             libdhd.dhdSetComMode,
@@ -3606,6 +4501,7 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdSetComMode
         )
 
+    # TODO: Fix this
     def test_setComModePriority(self):
         ...
 
@@ -3656,7 +4552,6 @@ class TestExpertSDK(unittest.TestCase):
         self.assertEqual(
             dhd.expert.getWatchdog(), -1
         )
-
 
     def test_getEncRange(self):
         self.assertSignaturesEqual(

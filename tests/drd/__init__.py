@@ -3,7 +3,7 @@ from ctypes import CFUNCTYPE, POINTER, c_bool, c_byte, c_double, c_int, c_ubyte
 from random import randint, random
 from typing import Any
 import unittest
-from forcedimension_core import drd, runtime
+from forcedimension_core import containers, drd, runtime
 
 from forcedimension_core.dhd.constants import MAX_DOF, ErrorNum
 
@@ -1608,6 +1608,71 @@ class TestRoboticSDK(unittest.TestCase):
             MockDRD.drdGetPositionAndOrientation
         )
 
+    def test_getPositionAndOrientationDirect(self):
+        libdrd.drdGetPositionAndOrientation = (  # type: ignore
+            MockDRD.drdGetPositionAndOrientation.mock
+        )
+
+        p_out = containers.Vector3()
+        o_out = containers.Vector3()
+        pg_out = c_double()
+        frame = containers.Mat3x3()
+
+        for _ in range(100):
+            for i in range(3):
+                for j in range(3):
+                    MockDRD.drdGetPositionAndOrientation.frame[i][j] = (
+                        random()
+                    )
+
+            MockDRD.drdGetPositionAndOrientation.oa = random()
+            MockDRD.drdGetPositionAndOrientation.ob = random()
+            MockDRD.drdGetPositionAndOrientation.og = random()
+
+            MockDRD.drdGetPositionAndOrientation.px = random()
+            MockDRD.drdGetPositionAndOrientation.py = random()
+            MockDRD.drdGetPositionAndOrientation.pz = random()
+
+            drd.direct.getPositionAndOrientation(p_out, o_out, pg_out, frame)
+
+            self.assertAlmostEqual(
+                p_out[0], MockDRD.drdGetPositionAndOrientation.px
+            )
+            self.assertAlmostEqual(
+                p_out[1], MockDRD.drdGetPositionAndOrientation.py
+            )
+            self.assertAlmostEqual(
+                p_out[2], MockDRD.drdGetPositionAndOrientation.pz
+            )
+
+            self.assertAlmostEqual(
+                o_out[0], MockDRD.drdGetPositionAndOrientation.oa
+            )
+            self.assertAlmostEqual(
+                o_out[1], MockDRD.drdGetPositionAndOrientation.ob
+            )
+            self.assertAlmostEqual(
+                o_out[2], MockDRD.drdGetPositionAndOrientation.og
+            )
+
+            for i in range(3):
+                for j in range(3):
+                    self.assertAlmostEqual(
+                        frame[i, j],
+                        MockDRD.drdGetPositionAndOrientation.frame[i][j]
+                    )
+
+        self.assertIDImpl(
+            lambda ID = -1: drd.direct.getPositionAndOrientation(
+                p_out, o_out, pg_out, frame, ID
+            ),
+            MockDRD.drdGetPositionAndOrientation
+        )
+        self.assertRetImpl(
+            lambda: drd.direct.getPositionAndOrientation(p_out, o_out, pg_out, frame),
+            MockDRD.drdGetPositionAndOrientation
+        )
+
     def test_getVelocity(self):
         self.assertSignaturesEqual(
             libdrd.drdGetVelocity,
@@ -1654,6 +1719,46 @@ class TestRoboticSDK(unittest.TestCase):
             MockDRD.drdGetVelocity
         )
 
+    def test_getVelocityDirect(self):
+        libdrd.drdGetVelocity = (  # type: ignore
+            MockDRD.drdGetVelocity.mock
+        )
+
+        v_out = containers.Vector3()
+        w_out = containers.Vector3()
+        vg_out = c_double()
+
+        for _ in range(100):
+            MockDRD.drdGetVelocity.vx = random()
+            MockDRD.drdGetVelocity.vy = random()
+            MockDRD.drdGetVelocity.vz = random()
+
+            MockDRD.drdGetVelocity.wx = random()
+            MockDRD.drdGetVelocity.wy = random()
+            MockDRD.drdGetVelocity.wz = random()
+
+            MockDRD.drdGetVelocity.vg = random()
+
+            drd.direct.getVelocity(v_out, w_out, vg_out)
+
+            self.assertEqual(v_out[0], MockDRD.drdGetVelocity.vx)
+            self.assertEqual(v_out[1], MockDRD.drdGetVelocity.vy)
+            self.assertEqual(v_out[2], MockDRD.drdGetVelocity.vz)
+
+            self.assertEqual(w_out[0], MockDRD.drdGetVelocity.wx)
+            self.assertEqual(w_out[1], MockDRD.drdGetVelocity.wy)
+            self.assertEqual(w_out[2], MockDRD.drdGetVelocity.wz)
+
+            self.assertEqual(vg_out.value, MockDRD.drdGetVelocity.vg)
+
+        self.assertIDImpl(
+            lambda ID = -1: drd.direct.getVelocity(v_out, w_out, vg_out, ID),
+            MockDRD.drdGetVelocity
+        )
+        self.assertRetImpl(
+            lambda: drd.direct.getVelocity(v_out, w_out, vg_out),
+            MockDRD.drdGetVelocity
+        )
 
     def test_getCtrlFreq(self):
         self.assertSignaturesEqual(
@@ -2046,6 +2151,36 @@ class TestRoboticSDK(unittest.TestCase):
             MockDRD.drdMoveTo
         )
 
+    def test_moveToDirect(self):
+        libdrd.drdMoveTo = MockDRD.drdMoveTo.mock  # type: ignore
+
+        setval = containers.DOFFloat()
+
+        drd.moveTo(setval, True)
+        self.assertTrue(MockDRD.drdMoveTo.block)
+
+        drd.moveTo(setval,False)
+        self.assertFalse(MockDRD.drdMoveTo.block)
+
+        for _ in range(100):
+            for i in range(MAX_DOF):
+                setval[i] = random()
+
+            drd.moveTo(setval, True)
+
+            for i in range(MAX_DOF):
+                self.assertAlmostEqual(setval[i], MockDRD.drdMoveTo.p[i])
+
+        self.assertIDImpl(
+            lambda ID = -1: drd.moveTo(setval, True, ID),
+            MockDRD.drdMoveTo
+        )
+
+        self.assertRetImpl(
+            lambda: drd.moveTo(setval,True),
+            MockDRD.drdMoveTo
+        )
+
 
     def test_moveToEnc(self):
         self.assertSignaturesEqual(
@@ -2116,6 +2251,38 @@ class TestRoboticSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: drd.moveToAllEnc(setval,True),
+            MockDRD.drdMoveToAllEnc
+        )
+
+    def test_moveToAllEncDirect(self):
+        libdrd.drdMoveToAllEnc = MockDRD.drdMoveToAllEnc.mock  # type: ignore
+
+        setval = containers.DOFInt()
+
+        drd.moveToAllEnc(setval, True)
+        self.assertTrue(MockDRD.drdMoveToAllEnc.block)
+
+        drd.direct.moveToAllEnc(setval, False)
+        self.assertFalse(MockDRD.drdMoveToAllEnc.block)
+
+        for _ in range(100):
+            for i in range(MAX_DOF):
+                setval[i] = randint(0, 100)
+
+            drd.direct.moveToAllEnc(setval, True)
+
+            for i in range(MAX_DOF):
+                self.assertEqual(
+                    setval[i], MockDRD.drdMoveToAllEnc.enc[i]
+                )
+
+        self.assertIDImpl(
+            lambda ID = -1: drd.direct.moveToAllEnc(setval, True, ID),
+            MockDRD.drdMoveToAllEnc
+        )
+
+        self.assertRetImpl(
+            lambda: drd.direct.moveToAllEnc(setval,True),
             MockDRD.drdMoveToAllEnc
         )
 
@@ -2231,6 +2398,34 @@ class TestRoboticSDK(unittest.TestCase):
             MockDRD.drdTrack
         )
 
+    def test_trackDirect(self):
+        self.assertSignaturesEqual(
+            libdrd.drdTrack, MockDRD.drdTrack
+        )
+
+        libdrd.drdTrack = MockDRD.drdTrack.mock  # type: ignore
+
+        setval = containers.DOFFloat()
+
+        for _ in range(100):
+            for i in range(MAX_DOF):
+                setval[i] = random()
+
+            drd.direct.track(setval, True)
+
+            for i in range(MAX_DOF):
+                self.assertAlmostEqual(setval[i], MockDRD.drdTrack.p[i])
+
+        self.assertIDImpl(
+            lambda ID = -1: drd.direct.track(setval, ID),
+            MockDRD.drdTrack
+        )
+
+        self.assertRetImpl(
+            lambda: drd.direct.track(setval),
+            MockDRD.drdTrack
+        )
+
     def test_trackEnc(self):
         self.assertSignaturesEqual(
             libdrd.drdTrackEnc,
@@ -2287,6 +2482,32 @@ class TestRoboticSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: drd.trackAllEnc(setval),
+            MockDRD.drdTrackAllEnc
+        )
+
+    def test_trackAllEncDirect(self):
+        libdrd.drdTrackAllEnc = MockDRD.drdTrackAllEnc.mock  # type: ignore
+
+        setval = containers.DOFInt()
+
+        for _ in range(100):
+            for i in range(MAX_DOF):
+                setval[i] = randint(0, 100)
+
+            drd.direct.trackAllEnc(setval, True)
+
+            for i in range(MAX_DOF):
+                self.assertEqual(
+                    setval[i], MockDRD.drdTrackAllEnc.enc[i]
+                )
+
+        self.assertIDImpl(
+            lambda ID = -1: drd.direct.trackAllEnc(setval, ID),
+            MockDRD.drdTrackAllEnc
+        )
+
+        self.assertRetImpl(
+            lambda: drd.direct.trackAllEnc(setval),
             MockDRD.drdTrackAllEnc
         )
 

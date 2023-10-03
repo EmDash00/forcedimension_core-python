@@ -5,6 +5,7 @@ from ctypes import (CFUNCTYPE, POINTER, c_bool, c_byte, c_char, c_char_p,
                     c_ushort)
 from random import randint, random
 from typing import Any, Optional
+from forcedimension_core import containers
 from forcedimension_core.containers import Status
 
 import forcedimension_core.dhd as dhd
@@ -2492,6 +2493,31 @@ class TestStandardSDK(unittest.TestCase):
             lambda: dhd.getPosition(out), MockDHD.dhdGetPosition
         )
 
+    def test_getPositionDirect(self):
+        libdhd.dhdGetPosition = MockDHD.dhdGetPosition.mock  # type: ignore
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetPosition.px = random()
+            MockDHD.dhdGetPosition.py = random()
+            MockDHD.dhdGetPosition.pz = random()
+
+            dhd.direct.getPosition(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetPosition.px)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetPosition.py)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetPosition.pz)
+
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getPosition(out, ID),
+            MockDHD.dhdGetPosition
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getPosition(out),
+            MockDHD.dhdGetPosition
+        )
+
     def test_getForce(self):
         self.assertSignaturesEqual(
             libdhd.dhdGetForce, MockDHD.dhdGetForce
@@ -2516,6 +2542,28 @@ class TestStandardSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.getForce(out), MockDHD.dhdGetForce
+        )
+
+    def test_getForceDirect(self):
+        libdhd.dhdGetForce = MockDHD.dhdGetForce.mock  # type: ignore
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetForce.fx = random()
+            MockDHD.dhdGetForce.fy = random()
+            MockDHD.dhdGetForce.fz = random()
+
+            dhd.direct.getForce(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetForce.fx)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetForce.fy)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetForce.fz)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getForce(out, ID), MockDHD.dhdGetForce
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getForce(out), MockDHD.dhdGetForce
         )
 
 
@@ -2574,6 +2622,31 @@ class TestStandardSDK(unittest.TestCase):
             lambda: dhd.getOrientationRad(out), MockDHD.dhdGetOrientationRad
         )
 
+    def test_getOrientationRadDirect(self):
+        libdhd.dhdGetOrientationRad = (  # type: ignore
+            MockDHD.dhdGetOrientationRad.mock
+        )
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetOrientationRad.oa = random()
+            MockDHD.dhdGetOrientationRad.ob = random()
+            MockDHD.dhdGetOrientationRad.og = random()
+
+            dhd.direct.getOrientationRad(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetOrientationRad.oa)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetOrientationRad.ob)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetOrientationRad.og)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getOrientationRad(out, ID),
+            MockDHD.dhdGetOrientationRad
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getOrientationRad(out),
+            MockDHD.dhdGetOrientationRad
+        )
 
     def test_getOrientationDeg(self):
         self.assertSignaturesEqual(
@@ -2602,6 +2675,32 @@ class TestStandardSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.getOrientationDeg(out), MockDHD.dhdGetOrientationDeg
+        )
+
+    def test_getOrientationDegDirect(self):
+        libdhd.dhdGetOrientationDeg = (  # type: ignore
+            MockDHD.dhdGetOrientationDeg.mock
+        )
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetOrientationDeg.oa = random()
+            MockDHD.dhdGetOrientationDeg.ob = random()
+            MockDHD.dhdGetOrientationDeg.og = random()
+
+            dhd.direct.getOrientationDeg(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetOrientationDeg.oa)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetOrientationDeg.ob)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetOrientationDeg.og)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getOrientationDeg(out, ID),
+            MockDHD.dhdGetOrientationDeg
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getOrientationDeg(out),
+            MockDHD.dhdGetOrientationDeg
         )
 
     def test_getPositionAndOrientationRad(self):
@@ -2654,6 +2753,56 @@ class TestStandardSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.getPositionAndOrientationRad(p_out, o_out),
+            MockDHD.dhdGetPositionAndOrientationRad
+        )
+
+    def test_getPositionAndOrientationRadDirect(self):
+        libdhd.dhdGetPositionAndOrientationRad = (  # type: ignore
+            MockDHD.dhdGetPositionAndOrientationRad.mock
+        )
+
+        p_out = containers.Vector3()
+        o_out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetPositionAndOrientationRad.oa = random()
+            MockDHD.dhdGetPositionAndOrientationRad.ob = random()
+            MockDHD.dhdGetPositionAndOrientationRad.og = random()
+
+            MockDHD.dhdGetPositionAndOrientationRad.px = random()
+            MockDHD.dhdGetPositionAndOrientationRad.py = random()
+            MockDHD.dhdGetPositionAndOrientationRad.pz = random()
+
+            dhd.direct.getPositionAndOrientationRad(p_out, o_out)
+
+            self.assertAlmostEqual(
+                p_out[0], MockDHD.dhdGetPositionAndOrientationRad.px
+            )
+            self.assertAlmostEqual(
+                p_out[1], MockDHD.dhdGetPositionAndOrientationRad.py
+            )
+            self.assertAlmostEqual(
+                p_out[2], MockDHD.dhdGetPositionAndOrientationRad.pz
+            )
+
+            self.assertAlmostEqual(
+                o_out[0], MockDHD.dhdGetPositionAndOrientationRad.oa
+            )
+            self.assertAlmostEqual(
+                o_out[1], MockDHD.dhdGetPositionAndOrientationRad.ob
+            )
+            self.assertAlmostEqual(
+                o_out[2], MockDHD.dhdGetPositionAndOrientationRad.og
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getPositionAndOrientationRad(
+                p_out, o_out, ID
+            ),
+            MockDHD.dhdGetPositionAndOrientationRad
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getPositionAndOrientationRad(p_out, o_out),
             MockDHD.dhdGetPositionAndOrientationRad
         )
 
@@ -2710,6 +2859,55 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetPositionAndOrientationDeg
         )
 
+    def test_getPositionAndOrientationDegDirect(self):
+        libdhd.dhdGetPositionAndOrientationDeg = (  # type: ignore
+            MockDHD.dhdGetPositionAndOrientationDeg.mock
+        )
+
+        p_out = containers.Vector3()
+        o_out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetPositionAndOrientationDeg.oa = random()
+            MockDHD.dhdGetPositionAndOrientationDeg.ob = random()
+            MockDHD.dhdGetPositionAndOrientationDeg.og = random()
+
+            MockDHD.dhdGetPositionAndOrientationDeg.px = random()
+            MockDHD.dhdGetPositionAndOrientationDeg.py = random()
+            MockDHD.dhdGetPositionAndOrientationDeg.pz = random()
+
+            dhd.direct.getPositionAndOrientationDeg(p_out, o_out)
+
+            self.assertAlmostEqual(
+                p_out[0], MockDHD.dhdGetPositionAndOrientationDeg.px
+            )
+            self.assertAlmostEqual(
+                p_out[1], MockDHD.dhdGetPositionAndOrientationDeg.py
+            )
+            self.assertAlmostEqual(
+                p_out[2], MockDHD.dhdGetPositionAndOrientationDeg.pz
+            )
+
+            self.assertAlmostEqual(
+                o_out[0], MockDHD.dhdGetPositionAndOrientationDeg.oa
+            )
+            self.assertAlmostEqual(
+                o_out[1], MockDHD.dhdGetPositionAndOrientationDeg.ob
+            )
+            self.assertAlmostEqual(
+                o_out[2], MockDHD.dhdGetPositionAndOrientationDeg.og
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getPositionAndOrientationDeg(
+                p_out, o_out, ID
+            ),
+            MockDHD.dhdGetPositionAndOrientationDeg
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getPositionAndOrientationDeg(p_out, o_out),
+            MockDHD.dhdGetPositionAndOrientationDeg
+        )
 
     def test_getPositionAndOrientationFrame(self):
         self.assertSignaturesEqual(
@@ -2764,6 +2962,56 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetPositionAndOrientationFrame
         )
 
+    def test_getPositionAndOrientationFrameDirect(self):
+        libdhd.dhdGetPositionAndOrientationFrame = (  # type: ignore
+            MockDHD.dhdGetPositionAndOrientationFrame.mock
+        )
+
+        p_out = containers.Vector3()
+        frame = containers.Mat3x3()
+
+        for _ in range(100):
+            MockDHD.dhdGetPositionAndOrientationFrame.px = random()
+            MockDHD.dhdGetPositionAndOrientationFrame.py = random()
+            MockDHD.dhdGetPositionAndOrientationFrame.pz = random()
+
+            for i in range(3):
+                for j in range(3):
+                    MockDHD.dhdGetPositionAndOrientationFrame.frame[i][j] = (
+                        random()
+                    )
+
+            dhd.direct.getPositionAndOrientationFrame(p_out, frame)
+
+            self.assertAlmostEqual(
+                p_out[0], MockDHD.dhdGetPositionAndOrientationFrame.px
+            )
+            self.assertAlmostEqual(
+                p_out[1], MockDHD.dhdGetPositionAndOrientationFrame.py
+            )
+            self.assertAlmostEqual(
+                p_out[2], MockDHD.dhdGetPositionAndOrientationFrame.pz
+            )
+
+            for i in range(3):
+                for j in range(3):
+                    self.assertAlmostEqual(
+                        frame[i, j],
+                        MockDHD.dhdGetPositionAndOrientationFrame.frame[i][j]
+                    )
+
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getPositionAndOrientationFrame(
+                p_out, frame, ID
+            ),
+            MockDHD.dhdGetPositionAndOrientationFrame
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getPositionAndOrientationFrame(p_out, frame),
+            MockDHD.dhdGetPositionAndOrientationFrame
+        )
+
     def test_getForceAndTorque(self):
         self.assertSignaturesEqual(
             libdhd.dhdGetForceAndTorque, MockDHD.dhdGetForceAndTorque
@@ -2803,6 +3051,40 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetForceAndTorque
         )
 
+    def test_getForceAndTorqueDirect(self):
+        libdhd.dhdGetForceAndTorque = MockDHD.dhdGetForceAndTorque.mock  # type: ignore
+
+        f_out = containers.Vector3()
+        t_out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetForceAndTorque.fx = random()
+            MockDHD.dhdGetForceAndTorque.fy = random()
+            MockDHD.dhdGetForceAndTorque.fz = random()
+
+            MockDHD.dhdGetForceAndTorque.tx = random()
+            MockDHD.dhdGetForceAndTorque.ty = random()
+            MockDHD.dhdGetForceAndTorque.tz = random()
+
+
+            dhd.direct.getForceAndTorque(f_out, t_out)
+
+            self.assertAlmostEqual(f_out[0], MockDHD.dhdGetForceAndTorque.fx)
+            self.assertAlmostEqual(f_out[1], MockDHD.dhdGetForceAndTorque.fy)
+            self.assertAlmostEqual(f_out[2], MockDHD.dhdGetForceAndTorque.fz)
+
+            self.assertAlmostEqual(t_out[0], MockDHD.dhdGetForceAndTorque.tx)
+            self.assertAlmostEqual(t_out[1], MockDHD.dhdGetForceAndTorque.ty)
+            self.assertAlmostEqual(t_out[2], MockDHD.dhdGetForceAndTorque.tz)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getForceAndTorque(f_out, t_out, ID),
+            MockDHD.dhdGetForceAndTorque
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getForceAndTorque(f_out, t_out),
+            MockDHD.dhdGetForceAndTorque
+        )
 
     def test_setForceAndTorque(self):
         self.assertSignaturesEqual(
@@ -2874,6 +3156,36 @@ class TestStandardSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.getOrientationFrame(frame),
+            MockDHD.dhdGetOrientationFrame
+        )
+
+    def test_getOrientationFrameDirect(self):
+        libdhd.dhdGetOrientationFrame = (  # type: ignore
+            MockDHD.dhdGetOrientationFrame.mock
+        )
+
+        frame = containers.Mat3x3()
+
+        for _ in range(100):
+            for i in range(3):
+                for j in range(3):
+                    MockDHD.dhdGetOrientationFrame.frame[i][j] = random()
+
+            dhd.direct.getOrientationFrame(frame)
+
+            for i in range(3):
+                for j in range(3):
+                    self.assertAlmostEqual(
+                        frame[i, j],
+                        MockDHD.dhdGetOrientationFrame.frame[i][j]
+                    )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getOrientationFrame(frame, ID),
+            MockDHD.dhdGetOrientationFrame
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getOrientationFrame(frame),
             MockDHD.dhdGetOrientationFrame
         )
 
@@ -2988,6 +3300,29 @@ class TestStandardSDK(unittest.TestCase):
             lambda: dhd.getGripperThumbPos(out), MockDHD.dhdGetGripperThumbPos
         )
 
+    def test_getGripperThumbPosDirect(self):
+        libdhd.dhdGetGripperThumbPos = MockDHD.dhdGetGripperThumbPos.mock  # type: ignore
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetGripperThumbPos.px = random()
+            MockDHD.dhdGetGripperThumbPos.py = random()
+            MockDHD.dhdGetGripperThumbPos.pz = random()
+
+            dhd.direct.getGripperThumbPos(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetGripperThumbPos.px)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetGripperThumbPos.py)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetGripperThumbPos.pz)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getGripperThumbPos(out, ID),
+            MockDHD.dhdGetGripperThumbPos
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getGripperThumbPos(out),
+            MockDHD.dhdGetGripperThumbPos
+        )
 
     def test_getGripperFingerPos(self):
         self.assertSignaturesEqual(
@@ -3016,6 +3351,30 @@ class TestStandardSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.getGripperFingerPos(out),
+            MockDHD.dhdGetGripperFingerPos
+        )
+
+    def test_getGripperFingerPosDirect(self):
+        libdhd.dhdGetGripperFingerPos = MockDHD.dhdGetGripperFingerPos.mock  # type: ignore
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetGripperFingerPos.px = random()
+            MockDHD.dhdGetGripperFingerPos.py = random()
+            MockDHD.dhdGetGripperFingerPos.pz = random()
+
+            dhd.direct.getGripperFingerPos(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetGripperFingerPos.px)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetGripperFingerPos.py)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetGripperFingerPos.pz)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getGripperFingerPos(out, ID),
+            MockDHD.dhdGetGripperFingerPos
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getGripperFingerPos(out),
             MockDHD.dhdGetGripperFingerPos
         )
 
@@ -3139,7 +3498,7 @@ class TestStandardSDK(unittest.TestCase):
 
         libdhd.dhdGetForceAndTorqueAndGripperForce = (  # type: ignore
             MockDHD.dhdGetForceAndTorqueAndGripperForce.mock
-        )
+      )
 
         f_out = [0.0, 0.0, 0.0]
         t_out = [0.0, 0.0, 0.0]
@@ -3188,6 +3547,59 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetForceAndTorqueAndGripperForce
         )
 
+    def test_getForceAndTorqueAndGripperForceDirect(self):
+        libdhd.dhdGetForceAndTorqueAndGripperForce = (  # type: ignore
+            MockDHD.dhdGetForceAndTorqueAndGripperForce.mock
+        )
+
+        f_out = containers.Vector3()
+        t_out = containers.Vector3()
+        fg_out = c_double()
+
+        for _ in range(100):
+            MockDHD.dhdGetForceAndTorqueAndGripperForce.fx = random()
+            MockDHD.dhdGetForceAndTorqueAndGripperForce.fy = random()
+            MockDHD.dhdGetForceAndTorqueAndGripperForce.fz = random()
+
+            MockDHD.dhdGetForceAndTorqueAndGripperForce.tx = random()
+            MockDHD.dhdGetForceAndTorqueAndGripperForce.ty = random()
+            MockDHD.dhdGetForceAndTorqueAndGripperForce.tz = random()
+
+
+            dhd.direct.getForceAndTorqueAndGripperForce(f_out, t_out, fg_out)
+
+            self.assertAlmostEqual(
+                f_out[0], MockDHD.dhdGetForceAndTorqueAndGripperForce.fx
+            )
+            self.assertAlmostEqual(
+                f_out[1], MockDHD.dhdGetForceAndTorqueAndGripperForce.fy
+            )
+            self.assertAlmostEqual(
+                f_out[2], MockDHD.dhdGetForceAndTorqueAndGripperForce.fz
+            )
+
+            self.assertAlmostEqual(
+                t_out[0], MockDHD.dhdGetForceAndTorqueAndGripperForce.tx
+            )
+            self.assertAlmostEqual(
+                t_out[1], MockDHD.dhdGetForceAndTorqueAndGripperForce.ty
+            )
+            self.assertAlmostEqual(
+                t_out[2], MockDHD.dhdGetForceAndTorqueAndGripperForce.tz
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getForceAndTorqueAndGripperForce(
+                f_out, t_out, fg_out, ID
+            ),
+            MockDHD.dhdGetForceAndTorqueAndGripperForce
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getForceAndTorqueAndGripperForce(
+                f_out, t_out, fg_out
+            ),
+            MockDHD.dhdGetForceAndTorqueAndGripperForce
+        )
 
     def test_configLinearVelocity(self):
         self.assertSignaturesEqual(
@@ -3248,6 +3660,32 @@ class TestStandardSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.getLinearVelocity(out),
+            MockDHD.dhdGetLinearVelocity
+        )
+
+    def test_getLinearVelocityDirect(self):
+        libdhd.dhdGetLinearVelocity = (  # type: ignore
+            MockDHD.dhdGetLinearVelocity.mock
+        )
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetLinearVelocity.vx = random()
+            MockDHD.dhdGetLinearVelocity.vy = random()
+            MockDHD.dhdGetLinearVelocity.vz = random()
+
+            dhd.direct.getLinearVelocity(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetLinearVelocity.vx)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetLinearVelocity.vy)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetLinearVelocity.vz)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getLinearVelocity(out, ID),
+            MockDHD.dhdGetLinearVelocity
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getLinearVelocity(out),
             MockDHD.dhdGetLinearVelocity
         )
 
@@ -3313,6 +3751,36 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetAngularVelocityRad
         )
 
+    def test_getAngularVelocityRadDirect(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdGetAngularVelocityRad,
+            MockDHD.dhdGetAngularVelocityRad
+        )
+
+        libdhd.dhdGetAngularVelocityRad = (  # type: ignore
+            MockDHD.dhdGetAngularVelocityRad.mock
+        )
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetAngularVelocityRad.wx = random()
+            MockDHD.dhdGetAngularVelocityRad.wy = random()
+            MockDHD.dhdGetAngularVelocityRad.wz = random()
+
+            dhd.direct.getAngularVelocityRad(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetAngularVelocityRad.wx)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetAngularVelocityRad.wy)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetAngularVelocityRad.wz)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getAngularVelocityRad(out, ID),
+            MockDHD.dhdGetAngularVelocityRad
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getAngularVelocityRad(out),
+            MockDHD.dhdGetAngularVelocityRad
+        )
 
     def test_getAngularVelocityDeg(self):
         self.assertSignaturesEqual(
@@ -3342,6 +3810,37 @@ class TestStandardSDK(unittest.TestCase):
         )
         self.assertRetImpl(
             lambda: dhd.getAngularVelocityDeg(out),
+            MockDHD.dhdGetAngularVelocityDeg
+        )
+
+    def test_getAngularVelocityDegDirect(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdGetAngularVelocityDeg,
+            MockDHD.dhdGetAngularVelocityDeg
+        )
+
+        libdhd.dhdGetAngularVelocityDeg = (  # type: ignore
+            MockDHD.dhdGetAngularVelocityDeg.mock
+        )
+        out = containers.Vector3()
+
+        for _ in range(100):
+            MockDHD.dhdGetAngularVelocityDeg.wx = random()
+            MockDHD.dhdGetAngularVelocityDeg.wy = random()
+            MockDHD.dhdGetAngularVelocityDeg.wz = random()
+
+            dhd.direct.getAngularVelocityDeg(out)
+
+            self.assertAlmostEqual(out[0], MockDHD.dhdGetAngularVelocityDeg.wx)
+            self.assertAlmostEqual(out[1], MockDHD.dhdGetAngularVelocityDeg.wy)
+            self.assertAlmostEqual(out[2], MockDHD.dhdGetAngularVelocityDeg.wz)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.direct.getAngularVelocityDeg(out, ID),
+            MockDHD.dhdGetAngularVelocityDeg
+        )
+        self.assertRetImpl(
+            lambda: dhd.direct.getAngularVelocityDeg(out),
             MockDHD.dhdGetAngularVelocityDeg
         )
 
