@@ -467,7 +467,7 @@ class DOFInt(array):
     """
 
     def __new__(
-        cls, initializer: Iterable[int] = (0 for _ in range(MAX_DOF))
+        cls, initializer: Iterable[int] = tuple(0 for _ in range(MAX_DOF))
     ):
         arr = super(DOFInt, cls).__new__(
             cls, 'i', initializer  # type: ignore
@@ -482,12 +482,6 @@ class DOFInt(array):
         super().__init__(*args, **kwargs)
 
         self._ptr = ct.cast(self.buffer_info()[0], c_int_ptr)
-        self._delta = Enc3(self[:3])
-        self._wrist = Enc3(self[3:6])
-        self._wrist_grip = Enc4(self[3:7])
-        self._gripper = ct.cast(
-            self.buffer_info()[0] + self.itemsize * (MAX_DOF - 1), c_int_ptr
-        ).contents
 
     @classmethod
     def __get_pydantic_core_schema__(
