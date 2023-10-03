@@ -503,39 +503,6 @@ class DOFInt(array):
 
         return self._ptr
 
-    @property
-    def delta(self) -> Enc3:
-        """
-        A slice of the part internal data that represents the DELTA DOFs.
-        """
-
-        return self._delta
-
-    @property
-    def wrist(self) -> Enc3:
-        """
-        A slice of the part internal data that represents the WRIST DOFs.
-        """
-
-        return self._wrist
-
-    @property
-    def wrist_grip(self) -> Enc4:
-        """
-        A slice of the part internal data that represents the WRIST and gripper
-        DOFs.
-        """
-
-        return self._wrist_grip
-
-    @property
-    def gripper(self) -> c_int:
-        """
-        A slice of the part internal data that represents the gripper DOF.
-        """
-
-        return self._gripper
-
 
 class DOFMotorArray(array):
     """
@@ -543,7 +510,7 @@ class DOFMotorArray(array):
     """
 
     def __new__(
-        cls, initializer: Iterable[int] = (0 for _ in range(MAX_DOF))
+        cls, initializer: Iterable[int] = tuple(0 for _ in range(MAX_DOF))
     ):
         arr = super(DOFMotorArray, cls).__new__(
             cls, 'H', initializer  # type: ignore
@@ -555,8 +522,6 @@ class DOFMotorArray(array):
         return arr
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         self._ptr = ct.cast(self.buffer_info()[0], c_ushort_ptr)
 
     @classmethod
