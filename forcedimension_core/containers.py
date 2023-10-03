@@ -691,14 +691,34 @@ class Mat6x6(array):
     def __init__(self, *args, **kwargs):
         self._ptr = ct.cast(self.buffer_info()[0], c_double_ptr)
 
-    def __getitem__(self, key: int):
-        if isinstance(key, int):
-            return super().__getitem__(slice(3 * key, 3 * (key + 1)))
-        else:
-            raise TypeError(
-                f"array indicies must be integers not "
-                "{type(key).__name__}"
-            )
+    def __getitem__(self, indicies: Tuple[int, int]) -> float:
+        if not isinstance(indicies, Tuple):
+            raise TypeError("Indicies must be a tuple of two ints")
+
+        i, j = indicies
+
+        if not isinstance(i, int):
+            raise TypeError("First index is not an int.")
+
+        if not isinstance(j, int):
+            raise TypeError("Second index is not an int.")
+
+        return super().__getitem__(6 * i + j)
+
+
+    def __setitem__(self, indicies: Tuple[int, int], value: float):
+        if not isinstance(indicies, Tuple):
+            raise TypeError("Indicies must be a tuple of two ints")
+
+        i, j = indicies
+
+        if not isinstance(i, int):
+            raise TypeError("First index is not an int.")
+
+        if not isinstance(j, int):
+            raise TypeError("Second index is not an int.")
+
+        super().__setitem__(6 * i + j, value)
 
     @classmethod
     def __get_pydantic_core_schema__(
