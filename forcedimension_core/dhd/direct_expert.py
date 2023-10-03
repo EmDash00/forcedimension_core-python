@@ -584,7 +584,7 @@ def wristMotorToTorque(
 def wristTorqueToMotor(
     t: Array[int, float],
     enc: Array[int, int],
-    out: SupportsPtrs3[c_int],
+    out: SupportsPtrs3[c_ushort],
     ID: int = -1
 ) -> int:
     """
@@ -653,7 +653,7 @@ def wristTorqueToMotor(
     | :func:`forcedimension_core.dhd.direct_expert.wristTorqueToMotor()`
     """
 
-    return _runtime._libdhd.dhdDeltaMotorToForce(
+    return _runtime._libdhd.dhdWristTorqueToMotor(
         t[0], t[1], t[2],
         enc[0], enc[1], enc[2],
         *out.ptrs,
