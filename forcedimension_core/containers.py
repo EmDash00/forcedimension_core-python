@@ -585,38 +585,15 @@ class DOFFloat(array):
 
         return self._ptr
 
-    @property
-    def delta(self) -> Vector3:
-        """
-        A slice of the part internal data that represents the DELTA DOFs.
-        """
-
-        return self._delta
-
-    @property
-    def wrist(self) -> Vector3:
-        """
-        A slice of the part internal data that represents the WRIST DOFs.
-        """
-
-        return self._wrist
-
-    @property
-    def gripper(self) -> c_double:
-        """
-        A slice of the part internal data that represents the gripper DOFs.
-        """
-
-        return self._gripper
-
 
 class Mat3x3(array):
     """
-    Represents the type of a coordinate frame matrix as a Python ``array.array``.
+    Represents the type of a coordinate frame matrix as a Python
+    ``array.array``.
     """
 
     def __new__(
-        cls, initializer: Iterable[float] = (0. for _ in range(9))
+        cls, initializer: Iterable[float] = tuple(0. for _ in range(9))
     ):
         if isinstance(initializer, array):
             return initializer
