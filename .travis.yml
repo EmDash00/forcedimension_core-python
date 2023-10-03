@@ -7,7 +7,8 @@ python:
   - "3.11"
 
 install:
-  - python3 -m pip install -r requirements.txt
+  - python3 -m pip install pipenv
+  - python3 -m pipenv install
 
 script:
-  - python3 -m unittest tests
+  - python3 -m pipenv run python3 -m unittest tests
