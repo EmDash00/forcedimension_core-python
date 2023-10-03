@@ -56,11 +56,14 @@ class Status(ct.Structure):
     def __len__(self) -> int:
         return MAX_STATUS
 
-    def __getitem__(self, i) -> int:
+    def __getitem__(self, i: int) -> int:
         return getattr(self, self._fields_[i][0])
 
+    def __setitem__(self, i: int, val: int):
+        setattr(self, self._fields_[i][0], val)
+
     def __iter__(self):
-        for field_name, _ in self._fields_:
+        for field_name, _ in self._fields_[:-1]:
             yield getattr(self, field_name)
 
     def __str__(self) -> str:
