@@ -346,7 +346,7 @@ def deltaForceToMotor(
     | :func:`forcedimension_core.dhd.direct_expert.deltaMotorToForce()`
     """
 
-    return _runtime._libdhd.dhdDeltaMotorToForce(
+    return _runtime._libdhd.dhdDeltaForceToMotor(
         f[0], f[1], f[2],
         enc[0], enc[1], enc[2],
         *out.ptrs,
