@@ -665,7 +665,7 @@ def getGripperThumbPos(
     | :func:`forcedimension_core.dhd.direct.getGripperFingerPos()`
     """
 
-    return _runtime._libdhd.dhdGetGripperFingerPos(*out.ptrs, ID)
+    return _runtime._libdhd.dhdGetGripperThumbPos(*out.ptrs, ID)
 
 
 def getGripperFingerPos(
