@@ -308,13 +308,13 @@ class Enc3(array):
     """
 
     def __new__(
-        cls, initializer: Iterable[float] = (0., 0., 0.)
+        cls, initializer: Iterable[int] = (0, 0, 0)
     ):
         if isinstance(initializer, array):
             return initializer
 
         arr = super(Enc3, cls).__new__(
-            cls, 'd', initializer  # type: ignore
+            cls, 'i', initializer  # type: ignore
         )
 
         if len(arr) != 3:
@@ -326,8 +326,6 @@ class Enc3(array):
         return arr
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         ptr = self.buffer_info()[0]
         self._ptrs = (
             ct.cast(ptr, c_int_ptr),
