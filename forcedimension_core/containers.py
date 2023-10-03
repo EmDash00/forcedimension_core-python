@@ -229,8 +229,6 @@ class Vector3(array):
         return arr
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         ptr = self.buffer_info()[0]
         self._ptrs = (
             ct.cast(ptr, c_double_ptr),
