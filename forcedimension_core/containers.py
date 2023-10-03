@@ -422,13 +422,13 @@ class Enc4(array):
     """
 
     def __new__(
-        cls, initializer: Iterable[float] = (0., 0., 0., 0.)
+        cls, initializer: Iterable[int] = (0, 0, 0, 0)
     ):
         if isinstance(initializer, array):
             return initializer
 
         arr = super(Enc4, cls).__new__(
-            cls, 'd', initializer  # type: ignore
+            cls, 'i', initializer  # type: ignore
         )
 
         if len(arr) != 4:
@@ -437,8 +437,6 @@ class Enc4(array):
         return arr
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         self._ptr = ct.cast(self.buffer_info()[0], c_int_ptr)
 
     @classmethod
