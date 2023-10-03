@@ -20,6 +20,8 @@ from forcedimension_core.dhd.constants import (
     ErrorNum,
 )
 
+from . import direct as direct
+
 from . import expert, os_independent, deprecated
 
 
