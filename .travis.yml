@@ -8,7 +8,8 @@ python:
 
 install:
   - python3 -m pip install pipenv
-  - python3 -m pipenv install
+  - python3 -m pipenv lock -r
+  - python3 -m pip install -r requirements.txt
 
 script:
-  - python3 -m pipenv run python3 -m unittest tests
+  - python3 -m unittest tests
