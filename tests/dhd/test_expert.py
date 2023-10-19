@@ -4828,3 +4828,78 @@ class TestExpertSDK(unittest.TestCase):
             lambda ID = -1: dhd.expert.readConfigFromFile("", ID),
             MockDHD.dhdReadConfigFromFile
         )
+
+    def test_deltaGravityJointTorques(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdDeltaGravityJointTorques,
+            MockDHD.dhdDeltaGravityJointTorques
+        )
+
+        libdhd.dhdDeltaGravityJointTorques = (  # type: ignore
+            MockDHD.dhdDeltaGravityJointTorques.mock
+        )
+
+        joint_angles = [0.0] * 3
+        out = [0.0] * 3
+
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore', category=DeprecationWarning)
+
+            for _ in range(100):
+                mask = randint(0, 100)
+
+                for i in range(3):
+                    joint_angles[i] = random()
+
+                MockDHD.dhdDeltaGravityJointTorques.q0 = random()
+                MockDHD.dhdDeltaGravityJointTorques.q1 = random()
+                MockDHD.dhdDeltaGravityJointTorques.q2 = random()
+
+                dhd.expert.deltaGravityJointTorques(
+                    joint_angles, out, mask
+                )
+
+                self.assertAlmostEqual(
+                    joint_angles[0],
+                    MockDHD.dhdDeltaGravityJointTorques.j0
+                )
+
+                self.assertAlmostEqual(
+                    joint_angles[1],
+                    MockDHD.dhdDeltaGravityJointTorques.j1
+                )
+
+                self.assertAlmostEqual(
+                    joint_angles[2],
+                    MockDHD.dhdDeltaGravityJointTorques.j2
+                )
+
+                self.assertAlmostEqual(
+                    out[0],
+                    MockDHD.dhdDeltaGravityJointTorques.q0
+                )
+
+                self.assertAlmostEqual(
+                    out[1],
+                    MockDHD.dhdDeltaGravityJointTorques.q1
+                )
+
+                self.assertAlmostEqual(
+                    out[2],
+                    MockDHD.dhdDeltaGravityJointTorques.q2
+                )
+
+            self.assertIDImpl(
+                lambda ID = -1: dhd.expert.deltaGravityJointTorques(
+                    joint_angles, out, ID
+                ),
+                MockDHD.dhdDeltaGravityJointTorques
+            )
+
+            self.assertRetImpl(
+                lambda: dhd.expert.deltaGravityJointTorques(
+                    joint_angles, out
+                ),
+                MockDHD.dhdDeltaGravityJointTorques
+            )
+
