@@ -309,7 +309,7 @@ class MockDHD:
         @CFUNCTYPE(restype, *argtypes)
         def mock(enable, ID):
             MockDHD.dhdEnableGripperForce.ID = ID
-            MockDHD.dhdEnableForce.is_enabled = enable
+            MockDHD.dhdEnableGripperForce.is_enabled = enable
 
             return MockDHD.dhdEnableGripperForce.ret
 
@@ -1937,6 +1937,24 @@ class TestStandardSDK(unittest.TestCase):
         self.assertRetImpl(
             lambda: dhd.enableForce(True), MockDHD.dhdEnableForce
         )
+
+    def test_enableGripperForce(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdEnableGripperForce, MockDHD.dhdEnableGripperForce
+        )
+
+        libdhd.dhdEnableGripperForce = MockDHD.dhdEnableGripperForce.mock  # type: ignore
+
+        dhd.enableGripperForce(True)
+        self.assertTrue(MockDHD.dhdEnableGripperForce.is_enabled)
+
+        dhd.enableGripperForce(False)
+        self.assertFalse(MockDHD.dhdEnableGripperForce.is_enabled)
+
+        self.assertRetImpl(
+            lambda: dhd.enableGripperForce(True), MockDHD.dhdEnableGripperForce
+        )
+
 
     def test_getSystemType(self):
         self.assertSignaturesEqual(
