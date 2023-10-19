@@ -273,7 +273,7 @@ class MockDHD:
         argtypes = [c_ushort, c_byte]
         restype = c_int
 
-        mot = 0
+        mot: int = 0
 
         ID = 0
         ret = 0
@@ -2007,6 +2007,33 @@ class TestExpertSDK(unittest.TestCase):
         self.assertRetImpl(
             lambda: dhd.expert.setWristMotor(mot),
             MockDHD.dhdSetWristMotor
+        )
+
+    def test_setGripperMotor(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdSetGripperMotor, MockDHD.dhdSetGripperMotor
+        )
+
+        libdhd.dhdSetGripperMotor = (  # type: ignore
+            MockDHD.dhdSetGripperMotor.mock
+        )
+
+        mot = 0
+        for _ in range(100):
+            mot = randint(0, 100)
+
+            dhd.expert.setGripperMotor(mot)
+
+            self.assertEqual(mot, MockDHD.dhdSetGripperMotor.mot)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.setGripperMotor(mot, ID),
+            MockDHD.dhdSetGripperMotor
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.setGripperMotor(mot),
+            MockDHD.dhdSetGripperMotor
         )
 
     def test_setDeltaMotor(self):
