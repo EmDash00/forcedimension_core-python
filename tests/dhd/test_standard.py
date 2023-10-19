@@ -1794,6 +1794,17 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetDeviceCount.ret = count
             self.assertEqual(dhd.getDeviceCount(), MockDHD.dhdGetDeviceCount.ret)
 
+    def test_getAvailableCount(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdGetAvailableCount, MockDHD.dhdGetAvailableCount
+        )
+
+        libdhd.dhdGetAvailableCount = MockDHD.dhdGetAvailableCount.mock  # type: ignore
+
+        for count in range(100):
+            MockDHD.dhdGetAvailableCount.ret = count
+            self.assertEqual(dhd.getAvailableCount(), MockDHD.dhdGetAvailableCount.ret)
+
 
     def test_setDevice(self):
         self.assertSignaturesEqual(

@@ -132,6 +132,8 @@ def getDeviceCount() -> int:
 
     return _runtime._libdhd.dhdGetDeviceCount()
 
+_runtime._libdhd.dhdGetAvailableCount.argtypes = []
+_runtime._libdhd.dhdGetAvailableCount.restype = c_int
 
 def getAvailableCount() -> int:
     """
