@@ -46,6 +46,13 @@ class MockDHD:
         argtypes = [c_double]
         restype = None
 
+        sec: float = 0.
+
+        @staticmethod
+        @CFUNCTYPE(restype, *argtypes)
+        def mock(sec):
+            MockDHD.dhdSleep.sec = sec
+
 
 class TestOSIndependentSDK(unittest.TestCase):
     def assertSignaturesEqual(self, first: Any, second: Any):
@@ -89,3 +96,11 @@ class TestOSIndependentSDK(unittest.TestCase):
 
     def test_sleep(self):
         self.assertSignaturesEqual(libdhd.dhdSleep, MockDHD.dhdSleep)
+
+        libdhd.dhdSleep = MockDHD.dhdSleep.mock  # type: ignore
+
+        for _ in range(100_000):
+            MockDHD.dhdGetTime.ret = random()
+            sec = random()
+            dhd.os_independent.sleep(sec)
+            self.assertEqual(sec, MockDHD.dhdSleep.sec)
