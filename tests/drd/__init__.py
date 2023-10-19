@@ -1440,19 +1440,19 @@ class TestRoboticSDK(unittest.TestCase):
 
     def test_isFiltering(self):
         self.assertSignaturesEqual(
-            libdrd.drdIsMoving,
-            MockDRD.drdIsMoving
+            libdrd.drdIsFiltering,
+            MockDRD.drdIsFiltering
         )
 
-        libdrd.drdIsMoving = MockDRD.drdIsMoving.mock  # type: ignore
+        libdrd.drdIsFiltering = MockDRD.drdIsFiltering.mock  # type: ignore
 
-        MockDRD.drdIsMoving.ret = False
-        self.assertFalse(drd.isMoving())
+        MockDRD.drdIsFiltering.ret = False
+        self.assertFalse(drd.isFiltering())
 
-        MockDRD.drdIsMoving.ret = True
-        self.assertTrue(drd.isMoving())
+        MockDRD.drdIsFiltering.ret = True
+        self.assertTrue(drd.isFiltering())
 
-        self.assertIDImpl(drd.isMoving, MockDRD.drdIsMoving)
+        self.assertIDImpl(drd.isFiltering, MockDRD.drdIsFiltering)
 
     def test_waitForTick(self):
         self.assertSignaturesEqual(

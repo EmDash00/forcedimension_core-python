@@ -203,8 +203,8 @@ def isRunning(ID: int = -1) -> bool:
     return _runtime._libdrd.drdIsRunning(ID)
 
 
-_runtime._libdrd.drdIsMoving.argtypes = [c_byte]
-_runtime._libdrd.drdIsMoving.restype = c_int
+_runtime._libdrd.drdIsFiltering.argtypes = [c_byte]
+_runtime._libdrd.drdIsFiltering.restype = c_bool
 
 
 def isFiltering(ID: int = -1) -> bool:
@@ -227,7 +227,7 @@ def isFiltering(ID: int = -1) -> bool:
     | :func:`forcedimension_core.drd.isMoving()`
     """
 
-    return _runtime._libdrd.drdIsMoving(ID)
+    return _runtime._libdrd.drdIsFiltering(ID)
 
 
 _runtime._libdrd.drdIsInitialized.argtypes = [c_byte]
