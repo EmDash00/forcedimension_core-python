@@ -1548,13 +1548,13 @@ class MockDHD:
         ]
         restype = c_int
 
-        j0 = 0
-        j1 = 0
-        j2 = 0
+        j0: float = 0.
+        j1: float = 0.
+        j2: float = 0.
 
-        q0 = 0
-        q1 = 0
-        q2 = 0
+        q0: float = 0.
+        q1: float = 0.
+        q2: float = 0.
 
         ID = 0
         ret = 0
