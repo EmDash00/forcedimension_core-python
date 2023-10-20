@@ -3689,6 +3689,56 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdDeltaJointTorquesExtrema
         )
 
+    def test_deltaJointTorquesExtremaDirect(self):
+        joint_angles = [0.0, 0.0, 0.0]
+
+        minq = containers.Vector3()
+        maxq = containers.Vector3()
+
+        for _ in range(100):
+            for i in range(3):
+                MockDHD.dhdDeltaJointTorquesExtrema.minq[i] = random()
+                MockDHD.dhdDeltaJointTorquesExtrema.maxq[i] = random()
+                joint_angles[i] = random()
+
+            dhd.expert.direct.deltaJointTorquesExtrema(joint_angles, minq, maxq)
+
+
+            for i in range(3):
+                self.assertAlmostEqual(
+                    minq[i], MockDHD.dhdDeltaJointTorquesExtrema.minq[i]
+                )
+                self.assertAlmostEqual(
+                    maxq[i], MockDHD.dhdDeltaJointTorquesExtrema.maxq[i]
+                )
+
+            self.assertAlmostEqual(
+                joint_angles[0], MockDHD.dhdDeltaJointTorquesExtrema.j0
+            )
+
+            self.assertAlmostEqual(
+                joint_angles[1], MockDHD.dhdDeltaJointTorquesExtrema.j1
+            )
+
+            self.assertAlmostEqual(
+                joint_angles[2], MockDHD.dhdDeltaJointTorquesExtrema.j2
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.deltaJointTorquesExtrema(
+                joint_angles, minq, maxq, ID
+            ),
+            MockDHD.dhdDeltaJointTorquesExtrema
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.deltaJointTorquesExtrema(
+                joint_angles, minq, maxq
+            ),
+            MockDHD.dhdDeltaJointTorquesExtrema
+        )
+
+
     def test_setDeltaJointTorques(self):
         self.assertSignaturesEqual(
             libdhd.dhdSetDeltaJointTorques,
