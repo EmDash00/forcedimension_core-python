@@ -703,7 +703,7 @@ class MockDHD:
 
         mot: int = 0
         f: float = 0
-        enc = array('i', (0 for _ in range(4)))
+        enc = [0] * 4
 
         ID = 0
         ret = 0
