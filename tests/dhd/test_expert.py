@@ -4952,3 +4952,76 @@ class TestExpertSDK(unittest.TestCase):
                 MockDHD.dhdDeltaGravityJointTorques
             )
 
+    def test_wristGravityJointTorques(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdWristGravityJointTorques,
+            MockDHD.dhdWristGravityJointTorques
+        )
+
+        libdhd.dhdWristGravityJointTorques = (  # type: ignore
+            MockDHD.dhdWristGravityJointTorques.mock
+        )
+
+        joint_angles = [0.0] * 3
+        out = [0.0] * 3
+
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore', category=DeprecationWarning)
+
+            for _ in range(100):
+                mask = randint(0, 100)
+
+                for i in range(3):
+                    joint_angles[i] = random()
+
+                MockDHD.dhdWristGravityJointTorques.q0 = random()
+                MockDHD.dhdWristGravityJointTorques.q1 = random()
+                MockDHD.dhdWristGravityJointTorques.q2 = random()
+
+                dhd.expert.wristGravityJointTorques(
+                    joint_angles, out, mask
+                )
+
+                self.assertAlmostEqual(
+                    joint_angles[0],
+                    MockDHD.dhdWristGravityJointTorques.j0
+                )
+
+                self.assertAlmostEqual(
+                    joint_angles[1],
+                    MockDHD.dhdWristGravityJointTorques.j1
+                )
+
+                self.assertAlmostEqual(
+                    joint_angles[2],
+                    MockDHD.dhdWristGravityJointTorques.j2
+                )
+
+                self.assertAlmostEqual(
+                    out[0],
+                    MockDHD.dhdWristGravityJointTorques.q0
+                )
+
+                self.assertAlmostEqual(
+                    out[1],
+                    MockDHD.dhdWristGravityJointTorques.q1
+                )
+
+                self.assertAlmostEqual(
+                    out[2],
+                    MockDHD.dhdWristGravityJointTorques.q2
+                )
+
+            self.assertIDImpl(
+                lambda ID = -1: dhd.expert.wristGravityJointTorques(
+                    joint_angles, out, ID
+                ),
+                MockDHD.dhdWristGravityJointTorques
+            )
+
+            self.assertRetImpl(
+                lambda: dhd.expert.wristGravityJointTorques(
+                    joint_angles, out
+                ),
+                MockDHD.dhdWristGravityJointTorques
+            )
