@@ -4106,6 +4106,60 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdDeltaJointAnglesToJacobian
         )
 
+    def test_deltaJointAnglesToJacobianDirect(self):
+        libdhd.dhdDeltaJointAnglesToJacobian = (  # type: ignore
+            MockDHD.dhdDeltaJointAnglesToJacobian.mock
+        )
+
+        joint_angles = [0.0, 0.0, 0.0]
+        out = containers.Mat3x3()
+
+        for _ in range(100):
+            for i in range(3):
+                joint_angles[i] = random()
+
+            for i in range(3):
+                for j in range(3):
+                    MockDHD.dhdDeltaJointAnglesToJacobian.jcb[i][j] = random()
+
+
+            dhd.expert.direct.deltaJointAnglesToJacobian(joint_angles, out)
+
+            self.assertAlmostEqual(
+                joint_angles[0],
+                MockDHD.dhdDeltaJointAnglesToJacobian.j0
+            )
+
+            self.assertAlmostEqual(
+                joint_angles[1],
+                MockDHD.dhdDeltaJointAnglesToJacobian.j1
+            )
+
+            self.assertAlmostEqual(
+                joint_angles[2],
+                MockDHD.dhdDeltaJointAnglesToJacobian.j2
+            )
+            for i in range(3):
+                for j in range(3):
+                    self.assertAlmostEqual(
+                        out[i, j],
+                        MockDHD.dhdDeltaJointAnglesToJacobian.jcb[i][j]
+                    )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.deltaJointAnglesToJacobian(
+                joint_angles, out, ID
+            ),
+            MockDHD.dhdDeltaJointAnglesToJacobian
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.deltaJointAnglesToJacobian(
+                joint_angles, out,
+            ),
+            MockDHD.dhdDeltaJointAnglesToJacobian
+        )
+
     def test_wristJointTorquesExtrema(self):
         self.assertSignaturesEqual(
             libdhd.dhdWristJointTorquesExtrema,
