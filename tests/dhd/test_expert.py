@@ -4166,14 +4166,14 @@ class TestExpertSDK(unittest.TestCase):
         )
 
         enc = [0, 0, 0]
-        out = [0.0, 0.0, 0.0]
+        out = containers.Vector3()
 
         for _ in range(100):
             MockDHD.dhdWristEncodersToJointAngles.j0 = random()
             MockDHD.dhdWristEncodersToJointAngles.j1 = random()
             MockDHD.dhdWristEncodersToJointAngles.j2 = random()
 
-            dhd.expert.wristEncodersToJointAngles(enc, out)
+            dhd.expert.direct.wristEncodersToJointAngles(enc, out)
 
             self.assertAlmostEqual(
                 out[0], MockDHD.dhdWristEncodersToJointAngles.j0
@@ -4188,14 +4188,14 @@ class TestExpertSDK(unittest.TestCase):
             )
 
         self.assertIDImpl(
-            lambda ID = -1: dhd.expert.wristEncodersToJointAngles(
+            lambda ID = -1: dhd.expert.direct.wristEncodersToJointAngles(
                 enc, out, ID
             ),
             MockDHD.dhdWristEncodersToJointAngles
         )
 
         self.assertRetImpl(
-            lambda: dhd.expert.wristEncodersToJointAngles(enc, out),
+            lambda: dhd.expert.direct.wristEncodersToJointAngles(enc, out),
             MockDHD.dhdWristEncodersToJointAngles
         )
 

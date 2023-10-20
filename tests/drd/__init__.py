@@ -2156,28 +2156,28 @@ class TestRoboticSDK(unittest.TestCase):
 
         setval = containers.DOFFloat()
 
-        drd.moveTo(setval, True)
+        drd.direct.moveTo(setval, True)
         self.assertTrue(MockDRD.drdMoveTo.block)
 
-        drd.moveTo(setval,False)
+        drd.direct.moveTo(setval,False)
         self.assertFalse(MockDRD.drdMoveTo.block)
 
         for _ in range(100):
             for i in range(MAX_DOF):
                 setval[i] = random()
 
-            drd.moveTo(setval, True)
+            drd.direct.moveTo(setval, True)
 
             for i in range(MAX_DOF):
                 self.assertAlmostEqual(setval[i], MockDRD.drdMoveTo.p[i])
 
         self.assertIDImpl(
-            lambda ID = -1: drd.moveTo(setval, True, ID),
+            lambda ID = -1: drd.direct.moveTo(setval, True, ID),
             MockDRD.drdMoveTo
         )
 
         self.assertRetImpl(
-            lambda: drd.moveTo(setval,True),
+            lambda: drd.direct.moveTo(setval,True),
             MockDRD.drdMoveTo
         )
 
