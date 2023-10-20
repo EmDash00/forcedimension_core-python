@@ -3187,6 +3187,55 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdGripperForceToMotor
         )
 
+    def test_gripperForceToMotorDirect(self):
+        self.assertSignaturesEqual(
+            libdhd.dhdGripperForceToMotor,
+            MockDHD.dhdGripperForceToMotor
+        )
+
+        libdhd.dhdGripperForceToMotor = (  # type: ignore
+            MockDHD.dhdGripperForceToMotor.mock
+        )
+
+        out = c_ushort()
+        enc_wrist_grip = containers.Enc4()
+
+        for _ in range(100):
+            MockDHD.dhdGripperForceToMotor.mot = randint(0, 100)
+            f = random()
+
+            for i in range(4):
+                enc_wrist_grip[i] = randint(0, 100)
+
+            dhd.expert.direct.gripperForceToMotor(f, enc_wrist_grip, out)
+
+            for i in range(4):
+                self.assertEqual(
+                    enc_wrist_grip[i], MockDHD.dhdGripperForceToMotor.enc[i]
+                )
+
+            self.assertAlmostEqual(f, MockDHD.dhdGripperForceToMotor.f)
+
+            self.assertAlmostEqual(
+                out.value,
+                MockDHD.dhdGripperForceToMotor.mot
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.gripperForceToMotor(
+                0, enc_wrist_grip, out, ID
+            ),
+            MockDHD.dhdGripperForceToMotor
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.gripperForceToMotor(
+                0, enc_wrist_grip, out
+            ),
+            MockDHD.dhdGripperForceToMotor
+        )
+
+
     def test_setMot(self):
         self.assertSignaturesEqual(
             libdhd.dhdSetMot, MockDHD.dhdSetMot
