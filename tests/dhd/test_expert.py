@@ -3962,6 +3962,55 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdWristJointTorquesExtrema
         )
 
+    def test_wristJointTorquesExtremaDirect(self):
+        joint_angles = [0.0, 0.0, 0.0]
+
+        minq = containers.Vector3()
+        maxq = containers.Vector3()
+
+        for _ in range(100):
+            for i in range(3):
+                MockDHD.dhdWristJointTorquesExtrema.minq[i] = random()
+                MockDHD.dhdWristJointTorquesExtrema.maxq[i] = random()
+                joint_angles[i] = random()
+
+            dhd.expert.direct.wristJointTorquesExtrema(joint_angles, minq, maxq)
+
+
+            for i in range(3):
+                self.assertAlmostEqual(
+                    minq[i], MockDHD.dhdWristJointTorquesExtrema.minq[i]
+                )
+                self.assertAlmostEqual(
+                    maxq[i], MockDHD.dhdWristJointTorquesExtrema.maxq[i]
+                )
+
+            self.assertAlmostEqual(
+                joint_angles[0], MockDHD.dhdWristJointTorquesExtrema.j0
+            )
+
+            self.assertAlmostEqual(
+                joint_angles[1], MockDHD.dhdWristJointTorquesExtrema.j1
+            )
+
+            self.assertAlmostEqual(
+                joint_angles[2], MockDHD.dhdWristJointTorquesExtrema.j2
+            )
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.wristJointTorquesExtrema(
+                joint_angles, minq, maxq, ID
+            ),
+            MockDHD.dhdWristJointTorquesExtrema
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.wristJointTorquesExtrema(
+                joint_angles, minq, maxq
+            ),
+            MockDHD.dhdWristJointTorquesExtrema
+        )
+
     def test_setWristJointTorques(self):
         self.assertSignaturesEqual(
             libdhd.dhdSetWristJointTorques,
