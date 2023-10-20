@@ -3161,18 +3161,18 @@ class TestExpertSDK(unittest.TestCase):
             dhd.expert.gripperForceToMotor(f, enc, enc_grip, out)
 
             for i in range(3):
-                self.assertAlmostEqual(
+                self.assertEqual(
                     enc[i], MockDHD.dhdGripperForceToMotor.enc[i]
                 )
 
-            self.assertAlmostEqual(
+            self.assertEqual(
                 enc_grip,
                 MockDHD.dhdGripperForceToMotor.enc[3]
             )
 
             self.assertAlmostEqual(f, MockDHD.dhdGripperForceToMotor.f)
 
-            self.assertAlmostEqual(
+            self.assertEqual(
                 out.value,
                 MockDHD.dhdGripperForceToMotor.mot
             )
