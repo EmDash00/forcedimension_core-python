@@ -4,6 +4,7 @@ import unittest
 from array import array
 from ctypes import (CFUNCTYPE, POINTER, c_byte, c_char_p, c_double, c_int,
                     c_ubyte, c_uint, c_ushort)
+import warnings
 from forcedimension_core import containers
 
 import forcedimension_core.dhd as dhd
