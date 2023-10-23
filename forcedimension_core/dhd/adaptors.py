@@ -16,7 +16,8 @@ class Handedness(IntEnum):
 
 class DHDError(Exception):
     def __init__(
-        self, msg: Optional[str] = "An undocumented error has occured."
+        self, msg: Optional[str] = "An undocumented error has occured.",
+        **kwargs
     ):
         if msg is not None:
             return super().__init__(msg)
@@ -30,7 +31,8 @@ class DHDFeatureError(DHDError):
         *,
         reason: str,
         ID: Optional[int] = None,
-        op: Optional[Callable[[Any], Any]]
+        op: Optional[Callable[[Any], Any]],
+        **kwargs
     ):
         op_seg = (
             "A op" if op is None else str(op)
@@ -45,10 +47,13 @@ class DHDFeatureError(DHDError):
 class DHDErrorExpertModeDisabled(DHDFeatureError):
     def __init__(
         self,
-        *,
+        *args,
         op: Optional[Callable[[Any], Any]] = None,
         **kwargs
     ):
+        if 'ID' in kwargs:
+            kwargs.pop('ID')
+
         return super().__init__(
             reason="expert mode is disabled",
             ID=None,
@@ -60,7 +65,7 @@ class DHDErrorExpertModeDisabled(DHDFeatureError):
 class DHDErrorFeatureNotAvailable(DHDFeatureError):
     def __init__(
         self,
-        *,
+        *args,
         op: Optional[Callable[[Any], Any]],
         ID: Optional[int] = None,
         **kwargs
@@ -77,7 +82,7 @@ class DHDErrorFeatureNotAvailable(DHDFeatureError):
 class DHDErrorFeatureNotEnabled(DHDFeatureError):
     def __init__(
         self,
-        *,
+        *args,
         op: Optional[Callable[[Any], Any]] = None,
         ID: Optional[int] = None,
         **kwargs
@@ -123,10 +128,11 @@ class DHDErrorRedundantFail(DHDError):
 class DHDIOError(DHDError, OSError):
     def __init__(
         self,
-        *,
+        *args,
         err: str,
         ID: Optional[int] = None,
-        op: Optional[str] = None
+        op: Optional[str] = None,
+        **kwargs
     ):
         op_seg = "" if op is None else f"{op} failed. "
         id_seg = "" if ID is None else f" occured on device {ID}"
@@ -137,7 +143,7 @@ class DHDIOError(DHDError, OSError):
 class DHDErrorTimeout(DHDIOError):
     def __init__(
         self,
-        *,
+        *args,
         op: Optional[str] = None,
         ID: Optional[int] = None,
         **kwargs
@@ -154,7 +160,7 @@ class DHDErrorTimeout(DHDIOError):
 class DHDErrorCom(DHDIOError):
     def __init__(
         self,
-        *,
+        *args,
         ID: Optional[int] = None,
         **kwargs
     ):
@@ -243,7 +249,7 @@ class DHDErrorFileNotFound(DHDError, FileNotFoundError):
 
 
 class DHDErrorDeprecated(DHDError):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super().__init__(
             "This op, function, or current device is marked as "
             "deprecated."
@@ -259,7 +265,7 @@ class DHDErrorInvalidIndex(DHDError, IndexError):
 
 
 class DHDErrorArgument(DHDError, ValueError):
-    def __init__(self, null: bool = False):
+    def __init__(self, null: bool = False, *args, **kwargs):
         if not null:
             super().__init__(
                 "The function producing this error was passed an invalid or "
