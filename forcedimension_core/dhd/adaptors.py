@@ -99,7 +99,7 @@ class DHDErrorFeatureNotEnabled(DHDFeatureError):
 class DHDErrorDeviceNotReady(DHDFeatureError):
     def __init__(
         self,
-        *,
+        *args,
         op: Optional[Callable[[Any], Any]],
         ID: Optional[int] = None,
         **kwargs
