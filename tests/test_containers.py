@@ -297,6 +297,32 @@ class TestContainers(unittest.TestCase):
                 mat3x3[i, j] = val
                 self.assertAlmostEqual(val, mat3x3[i, j])
 
+        def getitemRaisesTypeErrorTuple():
+            mat3x3[0]  # type: ignore
+
+        def getitemRaisesTypeErrorFirstIndex():
+            mat3x3[0.0, 0]  # type: ignore
+
+        def getitemRaisesTypeErrorSecondIndex():
+            mat3x3[0, 0.0]  # type: ignore
+
+        def setitemRaisesTypeErrorTuple():
+            mat3x3[0] = 1  # type: ignore
+
+        def setitemRaisesTypeErrorFirstIndex():
+            mat3x3[0.0, 0] = 1  # type: ignore
+
+        def setitemRaisesTypeErrorSecondIndex():
+            mat3x3[0, 0.0] = 1  # type: ignore
+
+        self.assertRaises(TypeError, getitemRaisesTypeErrorTuple)
+        self.assertRaises(TypeError, getitemRaisesTypeErrorFirstIndex)
+        self.assertRaises(TypeError, getitemRaisesTypeErrorSecondIndex)
+
+        self.assertRaises(TypeError, setitemRaisesTypeErrorTuple)
+        self.assertRaises(TypeError, setitemRaisesTypeErrorFirstIndex)
+        self.assertRaises(TypeError, setitemRaisesTypeErrorSecondIndex)
+
     def testMat6x6(self):
         mat_data = [random() for _ in range(6 * 6 + 1)]
 
