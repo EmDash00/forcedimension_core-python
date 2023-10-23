@@ -199,6 +199,37 @@ class TestContainers(unittest.TestCase):
             self.assertEqual(enc.ptr[i], enc[i])
             self.assertEqual(enc.ptr[i], enc.ptrs[i].contents.value)
 
+    def testMot3(self):
+        mot0 = randint(0, 100)
+        mot1 = randint(0, 100)
+        mot2 = randint(0, 100)
+
+        self.assertRaises(
+            ValueError, lambda: containers.Mot3((mot0, mot1, mot2, 0))
+        )
+        self.assertRaises(
+            ValueError, lambda: containers.Mot3((mot0, mot1))
+        )
+
+        mot = containers.Mot3((mot0, mot1, mot2))
+        self.assertEqual(len(mot), 3)
+
+        self.assertEqual(mot[0], mot0)
+        self.assertEqual(mot[1], mot1)
+        self.assertEqual(mot[2], mot2)
+
+        for i in range(len(mot)):
+            val = randint(0, 100)
+            mot[i] = val
+            self.assertEqual(val, mot[i])
+
+        self.assertIs(mot.ptr, mot.ptrs[0])
+
+        for i in range(len(mot)):
+            mot.ptr[i] = randint(0, 100)
+            self.assertEqual(mot.ptr[i], mot[i])
+            self.assertEqual(mot.ptr[i], mot.ptrs[i].contents.value)
+
     def testEnc4(self):
         enc0 = randint(0, 100)
         enc1 = randint(0, 100)
