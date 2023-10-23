@@ -1,8 +1,8 @@
-from ctypes import c_byte, c_double, c_int
+from ctypes import c_double
 
 import forcedimension_core.runtime as _runtime
 from forcedimension_core.typing import (
-    SupportsPtr, SupportsPtrs3, c_double_ptr
+    SupportsPtr, SupportsPtrs3
 )
 
 

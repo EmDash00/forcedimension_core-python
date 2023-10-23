@@ -1,7 +1,6 @@
 import unittest
 from ctypes import c_int
 from random import randint, random
-from typing import Sequence
 
 import pydantic
 

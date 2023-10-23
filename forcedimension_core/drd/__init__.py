@@ -1,5 +1,5 @@
 import ctypes as ct
-from ctypes import c_bool, c_byte, c_double, c_int, c_ubyte
+from ctypes import c_bool, c_byte, c_double, c_int
 from typing import Tuple
 
 import forcedimension_core.runtime as _runtime

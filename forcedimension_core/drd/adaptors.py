@@ -1,5 +1,4 @@
 from math import nan
-from typing import Literal, Optional
 
 import pydantic
 

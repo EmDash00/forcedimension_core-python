@@ -6,7 +6,6 @@ import typing_extensions
 from forcedimension_core.dhd.constants import ComMode, MAX_DOF, DeviceType
 import forcedimension_core.runtime as _runtime
 from forcedimension_core.typing import (
-    IntDOFTuple,
     FloatDOFTuple,
     Array,
     MutableArray,
