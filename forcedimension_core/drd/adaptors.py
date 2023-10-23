@@ -27,10 +27,7 @@ class TrajectoryGenParams(pydantic.BaseModel):
 
     @pydantic.field_validator('vmax')
     @classmethod
-    def validate_vmax(cls, val: Optional[float]):
-        if val is None:
-            return
-
+    def validate_vmax(cls, val: float):
         if val < 0:
             raise ValueError("vmax must be greater than or equal to 0")
 
@@ -38,10 +35,7 @@ class TrajectoryGenParams(pydantic.BaseModel):
 
     @pydantic.field_validator('amax')
     @classmethod
-    def validate_amax(cls, val: Optional[float]):
-        if val is None:
-            return
-
+    def validate_amax(cls, val: float):
         if val < 0:
             raise ValueError("amax must be greater than 0")
 
@@ -49,10 +43,7 @@ class TrajectoryGenParams(pydantic.BaseModel):
 
     @pydantic.field_validator('jerk')
     @classmethod
-    def validate_jerk(cls, val: Optional[float]):
-        if val is None:
-            return
-
+    def validate_jerk(cls, val: float):
         if val < 0:
             raise ValueError("jerk must be greater than 0")
 
