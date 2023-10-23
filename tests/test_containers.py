@@ -17,6 +17,9 @@ class TestContainers(unittest.TestCase):
         version = containers.VersionTuple(major, minor, release, revision)
 
         self.assertTupleEqual(version, (major, minor, release, revision))
+        self.assertEqual(
+            str(version), f"{major}.{minor}.{release}-{revision}"
+        )
 
     def testStatus(self):
 
