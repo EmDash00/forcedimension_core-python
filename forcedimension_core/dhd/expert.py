@@ -573,7 +573,7 @@ def setGripperMotor(output: int, ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.setDeltaMotor()`
     | :func:`forcedimension_core.dhd.setWristMotor()`
     """
-    return _runtime._libdhd.dhdSetWristMotor(output, ID)
+    return _runtime._libdhd.dhdSetGripperMotor(output, ID)
 
 
 _runtime._libdhd.dhdDeltaEncoderToPosition.argtypes = [
