@@ -3,11 +3,18 @@ from ctypes import c_int
 from random import randint, random
 from typing import Sequence
 
+import pydantic
+
 import forcedimension_core.containers as containers
 from forcedimension_core.dhd.constants import MAX_DOF, MAX_STATUS
 
 
 class TestContainers(unittest.TestCase):
+    def assertSequenceAlmostEqual(self, seq1, seq2):
+
+        for elem1, elem2 in zip(seq1, seq2):
+            self.assertAlmostEqual(elem1, elem2)
+
     def testVersion(self):
         major = randint(0, 100)
         minor = randint(0, 100)
@@ -413,3 +420,134 @@ class TestContainers(unittest.TestCase):
         self.assertRaises(TypeError, setitemRaisesTypeErrorTuple)
         self.assertRaises(TypeError, setitemRaisesTypeErrorFirstIndex)
         self.assertRaises(TypeError, setitemRaisesTypeErrorSecondIndex)
+
+    def testSerialization(self):
+
+        class Data(pydantic.BaseModel):
+            status: containers.Status = pydantic.Field(
+                default_factory=containers.Status
+            )
+
+            vec3: containers.Vector3 = pydantic.Field(
+                default_factory=containers.Vector3
+            )
+
+            enc3: containers.Enc3 = pydantic.Field(
+                default_factory=containers.Mot3
+            )
+
+            mot3: containers.Mot3 = pydantic.Field(
+                default_factory=containers.Mot3
+            )
+
+            enc4: containers.Enc4 = pydantic.Field(
+                default_factory=containers.Enc4
+            )
+
+            dofint: containers.DOFInt = pydantic.Field(
+                default_factory=containers.DOFInt
+            )
+
+            dofmotor: containers.DOFMotorArray = pydantic.Field(
+                default_factory=containers.DOFMotorArray
+            )
+
+            doffloat: containers.DOFFloat = pydantic.Field(
+                default_factory=containers.DOFFloat
+            )
+
+            mat3x3: containers.Mat3x3 = pydantic.Field(
+                default_factory=containers.Mat3x3
+            )
+
+            mat6x6: containers.Mat6x6 = pydantic.Field(
+                default_factory=containers.Mat6x6
+            )
+
+        data = Data()
+
+        self.assertIsInstance(data.status, containers.Status)
+        self.assertIsInstance(data.vec3, containers.Vector3)
+        self.assertIsInstance(data.enc3, containers.Mot3)
+        self.assertIsInstance(data.mot3, containers.Mot3)
+        self.assertIsInstance(data.enc4, containers.Enc4)
+        self.assertIsInstance(data.dofint, containers.DOFInt)
+        self.assertIsInstance(data.dofmotor, containers.DOFMotorArray)
+        self.assertIsInstance(data.doffloat, containers.DOFFloat)
+        self.assertIsInstance(data.mat3x3, containers.Mat3x3)
+        self.assertIsInstance(data.mat6x6, containers.Mat6x6)
+
+        for status_elem1, status_elem2 in zip(
+            data.status, containers.Status()
+        ):
+            self.assertEqual(status_elem1, status_elem2)  # type: ignore
+
+        self.assertSequenceAlmostEqual(data.vec3, containers.Vector3())  # type: ignore
+        self.assertSequenceEqual(data.enc3, containers.Mot3())  # type: ignore
+        self.assertSequenceEqual(data.enc4, containers.Enc4())  # type: ignore
+        self.assertSequenceEqual(data.dofint, containers.DOFInt())  # type: ignore
+        self.assertSequenceEqual(data.dofmotor, containers.DOFMotorArray())  # type: ignore
+        self.assertSequenceAlmostEqual(data.doffloat, containers.DOFFloat())  # type: ignore
+        self.assertSequenceAlmostEqual(data.mat3x3, containers.Mat3x3())  # type: ignore
+        self.assertSequenceAlmostEqual(data.mat6x6, containers.Mat6x6())  # type: ignore
+
+        status = containers.Status(
+            *tuple(randint(0, 100) for _ in range(MAX_STATUS))
+        )
+        enc3 = containers.Enc3(randint(0, 100) for _ in range(3))
+        mot3 = containers.Mot3(randint(0, 100) for _ in range(3))
+        enc4 = containers.Enc4(randint(0, 100) for _ in range(4))
+        dofint = containers.DOFInt(randint(0, 100) for _ in range(MAX_DOF))
+        dofmotor= containers.DOFMotorArray(randint(0, 100) for _ in range(MAX_DOF))
+        doffloat = containers.DOFFloat(random() for _ in range(MAX_DOF))
+        mat3x3 = containers.Mat3x3(random() for _ in range(3 * 3))
+        mat6x6 = containers.Mat6x6(random() for _ in range(6 * 6))
+
+        data = Data(
+            status=status, enc3=enc3, mot3=mot3, enc4=enc4, dofint=dofint,
+            dofmotor=dofmotor, doffloat=doffloat, mat3x3=mat3x3, mat6x6=mat6x6
+        )
+
+        data_dct = data.model_dump()
+        self.assertIsInstance(data_dct['status'], dict)
+        self.assertIsInstance(data_dct['vec3'], list)
+        self.assertIsInstance(data_dct['enc3'], list)
+        self.assertIsInstance(data_dct['mot3'], list)
+        self.assertIsInstance(data_dct['enc4'], list)
+        self.assertIsInstance(data_dct['dofint'], list)
+        self.assertIsInstance(data_dct['dofmotor'], list)
+        self.assertIsInstance(data_dct['doffloat'], list)
+        self.assertIsInstance(data_dct['mat3x3'], list)
+        self.assertIsInstance(data_dct['mat6x6'], list)
+
+        for field_name in map(
+            lambda field: field[0], data.status._fields_[:-1]
+        ):
+            self.assertEqual(
+                getattr(data.status, field_name),
+                data_dct['status'][field_name]
+            )
+
+        self.assertSequenceEqual(data_dct['vec3'], data.vec3)
+        self.assertSequenceEqual(data_dct['enc3'], data.enc3)
+        self.assertSequenceEqual(data_dct['mot3'], data.mot3)
+        self.assertSequenceEqual(data_dct['enc4'], data.enc4)
+        self.assertSequenceEqual(data_dct['dofint'], data.dofint)
+        self.assertSequenceEqual(data_dct['dofmotor'], data.dofmotor)
+        self.assertSequenceEqual(data_dct['doffloat'], data.doffloat)
+
+        for i in range(3):
+            for j in range(3):
+                self.assertAlmostEqual(
+                    data.mat3x3[i, j],
+                    data_dct['mat3x3'][i][j]
+                )
+
+        for i in range(6):
+            for j in range(6):
+                self.assertAlmostEqual(
+                    data.mat6x6[i, j],
+                    data_dct['mat6x6'][i][j]
+                )
+
+
