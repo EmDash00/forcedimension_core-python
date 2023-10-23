@@ -317,12 +317,12 @@ _error = [
     DHDErrorNoRegulation
 ]
 
-_com_mode_strs = [
-    'sync',
-    'async',
-    'virtual',
-    'network'
-]
+_com_mode_strs = {
+    ComMode.SYNC: 'sync',
+    ComMode.ASYNC: 'async',
+    ComMode.VIRTUAL: 'virtual',
+    ComMode.NETWORK: 'network'
+}
 
 _com_modes: Dict[ComModeStr, ComMode] = {
     'sync': ComMode.SYNC,
@@ -332,10 +332,30 @@ _com_modes: Dict[ComModeStr, ComMode] = {
 }
 
 _devtype_strs = {
+    DeviceType.NONE: 'none',
+    DeviceType.DELTA3: 'delta.3',
+    DeviceType.OMEGA3: 'omega.3',
+    DeviceType.OMEGA6_RIGHT: 'omega.6 right',
+    DeviceType.OMEGA6_LEFT: 'omega.6 left',
+    DeviceType.OMEGA7_RIGHT: 'omega.7 right',
+    DeviceType.OMEGA7_LEFT: 'omega.7 left',
+    DeviceType.CONTROLLER: 'controller',
+    DeviceType.CONTROLLER_HR: 'controller hr',
+    DeviceType.CUSTOM: 'custom',
+    DeviceType.SIGMA3: 'sigma.3',
+    DeviceType.SIGMA7_RIGHT: 'sigma.7 right',
+    DeviceType.SIGMA7_LEFT: 'sigma.7 left',
+    DeviceType.LAMBDA3: 'lambda.3',
+    DeviceType.LAMBDA7_RIGHT: 'lambda.7 right',
+    DeviceType.LAMBDA7_LEFT: 'lambda.7 left',
+    DeviceType.FALCON: 'novint falcon',
+}
+
+_devtype_strs_pretty = {
     DeviceType.NONE: 'None',
     DeviceType.DELTA3: 'DELTA.3',
     DeviceType.OMEGA3: 'OMEGA.3',
-    DeviceType.OMEGA6_RIGHT: 'OMEGA.6 right',
+    DeviceType.OMEGA6_RIGHT: 'OMEGA.6 Right',
     DeviceType.OMEGA6_LEFT: 'OMEGA.6 Left',
     DeviceType.OMEGA7_RIGHT: 'OMEGA.7 Right',
     DeviceType.OMEGA7_LEFT: 'OMEGA.7 Left',
@@ -362,9 +382,14 @@ _handedness = {
     DeviceType.LAMBDA7_LEFT: Handedness.LEFT,
 }
 
-_handedness_str = ['None', 'Left', 'Right']
+_handedness_str = ['none', 'left', 'right']
+_handedness_str_pretty = ['None', 'Left', 'Right']
 
 _estimator_mode_str = {
+    VelocityEstimatorMode.WINDOWING: "windowing"
+}
+
+_estimator_mode_str_pretty = {
     VelocityEstimatorMode.WINDOWING: "Windowing"
 }
 
@@ -384,7 +409,7 @@ _dof = {
     DeviceType.FALCON: 3,
 }
 
-def com_mode_str(com_mode: int) -> ComModeStr:
+def com_mode_str(com_mode: ComMode) -> ComModeStr:
     return typing.cast(ComModeStr, _com_mode_strs[com_mode])
 
 
@@ -398,7 +423,10 @@ def num_dof(devtype: DeviceType) -> int:
 
     return _dof[devtype]
 
-def devtype_str(devtype: DeviceType) -> str:
+def devtype_str(devtype: DeviceType, pretty: bool = False) -> str:
+    if pretty:
+        return _devtype_strs_pretty[devtype]
+
     return _devtype_strs[devtype]
 
 
@@ -408,11 +436,19 @@ def handedness(devtype: DeviceType) -> Handedness:
 
     return Handedness.NONE
 
-def handedness_str(handedness: Handedness) -> str:
+def handedness_str(handedness: Handedness, pretty: bool = False) -> str:
+    if pretty:
+        return _handedness_str_pretty[handedness]
+
     return _handedness_str[handedness]
 
 
-def velocity_estimator_mode_str(mode: VelocityEstimatorMode):
+def velocity_estimator_mode_str(
+    mode: VelocityEstimatorMode, pretty: bool = False
+):
+    if pretty:
+        return _estimator_mode_str_pretty[mode]
+
     return _estimator_mode_str[mode]
 
 
