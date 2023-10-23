@@ -549,5 +549,3 @@ class TestContainers(unittest.TestCase):
                     data.mat6x6[i, j],
                     data_dct['mat6x6'][i][j]
                 )
-
-
