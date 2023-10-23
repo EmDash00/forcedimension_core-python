@@ -2100,7 +2100,7 @@ _runtime._libdhd.dhdDeltaJointAnglesToJacobian.restype = c_int
 
 def deltaJointAnglesToJacobian(
     joint_angles: Array[int, float],
-    out: MutableArray[int, MutableArray[int, float]],
+    out: Array[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
     """
@@ -2585,7 +2585,7 @@ _runtime._libdhd.dhdWristJointAnglesToJacobian.restype = c_int
 
 def wristJointAnglesToJacobian(
     joint_angles: Array[int, float],
-    out: MutableArray[int, MutableArray[int, float]],
+    out: Array[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
     """
