@@ -22,7 +22,7 @@ class TrajectoryGenParams(pydantic.BaseModel):
             f"amax={self.amax}"
             f"{' (default)' if self.amax == default_amax else ''} "
             f"jerk={self.jerk}"
-            f"{' (default)' if self.jerk == default_jerk else ''} "
+            f"{' (default)' if self.jerk == default_jerk else ''}"
         )
 
     @pydantic.field_validator('vmax')
