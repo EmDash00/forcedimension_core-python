@@ -309,8 +309,8 @@ class TestContainers(unittest.TestCase):
         )
         mat6x6 = containers.Mat6x6(mat_data[:36])
 
-        for i in range(3):
-            for j  in range(3):
+        for i in range(6):
+            for j  in range(6):
                 self.assertAlmostEqual(mat_data[6 * i + j], mat6x6[i, j])
 
                 val = random()
