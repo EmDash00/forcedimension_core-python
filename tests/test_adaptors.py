@@ -43,8 +43,12 @@ class TestAdaptors(unittest.TestCase):
     def test_com_mode_from_str(self):
         self.assertEqual(fd.com_mode_from_str('sync'), ComMode.SYNC)
         self.assertEqual(fd.com_mode_from_str('async'), ComMode.ASYNC)
-        self.assertEqual(fd.com_mode_from_str('virtual'), ComMode.VIRTUAL)
-        self.assertEqual(fd.com_mode_from_str('network'), ComMode.NETWORK)
+        self.assertEqual(
+            fd.com_mode_from_str('virtual'), ComMode.VIRTUAL
+        )
+        self.assertEqual(
+            fd.com_mode_from_str('network'), ComMode.NETWORK
+        )
 
     def test_num_dof(self):
         self.assertEqual(fd.num_dof(DeviceType.DELTA3), 3)
@@ -70,33 +74,28 @@ class TestAdaptors(unittest.TestCase):
         self.assertEqual(fd.num_dof(DeviceType.NONE), 0)
 
     def test_devtype_str(self):
+        # Regular str tests
+
         self.assertEqual(fd.devtype_str(DeviceType.DELTA3), 'delta.3')
         self.assertEqual(fd.devtype_str(DeviceType.OMEGA3), 'omega.3')
         self.assertEqual(fd.devtype_str(DeviceType.SIGMA3), 'sigma.3')
         self.assertEqual(fd.devtype_str(DeviceType.LAMBDA3), 'lambda.3')
         self.assertEqual(fd.devtype_str(DeviceType.FALCON), 'novint falcon')
 
+        self.assertEqual(fd.devtype_str(DeviceType.SIGMA7_LEFT),'sigma.7 left')
         self.assertEqual(
-            fd.devtype_str(DeviceType.SIGMA7_LEFT),
-            'sigma.7 left'
-        )
-        self.assertEqual(
-            fd.devtype_str(DeviceType.SIGMA7_RIGHT),
-            'sigma.7 right'
+            fd.devtype_str(DeviceType.SIGMA7_RIGHT), 'sigma.7 right'
         )
 
         self.assertEqual(
-            fd.devtype_str(DeviceType.OMEGA6_LEFT),
-            'omega.6 left'
+            fd.devtype_str(DeviceType.OMEGA6_LEFT), 'omega.6 left'
         )
         self.assertEqual(
-            fd.devtype_str(DeviceType.OMEGA6_RIGHT),
-            'omega.6 right'
+            fd.devtype_str(DeviceType.OMEGA6_RIGHT), 'omega.6 right'
         )
 
         self.assertEqual(
-            fd.devtype_str(DeviceType.OMEGA7_LEFT),
-            'omega.7 left'
+            fd.devtype_str(DeviceType.OMEGA7_LEFT), 'omega.7 left'
         )
         self.assertEqual(
             fd.devtype_str(DeviceType.OMEGA7_RIGHT),
@@ -104,18 +103,87 @@ class TestAdaptors(unittest.TestCase):
         )
 
         self.assertEqual(
-            fd.devtype_str(DeviceType.LAMBDA7_LEFT),
-            'lambda.7 left'
+            fd.devtype_str(DeviceType.LAMBDA7_LEFT), 'lambda.7 left'
         )
         self.assertEqual(
-            fd.devtype_str(DeviceType.LAMBDA7_RIGHT),
-            'lambda.7 right'
+            fd.devtype_str(DeviceType.LAMBDA7_RIGHT), 'lambda.7 right'
         )
 
-        self.assertEqual(fd.devtype_str(DeviceType.CONTROLLER), 'controller')
         self.assertEqual(
-            fd.devtype_str(DeviceType.CONTROLLER_HR),
-            'controller hr'
+            fd.devtype_str(DeviceType.CONTROLLER), 'controller'
+        )
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.CONTROLLER_HR), 'controller hr'
+        )
+
+        self.assertEqual(fd.devtype_str(DeviceType.NONE), 'none')
+        self.assertEqual(fd.devtype_str(DeviceType.CUSTOM), 'custom')
+
+        # Pretty str tests
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.DELTA3, pretty=True), 'DELTA.3'
+        )
+        self.assertEqual(
+            fd.devtype_str(DeviceType.OMEGA3, pretty=True), 'OMEGA.3'
+        )
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.SIGMA3, pretty=True), 'SIGMA.3'
+        )
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.LAMBDA3, pretty=True), 'LAMBDA.3'
+        )
+        self.assertEqual(
+            fd.devtype_str(DeviceType.FALCON, pretty=True),
+            'Novint Falcon'
+        )
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.SIGMA7_LEFT, pretty=True),
+            'SIGMA.7 Left'
+        )
+        self.assertEqual(
+            fd.devtype_str(DeviceType.SIGMA7_RIGHT, pretty=True),
+            'SIGMA.7 Right'
+        )
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.OMEGA6_LEFT, pretty=True),
+            'OMEGA.6 Left'
+        )
+        self.assertEqual(
+            fd.devtype_str(DeviceType.OMEGA6_RIGHT, pretty=True),
+            'OMEGA.6 Right'
+        )
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.OMEGA7_LEFT, pretty=True),
+            'OMEGA.7 Left'
+        )
+        self.assertEqual(
+            fd.devtype_str(DeviceType.OMEGA7_RIGHT, pretty=True),
+            'OMEGA.7 Right'
+        )
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.LAMBDA7_LEFT, pretty=True),
+            'LAMBDA.7 Left'
+        )
+        self.assertEqual(
+            fd.devtype_str(DeviceType.LAMBDA7_RIGHT, pretty=True),
+            'LAMBDA.7 Right'
+        )
+
+        self.assertEqual(
+            fd.devtype_str(DeviceType.CONTROLLER, pretty=True),
+            'CONTROLLER'
+        )
+        self.assertEqual(
+            fd.devtype_str(DeviceType.CONTROLLER_HR, pretty=True),
+            'CONTROLLER HR'
         )
         self.assertEqual(fd.devtype_str(DeviceType.NONE), 'none')
         self.assertEqual(fd.devtype_str(DeviceType.CUSTOM), 'custom')
@@ -168,14 +236,40 @@ class TestAdaptors(unittest.TestCase):
         self.assertEqual(fd.handedness(DeviceType.NONE), Handedness.NONE)
 
     def test_handedness_str(self):
+        # Regular strs
+
         self.assertEqual(fd.handedness_str(Handedness.NONE), 'none')
         self.assertEqual(fd.handedness_str(Handedness.LEFT), 'left')
         self.assertEqual(fd.handedness_str(Handedness.RIGHT), 'right')
 
+        # Pretty strs
+
+        self.assertEqual(
+            fd.handedness_str(Handedness.NONE, pretty=True), 'None'
+        )
+
+        self.assertEqual(
+            fd.handedness_str(Handedness.LEFT, pretty=True), 'Left'
+        )
+        self.assertEqual(
+            fd.handedness_str(Handedness.RIGHT, pretty=True), 'Right'
+        )
+
     def test_estimator_mode_str(self):
+        # Regular strs
+
         self.assertEqual(
             fd.velocity_estimator_mode_str(VelocityEstimatorMode.WINDOWING),
             'windowing'
+        )
+
+        # Pretty strs
+
+        self.assertEqual(
+            fd.velocity_estimator_mode_str(
+                VelocityEstimatorMode.WINDOWING, pretty=True
+            ),
+            'Windowing'
         )
 
     def test_errno_to_exception(self):
