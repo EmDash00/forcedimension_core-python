@@ -301,11 +301,11 @@ class TestContainers(unittest.TestCase):
         mat_data = [random() for _ in range(6 * 6 + 1)]
 
         self.assertRaises(
-            ValueError, lambda: containers.Mat3x3(mat_data)
+            ValueError, lambda: containers.Mat6x6(mat_data)
         )
 
         self.assertRaises(
-            ValueError, lambda: containers.Mat3x3(mat_data[:35])
+            ValueError, lambda: containers.Mat6x6(mat_data[:35])
         )
         mat6x6 = containers.Mat6x6(mat_data[:36])
 
