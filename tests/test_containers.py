@@ -492,7 +492,7 @@ class TestContainers(unittest.TestCase):
         self.assertSequenceAlmostEqual(data.mat6x6, containers.Mat6x6())  # type: ignore
 
         status = containers.Status(
-            *tuple(randint(0, 100) for _ in range(MAX_STATUS))
+            *tuple(bool(randint(0, 1)) for _ in range(MAX_STATUS))
         )
         enc3 = containers.Enc3(randint(0, 100) for _ in range(3))
         mot3 = containers.Mot3(randint(0, 100) for _ in range(3))

@@ -54,6 +54,8 @@ else:
     #: Generic type representing a C data type (e.g. int, float, etc.)
     CType = TypeVar('CType', bound=ct._CData)
 
+CBoolLike = Union[bool, int]
+
 c_double_ptr = Pointer[c_double]
 c_ubyte_ptr = Pointer[c_ubyte]
 c_ushort_ptr = Pointer[c_ushort]

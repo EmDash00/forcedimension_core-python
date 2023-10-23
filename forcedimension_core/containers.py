@@ -1,14 +1,17 @@
+from __future__ import annotations
+
 import ctypes as ct
 from array import array
 from ctypes import c_double, c_int
 from typing import Any, Iterable, NamedTuple, Tuple
+from typing_extensions import overload
 
 import pydantic as pyd
 import pydantic_core as pyd_core
 
 from forcedimension_core.dhd.constants import MAX_DOF, MAX_STATUS
 from forcedimension_core.typing import (
-    Pointer, c_double_ptr, c_int_ptr, c_ushort_ptr
+    CBoolLike, Pointer, c_double_ptr, c_int_ptr, c_ushort_ptr
 )
 
 
@@ -33,19 +36,47 @@ class Status(ct.Structure):
     :func:`forcedimension.bindings.dhd.getStatus()`
     """
 
+    @overload
+    def __init__(self, status: Status):
+        ...
+
+    @overload
+    def __init__(
+        self,
+        power: CBoolLike = False, connected: CBoolLike = False,
+        started: CBoolLike = False, reset: CBoolLike = False,
+        idle: CBoolLike = False, force: CBoolLike = False,
+        brake: CBoolLike = False, torque: CBoolLike = False,
+        wrist_detected: CBoolLike = False,
+        error: int = False, gravity: CBoolLike = False,
+        timeguard: CBoolLike = False, wrist_init: CBoolLike = False,
+        redundancy: CBoolLike = False, forceoffcause: int = 0,
+        locks: CBoolLike = False, axis_checked: CBoolLike = False
+    ):
+        ...
+
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        if len(args) == 1:
+            if isinstance(args[0], Status):
+                super().__init__(*args[0])
+        else:
+            super().__init__(*args, **kwargs)
+
         self._ptr = ct.cast(ct.pointer(self), c_int_ptr)
 
     @classmethod
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
-                lambda status: tuple(*status)
+                lambda status: {
+                    field: getattr(status, field)
+                    for field in map(
+                        lambda fields: fields[0], status._fields_[:-1]
+                    )
+                }
             )
         )
 
@@ -68,14 +99,12 @@ class Status(ct.Structure):
 
     def __str__(self) -> str:
         return (
-            f"Status(power={self.power}, connected={self.connected}, "
-            f"started={self.started}, reset={self.reset}, idle={self.idle}, "
-            f"force={self.force}, brake={self.brake}, torque={self.torque}, "
-            f"wrist_detected={self.wrist_detected}, error={self.error}, "
-            f"gravity={self.gravity}, timeguard={self.timeguard}, "
-            f"redundancy={self.redundancy}, "
-            f"forceoffcause={self.forceoffcause}, locks={self.locks}, "
-            f"axis_checked={self.axis_checked})"
+            "Status(power={}, connected={}, started={}, reset={}, idle={}, "
+            "force={}, brake={}, torque={}, wrist_detected={}, error={}, "
+            "gravity={}, timeguard={}, wrist_init={}, redundancy={}, "
+            "forceoffcause={}, locks={}, axis_checked={})".format(
+                *self
+            )
         )
 
     _fields_ = (
@@ -213,9 +242,6 @@ class Vector3(array):
     def __new__(
         cls, initializer: Iterable[float] = (0., 0., 0.)
     ):
-        if isinstance(initializer, array):
-            return initializer
-
         arr = super(Vector3, cls).__new__(
             cls, 'd', initializer  # type: ignore
         )
@@ -240,9 +266,8 @@ class Vector3(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
@@ -310,9 +335,6 @@ class Enc3(array):
     def __new__(
         cls, initializer: Iterable[int] = (0, 0, 0)
     ):
-        if isinstance(initializer, array):
-            return initializer
-
         arr = super(Enc3, cls).__new__(
             cls, 'i', initializer  # type: ignore
         )
@@ -337,9 +359,8 @@ class Enc3(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
@@ -390,9 +411,8 @@ class Mot3(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
@@ -424,9 +444,6 @@ class Enc4(array):
     def __new__(
         cls, initializer: Iterable[int] = (0, 0, 0, 0)
     ):
-        if isinstance(initializer, array):
-            return initializer
-
         arr = super(Enc4, cls).__new__(
             cls, 'i', initializer  # type: ignore
         )
@@ -443,9 +460,8 @@ class Enc4(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
@@ -485,9 +501,8 @@ class DOFInt(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
@@ -526,9 +541,8 @@ class DOFMotorArray(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
@@ -567,9 +581,8 @@ class DOFFloat(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
@@ -593,9 +606,6 @@ class Mat3x3(array):
     def __new__(
         cls, initializer: Iterable[float] = tuple(0. for _ in range(9))
     ):
-        if isinstance(initializer, array):
-            return initializer
-
         arr = super(Mat3x3, cls).__new__(
             cls, 'd', initializer  # type: ignore
         )
@@ -644,11 +654,10 @@ class Mat3x3(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
-                lambda arr: arr.tolist()
+                lambda arr: [[arr[i, j] for j in range(3)] for i in range(3)]
             )
         )
 
@@ -669,9 +678,6 @@ class Mat6x6(array):
     def __new__(
         cls, initializer: Iterable[float] = tuple(0. for _ in range(36))
     ):
-        if isinstance(initializer, array):
-            return initializer
-
         arr = super(Mat6x6, cls).__new__(
             cls, 'd', initializer  # type: ignore
         )
@@ -720,11 +726,10 @@ class Mat6x6(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_after_validator_function(
+        return pyd_core.core_schema.no_info_plain_validator_function(
             cls,
-            handler(cls.__init__),
             serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
-                lambda arr: arr.tolist()
+                lambda arr: [[arr[i, j] for j in range(6)] for i in range(6)]
             )
         )
 
