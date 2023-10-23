@@ -439,4 +439,3 @@ class TestAdaptors(unittest.TestCase):
         self.assertAlmostEqual(dct['params']['vmax'], 0.0)
         self.assertAlmostEqual(dct['params']['amax'], 1.0)
         self.assertAlmostEqual(dct['params']['jerk'], 2.0)
-
