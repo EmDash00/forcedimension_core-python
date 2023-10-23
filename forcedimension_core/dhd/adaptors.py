@@ -399,7 +399,7 @@ _dof = {
     DeviceType.OMEGA6_RIGHT: 6,
     DeviceType.OMEGA6_LEFT: 6,
     DeviceType.OMEGA7_RIGHT: 7,
-    DeviceType.OMEGA7_LEFT: 6,
+    DeviceType.OMEGA7_LEFT: 7,
     DeviceType.SIGMA3: 3,
     DeviceType.SIGMA7_RIGHT: 7,
     DeviceType.SIGMA7_LEFT: 7,
