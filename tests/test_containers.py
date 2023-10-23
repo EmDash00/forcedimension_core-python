@@ -316,3 +316,30 @@ class TestContainers(unittest.TestCase):
                 val = random()
                 mat6x6[i, j] = val
                 self.assertAlmostEqual(val, mat6x6[i, j])
+
+
+        def getitemRaisesTypeErrorTuple():
+            mat6x6[0]  # type: ignore
+
+        def getitemRaisesTypeErrorFirstIndex():
+            mat6x6[0.0, 0]  # type: ignore
+
+        def getitemRaisesTypeErrorSecondIndex():
+            mat6x6[0, 0.0]  # type: ignore
+
+        def setitemRaisesTypeErrorTuple():
+            mat6x6[0] = 1  # type: ignore
+
+        def setitemRaisesTypeErrorFirstIndex():
+            mat6x6[0.0, 0] = 1  # type: ignore
+
+        def setitemRaisesTypeErrorSecondIndex():
+            mat6x6[0, 0.0] = 1  # type: ignore
+
+        self.assertRaises(TypeError, getitemRaisesTypeErrorTuple)
+        self.assertRaises(TypeError, getitemRaisesTypeErrorFirstIndex)
+        self.assertRaises(TypeError, getitemRaisesTypeErrorSecondIndex)
+
+        self.assertRaises(TypeError, setitemRaisesTypeErrorTuple)
+        self.assertRaises(TypeError, setitemRaisesTypeErrorFirstIndex)
+        self.assertRaises(TypeError, setitemRaisesTypeErrorSecondIndex)
