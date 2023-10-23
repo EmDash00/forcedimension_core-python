@@ -122,6 +122,16 @@ class TestContainers(unittest.TestCase):
 
             self.assertEqual(val, status[i])
 
+        self.assertEqual(
+            str(status),
+            "Status(power={}, connected={}, started={}, reset={}, idle={}, "
+            "force={}, brake={}, torque={}, wrist_detected={}, error={}, "
+            "gravity={}, timeguard={}, wrist_init={}, redundancy={}, "
+            "forceoffcause={}, locks={}, axis_checked={})".format(
+                *status
+            ),
+        )
+
     def testVector3(self):
         x = random()
         y = random()
