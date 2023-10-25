@@ -26,5 +26,11 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
 ]
 
+[project.optional-dependencies]
+all = []
+numpy = [
+  "numpy~=1.20.3"
+]
+
 [project.urls]
 "Homepage" = "https://github.com/EmDash00/forcedimension_core-python"
