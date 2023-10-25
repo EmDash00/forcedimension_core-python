@@ -203,20 +203,20 @@ class TestRuntime(unittest.TestCase):
             self.assertEqual(ret.revision, MockDHD.revision)
 
     def test_should_mock(self):
-        os.environ['__forcedim_unittest__'] = 'False'
-        os.environ['__sphinx_build__'] = 'False'
+        os.environ['__fdsdkpy_unittest__'] = 'False'
+        os.environ['__fdsdkpy_sphinx_build__'] = 'False'
         self.assertFalse(runtime._should_mock())
 
-        os.environ['__forcedim_unittest__'] = 'True'
-        os.environ['__sphinx_build__'] = 'False'
+        os.environ['__fdsdkpy_unittest__'] = 'True'
+        os.environ['__fdsdkpy_sphinx_build__'] = 'False'
         self.assertTrue(runtime._should_mock())
 
-        os.environ['__forcedim_unittest__'] = 'False'
-        os.environ['__sphinx_build__'] = 'True'
+        os.environ['__fdsdkpy_unittest__'] = 'False'
+        os.environ['__fdsdkpy_sphinx_build__'] = 'True'
         self.assertTrue(runtime._should_mock())
 
-        os.environ['__forcedim_unittest__'] = 'True'
-        os.environ['__sphinx_build__'] = 'True'
+        os.environ['__fdsdkpy_unittest__'] = 'True'
+        os.environ['__fdsdkpy_sphinx_build__'] = 'True'
         self.assertTrue(runtime._should_mock())
 
     def test_get_search_info(self):
@@ -680,10 +680,10 @@ class TestRuntime(unittest.TestCase):
             '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/libdrd.so'
         )
 
-        os.environ['__forcedim_runtime_test__'] = 'True'
+        os.environ['__fdsdkpy_unittest_runtime__'] = 'True'
         self.assertRaises(ImportError, lambda: importlib.reload(runtime))
 
-        os.environ['__forcedim_runtime_test__'] = 'False'
+        os.environ['__fdsdkpy_unittest_runtime__'] = 'False'
         runtime._ctypes_impl = ctypes
         runtime._getpass_impl = getpass
         runtime._glob_impl = glob

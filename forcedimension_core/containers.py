@@ -16,12 +16,12 @@ from forcedimension_core.typing import (
 )
 
 try:
-    if os.environ.get('__forcedim_has_numpy__', 'True') != 'True':
+    if os.environ.get('__fdsdkpy_unittest_opt_has_numpy__', 'True') != 'True':
         raise ImportError
 
     import forcedimension_core.numpy_containers as numpy
 except ImportError:
-    if os.environ.get('__forcedim_has_numpy__', 'True') != 'True':
+    if os.environ.get('__fdsdkpy_unittest_opt_has_numpy__', 'True') != 'True':
         if 'numpy' in globals():
             del numpy  # type: ignore
 

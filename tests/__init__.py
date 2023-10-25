@@ -1,6 +1,6 @@
 import os
 
-os.environ['__forcedim_unittest__'] = 'True'
+os.environ['__fdsdkpy_unittest__'] = 'True'
 
 from tests.dhd import TestExpertSDK, TestOSIndependentSDK, TestStandardSDK
 from tests.drd import TestRoboticSDK

@@ -183,8 +183,8 @@ def _get_version(lib: _ctypes_impl.CDLL):
 
 def _should_mock():
     return (
-        _os_impl.environ.get('__sphinx_build__', 'False') == 'True' or
-        _os_impl.environ.get('__forcedim_unittest__', 'False') == 'True'
+        _os_impl.environ.get('__fdsdkpy_sphin_build__', 'False') == 'True' or
+        _os_impl.environ.get('__fdsdkpy_unittest__', 'False') == 'True'
     )
 
 
@@ -193,7 +193,7 @@ def load(
     silent=False,
 ):
 
-    if _os_impl.environ.get('__forcedim_runtime_test__', 'False') == 'True':
+    if _os_impl.environ.get('__fdsdkpy_unittest_runtime__', 'False') == 'True':
         return None
 
     if _should_mock() and not _test_load:

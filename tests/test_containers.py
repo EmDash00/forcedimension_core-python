@@ -17,11 +17,11 @@ class TestContainers(unittest.TestCase):
             self.assertAlmostEqual(elem1, elem2)
 
     def testLoadNumpy(self):
-        os.environ['__forcedim_has_numpy__'] = 'False'
+        os.environ['__fdsdkpy_unittest_opt_has_numpy__'] = 'False'
         importlib.reload(containers)
         self.assertIsNone(getattr(containers, 'numpy', None))
 
-        os.environ['__forcedim_has_numpy__'] = 'True'
+        os.environ['__fdsdkpy_unittest_opt_has_numpy__'] = 'True'
         importlib.reload(containers)
         self.assertIsNotNone(getattr(containers, 'numpy', None))
 
