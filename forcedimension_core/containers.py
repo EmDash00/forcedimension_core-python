@@ -21,8 +21,9 @@ try:
 
     import forcedimension_core.numpy_containers as numpy
 except ImportError:
-    pass
-
+    if os.environ.get('__forcedim_has_numpy__', 'True') != 'True':
+        if 'numpy' in globals():
+            del numpy  # type: ignore
 
 class VersionTuple(NamedTuple):
     """

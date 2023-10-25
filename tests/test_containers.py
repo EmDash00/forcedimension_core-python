@@ -19,11 +19,11 @@ class TestContainers(unittest.TestCase):
     def testLoadNumpy(self):
         os.environ['__forcedim_has_numpy__'] = 'False'
         importlib.reload(containers)
-        self.assertIsNone(getattr(containers, 'numpy'))
+        self.assertIsNone(getattr(containers, 'numpy', None))
 
         os.environ['__forcedim_has_numpy__'] = 'True'
         importlib.reload(containers)
-        self.assertIsNotNone(getattr(containers, 'numpy'))
+        self.assertIsNotNone(getattr(containers, 'numpy', None))
 
 
     def testVersion(self):
