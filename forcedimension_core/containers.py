@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import ctypes as ct
 from array import array
-from ctypes import c_double, c_int
+from ctypes import c_int
+import os
 from typing import Any, Iterable, NamedTuple, Tuple
 from typing_extensions import overload
 
@@ -13,6 +14,14 @@ from forcedimension_core.dhd.constants import MAX_DOF, MAX_STATUS
 from forcedimension_core.typing import (
     CBoolLike, Pointer, c_double_ptr, c_int_ptr, c_ushort_ptr
 )
+
+try:
+    if os.environ.get('__forcedim_has_numpy__', 'True') != 'True':
+        raise ImportError
+
+    import forcedimension_core.numpy_containers as numpy
+except ImportError:
+    pass
 
 
 class VersionTuple(NamedTuple):
@@ -59,6 +68,12 @@ class Status(ct.Structure):
         if len(args) == 1:
             if isinstance(args[0], Status):
                 super().__init__(*args[0])
+            elif isinstance(args[0], int) or isinstance(args[0], bool):
+                super().__init__(args[0])
+            else:
+                raise ValueError(
+                    "Cannot copy construct from an object not of type Status."
+                )
         else:
             super().__init__(*args, **kwargs)
 
