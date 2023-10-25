@@ -183,7 +183,7 @@ def _get_version(lib: _ctypes_impl.CDLL):
 
 def _should_mock():
     return (
-        _os_impl.environ.get('__fdsdkpy_sphin_build__', 'False') == 'True' or
+        _os_impl.environ.get('__fdsdkpy_sphinx_build__', 'False') == 'True' or
         _os_impl.environ.get('__fdsdkpy_unittest__', 'False') == 'True'
     )
 
