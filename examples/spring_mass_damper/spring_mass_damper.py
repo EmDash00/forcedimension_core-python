@@ -1,10 +1,9 @@
 import sys
 
-import forcedimension_core as forcedim
+import forcedimension_core as fd
 from forcedimension_core import dhd
 from forcedimension_core.dhd.adaptors import DHDError
-from forcedimension_core.dhd.constants import ErrorNum
-from forcedimension_core.dhd.os_independent import kbHit, kbGet
+from forcedimension_core.dhd.os_independent import kbGet, kbHit
 
 b = 5  # damping coefficient in [N][s]/[m]
 k = 150  # spring constant in [N]/[m]
@@ -16,36 +15,38 @@ f = [0.0, 0.0, 0.0]
 
 # Try to open the first available device
 if (ID := dhd.open()) == -1:
-  print(f"Error: {dhd.errorGetLastStr()}")
-  sys.exit(1)
+    print(f"Error: {dhd.errorGetLastStr()}")
+    sys.exit(1)
 
 if (name := dhd.getSystemName()) is not None:
-  print(isinstance(name, str))  # prints "True"
-  print(name)
+    print(isinstance(name, str))  # prints "True"
+    print(name)
 
-# Run until button 0 is pressed (typically the center or only button)
-# or q is pressed on the keyboard
 try:
 
-  btn_state = False
-  err_strs = []
-  for errno in ErrorNum:
-      err_strs.append(dhd.errorGetStr(errno))
+    # Make closing a gripper be an emulated as a button on button ID 0.
+    if dhd.emulateButton(True, ID) == -1:
+        raise fd.errno_to_exception(dhd.errorGetLast())(
+            op='forcedimension_core.dhd.getPosition', ID=ID
+        )
 
-  print(err_strs)
+    btn_state = False
 
-  while not (btn_state or (kbHit() and kbGet() == 'q')):
-    # Try to get the position
-    if (dhd.getPosition(out=pos, ID=ID) == -1):
-      raise forcedim.errno_to_exception(dhd.errorGetLast())(
-        op='forcedimension_core.dhd.getPosition', ID=ID
-      )
+    # Run until button 0 is pressed (typically the center or only button)
+    # or q is pressed on the keyboard
+
+    while not (btn_state or (kbHit() and kbGet() == 'q')):
+        # Try to get the position
+        if (dhd.getPosition(out=pos, ID=ID) == -1):
+            raise fd.errno_to_exception(dhd.errorGetLast())(
+                op='forcedimension_core.dhd.getPosition', ID=ID
+            )
 
     # Try to get the velocity
     if (dhd.getLinearVelocity(out=v, ID=ID) == -1):
-      raise forcedim.errno_to_exception(dhd.errorGetLast())(
-        op='forcedimension_core.dhd.getLinearVelocity', ID=ID
-      )
+        raise fd.errno_to_exception(dhd.errorGetLast())(
+            op='forcedimension_core.dhd.getLinearVelocity', ID=ID
+        )
 
     # Set the dynamics to be a spring-mass damper
     f[0] = -k * pos[0] - b * v[0]
@@ -54,17 +55,17 @@ try:
 
     # Try to set the force
     if (dhd.setForce(f, ID=ID) == -1):
-      raise forcedim.errno_to_exception(dhd.errorGetLast())(
-        op='forcedimension_core.dhd.setForce', ID=ID
-      )
+        raise fd.errno_to_exception(dhd.errorGetLast())(
+            op='forcedimension_core.dhd.setForce', ID=ID
+        )
 
     if (btn_state := dhd.getButton(index=0)) == -1:
-      raise forcedim.errno_to_exception(dhd.errorGetLast())(
-        op='forcedimension_core.dhd.getButton', ID=ID
-      )
+        raise fd.errno_to_exception(dhd.errorGetLast())(
+            op='forcedimension_core.dhd.getButton', ID=ID
+        )
 except DHDError as ex:
     print(str(ex))
 finally:
-  # On error, close the device and gracefully exit
-  dhd.close(ID)
-  sys.exit(1)
+    # On error, close the device and gracefully exit
+    dhd.close(ID)
+    sys.exit(1)
