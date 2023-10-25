@@ -8,9 +8,9 @@ python:
   - "3.12"
 
 install:
-  - python3 -m pip install pipenv
-  - python3 -m pipenv requirements > requirements.txt
-  - python3 -m pip install -r requirements.txt
+  - python3 -m pip install pipx
+  - pipx install poetry==1.6.1
+  - poetry install --with numpy,test
 
 script:
-  - python3 -m unittest tests
+  - poetry run python3 -m coverage run -m unittest tests
