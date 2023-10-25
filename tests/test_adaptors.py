@@ -331,6 +331,12 @@ class TestAdaptors(unittest.TestCase):
         )
 
         self.assertIsInstance(
+            fd.errno_to_exception(ErrorNum.EXPERT_MODE_DISABLED)(op=''),
+            DHDErrorExpertModeDisabled
+        )
+
+
+        self.assertIsInstance(
             fd.errno_to_exception(ErrorNum.NOT_IMPLEMENTED)(op='', ID=1),
             DHDErrorNotImplemented
         )
