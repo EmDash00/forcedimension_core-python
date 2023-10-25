@@ -34,3 +34,16 @@ numpy = [
 
 [project.urls]
 "Homepage" = "https://github.com/EmDash00/forcedimension_core-python"
+
+[tool.coverage.run]
+branch = true
+omit = [
+  "tests",
+]
+
+[tool.coverage.report]
+omit = [
+  "tests/*",
+  "forcedimension_core/typing.py"
+]
+exclude_lines = [ "\\.\\.\\." ]
