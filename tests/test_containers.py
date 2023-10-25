@@ -1,3 +1,5 @@
+import importlib
+import os
 import unittest
 from ctypes import c_int
 from random import randint, random
@@ -13,6 +15,16 @@ class TestContainers(unittest.TestCase):
 
         for elem1, elem2 in zip(seq1, seq2):
             self.assertAlmostEqual(elem1, elem2)
+
+    def testLoadNumpy(self):
+        os.environ['__forcedim_has_numpy__'] = 'False'
+        importlib.reload(containers)
+        self.assertIsNone(getattr(containers, 'numpy'))
+
+        os.environ['__forcedim_has_numpy__'] = 'True'
+        importlib.reload(containers)
+        self.assertIsNotNone(getattr(containers, 'numpy'))
+
 
     def testVersion(self):
         major = randint(0, 100)
@@ -137,6 +149,15 @@ class TestContainers(unittest.TestCase):
                 *status
             ),
         )
+
+        s = containers.Status(1)
+        self.assertEqual(s.power, 1)
+
+        s = containers.Status(True)
+        self.assertTrue(s.power)
+
+        self.assertRaises(ValueError, lambda: containers.Status(None))  # type: ignore
+
 
     def testVector3(self):
         x = random()
