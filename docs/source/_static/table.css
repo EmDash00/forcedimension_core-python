@@ -1,0 +1,5 @@
+/* Target all <td> elements in the table with the center-columns class, but not the first column */
+table.center-columns td:not(:first-child) {
+    text-align: center;
+}
+
