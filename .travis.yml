@@ -13,4 +13,5 @@ install:
   - poetry install --with numpy,test
 
 script:
-  - poetry run python3 -m coverage run -m unittest tests
+  - poetry run coverage run -m unittest tests
+  - poetry run coveralls
