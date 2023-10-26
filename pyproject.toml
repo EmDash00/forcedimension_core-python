@@ -23,13 +23,14 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.8"
 pydantic = "^2"
-typing-extensions = "^4.6.2"
+typing-extensions = "^4.6.0"
 
 [tool.poetry.group.numpy]
 optional = true
 
 [tool.poetry.group.numpy.dependencies]
-numpy = "^1.20.3"
+numpy = { version = "^1.20.0", python = "<3.12"}
+numpy = { version = "^1.26.0", python = ">=3.12"}
 
 [tool.poetry.group.docs]
 optional = true
