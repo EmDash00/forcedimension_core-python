@@ -21,6 +21,9 @@ class TestContainers(unittest.TestCase):
         importlib.reload(containers)
         self.assertIsNone(getattr(containers, 'numpy', None))
 
+        importlib.reload(containers)
+        self.assertIsNone(getattr(containers, 'numpy', None))
+
         os.environ['__fdsdkpy_unittest_opt_has_numpy__'] = 'True'
         importlib.reload(containers)
         self.assertIsNotNone(getattr(containers, 'numpy', None))
