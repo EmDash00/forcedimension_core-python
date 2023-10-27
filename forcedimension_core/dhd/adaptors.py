@@ -1,12 +1,13 @@
-from enum import IntEnum
-from typing import Any, Callable, Dict, Literal, Optional
 import typing
+from enum import IntEnum
+from typing import Any, Callable, Dict, Optional
 
-from forcedimension_core.typing import ComModeStr
 from forcedimension_core.dhd.constants import (
     DEFAULT_VELOCITY_WINDOW, MAX_STATUS,
     ComMode, DeviceType, ErrorNum, VelocityEstimatorMode
 )
+from forcedimension_core.typing import ComModeStr
+
 
 class Handedness(IntEnum):
     NONE = 0
@@ -409,6 +410,7 @@ _dof = {
     DeviceType.FALCON: 3,
 }
 
+
 def com_mode_str(com_mode: ComMode) -> ComModeStr:
     return typing.cast(ComModeStr, _com_mode_strs[com_mode])
 
@@ -423,6 +425,7 @@ def num_dof(devtype: DeviceType) -> int:
 
     return _dof[devtype]
 
+
 def devtype_str(devtype: DeviceType, pretty: bool = False) -> str:
     if pretty:
         return _devtype_strs_pretty[devtype]
@@ -435,6 +438,7 @@ def handedness(devtype: DeviceType) -> Handedness:
         return _handedness[devtype]
 
     return Handedness.NONE
+
 
 def handedness_str(handedness: Handedness, pretty: bool = False) -> str:
     if pretty:
@@ -450,7 +454,6 @@ def velocity_estimator_mode_str(
         return _estimator_mode_str_pretty[mode]
 
     return _estimator_mode_str[mode]
-
 
 
 def errno_to_exception(errno: int):

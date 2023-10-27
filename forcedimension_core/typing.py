@@ -1,7 +1,7 @@
 import ctypes as ct
 from ctypes import c_double, c_int, c_ubyte, c_uint, c_ushort
 from typing import (
-    TYPE_CHECKING, Container, Generic, List, Literal, Protocol, Sized, Tuple,
+    TYPE_CHECKING, Container, Generic, Literal, Protocol, Sized, Tuple,
     TypeVar, Union
 )
 
@@ -20,7 +20,8 @@ class Array(Sized, Container[_VT_co], Protocol[_KT_contra, _VT_co]):
     (all the same type).
     """
 
-    def __getitem__(self, __k: _KT_contra) -> _VT_co: ...
+    def __getitem__(self, __k: _KT_contra) -> _VT_co:
+        ...
 
 
 class MutableArray(
@@ -31,7 +32,8 @@ class MutableArray(
     (all the same type) that allows setting items.
     """
 
-    def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
+    def __setitem__(self, __k: _KT_contra, __v: _VT) -> None:
+        ...
 
 
 if not TYPE_CHECKING:
@@ -92,6 +94,7 @@ class SupportsPtrs3(Protocol, Generic[CType]):
         """
 
         ...
+
 
 #: Represents a tuple of integers, one for each DOF.
 IntDOFTuple = Tuple[int, int, int, int, int, int, int, int]

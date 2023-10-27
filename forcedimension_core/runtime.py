@@ -6,7 +6,7 @@ import pathlib
 import platform
 import sys
 import unittest.mock as __mock
-from typing import Final, Iterable, List, Set
+from typing import Final, Iterable, Set
 
 from forcedimension_core.containers import VersionTuple
 
@@ -23,6 +23,7 @@ _platform_impl = platform
 _sys_impl = sys
 
 _test_load = False
+
 
 def _get_search_paths_win32(search_dirs: Iterable[str] = ()):
     search_dirs = list(search_dirs)
@@ -79,6 +80,7 @@ def _get_search_paths_win32(search_dirs: Iterable[str] = ()):
 
     return search_dirs
 
+
 def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
     search_dirs = list(search_dirs)
     machine = _platform_impl.machine()
@@ -98,11 +100,11 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
                 libpath,
                 "lib",
                 "release",
-                f"{platform_name}-{machine}-{compiler}",  # type: ignore
+                f"{platform_name}-{machine}-{compiler}",  # noqa
             )
         )
         # type: ignore
-        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file}*")):  # type: ignore
+        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file}*")):  # noqa
             search_dirs.append(glob_res[0])
 
     # Legacy support for the old environment variable
@@ -117,7 +119,7 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
             )
         )
 
-        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file}*")):  # type: ignore
+        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file}*")):  # noqa
             search_dirs.append(glob_res[0])
 
     lib_loc_local = os.path.join(
@@ -182,10 +184,15 @@ def _get_version(lib: _ctypes_impl.CDLL):
 
 
 def _should_mock():
-    return (
-        _os_impl.environ.get('__fdsdkpy_sphinx_build__', 'False') == 'True' or
+    sphinx_build = (
+        _os_impl.environ.get('__fdsdkpy_sphinx_build__', 'False') == 'True'
+    )
+
+    unittest = (
         _os_impl.environ.get('__fdsdkpy_unittest__', 'False') == 'True'
     )
+
+    return sphinx_build or unittest
 
 
 def load(
@@ -245,6 +252,7 @@ def load(
         )
 
     return None
+
 
 if (_libdrd_load := load()) is None:
     raise ImportError(

@@ -31,13 +31,14 @@ _runtime._libdrd.drdOpen.restype = c_int
 
 def open() -> int:
     """
-    Open a connection to the first available device connected to the
-    system. The order in which devices are opened persists until devices
-    are added or removed.
+    Open a connection to the first available device connected to
+    the system. The order in which devices are opened persists
+    until devices are added or removed.
 
-    If this call is successful, the default device ID is set to the newly
-    opened device. See the multiple device section for more information on
-    using multiple devices on the same computer.
+    If this call is successful, the default device ID is set to
+    the newly opened device. See the :ref:`multiple_devices`
+    section for more information on using multiple devices on
+    the same computer.
 
     :returns: The device ID on success, -1 otherwise.
 
@@ -56,19 +57,19 @@ _runtime._libdrd.drdOpenID.restype = c_int
 
 def openID(ID: int) -> int:
     """
-    Open a connection to one particular device connected to the system. The
-    order in which devices are opened persists until devices are added or
-    removed. If the device at the specified index is already opened, its device
-    ID is returned.
+    Open a connection to one particular device connected to the
+    system. The order in which devices are opened persists until
+    devices are added or removed. If the device at the specified
+    index is already opened, its device ID is returned.
 
-    If this call is successful, the default device ID is set to the newly
-    opened device. See the :ref:`multiple_devices` section for more
-    information.
+    If this call is successful, the default device ID is set to
+    the newly opened device. See the :ref:`multiple_devices`
+    section for more information.
 
     :param int ID:
-        The device enumeration index, as assigned by the underlying operating
-        system (must be between 0 and the number of devices connected to the
-        system)
+        The device enumeration index, as assigned by the
+        underlying operating system (must be between 0 and the
+        number of devices connected to the system).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C byte.
@@ -90,14 +91,15 @@ _runtime._libdrd.drdSetDevice.restype = c_int
 
 def setDevice(ID: int) -> int:
     """
-    Select the default device that will receive the API commands. The API
-    supports multiple devices. This routine allows the programmer to decide
-    which device the API dhd_single_device_call single-device calls will
-    address. Any subsequent API call that does not specifically mention the
-    device ID in its parameter list will be sent to that device.
+    Select the default device that will receive the API commands.
+    The API supports multiple devices. This routine allows the
+    programmer to decide which device the API single-device calls
+    will address by default. APIs call that do not specify the ID
+    paremeter will instead address the default device.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
@@ -141,7 +143,8 @@ def close(ID: int = -1) -> int:
     Close the connection to a particular device.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
@@ -149,6 +152,7 @@ def close(ID: int = -1) -> int:
     :returns:
         0 on success, and -1 otherwise.
     """
+
     return _runtime._libdrd.drdClose(ID)
 
 
@@ -158,26 +162,29 @@ _runtime._libdrd.drdIsSupported.restype = c_bool
 
 def isSupported(ID: int = -1) -> bool:
     """
-    Determine if the device is supported out-of-the-box by the DRD. The
-    regulation gains of supported devices are configured internally so that
-    such devices are ready to use.
+    Determine if the device is supported out-of-the-box by the
+    DRD. The regulation gains of supported devices are
+    configured internally so that such devices are ready to use.
 
     Note
     ----
     Unsupported devices can still be operated
-    with the DRD, but their regulation gains must first be configured using the
+    with the DRD, but their regulation gains must first be
+    configured using the
     :func:`forcedimension_core.drd.setEncPGain()`,
     :func:`forcedimension_core.drd.setEncIGain()`, and
     :func:`forcedimension_core.drd.setEncDGain()` functions.
 
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C int.
 
-    :returns: ``True`` if the device is supported, ``False`` otherwise.
+    :returns:
+        ``True`` if the device is supported, ``False`` otherwise.
 
     """
     return _runtime._libdrd.drdIsSupported(ID)
@@ -189,15 +196,19 @@ _runtime._libdrd.drdIsRunning.restype = c_bool
 
 def isRunning(ID: int = -1) -> bool:
     """
-    Checks the state of the robotic control thread for a particular device.
+    Checks the state of the robotic control thread for a
+    particular device.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
-    :returns: ``True`` if the control thread is running, ``False`` otherwise.
+    :returns:
+        ``True`` if the control thread is running, ``False``
+        otherwise.
     """
 
     return _runtime._libdrd.drdIsRunning(ID)
@@ -209,18 +220,21 @@ _runtime._libdrd.drdIsFiltering.restype = c_bool
 
 def isFiltering(ID: int = -1) -> bool:
     """
-    Checks whether the particular robot control thread is applying a motion
-    filter while tracking a target using
+    Checks whether the particular robot control thread is
+    applying a motion filter while tracking a target using
     :func:`forcedimension_core.drd.trackPos()` or
     :func:`forcedimension_core.drd.trackEnc()`.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
-    :returns: ``True`` if the motion filter is enabled, ``False`` otherwise.
+    :returns:
+        ``True`` if the motion filter is enabled, ``False``
+        otherwise.
 
     See Also
     --------
@@ -236,18 +250,21 @@ _runtime._libdrd.drdIsInitialized.restype = c_bool
 
 def isInitialized(ID: int = -1) -> bool:
     """
-    Checks the initialization status of a particular robot. The initialization
-    status reflects the status of the controller RESET LED.
-    The robot can be (re)initialized by calling
+    Checks the initialization status of a particular robot. The
+    initialization status reflects the status of the controller
+    RESET LED. The robot can be (re)initialized by calling
     :func:`forcedimension_core.drd.autoInit()`.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
-    :returns: ``True`` if the robot is initialized, ``False`` otherwise
+    :returns:
+        ``True`` if the robot is initialized, ``False``
+        otherwise.
 
     See Also
     --------
@@ -263,20 +280,24 @@ _runtime._libdrd.drdIsMoving.restype = c_bool
 
 def isMoving(ID: int = -1) -> bool:
     """
-    Checks whether the particular robot is moving (following a call to
+    Checks whether the particular robot is moving (following a
+    call to
     :func:`forcedimension_core.drd.moveToPos()`,
     :func:`forcedimension_core.drd.moveToEnc()`,
     :func:`forcedimension_core.drd.trackPos()` or
     :func:`forcedimension_core.drd.trackEnc()`),
-    as opposed to holding the target position after successfully reaching it.
+    as opposed to holding the target position after successfully
+    reaching it.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
-    :returns: ``True`` if the robot is moving, ``False`` otherwise
+    :returns:
+        ``True`` if the robot is moving, ``False`` otherwise.
 
     See Also
     --------
@@ -292,12 +313,13 @@ _runtime._libdrd.drdAutoInit.restype = c_int
 
 def autoInit(ID: int = -1) -> int:
     """
-    Performs automatic initialization of that particular robot by robotically
-    moving to a known position and reseting encoder counters to their correct
-    values.
+    Performs automatic initialization of that particular robot by
+    robotically moving to a known position and reseting encoder
+    counters to their correct values.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -321,15 +343,17 @@ _runtime._libdrd.drdCheckInit.restype = c_int
 
 def checkInit(ID: int = -1) -> int:
     """
-    Check the validity of that particular robot initialization by robotically
-    sweeping all endstops and comparing their joint space position to expected
-    values (stored in each device internal memory). If the robot is not yet
-    initialized, this function will first perform the same initialization
-    routine as :func:`forcedimension_core.drd.autoInit()` before running the endstop
-    check.
+    Check the validity of that particular robot initialization
+    by robotically sweeping all endstops and comparing their
+    joint space position to expected values (stored in each
+    device internal memory). If the robot is not yet initialized,
+    this function will first perform the same initialization
+    routine as :func:`forcedimension_core.drd.autoInit()` before
+    running the endstop check.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -353,11 +377,12 @@ _runtime._libdrd.drdPrecisionInit.restype = c_int
 
 def precisionInit(ID: int = -1) -> int:
     """
-    This function performs automatic initialization of supported devices by
-    robotically moving each axis to a known position and reseting its encoder
-    counter to its correct values. This initialization is carried out for each
-    device axis in turn, and validates the initialization by asserting the
-    position of a validation reference for each axis.
+    This function performs automatic initialization of supported
+    devices byrobotically moving each axis to a known position
+    and reseting its encoder counter to its correct values. This
+    initialization is carried out for each device axis in turn,
+    and validates the initialization by asserting the position
+    of a validation reference for each axis.
 
     Note
     ----
@@ -403,7 +428,8 @@ def getCtrlFreq(ID: int = -1) -> float:
     (in [kHz]) since the function was last called.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -430,7 +456,8 @@ def start(ID: int = -1) -> int:
 
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -455,12 +482,13 @@ _runtime._libdrd.drdRegulatePos.restype = c_int
 
 def regulatePos(enable: bool, ID: int = -1) -> int:
     """
-    Enable/disable robotic regulation of the device delta base, which provides
-    translations. If regulation is disabled, the base can move freely and
-    will display any force set using
+    Enable/disable robotic regulation of the device delta base,
+    which provides translations. If regulation is disabled,
+    the base can move freely and will display any force set using
     :func:`forcedimension_core.drd.setForceAndTorqueAndGripperForce()`.
-    If it is enabled, base position is locked and can be controlled by calling
-    all robotic functions (e.g. :func:`forcedimension_core.drd.moveToPos()`).
+    If it is enabled, base position is locked and can be
+    controlled by calling all robotic functions (e.g.
+    :func:`forcedimension_core.drd.moveToPos()`).
 
     Note
     ----
@@ -471,7 +499,8 @@ def regulatePos(enable: bool, ID: int = -1) -> int:
         ``True`` to enable base regulation, ``False`` to disable it.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to a C int.
@@ -492,11 +521,13 @@ _runtime._libdrd.drdRegulateRot.restype = c_int
 
 def regulateRot(enable: bool, ID: int = -1) -> int:
     """
-    Enable/disable robotic regulation of the device wrist. If regulation is
-    disabled, the wrist can move freely and will display any torque set using
-    :func:`forcedimension_core.drd.setForceAndTorqueAndGripperForce()`. If it
-    is enabled, wrist orientation is locked and can be controlled by calling
-    all robotic functions (e.g. :func:`forcedimension_core.drd.moveTo()`).
+    Enable/disable robotic regulation of the device wrist. If
+    regulation is disabled, the wrist can move freely and will
+    display any torque set using
+    :func:`forcedimension_core.drd.setForceAndTorqueAndGripperForce()`.
+    If it is enabled, wrist orientation is locked and can be
+    controlled by calling all robotic functions (e.g.
+    :func:`forcedimension_core.drd.moveTo()`).
 
     Note
     ----
@@ -507,7 +538,8 @@ def regulateRot(enable: bool, ID: int = -1) -> int:
         ``True`` to enable wrist regulation, ``False`` to disable it.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to a C int.
@@ -528,11 +560,13 @@ _runtime._libdrd.drdRegulateGrip.restype = c_int
 
 def regulateGrip(enable: bool, ID: int = -1) -> int:
     """
-    Enable/disable robotic regulation of the device gripper. If regulation is
-    disabled, the gripper can move freely and will display any force set using
-    :func:`forcedimension_core.drd.setForceAndTorqueAndGripperForce()`. If it is
-    enabled, gripper orientation is locked and can be controlled by calling all
-    robotic functions (e.g. :func:`forcedimension_core.drd.moveTo()`).
+    Enable/disable robotic regulation of the device gripper. If
+    regulation is disabled, the gripper can move freely and will
+    display any force set using
+    :func:`forcedimension_core.drd.setForceAndTorqueAndGripperForce()`.
+    If it is enabled, gripper orientation is locked and can be
+    controlled by calling all robotic functions
+    (e.g. :func:`forcedimension_core.drd.moveTo()`).
 
     Note
     ----
@@ -543,7 +577,8 @@ def regulateGrip(enable: bool, ID: int = -1) -> int:
         ``True`` to enable gripper regulation, ``False`` to disable it.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``val`` is not implicitly convertible to a C int.
@@ -578,39 +613,42 @@ def setForceAndTorqueAndGripperForce(
     ID: int = -1
 ) -> int:
     """
-    Set the desired force and torque vectors to be applied to the device
-    end-effector and gripper.
+    Set the desired force and torque vectors to be applied to
+    the device end-effector and gripper.
 
     Note
     ----
     Unlike
     :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
-    this function returns immediately. The function sets an internal buffer
-    for the robotic control loop to send out to the device. For more
-    information about regulation see the :ref:`regulation` section.
+    this function returns immediately. The function sets an
+    internal buffer for the robotic control loop to send out to
+    the device. For more information about regulation see the
+    :ref:`regulation` section.
 
 
     :param Array[int, float] f:
-        Translational force vector ``(fx, fy, fz)`` where ``fx``, ``fy``, and
-        ``fz`` are the translation force (in [N]) on the end-effector about the
-        X, Y, and Z axes, respectively.
+        Translational force vector ``(fx, fy, fz)`` where ``fx``,
+        ``fy``, and ``fz`` are the translation force (in [N]) on
+        the end-effector about the X, Y, and Z axes, respectively.
 
     :param Array[int, float] t:
-        Torque vector ``(tx, ty, tz)`` where ``tx``, ``ty``, and ``tz``
-        are the torque (in [Nm]) on the end-effector about the X, Y, and Z
-        axes, respectively.
+        Torque vector ``(tx, ty, tz)`` where ``tx``, ``ty``, and
+        ``tz`` are the torque (in [Nm]) on the end-effector about
+        the X, Y, and Z axes, respectively.
 
     :param float fg:
         Grasping force of the gripper (in [N]).
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to C char.
 
     :raises ctypes.ArgumentError:
-        If any elements of ``f`` is not implicitly convertible to a C double.
+        If any elements of ``f`` is not implicitly convertible to
+        a C double.
 
     :raises IndexError:
         If ``len(f) < 3``.
@@ -619,7 +657,8 @@ def setForceAndTorqueAndGripperForce(
         If ``f`` is not subscriptable.
 
     :raises ctypes.ArgumentError:
-        If any elements of ``t`` is not implicitly convertible to a C double.
+        If any elements of ``t`` is not implicitly convertible to
+        a C double.
 
     :raises IndexError:
         If ``len(t) < 3``.
@@ -628,7 +667,8 @@ def setForceAndTorqueAndGripperForce(
         If ``t`` is not subscriptable.
 
     :raises ctypes.ArgumentError:
-        If ``gripper_force`` is not implicitly convertible to a C double.
+        If ``gripper_force`` is not implicitly convertible to
+        a C double.
 
     :raises IndexError:
         If ``len(f) < 3``.
@@ -638,20 +678,13 @@ def setForceAndTorqueAndGripperForce(
 
     :returns:
         0 or
-        :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED` on success, and
-        -1 otherwise.
+        :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
+        on success, and -1 otherwise.
 
     """
 
     return _runtime._libdrd.drdSetForceAndTorqueAndGripperForce(
-        f[0],
-        f[1],
-        f[2],
-        t[0],
-        t[1],
-        t[2],
-        fg,
-        ID
+        f[0], f[1], f[2], t[0], t[1], t[2], fg, ID
     )
 
 
@@ -678,30 +711,36 @@ def setForceAndWristJointTorquesAndGripperForce(
 
     Note
     ----
-    Unlike :func:`forcedimension_core.dhd.setForceAndTorqueAndGripperForce()`
-    this function returns immediately. The function sets an internal buffer
-    for the robotic control loop to send out to the device. For more
-    information about regulation see the :ref:`regulation` section.
+    Unlike
+    :func:`forcedimension_core.dhd.setForceAndTorqueAndGripperForce()`
+    this function returns immediately. The function sets an
+    internal buffer for the robotic control loop to send out
+    to the device. For more information about regulation see
+    the :ref:`regulation` section.
 
 
     :param Array[int, float] f:
-        Sequence of ``(fx, fy, fz)`` where ``fx``, ``fy``, and ``fz`` are the
-        translation forces (in [N]) to be applied to the DELTA end-effector on
-        the X, Y, and Z axes respectively.
+        Sequence of ``(fx, fy, fz)`` where ``fx``, ``fy``, and
+        ``fz`` are the translation forces (in [N]) to be applied
+        to the DELTA end-effector on the X, Y, and Z axes
+        respectively.
 
     :param Array[int, float] t:
-        Sequence of (t0, t1, t2) where ``t0``, ``t1``, ``t2`` are the wrist
-        joint torques (in [Nm]) to be applied to the wrist end-effector
-        for axes 0, 1, and 2, respectively.
+        Sequence of (t0, t1, t2) where ``t0``, ``t1``, ``t2``
+        are the wrist joint torques (in [Nm]) to be applied to
+        the wrist end-effector for axes 0, 1, and 2,
+        respectively.
 
     :param float fg:
         Gripper force (in [N]).
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
-        If any element of ``f`` is not implicitly convertible to a C double.
+        If any element of ``f`` is not implicitly convertible to
+        a C double.
 
     :raises IndexError:
         If ``len(f) < 3``.
@@ -710,7 +749,8 @@ def setForceAndWristJointTorquesAndGripperForce(
         If ``f`` is not subscriptable.
 
     :raises ctypes.ArgumentError:
-        If any element of ``t`` is not implicitly convertible to a C double.
+        If any element of ``t`` is not implicitly convertible to
+        a C double.
 
     :raises IndexError:
         If ``len(t) < 3``.
@@ -719,7 +759,8 @@ def setForceAndWristJointTorquesAndGripperForce(
         If ``t`` is not subscriptable.
 
     :raises ctypes.ArgumentError:
-        If ``gripper_force`` is not implicitly convertible to a C double.
+        If ``gripper_force`` is not implicitly convertible to
+        a C double.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -760,34 +801,40 @@ def getPositionAndOrientation(
     ID: int = -1,
 ) -> int:
     """
-    Retrieve the position (in [m]) about the X, Y, and Z axes, the
-    angle of each joint (in [rad]), (if applicable) the gripper position
-    (in [m]), and orientation frame matrix of the end-effector. Please refer
-    to your device user manual for more information on your device coordinate
-    system.
+    Retrieve the position (in [m]) about the X, Y, and Z axes,
+    the angle of each joint (in [rad]), (if applicable) the
+    gripper position (in [m]), and orientation frame matrix of
+    the  end-effector. Please refer to your device user manual
+    for more information on your device coordinate system.
 
     Note
     ----
-    Unlike :func:`forcedimension_core.dhd.getPositionAndOrientation()`, this
-    function returns immediately. It loads from an internal buffer that is
-    refreshed by the robotic control loop. For more
-    information about regulation see the :ref:`regulation` section.
+    Unlike
+    :func:`forcedimension_core.dhd.getPositionAndOrientation()`,
+    this function returns immediately. It loads from an internal
+    buffer that is refreshed by the robotic control loop. For
+    more information about regulation see the :ref:`regulation`
+    section.
 
 
     :param MutableArray[int, float] p_out:
-        Output buffer to store the end-effector position (in [m]).
+        Output buffer to store the end-effector position (in
+        [m]).
 
     :param MutableArray[int, float] o_out:
-        Output buffer to store the angle of each joint (in [rad]).
+        Output buffer to store the angle of each joint (in
+        [rad]).
 
     :param c_double pg_out:
-        Output buffer to store the device gripper opening gap (in [m]).
+        Output buffer to store the device gripper opening gap (in
+        [m]).
 
     :param Array[int, MutableArray[int, float]] matrix_out:
         Output buffer to store the orientation matrix.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises TypeError:
         If ``p_out`` does not support item assignment either
@@ -805,7 +852,8 @@ def getPositionAndOrientation(
 
     :raises TypeError:
         If ``matrix_out`` does not support item assignment,
-        either because it is not subscriptable or because it is not mutable.
+        either because it is not subscriptable or because it is
+        not mutable.
 
     :raises IndexError:
         If any dimension of ``matrix_out`` is less than length 3.
@@ -814,8 +862,8 @@ def getPositionAndOrientation(
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.libdhd.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
     """
 
     px = c_double()
@@ -872,22 +920,24 @@ def getVelocity(
 ) -> int:
     """
     Retrieve the linear velocity of the end-effector (in [m/s])
-    as well as the angular velocity (in [rad/s]) about the X, Y, and Z
-    axes. Please refer to your device user manual for more information on
-    your device coordinate system.
+    as well as the angular velocity (in [rad/s]) about the X, Y,
+    and Z axes. Please refer to your device user manual for more
+    information on your device coordinate system.
 
     Note
     ----
     Unlike :func:`forcedimension_core.dhd.getLinearVelocity()`,
     :func:`forcedimension_core.dhd.getAngularVelocityRad()`, and
     :func:`forcedimension_core.dhd.getAngularVelocityDeg()` this
-    function returns immediately. It loads from an internal buffer that is
-    refreshed by the robotic control loop. For more
-    information about regulation see the :ref:`regulation` section.
+    function returns immediately. It loads from an internal
+    buffer that is refreshed by the robotic control loop. For
+    more information about regulation see the :ref:`regulation`
+    section.
 
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :param MutableArray[int, float] v_out:
         Output buffer for the linear velocity (in [m/s]).
@@ -937,6 +987,7 @@ def getVelocity(
 
     return err
 
+
 _runtime._libdrd.drdEnableFilter.argtypes = [c_bool, c_byte]
 _runtime._libdrd.drdEnableFilter.restype = c_int
 
@@ -948,10 +999,12 @@ def enableFilter(enabled: bool, ID: int = -1) -> int:
     :func:`forcedimension_core.drd.trackEnc()`
 
     :param bool enabled:
-        ``True`` to enable motion filtering, ``False`` to disable it.
+        ``True`` to enable motion filtering, ``False`` to disable
+        it.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``enabled`` is not implicitly convertible to a C int.
@@ -965,36 +1018,42 @@ def enableFilter(enabled: bool, ID: int = -1) -> int:
     return _runtime._libdrd.drdEnableFilter(enabled, ID)
 
 
-_runtime._libdrd.drdMoveToPos.argtypes = [c_double, c_double, c_double, c_bool, c_byte]
+_runtime._libdrd.drdMoveToPos.argtypes = [
+    c_double, c_double, c_double, c_bool, c_byte
+]
 _runtime._libdrd.drdMoveToPos.restype = c_int
 
 
 def moveToPos(pos: Array[int, float], block: bool, ID: int = -1):
     """
-    Send the robot end-effector to a desired Cartesian position. The motion
-    follows a straight line, with smooth acceleration/deceleration. The
-    acceleration and velocity profiles can be controlled by adjusting the
-    trajectory generation parameters.
+    Send the robot end-effector to a desired Cartesian position.
+    The motion follows a straight line, with smooth
+    acceleration/deceleration. The acceleration and velocity
+    profiles can be controlled by adjusting the trajectory
+    generation parameters.
 
     Note
     ----
-    the paths generated by this function are not guarunteed to be continuous if
-    a command is interrupted by another call to this function while still in
-    the process of being executed. if you want to guaruntee continuity use
-    :func:`forcedimension_core.dhd.trackPos()`. For more information see
+    the paths generated by this function are not guarunteed to be
+    continuous if a command is interrupted by another call to
+    this function while still in the process of being executed.
+    If you want to guaruntee continuity use
+    :func:`forcedimension_core.drd.trackPos()`. For more information see
     :ref:`regulation`.
 
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :param bool block:
-        If ``True``, the call blocks until the destination is reached. If
-        ``False``, the call returns immediately.
+        If ``True``, the call blocks until the destination is
+        reached. If ``False``, the call returns immediately.
 
     :param Array[int, float] pos:
-        A vector of ``[px, py, pz]`` where ``px``, ``py``, and ``pz``` are the
-        position (in [m]) about the X, Y, and Z axes, respectively.
+        A vector of ``[px, py, pz]`` where ``px``, ``py``, and
+        ``pz`` are the position (in [m]) about the X, Y, and Z
+        axes, respectively.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1019,30 +1078,33 @@ _runtime._libdrd.drdMoveToRot.restype = c_int
 
 def moveToRot(orientation: Array[int, float], block: bool, ID: int = -1):
     """
-    Send the robot end-effector to a desired Cartesian rotation. The motion
-    follows a straight curve, with smooth acceleration/deceleration. The
-    acceleration and velocity profiles can be controlled by adjusting the
-    trajectory generation parameters.
+    Send the robot end-effector to a desired Cartesian rotation.
+    The motion follows a straight curve, with smooth
+    acceleration/deceleration. The acceleration and velocity
+    profiles can be controlled by adjusting the trajectory
+    generation parameters.
 
     Note
     ----
-    the paths generated by this function are not guarunteed to be continuous if
-    a command is interrupted by another call to this function while still in
-    the process of being executed. if you want to guaruntee continuity use
-    :func:`forcedimension_core.dhd.trackRot()`
+    the paths generated by this function are not guarunteed to be
+    continuous if a command is interrupted by another call to
+    this function while still in the process of being executed.
+    If you want to guaruntee continuity use
+    :func:`forcedimension_core.drd.trackRot()`
 
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :param bool block:
-        If ``True``, the call blocks until the destination is reached. If
-        ``False``, the call returns immediately.
+        If ``True``, the call blocks until the destination is
+        reached. If ``False``, the call returns immediately.
 
     :param Array[int, float] orientation:
-        A vector of ``[oa, ob, og]`` where ``oa``, ``ob``, and ``og`` are the
-        device orientation (in [rad])  around the first, second, and third
-        joints, respectively.
+        A vector of ``[oa, ob, og]`` where ``oa``, ``ob``, and
+        ``og`` are the device orientation (in [rad])  around the
+        first, second, and third joints, respectively.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1067,26 +1129,28 @@ _runtime._libdrd.drdMoveToGrip.restype = c_int
 
 def moveToGrip(pg: float, block: bool, ID: int = -1):
     """
-    Send the robot gripper to a desired opening distance. The motion is
-    executed with smooth acceleration/deceleration. The acceleration and
-    velocity profiles can be controlled by adjusting the trajectory
-    generation parameters.
+    Send the robot gripper to a desired opening distance. The
+    motion is executed with smooth acceleration/deceleration.
+    The acceleration and velocity profiles can be controlled by
+    adjusting the trajectory generation parameters.
 
     Note
     ----
-    the paths generated by this function are not guarunteed to be continuous if
-    a command is interrupted by another call to this function while still in
-    the process of being executed. if you want to guaruntee continuity use
-    :func:`forcedimension_core.dhd.trackGrip()`. For more information see
-    :ref:`regulation`.
+    The paths generated by this function are not guarunteed to be
+    continuous if a command is interrupted by another call to
+    this function while still in the process of being executed.
+    If you want to guaruntee continuity use
+    :func:`forcedimension_core.drd.trackGrip()`. For more information
+    see :ref:`regulation`.
 
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :param bool block:
-        If ``True``, the call blocks until the destination is reached. If
-        ``False``, the call returns immediately.
+        If ``True``, the call blocks until the destination is
+        reached. If ``False``, the call returns immediately.
 
     :param float pg:
         Target gripper opening distance (in [m]).
@@ -1111,33 +1175,36 @@ _runtime._libdrd.drdMoveTo.restype = c_int
 
 def moveTo(pos: Array[int, float], block: bool, ID: int = -1):
     """
-    Send the robot end-effector to a desired Cartesian 7-DOF configuration.
-    The motion uses smooth acceleration/deceleration. The acceleration and
-    velocity profiles can be controlled by adjusting the trajectory generation
-    parameters.
+    Send the robot end-effector to a desired Cartesian 7-DOF
+    configuration. The motion uses smooth
+    acceleration/deceleration. The acceleration and velocity
+    profiles can be controlled by adjusting the trajectory
+    generation parameters.
 
     Note
     ----
-    The paths generated by this function are not guarunteed to be continuous if
-    a command is interrupted by another call to this function while still in
-    the process of being executed. If you want to guaruntee continuity use
-    :func:`forcedimension_core.dhd.track()`. For more information see
-    :ref:`regulation`.
+    The paths generated by this function are not guarunteed to be
+    continuous if a command is interrupted by another call to
+    this function while still in the process of being executed.
+    If you want to guaruntee continuity use
+    :func:`forcedimension_core.drd.track()`. For more information
+    see :ref:`regulation`.
 
 
     :param float pos:
         Buffer of target positions/orientations for each DOF.
-        DOFs 0-2 correspond to position about the X, Y, and Z axes (in [m]).
-        DOFs 3-6 correspond to the target orientation about the first, second
-        and third joints (in [rad]). DOF 7 corresponds to the gripper gap
-        (in [m]).
+        DOFs 0-2 correspond to position about the X, Y, and Z
+        axes (in [m]). DOFs 3-6 correspond to the target
+        orientation about the first, second and third joints (in
+        [rad]). DOF 7 corresponds to the gripper gap (in [m]).
 
     :param bool block:
-        If ``True``, the call blocks until the destination is reached. If
-        ``False``, the call returns immediately.
+        If ``True``, the call blocks until the destination is
+        reached. If ``False``, the call returns immediately.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ValueError:
         If any member of ``p`` is not convertible to a C double.
@@ -1160,15 +1227,8 @@ def moveTo(pos: Array[int, float], block: bool, ID: int = -1):
     """
 
     pos_arr = (c_double * 8)(
-            pos[0],
-            pos[1],
-            pos[2],
-            pos[3],
-            pos[4],
-            pos[5],
-            pos[6],
-            pos[7],
-        )
+        pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7],
+    )
 
     return _runtime._libdrd.drdMoveTo(
         ct.cast(pos_arr, c_double_ptr),
@@ -1183,27 +1243,30 @@ _runtime._libdrd.drdMoveToEnc.restype = c_int
 
 def moveToEnc(enc: Array[int, int], block: bool, ID: int = -1) -> int:
     """
-    Send the robot end-effector to a desired encoder position. The motion
-    follows a straight line in the encoder space, with smooth
-    acceleration/deceleration. The acceleration and velocity profiles can be
-    controlled by adjusting the trajectory generation parameters.
+    Send the robot end-effector to a desired encoder position.
+    The motion follows a straight line in the encoder space,
+    with smooth acceleration/deceleration. The acceleration and
+    velocity profiles can be controlled by adjusting the
+    trajectory generation parameters.
 
     Note
     ----
-    The paths generated by this function are not guarunteed to be continuous if
-    a command is interrupted by another call to this function while still in
-    the process of being executed. If you want to guaruntee continuity use
-    :func:`forcedimension_core.dhd.trackEnc()`. For more information see
-    :ref:`regulation`.
+    The paths generated by this function are not guarunteed to be
+    continuous if a command is interrupted by another call to
+    this function while still in the process of being executed. If
+    you want to guaruntee continuity use
+    :func:`forcedimension_core.drd.trackEnc()`. For more
+    information see :ref:`regulation`.
 
 
     :param int enc:
-        A vector of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
-        ``enc2`` are the target encoder position on axis 0, 1, and 2.
+        A vector of ``(enc0, enc1, enc2)`` where ``enc0``,
+        ``enc1``, and ``enc2`` are the target encoder position on
+        axis 0, 1, and 2.
 
     :param bool block:
-        If ``True``, the call blocks until the destination is reached. If
-        ``False``, the call returns immediately.
+        If ``True``, the call blocks until the destination is
+        reached. If ``False``, the call returns immediately.
 
     :raises ctypes.ArgumentError:
         If any member of ``enc`` is not convertible to a C int.
@@ -1215,10 +1278,12 @@ def moveToEnc(enc: Array[int, int], block: bool, ID: int = -1) -> int:
         If ``enc`` is not subscriptable.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
-        If any of elements of enc are not implicitly convertible to a C int.
+        If any of elements of enc are not implicitly convertible
+        to a C int.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1242,10 +1307,11 @@ _runtime._libdrd.drdMoveToAllEnc.restype = c_int
 
 def moveToAllEnc(enc: Array[int, int], block: bool, ID: int = -1):
     """
-    Send the robot end-effector to a desired encoder position. The motion
-    follows a straight line in the encoder space, with smooth
-    acceleration/deceleration. The acceleration and velocity profiles can be
-    controlled by adjusting the trajectory generation parameters.
+    Send the robot end-effector to a desired encoder position.
+    The motionfollows a straight line in the encoder space, with
+    smooth acceleration/deceleration. The acceleration and
+    velocity profiles can be controlled by adjusting the
+    trajectory generation parameters.
 
     :param int enc:
         Target encoder positions.
@@ -1260,14 +1326,16 @@ def moveToAllEnc(enc: Array[int, int], block: bool, ID: int = -1):
         If ``enc`` is not subscriptable.
 
     :param bool block:
-        If ``True``, the call blocks until the destination is reached.
-        If ``False``, the call returns immediately.
+        If ``True``, the call blocks until the destination is
+        reached. If ``False``, the call returns immediately.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ValueError:
-        If any of elements of enc are not implicitly convertible to a C int.
+        If any of elements of enc are not implicitly convertible
+        to a C int.
 
     :raises ValueError:
         If ID is not convertible to a C int.
@@ -1282,15 +1350,8 @@ def moveToAllEnc(enc: Array[int, int], block: bool, ID: int = -1):
     """
 
     enc_arr = (c_int * MAX_DOF)(
-            enc[0],
-            enc[1],
-            enc[2],
-            enc[3],
-            enc[4],
-            enc[5],
-            enc[6],
-            enc[7]
-        )
+        enc[0], enc[1], enc[2], enc[3], enc[4], enc[5], enc[6], enc[7]
+    )
 
     return _runtime._libdrd.drdMoveToAllEnc(
         ct.cast(enc_arr, c_int_ptr),
@@ -1298,17 +1359,19 @@ def moveToAllEnc(enc: Array[int, int], block: bool, ID: int = -1):
         ID
     )
 
+
 _runtime._libdrd.drdHold.argtypes = [c_byte]
 _runtime._libdrd.drdHold.restype = c_int
 
 
 def hold(ID: int = -1) -> int:
     """
-    Immediately make the robot hold its current position. All motion commands
-    are abandoned.
+    Immediately make the robot hold its current position. All
+    motion commands are abandoned.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1335,23 +1398,25 @@ def lock(enable: bool, init: bool, ID: int = -1) -> int:
     - Move the device to its park position and engage the locks, or
     - Removes the locks
 
-    Upon success, the robotic regulation is running when the function returns.
+    Upon success, the robotic regulation is running when the
+    function returns.
 
     Note
     ----
-    This function only applies to devices equipped with mechanical locks,
-    and will return an error when called on other devices.
+    This function only applies to devices equipped with mechanical
+    locks, and will return an error when called on other devices.
 
 
     Note
     ----
-    It is recommended to set the ``init`` argument to ``True`` when engaging
-    the lock.
+    It is recommended to set the ``init`` argument to ``True``
+    when engaging the lock.
 
-    When this funnction returns, the robotic regulation is running and the
-    device is held in its current position (locked or unlocked). Unless,
-    the device is to be used in robotic mode (e.g. to move to a desired
-    position after unlocking), :func:`forcedimension_core.drd.stop()` should be
+    When this funnction returns, the robotic regulation is
+    running and the device is held in its current position
+    (locked or unlocked). Unless, the device is to be used in
+    robotic mode (e.g. to move to a desired position after
+    unlocking), :func:`forcedimension_core.drd.stop()` should be
     called to disable regulation.
 
 
@@ -1363,7 +1428,8 @@ def lock(enable: bool, init: bool, ID: int = -1) -> int:
         engaged or after the locks are disengaged.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``enable`` is not convertible to a C bool.
@@ -1396,12 +1462,13 @@ def stop(force_on: bool, ID: int = -1) -> int:
     Stop the robotic control loop for the given robot.
 
     :param bool force_on:
-        If ``False``, puts the device in BRAKE mode upon exiting. Otherwise
-        leaves the device in FORCE mode. See :ref:`device_modes` for more
-        details.
+        If ``False``, puts the device in BRAKE mode upon exiting.
+        Otherwise leaves the device in FORCE mode. See
+        :ref:`device_modes` for more details.
 
     :param int ID:
-        Device ID (see the :ref:`multiple_devices` section for details).
+        Device ID (see the :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1423,12 +1490,13 @@ _runtime._libdrd.drdGetPriorities.restype = c_int
 
 def getPriorities(ID: int = -1) -> Tuple[int, int, int]:
     """
-    This function makes it possible to retrieve the priority of the control
-    thread and the calling thread. Thread priority is system dependent, as
-    described in thread priorities.
+    This function makes it possible to retrieve the priority of
+    the control thread and the calling thread. Thread priority is
+    system dependent, as described in thread priorities.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1455,26 +1523,29 @@ _runtime._libdrd.drdSetPriorities.restype = c_int
 
 def setPriorities(prio: int, ctrlprio: int, ID: int = -1) -> int:
     """
-    This function makes it possible to adjust the priority of the control
-    thread and the calling thread. Thread priority is system dependent, as
-    described in thread priorities.
+    This function makes it possible to adjust the priority of
+    the control thread and the calling thread. Thread priority
+    is system dependent, as described in thread priorities.
 
     Note
     ----
     Administrator/superuser access is required on many
-    platforms in order to increase thread priority. The first argument,
-    ``prio`` is always applied to the calling thread, even when the call
-    returns an error.
+    platforms in order to increase thread priority. The first
+    argument, ``prio`` is always applied to the calling thread,
+    even when the call returns an error.
 
 
     :param int prio:
-        Calling thread priority level (value is system dependent)
+        Calling thread priority level (value is system
+        dependent).
 
-    :param int ctrlprio: Control thread priority level
-        (value is system dependent)
+    :param int ctrlprio:
+        Control thread priority level (value is system
+        dependent).
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``prio`` is not convertible to a C int.
@@ -1503,14 +1574,16 @@ _runtime._libdrd.drdSetEncPGain.restype = c_int
 
 def setEncPGain(gain: float, ID: int = -1) -> int:
     """
-    Set the P term of the PID controller that regulates the base joint
-    positions. In practice, this affects the stiffness of the regulation.
+    Set the P term of the PID controller that regulates the
+    base joint positions. In practice, this affects the stiffness
+    of the regulation.
 
     :param float gain:
         P parameter of the PID regulator.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``gain`` is not convertible to a C int.
@@ -1535,18 +1608,19 @@ _runtime._libdrd.drdGetEncPGain.restype = c_double
 
 def getEncPGain(ID: int = -1) -> float:
     """
-    Retrieve the P term of the PID controller that regulates the base joint
-    positions.
+    Retrieve the P term of the PID controller that regulates the
+    base joint positions.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        The P term of the PID controller that regulates the base joint
-        positions.
+        The P term of the PID controller that regulates the base
+        joint positions.
 
     See Also
     --------
@@ -1562,14 +1636,16 @@ _runtime._libdrd.drdSetEncIGain.restype = c_int
 
 def setEncIGain(gain: float, ID: int = -1) -> int:
     """
-    Set the I term of the PID controller that regulates the base joint
-    positions. In practice, this affects the precision of the regulation.
+    Set the I term of the PID controller that regulates the base
+    joint positions. In practice, this affects the precision of
+    the regulation.
 
     :param float gain:
         I parameter of the PID regulator.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``gain`` is not convertible to a C int.
@@ -1594,11 +1670,12 @@ _runtime._libdrd.drdGetEncIGain.restype = c_double
 
 def getEncIGain(ID: int = -1) -> float:
     """
-    Retrieve the P term of the PID controller that regulates the base joint
-    positions.
+    Retrieve the P term of the PID controller that regulates the
+    base joint positions.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1621,14 +1698,16 @@ _runtime._libdrd.drdSetEncDGain.restype = c_int
 
 def setEncDGain(gain: float, ID: int = -1) -> int:
     """
-    Set the D term of the PID controller that regulates the base joint
-    positions. In practice, this affects the velocity of the regulation.
+    Set the D term of the PID controller that regulates the base
+    joint positions. In practice, this affects the velocity of
+    the regulation.
 
     :param float gain:
         D parameter of the PID regulator.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``gain`` is not convertible to a C int.
@@ -1653,11 +1732,12 @@ _runtime._libdrd.drdGetEncDGain.restype = c_double
 
 def getEncDGain(ID: int = -1) -> float:
     """
-    Retrieve the D term of the PID controller that regulates the base joint
-    positions.
+    Retrieve the D term of the PID controller that regulates the
+    base joint positions.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1680,18 +1760,20 @@ _runtime._libdrd.drdTrackPos.restype = c_int
 
 def trackPos(pos: Array[int, float], ID: int = -1):
     """
-    Send the robot end-effector to a desired Cartesian position. If
-    motion filters are enabled, the motion follows a smooth
+    Send the robot end-effector to a desired Cartesian position.
+    If motion filters are enabled, the motion follows a smooth
     acceleration/deceleration constraint on each Cartesian axis.
-    The acceleration and velocity profiles can be controlled by adjusting the
-    trajectory generation parameters.
+    The acceleration and velocity profiles can be controlled by
+    adjusting the trajectory generation parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :param Array[int, float] pos:
-        A vector of ``[px, py, pz]`` where ``px``, ``py``, and ``pz``` are the
-        position (in [m]) about the X, Y, and Z axes, respectively.
+        A vector of ``[px, py, pz]`` where ``px``, ``py``, and
+        ``pz`` are the position (in [m]) about the X, Y, and Z
+        axes, respectively.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1708,18 +1790,20 @@ _runtime._libdrd.drdTrackRot.restype = c_int
 
 def trackRot(orientation: Array[int, float], ID: int = -1):
     """
-    Send the robot end-effector to a desired Cartesian rotation. If motion
-    filters are enabled, the motion follows a smooth acceleration/deceleration
-    curve along each Cartesian axis. The acceleration and velocity profiles
-    can be controlled by adjusting the trajectory generation parameters.
+    Send the robot end-effector to a desired Cartesian rotation.
+    If motion filters are enabled, the motion follows a smooth
+    acceleration/deceleration curve along each Cartesian axis.
+    The acceleration and velocity profiles can be controlled by
+    adjusting the trajectory generation parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :param Array[int, float] orientation:
-        A vector of ``[oa, ob, og]`` where ``oa``, ``ob``, and ``og`` are the
-        device orientation (in [rad])  around the first, second, and third
-        joints, respectively.
+        A vector of ``[oa, ob, og]`` where ``oa``, ``ob``, and
+        ``og`` are the device orientation (in [rad])  around the
+        first, second, and third joints, respectively.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1739,13 +1823,15 @@ _runtime._libdrd.drdTrackGrip.restype = c_int
 
 def trackGrip(pg: float, ID: int = -1):
     """
-    Send the robot gripper to a desired opening distance. If motion filters
-    are enabled, the motion follows a smooth acceleration/deceleration. The
-    acceleration and velocity profiles can be controlled by adjusting the
-    trajectory generation parameters.
+    Send the robot gripper to a desired opening distance. If
+    motion filters are enabled, the motion follows a smooth
+    acceleration/deceleration. The acceleration and velocity
+    profiles can be controlled by adjusting the trajectory
+    generation parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :param float pg:
         Target gripper opening distance (in [m]).
@@ -1766,10 +1852,11 @@ _runtime._libdrd.drdTrack.restype = c_int
 
 def track(pos: Array[int, float], ID: int = -1):
     """
-    Send the robot end-effector to a desired Cartesian 7-DOF configuration.
-    If motion filters are enabled, the motion follows a smooth
-    acceleration/deceleration. The acceleration and velocity profiles can be
-    controlled by adjusting the trajectory generation parameters.
+    Send the robot end-effector to a desired Cartesian 7-DOF
+    configuration. If motion filters are enabled, the motion
+    follows a smooth acceleration/deceleration. The acceleration
+    and velocity profiles can be controlled by adjusting the
+    trajectory generation parameters.
 
     Note
     ----
@@ -1778,13 +1865,14 @@ def track(pos: Array[int, float], ID: int = -1):
 
     :param float pos:
         Buffer of target positions/orientations for each DOF.
-        DOFs 0-2 correspond to position about the X, Y, and Z axes (in [m]).
-        DOFs 3-6 correspond to the target orientation about the first, second
-        and third joints (in [rad]). DOF 7 corresponds to the gripper gap
-        (in [m]).
+        DOFs 0-2 correspond to position about the X, Y, and Z
+        axes  (in [m]). DOFs 3-6 correspond to the target
+        orientation about the first, second and third joints (in
+        [rad]). DOF 7 corresponds to the gripper gap (in [m]).
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ValueError:
         If any member of ``p`` is not convertible to a C double.
@@ -1807,15 +1895,8 @@ def track(pos: Array[int, float], ID: int = -1):
     """
 
     pos_arr = (c_double * 8)(
-            pos[0],
-            pos[1],
-            pos[2],
-            pos[3],
-            pos[4],
-            pos[5],
-            pos[6],
-            pos[7],
-        )
+        pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7]
+    )
 
     return _runtime._libdrd.drdTrack(ct.cast(pos_arr, c_double_ptr), ID)
 
@@ -1826,10 +1907,11 @@ _runtime._libdrd.drdTrackEnc.restype = c_int
 
 def trackEnc(enc: Array[int, int], ID: int = -1) -> int:
     """
-    Send the robot end-effector to a desired encoder position. If motion
-    filters are enabled, the motion follows a smooth acceleration/deceleration
-    constraint on each encoder axis. The acceleration and velocity profiles can
-    be controlled by adjusting the trajectory generation parameters.
+    Send the robot end-effector to a desired encoder position. If
+    motion filters are enabled, the motion follows a smooth
+    acceleration/deceleration constraint on each encoder axis.
+    The acceleration and velocity profiles can be controlled by
+    adjusting the trajectory generation parameters.
 
     Note
     ----
@@ -1837,11 +1919,13 @@ def trackEnc(enc: Array[int, int], ID: int = -1) -> int:
 
 
     :param int enc:
-        A vector of ``(enc0, enc1, enc2)`` where ``enc0``, ``enc1``, and
-        ``enc2`` are the target encoder position on axis 0, 1, and 2.
+        A vector of ``(enc0, enc1, enc2)`` where ``enc0``,
+        ``enc1``, and ``enc2`` are the target encoder position on axes
+        0, 1, and 2.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If any member of ``enc`` is not convertible to a C int.
@@ -1853,7 +1937,8 @@ def trackEnc(enc: Array[int, int], ID: int = -1) -> int:
         If ``enc`` is not subscriptable.
 
     :raises ctypes.ArgumentError:
-        If any of elements of enc are not implicitly convertible to a C int.
+        If any of elements of enc are not implicitly convertible
+        to a C int.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -1876,10 +1961,11 @@ _runtime._libdrd.drdTrackAllEnc.restype = c_int
 
 def trackAllEnc(enc: Array[int, int], ID: int = -1):
     """
-    Send the robot end-effector to a desired encoder position. If motion
-    filters are enabled, th emotion follows a smooth acceleration/deceleration
-    constraint on each encoder axis. The acceleration and velocity profiles can
-    be controlled by adjusting the trajectory generation parameters.
+    Send the robot end-effector to a desired encoder position. If
+    motion filters are enabled, th emotion follows a smooth
+    acceleration/deceleration constraint on each encoder axis.
+    The acceleration and velocity profiles can be controlled by
+    adjusting the trajectory generation parameters.
 
     Note
     ----
@@ -1899,10 +1985,12 @@ def trackAllEnc(enc: Array[int, int], ID: int = -1):
         If ``enc`` is not subscriptable.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ValueError:
-        If any of elements of enc are not implicitly convertible to a C int.
+        If any of elements of enc are not implicitly convertible
+        to a C int.
 
     :raises ValueError:
         If ID is not convertible to a C int.
@@ -1917,17 +2005,11 @@ def trackAllEnc(enc: Array[int, int], ID: int = -1):
     """
 
     enc_arr = (c_int * MAX_DOF)(
-            enc[0],
-            enc[1],
-            enc[2],
-            enc[3],
-            enc[4],
-            enc[5],
-            enc[6],
-            enc[7]
-        )
+        enc[0], enc[1], enc[2], enc[3], enc[4], enc[5], enc[6], enc[7]
+    )
 
     return _runtime._libdrd.drdTrackAllEnc(ct.cast(enc_arr, c_int_ptr), ID)
+
 
 _runtime._libdrd.drdSetMotRatioMax.argtypes = [c_double, c_byte]
 _runtime._libdrd.drdSetMotRatioMax.restype = c_int
@@ -1935,18 +2017,21 @@ _runtime._libdrd.drdSetMotRatioMax.restype = c_int
 
 def setMotRatioMax(scale: float, ID: int = -1) -> int:
     """
-    Set the maximum joint torque applied to all regulated joints expressed as
-    a fraction of the maximum torque available for each joint.
+    Set the maximum joint torque applied to all regulated joints
+    expressed as a fraction of the maximum torque available for
+    each joint.
 
-    In practice, this limits the maximum regulation torque (in joint space),
-    making it potentially safer to operate in environments where humans or
-    delicate obstacles are present.
+    In practice, this limits the maximum regulation torque (in
+    joint space), making it potentially safer to operate in
+    environments where humans or delicate obstacles are present.
 
     :param float scale:
-        The joint torque scaling factor (must be between ``0.0`` and ``1.0``).
+        The joint torque scaling factor (must be between ``0.0``
+        and ``1.0``).
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``scale`` is not convertible to a C int.
@@ -1971,17 +2056,20 @@ _runtime._libdrd.drdGetMotRatioMax.restype = c_double
 
 def getMotRatioMax(ID: int = -1) -> float:
     """
-    Retrieve the maximum joint torque applied to all regulated joints expressed
-    as a fraction of the maximum torque available for each joint.
+    Retrieve the maximum joint torque applied to all regulated
+    joints expressed as a fraction of the maximum torque
+    available for each joint.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        The maximum joint torque ratio (between ``0.0`` and ``1.0``)
+        The maximum joint torque ratio (between ``0.0`` and
+        ``1.0``)
 
     See Also
     --------
@@ -2001,7 +2089,8 @@ def setEncMoveParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
     """
-    Sets the encoder positioning trajectory generation parameters.
+    Sets the encoder positioning trajectory generation
+    parameters.
 
     :param float vmax:
         max velocity (in [m/s])
@@ -2013,7 +2102,8 @@ def setEncMoveParam(
         jerk (in [m/s^3])
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -2062,7 +2152,8 @@ def setEncTrackParam(
         jerk (in [m/s^3])
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -2089,7 +2180,9 @@ def setEncTrackParam(
     return _runtime._libdrd.drdSetEncTrackParam(amax, vmax, jerk, ID)
 
 
-_runtime._libdrd.drdSetPosMoveParam.argtypes = [c_double, c_double, c_double, c_byte]
+_runtime._libdrd.drdSetPosMoveParam.argtypes = [
+    c_double, c_double, c_double, c_byte
+]
 _runtime._libdrd.drdSetPosMoveParam.restype = c_int
 
 
@@ -2097,7 +2190,8 @@ def setPosMoveParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
     """
-    Sets the cartesian positioning trajectory generation parameters.
+    Sets the cartesian positioning trajectory generation
+    parameters.
 
     :param float vmax:
         max velocity (in [m/s])
@@ -2109,7 +2203,8 @@ def setPosMoveParam(
         jerk (in [m/s^3])
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -2133,11 +2228,12 @@ def setPosMoveParam(
     | :func:`forcedimension_core.setPosTrackParam()`
     """
 
-
     return _runtime._libdrd.drdSetPosMoveParam(amax, vmax, jerk, ID)
 
 
-_runtime._libdrd.drdSetPosTrackParam.argtypes = [c_double, c_double, c_double, c_byte]
+_runtime._libdrd.drdSetPosTrackParam.argtypes = [
+    c_double, c_double, c_double, c_byte
+]
 _runtime._libdrd.drdSetPosTrackParam.restype = c_int
 
 
@@ -2145,7 +2241,8 @@ def setPosTrackParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
     """
-    Sets the cartesian tracking trajectory generation parameters.
+    Sets the cartesian tracking trajectory generation
+    parameters.
 
     :param float vmax:
         max velocity (in [m/s])
@@ -2157,7 +2254,8 @@ def setPosTrackParam(
         jerk (in [m/s^3])
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -2184,7 +2282,9 @@ def setPosTrackParam(
     return _runtime._libdrd.drdSetPosTrackParam(amax, vmax, jerk, ID)
 
 
-_runtime._libdrd.drdSetRotMoveParam.argtypes = [c_double, c_double, c_double, c_byte]
+_runtime._libdrd.drdSetRotMoveParam.argtypes = [
+    c_double, c_double, c_double, c_byte
+]
 _runtime._libdrd.drdSetRotMoveParam.restype = c_int
 
 
@@ -2192,7 +2292,8 @@ def setRotMoveParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
     """
-    Sets the cartesian rotation trajectory generation parameters.
+    Sets the cartesian rotation trajectory generation
+    parameters.
 
     :param float vmax:
         max velocity (in [m/s])
@@ -2204,7 +2305,8 @@ def setRotMoveParam(
         jerk (in [m/s^3])
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -2231,7 +2333,9 @@ def setRotMoveParam(
     return _runtime._libdrd.drdSetRotMoveParam(amax, vmax, jerk, ID)
 
 
-_runtime._libdrd.drdSetRotTrackParam.argtypes = [c_double, c_double, c_double, c_byte]
+_runtime._libdrd.drdSetRotTrackParam.argtypes = [
+    c_double, c_double, c_double, c_byte
+]
 _runtime._libdrd.drdSetRotTrackParam.restype = c_int
 
 
@@ -2239,7 +2343,8 @@ def setRotTrackParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
     """
-    Sets the cartesian rotation tracking trajectory generation parameters.
+    Sets the cartesian rotation tracking trajectory generation
+    parameters.
 
     :param float vmax:
         max velocity (in [m/s])
@@ -2251,7 +2356,8 @@ def setRotTrackParam(
         jerk (in [m/s^3])
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -2278,7 +2384,9 @@ def setRotTrackParam(
     return _runtime._libdrd.drdSetRotTrackParam(amax, vmax, jerk, ID)
 
 
-_runtime._libdrd.drdSetGripMoveParam.argtypes = [c_double, c_double, c_double, c_byte]
+_runtime._libdrd.drdSetGripMoveParam.argtypes = [
+    c_double, c_double, c_double, c_byte
+]
 _runtime._libdrd.drdSetGripMoveParam.restype = c_int
 
 
@@ -2298,7 +2406,8 @@ def setGripMoveParam(
         jerk (in [m/s^3])
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -2325,7 +2434,9 @@ def setGripMoveParam(
     return _runtime._libdrd.drdSetGripMoveParam(amax, vmax, jerk, ID)
 
 
-_runtime._libdrd.drdSetGripTrackParam.argtypes = [c_double, c_double, c_double, c_byte]
+_runtime._libdrd.drdSetGripTrackParam.argtypes = [
+    c_double, c_double, c_double, c_byte
+]
 _runtime._libdrd.drdSetGripTrackParam.restype = c_int
 
 
@@ -2345,7 +2456,8 @@ def setGripTrackParam(
         jerk (in [m/s^3])
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
@@ -2380,18 +2492,21 @@ _runtime._libdrd.drdGetEncMoveParam.restype = c_int
 
 def getEncMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
-    Retrieve encoder positioning trajectory generation parameters.
+    Retrieve encoder positioning trajectory generation
+    parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
-        a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
-        acceeleration. err is 0 on success and -1 otherwise.
+        Tuple of ``(v_max, a_max, jerk_max, err)``
+        where v_max (in [m/s]), a_max (in [m/s^2]), and
+        jerk (in [m/s^3]) are the max velocity, acceeleration,
+        and jerk. err is 0 on success and -1 otherwise.
 
     See Also
     --------
@@ -2419,15 +2534,17 @@ def getEncTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
     Retrieve encoder tracking trajectory generation parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        Tuple of ``(v_max, a_max, jerk_max, err)``` where v_max (in [m/s]),
-        a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
-        acceeleration. err is 0 on success and -1 otherwise.
+        Tuple of ``(v_max, a_max, jerk_max, err)``
+        where v_max (in [m/s]), a_max (in [m/s^2]), and
+        jerk (in [m/s^3]) are the max velocity, acceeleration,
+        and jerk. err is 0 on success and -1 otherwise.
 
     See Also
     --------
@@ -2453,18 +2570,21 @@ _runtime._libdrd.drdGetPosMoveParam.restype = c_int
 
 def getPosMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
-    Retrieve cartesian positioning trajectory generation parameters.
+    Retrieve cartesian positioning trajectory generation
+    parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
-        a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
-        acceeleration. err is 0 on success and -1 otherwise.
+        Tuple of ``(v_max, a_max, jerk_max, err)``
+        where v_max (in [m/s]), a_max (in [m/s^2]), and
+        jerk (in [m/s^3]) are the max velocity, acceeleration,
+        and jerk. err is 0 on success and -1 otherwise.
 
     See Also
     --------
@@ -2490,18 +2610,21 @@ _runtime._libdrd.drdGetPosTrackParam.restype = c_int
 
 def getPosTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
-    Retrieve cartesian tracking trajectory generation parameters.
+    Retrieve cartesian tracking trajectory generation
+    parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
-        a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
-        acceeleration. err is 0 on success and -1 otherwise.
+        Tuple of ``(v_max, a_max, jerk_max, err)``
+        where v_max (in [m/s]), a_max (in [m/s^2]), and
+        jerk (in [m/s^3]) are the max velocity, acceeleration,
+        and jerk. err is 0 on success and -1 otherwise.
 
     See Also
     --------
@@ -2527,18 +2650,21 @@ _runtime._libdrd.drdGetRotMoveParam.restype = c_int
 
 def getRotMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
-    Retrieve cartesian positioning trajectory generation parameters.
+    Retrieve cartesian positioning trajectory generation
+    parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
-        a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
-        acceeleration. err is 0 on success and -1 otherwise.
+        Tuple of ``(v_max, a_max, jerk_max, err)``
+        where v_max (in [m/s]), a_max (in [m/s^2]), and
+        jerk (in [m/s^3]) are the max velocity, acceeleration,
+        and jerk. err is 0 on success and -1 otherwise.
 
     See Also
     --------
@@ -2564,18 +2690,21 @@ _runtime._libdrd.drdGetRotTrackParam.restype = c_int
 
 def getRotTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
     """
-    Retrieve cartesian tracking trajectory generation parameters.
+    Retrieve cartesian tracking trajectory generation
+    parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
-        a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
-        acceeleration. err is 0 on success and -1 otherwise.
+        Tuple of ``(v_max, a_max, jerk_max, err)``
+        where v_max (in [m/s]), a_max (in [m/s^2]), and jerk (in
+        [m/s^3]) are the max velocity, acceeleration, and jerk.
+        err is 0 on success and -1 otherwise.
 
     See Also
     --------
@@ -2604,15 +2733,17 @@ def getGripMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
     Retrieve cartesian positioning trajectory generation parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
-        a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
-        acceeleration. err is 0 on success and -1 otherwise.
+        Tuple of ``(v_max, a_max, jerk_max, err)``
+        where v_max (in [m/s]), a_max (in [m/s^2]), and jerk (in
+        [m/s^3]) are the max velocity, acceeleration, and jerk.
+        err is 0 on success and -1 otherwise.
 
     See Also
     --------
@@ -2641,15 +2772,17 @@ def getGripTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
     Retrieve cartesian tracking trajectory generation parameters.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
 
     :returns:
-        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max (in [m/s]),
-        a_max (in [m/s^2]), and jerk (in [m/s^3]) are the max velocity
-        acceeleration. err is 0 on success and -1 otherwise.
+        Tuple of ``(v_max, a_max, jerk_max, err)`` where v_max
+        (in [m/s]), a_max (in [m/s^2]), and jerk (in [m/s^3]) are
+        the max velocity acceeleration. err is 0 on success and
+        -1 otherwise.
 
     See Also
     --------
@@ -2670,13 +2803,15 @@ def getGripTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
 _runtime._libdrd.drdWaitForTick.argtypes = [c_byte]
 _runtime._libdrd.drdWaitForTick.restype = None
 
+
 def waitForTick(ID: int = -1):
     """
-    Puts the current thread to sleep until the next iteration of the robotic
-    control loop begins.
+    Puts the current thread to sleep until the next iteration of
+    the robotic control loop begins.
 
     :param int ID:
-        Device ID (see :ref:`multiple_devices` section for details).
+        Device ID (see :ref:`multiple_devices` section for
+        details).
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.

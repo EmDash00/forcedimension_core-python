@@ -9,6 +9,7 @@ from typing_extensions import overload
 
 import pydantic as pyd
 import pydantic_core as pyd_core
+from pydantic_core import core_schema as _core_schema
 
 from forcedimension_core.dhd.constants import MAX_DOF, MAX_STATUS
 from forcedimension_core.typing import (
@@ -25,6 +26,7 @@ try:
         import forcedimension_core.numpy_containers as numpy
 except ImportError:
     pass
+
 
 class VersionTuple(NamedTuple):
     """
@@ -85,9 +87,9 @@ class Status(ct.Structure):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda status: {
                     field: getattr(status, field)
                     for field in map(
@@ -283,9 +285,9 @@ class Vector3(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -376,9 +378,9 @@ class Enc3(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -398,6 +400,7 @@ class Enc3(array):
         """
 
         return self._ptrs
+
 
 class Mot3(array):
     """
@@ -428,9 +431,9 @@ class Mot3(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -477,9 +480,9 @@ class Enc4(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -518,9 +521,9 @@ class DOFInt(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -558,9 +561,9 @@ class DOFMotorArray(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -598,9 +601,9 @@ class DOFFloat(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -650,7 +653,6 @@ class Mat3x3(array):
         if not isinstance(j, int):
             raise TypeError("Second index is not an int.")
 
-
         return super().__getitem__(3 * i + j)
 
     def __setitem__(self, indicies: Tuple[int, int], value: float):
@@ -671,9 +673,9 @@ class Mat3x3(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: [[arr[i, j] for j in range(3)] for i in range(3)]
             )
         )
@@ -724,7 +726,6 @@ class Mat6x6(array):
 
         return super().__getitem__(6 * i + j)
 
-
     def __setitem__(self, indicies: Tuple[int, int], value: float):
         if not isinstance(indicies, Tuple):
             raise TypeError("Indicies must be a tuple of two ints")
@@ -743,9 +744,9 @@ class Mat6x6(array):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: [[arr[i, j] for j in range(6)] for i in range(6)]
             )
         )

@@ -8,11 +8,13 @@ import numpy as np
 import numpy.typing as npt
 import pydantic as pyd
 import pydantic_core as pyd_core
+from pydantic_core import core_schema as _core_schema
 
 from forcedimension_core.dhd.constants import MAX_DOF
 from forcedimension_core.typing import (
     Array, c_double_ptr, c_int_ptr, c_ushort_ptr
 )
+
 
 class Vector3(np.ndarray):
     """
@@ -42,9 +44,9 @@ class Vector3(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -110,9 +112,9 @@ class Enc3(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -124,6 +126,7 @@ class Enc3(np.ndarray):
     @property
     def ptrs(self) -> Tuple[c_int_ptr, c_int_ptr, c_int_ptr]:
         return self._ptrs
+
 
 class Mot3(np.ndarray):
     """
@@ -153,9 +156,9 @@ class Mot3(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -192,9 +195,9 @@ class Enc4(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -221,7 +224,6 @@ class DOFIntArray(np.ndarray):
     def __init__(self, *args, **kwargs):
         super().__init__()
 
-
         self._ptr = ctypes.cast(self.ctypes.data, c_int_ptr)
         self._delta = Enc3(self[:3])
         self._wrist = Enc3(self[3:6])
@@ -235,9 +237,9 @@ class DOFIntArray(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -286,9 +288,9 @@ class DOFMotorArray(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -329,9 +331,9 @@ class DOFFloatArray(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -376,9 +378,9 @@ class Mat3x3(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )
@@ -410,9 +412,9 @@ class Mat6x6(np.ndarray):
     def __get_pydantic_core_schema__(
         cls, source_type: Any, handler: pyd.GetCoreSchemaHandler
     ) -> pyd_core.CoreSchema:
-        return pyd_core.core_schema.no_info_plain_validator_function(
+        return _core_schema.no_info_plain_validator_function(
             cls,
-            serialization=pyd_core.core_schema.plain_serializer_function_ser_schema(
+            serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
             )
         )

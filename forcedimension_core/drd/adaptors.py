@@ -2,6 +2,7 @@ from math import nan
 
 import pydantic
 
+
 class TrajectoryGenParams(pydantic.BaseModel):
     vmax: float = nan
     amax: float = nan

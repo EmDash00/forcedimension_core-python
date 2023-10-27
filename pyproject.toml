@@ -46,7 +46,8 @@ optional = true
 
 [tool.poetry.group.test.dependencies]
 coveralls = "~3.3.1"
-coverage = {version = "*", extras = ["toml"]}
+coverage = { version = "*", extras = ["toml"] }
+flake8 = "~4.0.1"
 
 [build-system]
 requires = ["poetry-core"]

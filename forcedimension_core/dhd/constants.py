@@ -93,13 +93,16 @@ class ErrorNum(IntEnum):
     INVALID = 21
     NO_REGULATION = 22
 
+
 #: Array index for motors/encoders of the WRIST structure.
 #: i.e. DELTA motor/encoder 0 has index 0
 DELTA_IDX: Final[Tuple[Literal[0], Literal[1], Literal[2]]] = (0, 1, 2)
 
+
 #: Array index for motors/encoders of the WRIST structure.
 #: i.e. WRIST motor/encoder 0 has index 3
 WRIST_IDX: Final[Tuple[Literal[3], Literal[4], Literal[5]]] = (3, 4, 5)
+
 
 class NovintButtonID(IntEnum):
     """

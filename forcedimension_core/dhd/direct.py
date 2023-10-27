@@ -8,15 +8,17 @@ from forcedimension_core.typing import (
 
 def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     """
-    Retrieve the position of the end-effector about the X, Y, and Z axes.
-    Please refer to your device user manual for more information on your device
-    coordinate system.
+    Retrieve the position of the end-effector about the X, Y, and
+    Z axes. Please refer to your device user manual for more
+    information on your device coordinate system.
 
     :param SupportsPtrs3[ctypes.c_double] out:
-        An output buffer to store the position of the end-effector (in [m]).
+        An output buffer to store the position of the end-effector
+        (in [m]).
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -32,8 +34,8 @@ def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.TIMEGUARD` on
+        success, -1 otherwise.
 
     See Also
     --------
@@ -48,15 +50,16 @@ def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 def getForce(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     """
     Retrieve the force vector applied to the end-effector (in [N])
-    about the X, Y, and Z axes Please refer to your device user manual for more
-    information on your device coordinate system.
+    about the X, Y, and Z axes Please refer to your device user
+    manual for more information on your device coordinate system.
 
     :param SupportsPtrs3[ctypes.c_double] out:
-        An output buffer to store the applied forces on the end-effector
-        (in [N]).
+        An output buffer to store the applied forces on the
+        end-effector (in [N]).
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -94,31 +97,33 @@ def getOrientationRad(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
     """
-    For devices with a wrist structure, retrieve individual angle (in [rad])
-    of each joint, starting with the one located nearest to the wrist base
-    plate.
+    For devices with a wrist structure, retrieve individual angle
+    (in [rad]) of each joint, starting with the one located
+    nearest to the wrist base plate.
 
     Note
     ----
-    This feature only applies to devices with a wrist. See
-    the :ref:`device_types` section for more details.
+    This feature only applies to devices with a wrist. See the
+    :ref:`device_types` section for more details.
 
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
+    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
-    have angles that are instead computed with respect to their internal
-    reference frame, which is rotated π/4 radians around the Y axis.
-    Please refer to your device user manual for more information on your
-    device coordinate system.
+    have angles that are instead computed with respect to their
+    internal reference frame, which is rotated π/4 radians around
+    the Y axis. Please refer to your device user manual for more
+    information on your device coordinate system.
 
 
     :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the joint angles (in [rad]).
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -138,8 +143,8 @@ def getOrientationRad(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
 
     See Also
     --------
@@ -155,9 +160,9 @@ def getOrientationDeg(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
     """
-    For devices with a wrist structure, retrieve individual angle (in [deg])
-    of each joint, starting with the one located nearest to the wrist base
-    plate.
+    For devices with a wrist structure, retrieve individual angle
+    (in [deg]) of each joint, starting with the one located
+    nearest to the wrist base plate.
 
     Note
     ----
@@ -167,19 +172,21 @@ def getOrientationDeg(
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
+    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
-    have angles that are instead computed with respect to their internal
-    reference frame, which is rotated π/4 radians around the Y axis.
-    Please refer to your device user manual for more information on your
-    device coordinate system.
+    have angles that are instead computed with respect to their
+    internal reference frame, which is rotated π/4 radians around
+    the Y axis. Please refer to your device user manual for more
+    information on your device coordinate system.
 
 
     :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the joint angles (in [deg]).
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -199,8 +206,8 @@ def getOrientationDeg(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
 
     See Also
     --------
@@ -220,8 +227,8 @@ def getPositionAndOrientationRad(
     """
     Retrieve the position (in [m]) and
     for devices with a wrist structure, retrieve individual angle
-    of each joint (in [rad]), starting with the one located nearest to the wrist
-    base plate.
+    of each joint (in [rad]), starting with the one located nearest
+    to the wrist base plate.
 
     Note
     ----
@@ -231,16 +238,18 @@ def getPositionAndOrientationRad(
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
+    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
-    have angles that are instead computed with respect to their internal
-    reference frame, which is rotated π/4 radians around the Y axis.
-    Please refer to your device user manual for more information on your
-    device coordinate system.
+    have angles that are instead computed with respect to their
+    internal reference frame, which is rotated π/4 radians around
+    the Y axis. Please refer to your device user manual for more
+    information on your device coordinate system.
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param SupportsPtrs3[ctypes.c_double] p_out:
         An output buffer to store the position (in [m]).
@@ -276,8 +285,8 @@ def getPositionAndOrientationRad(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
 
     See Also
     --------
@@ -299,8 +308,8 @@ def getPositionAndOrientationDeg(
     """
     Retrieve the position (in [m]) and
     for devices with a wrist structure, retrieve individual angle
-    of each joint (in [deg]), starting with the one located nearest to the wrist
-    base plate.
+    of each joint (in [deg]), starting with the one located nearest
+    to the wrist base plate.
 
 
     Note
@@ -311,16 +320,18 @@ def getPositionAndOrientationDeg(
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
+    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
-    have angles that are instead computed with respect to their internal
-    reference frame, which is rotated π/4 radians around the Y axis.
-    Please refer to your device user manual for more information on your
-    device coordinate system.
+    have angles that are instead computed with respect to their
+    internal reference frame, which is rotated π/4 radians around
+    the Y axis. Please refer to your device user manual for more
+    information on your device coordinate system.
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param SupportsPtrs3[ctypes.c_double] p_out:
         An output buffer to store the position (in [m]).
@@ -356,8 +367,8 @@ def getPositionAndOrientationDeg(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
 
     See Also
     --------
@@ -377,28 +388,31 @@ def getPositionAndOrientationFrame(
     ID: int = -1
 ) -> int:
     """
-    Retrieve the position (in [m]) and orientation matrix of the end-effector
-    about the X, Y, and Z axes. Please refer to your device user manual for
-    more information on your device coordinate system.
+    Retrieve the position (in [m]) and orientation matrix of the
+    end-effector about the X, Y, and Z axes. Please refer to your
+    device user manual for more information on your device
+    coordinate system.
 
     Note
     ----
-    This feature only applies to devices with a wrist. See
-    the :ref:`device_types` section for more details.
+    This feature only applies to devices with a wrist. See the
+    :ref:`device_types` section for more details.
 
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT` and
+    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    and
     :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
-    have angles that are instead computed with respect to their internal
-    reference frame, which is rotated π/4 radians around the Y axis.
-    Please refer to your device user manual for more information on your
-    device coordinate system.
+    have angles that are instead computed with respect to their
+    internal reference frame, which is rotated π/4 radians around
+    the Y axis. Please refer to your device user manual for more
+    information on your device coordinate system.
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :raises AttributeError:
         If ``p_out.ptrs`` is not a valid attribute of ``p_out``
@@ -411,7 +425,8 @@ def getPositionAndOrientationFrame(
         ``Pointer[c_double]`` types.
 
     :raises AttributeError:
-        If ``matrix_out.ptr`` is not a valid attribute of ``matrix_out``
+        If ``matrix_out.ptr`` is not a valid attribute of
+        ``matrix_out``.
 
     :raises ctypes.ArgumentError:
         If ``p_out.ptr`` is not a ``Pointer[c_double]`` type.
@@ -420,8 +435,8 @@ def getPositionAndOrientationFrame(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
 
     See Also
     --------
@@ -442,20 +457,22 @@ def getForceAndTorque(
     ID: int = -1
 ) -> int:
     """
-    Retrieve the forces (in [N]) and torques (in [Nm]) applied to the device
-    end-effector about the X, Y, and Z axes. Please refer to your device user
-    manual for more information on your device coordinate system.
+    Retrieve the forces (in [N]) and torques (in [Nm]) applied to
+    the device end-effector about the X, Y, and Z axes. Please
+    refer to your device user manual for more information on your
+    device coordinate system.
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param SupportsPtrs3[ctypes.c_double] f_out:
-        An output buffer to store the applied forces on the end-effector
-        (in [N]).
+        An output buffer to store the applied forces on the
+        end-effector (in [N]).
 
     :param SupportsPtrs3[ctypes.c_double] t_out:
-        An output buffer to store the applied torques on the end-effector
-        (in [Nm]).
+        An output buffer to store the applied torques on the
+        end-effector (in [Nm]).
 
     :raises AttributeError:
         If ``f_out.ptrs`` is not a valid attribute of ``f_out``
@@ -498,11 +515,13 @@ def getForceAndTorque(
 
 def getOrientationFrame(out: SupportsPtr[c_double], ID: int = -1) -> int:
     """
-    Retrieve the rotation matrix of the wrist structure. The identity matrix
-    is returned for devices that do not support orientations.
+    Retrieve the rotation matrix of the wrist structure. The
+    identity matrix is returned for devices that do not support
+    orientations.
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param SupportsPtr[ctypes.c_double] out:
         An output buffer to store the orientation frame.
@@ -517,8 +536,8 @@ def getOrientationFrame(out: SupportsPtr[c_double], ID: int = -1) -> int:
         If ``out.ptr`` is not a ``Pointer[c_double]`` type.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
 
     See Also
     --------
@@ -532,8 +551,8 @@ def getGripperThumbPos(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
     """
-    Read the position (in [m]) of thumb rest location about the X, Y, and Z
-    axes of the force gripper structure if present.
+    Read the position (in [m]) of thumb rest location about the
+    X, Y, and Z axes of the force gripper structure if present.
 
     Note
     ----
@@ -542,10 +561,12 @@ def getGripperThumbPos(
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param SupportsPtrs3[ctypes.c_double] out:
-        An output buffer to store the grippper thumb position (in [m]).
+        An output buffer to store the grippper thumb position
+        (in [m]).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -561,8 +582,8 @@ def getGripperThumbPos(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
 
     See Also
     --------
@@ -576,8 +597,8 @@ def getGripperFingerPos(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
     """
-    Read the position (in [m]) of forefinger rest location about the X, Y, and
-    Z axes of the force gripper structure if present.
+    Read the position (in [m]) of forefinger rest location about
+    the X, Y, and Z axes of the force gripper structure if present.
 
     Note
     ----
@@ -586,10 +607,12 @@ def getGripperFingerPos(
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param SupportsPtrs3[ctypes.c_double] out:
-        An output buffer to store the gripper finger position (in [m]).
+        An output buffer to store the gripper finger position
+        (in [m]).
 
     :raises AttributeError:
         If ``out.ptrs`` is not a valid attribute of ``out``
@@ -605,8 +628,8 @@ def getGripperFingerPos(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
-        -1 otherwise.
+        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        on success, -1 otherwise.
 
     See Also
     --------
@@ -623,20 +646,21 @@ def getForceAndTorqueAndGripperForce(
     ID: int = -1
 ) -> int:
     """
-    Retrieve the forces (in [N]) and torques (in [Nm]) applied to the device
-    end-effector as well as the gripper force (in [N]).
-    Forces and torques are about the X, Y, and Z axes.
+    Retrieve the forces (in [N]) and torques (in [Nm]) applied
+    to the device end-effector as well as the gripper force (in
+    [N]). Forces and torques are about the X, Y, and Z axes.
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param SupportsPtrs3[ctypes.c_double] f_out:
-        An output buffer to store the applied forces on the end-effector
-        (in [N]).
+        An output buffer to store the applied forces on the
+        end-effector (in [N]).
 
     :param SupportsPtrs3[ctypes.c_double] t_out:
-        An output buffer to store the applied torques on the end-effector
-        (in [Nm]).
+        An output buffer to store the applied torques on the
+        end-effector (in [Nm]).
 
     :raises AttributeError:
         If ``f_out.ptrs`` is not a valid attribute of ``f_out``
@@ -690,17 +714,18 @@ def getLinearVelocity(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
-    :func:`forcedimension_core.dhd.configLinearVelocity()` in order to be able to
-    compute the estimate. Otherwise, if there are no calls to
-    :func:`forcedimension_core.dhd.getPosition()`
-    or :func:`forcedimension_core.dhd.getLinearVelocity()`,
-    this function will error with
+    :func:`forcedimension_core.dhd.configLinearVelocity()` in
+    order to be able to compute the estimate. Otherwise, if there
+    are no calls to :func:`forcedimension_core.dhd.getPosition()`
+    or :func:`forcedimension_core.dhd.getLinearVelocity()`, this
+    function will error with
     :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
     For more information refer to :ref:`velocity_estimator`.
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param SupportsPtr[ctypes.c_double] out:
         An output buffer to store the linear velocity (in [m/s]).
@@ -739,17 +764,19 @@ def getAngularVelocityRad(
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
-    :func:`forcedimension_core.dhd.configAngularVelocity()` in order to be able to
-    compute the estimate. Otherwise, if there are no calls to
-    :func:`forcedimension_core.dhd.getPosition() or
-    :func:`forcedimension_core.dhd.getAngularVelocityRad()`, this function
-    will return error with
-    (:data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`).
+    :func:`forcedimension_core.dhd.configAngularVelocity()` in
+    order to be able to compute the estimate. Otherwise, if there
+    are no
+    calls to:func:`forcedimension_core.dhd.getPosition()` or
+    :func:`forcedimension_core.dhd.getAngularVelocityRad()`,
+    this function will return error with
+    :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
     For more information refer to :ref:`velocity_estimator`.
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param out:
         An output buffer to store the angular velocity (in [rad/s]).
@@ -790,17 +817,18 @@ def getAngularVelocityDeg(
     ----
     The velocity estimator requires at least 2 position
     updates during the time interval defined in
-    :func:`forcedimension_core.dhd.configAngularVelocity()` in order to be able
-    to compute the estimate. Otherwise, if there are no calls to
-    :func:`forcedimension_core.dhd.getPosition()` or
-    :func:`forcedimension_core.dhd.getAngularVelocityDeg()`,
+    :func:`forcedimension_core.dhd.configAngularVelocity()` in
+    order to be able to compute the estimate. Otherwise, if there
+    are no calls to:func:`forcedimension_core.dhd.getPosition()`
+    or :func:`forcedimension_core.dhd.getAngularVelocityDeg()`,
     this function will error with
     :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
     For more information refer to :ref:`velocity_estimator`.
 
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for details).
+         Device ID (see :ref:`multiple_devices` section for
+         details).
 
     :param out:
         An output buffer to store the angular velocity (in [deg/s]).
