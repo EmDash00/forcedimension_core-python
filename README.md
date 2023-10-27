@@ -1,10 +1,14 @@
 # forcedimension_core-python
 
+![PyPI - Version](https://img.shields.io/pypi/v/forcedimension_core?style=flat-square&logo=pypi)
 ![PyPI - License](https://img.shields.io/pypi/l/forcedimension_core?style=flat-square&logo=pypi)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/forcedimension_core?style=flat-square&logo=python)
+
 ![Travis (.com) branch](https://img.shields.io/travis/com/EmDash00/forcedimension_core-python/main?style=flat-square&logo=travis&link=https%3A%2F%2Fapp.travis-ci.com%2Fgithub%2FEmDash00%2Fforcedimension_core-python)
 ![Coveralls branch](https://img.shields.io/coverallsCoverage/github/EmDash00/forcedimension_core-python?branch=main&style=flat-square&logo=coveralls&link=https%3A%2F%2Fcoveralls.io%2Fgithub%2FEmDash00%2Fforcedimension_core-python)
 ![Read the Docs](https://img.shields.io/readthedocs/force-dimension-core-python-documentation?style=flat-square&logo=readthedocs&link=https%3A%2F%2Fforce-dimension-core-python-documentation.readthedocs.io%2Fen%2Flatest%2F)
+
+[![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json&style=flat-square)](https://pydantic.dev)
 
 Looking for the documentation? You can find it here:
 

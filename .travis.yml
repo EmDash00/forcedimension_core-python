@@ -13,6 +13,6 @@ install:
   - poetry install --with numpy,test
 
 script:
-  - poetry run coverage run -m unittest tests
   - poetry run flake8 forcedimension_core --ignore "F401,E501"
+  - poetry run coverage run -m unittest tests
   - poetry run coveralls
