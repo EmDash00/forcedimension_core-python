@@ -10,12 +10,14 @@ python:
 install:
   - python3 -m pip install pipx
   - pipx install poetry==1.6.1
-  - poetry install --with numpy,test
+  - pipx install coveralls
+  - poetry install --with numpy
 
 script:
   #- poetry run flake8 forcedimension_core --ignore "F401,E501"
-  - poetry run coverage run -m unittest tests
+  #- poetry run coverage run -m unittest tests
+  - coverage run -m unittest tests
 
 after_success:
-  - poetry run coveralls
+  - coveralls
 
