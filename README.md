@@ -8,6 +8,12 @@
 ![Read the Docs](https://img.shields.io/readthedocs/force-dimension-core-python-documentation?logo=readthedocs&link=https%3A%2F%2Fforce-dimension-core-python-documentation.readthedocs.io%2Fen%2Flatest%2F)
 [![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
 
+<p align="center">
+<a href="Read The Docs">
+<object src="https://img.shields.io/readthedocs/force-dimension-core-python-documentation?logo=readthedocs&link=https%3A%2F%2Fforce-dimension-core-python-documentation.readthedocs.io%2Fen%2Flatest%2F">
+</a>
+</p>
+
 Looking for the documentation? You can find it here:
 
 https://force-dimension-core-python-documentation.readthedocs.io/en/latest/
