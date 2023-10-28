@@ -7,17 +7,33 @@ python:
   - "3.11"
   - "3.12"
 
-before_install:
-  - python3 -m pip install -U pip setuptools wheel
-  - python3 -m pip install pipx
-  - pipx install poetry==1.6.1
+jobs:
+  include:
 
-install:
-  - poetry install --with numpy,test
+    - name: test
 
-script:
-  - poetry run flake8 forcedimension_core --ignore "F401,E501"
-  - poetry run coverage run -m unittest tests
+      before_install:
+        - python3 -m pip install -U pip setuptools wheel
+        - python3 -m pip install pipx
+        - pipx install poetry==1.6.1
 
-after_success:
-  - poetry run coveralls --finish
+      install:
+        - poetry install --with numpy,test
+
+      script:
+        - poetry run flake8 forcedimension_core --ignore "F401,E501"
+        - poetry run coverage run -m unittest tests
+
+      after_success:
+        - poetry run coveralls
+
+
+    - name: upload
+      before_install:
+        - python3 -m pip install -U pip setuptools wheel
+
+      install:
+        python3 -m pip install coveralls
+
+      script:
+        coveralls --finish
