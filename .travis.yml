@@ -1,34 +1,36 @@
 dist: focal
 language: python
+python:
+  - "3.8"
+  - "3.9"
+  - "3.10"
+  - "3.11"
+  - "3.12"
 
 jobs:
   test:
-    python:
-      - "3.8"
-      - "3.9"
-      - "3.10"
-      - "3.11"
-      - "3.12"
+    - stage: test
+      before_install:
+        - python3 -m pip install -U pip setuptools wheel
+        - python3 -m pip install pipx
+        - pipx install poetry==1.6.1
 
-    before_install:
-      - python3 -m pip install -U pip setuptools wheel
-      - python3 -m pip install pipx
-      - pipx install poetry==1.6.1
+      install:
+        - poetry install --with numpy,test
 
-    install:
-      - poetry install --with numpy,test
+      script:
+        - poetry run flake8 forcedimension_core --ignore "F401,E501"
+        - poetry run coverage run -m unittest tests
 
-    script:
-      - poetry run flake8 forcedimension_core --ignore "F401,E501"
-      - poetry run coverage run -m unittest tests
+      after_success:
+        - poetry run coveralls
 
-    after_success:
-      - poetry run coveralls
+    - stage: upload
+      before_install:
+        - python3 -m pip install -U pip setuptools wheel
 
-  coveralls:
-    before_install:
-      - python3 -m pip install -U pip setuptools wheel
-    install:
-      - python3 -m pip install coveralls
-    script:
-      - coveralls --finish
+      install:
+        - python3 -m pip install coveralls
+
+      script:
+        - coveralls --finish
