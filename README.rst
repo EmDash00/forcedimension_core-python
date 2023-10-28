@@ -6,7 +6,7 @@ forcedimension_core-python
 
 
 
-.. image:: https://img.shields.io/readthedocs/force-dimension-core-python-documentation?style=flat-square&logo=readthedocs&link=https%3A%2F%2Fforce-dimension-core-python-documentation.readthedocs.io%2Fen%2Flatest%2F
+.. object:: https://img.shields.io/readthedocs/force-dimension-core-python-documentation?style=flat-square&logo=readthedocs&link=https%3A%2F%2Fforce-dimension-core-python-documentation.readthedocs.io%2Fen%2Flatest%2F
    :alt: Read the Docs
 
 Looking for the documentation? You can find it here:
