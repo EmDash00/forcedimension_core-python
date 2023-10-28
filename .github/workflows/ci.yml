@@ -29,6 +29,7 @@ jobs:
         python-version: ${{ matrix.python }}
     - name: Install dependencies
       run: |
+        python3 -m pip install -U pip setuptools wheel
         python3 -m pip install pipx
         pipx install poetry==1.6.1
         poetry install --with numpy,test
@@ -37,5 +38,5 @@ jobs:
         poetry run flake8 forcedimension_core --ignore "F401,E501"
     - name: Unittest
       run: |
-        poetry run coverage -m unittests tests
+        poetry run coverage run -m unittest tests
         poetry run coveralls
