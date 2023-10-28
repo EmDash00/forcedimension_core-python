@@ -1,11 +1,11 @@
 # forcedimension_core-python
 
 ![PyPI - Version](https://img.shields.io/pypi/v/forcedimension_core?logo=pypi)
-[![PyPI - License](https://img.shields.io/pypi/l/forcedimension_core?logo=pypi)](LICENSE)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/forcedimension_core?logo=python)
 [![build](https://github.com/EmDash00/forcedimension_core-python/actions/workflows/ci.yml/badge.svg)](https://github.com/EmDash00/forcedimension_core-python/actions/workflows/ci.yml)
 [![Coveralls branch](https://img.shields.io/coverallsCoverage/github/EmDash00/forcedimension_core-python?branch=main&logo=coveralls)](https://coveralls.io/github/EmDash00/forcedimension_core-python)
 [![Read the Docs](https://img.shields.io/readthedocs/force-dimension-core-python-documentation?logo=readthedocs)](https://force-dimension-core-python-documentation.readthedocs.io/en/latest/)
+[![PyPI - License](https://img.shields.io/pypi/l/forcedimension_core)](LICENSE)
 [![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
 
 
