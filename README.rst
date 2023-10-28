@@ -5,7 +5,8 @@ forcedimension_core-python
 |Coveralls branch| |Read the Docs| |Pydantic v2|
 
 
-.. image:: https://img.shields.io/readthedocs/force-dimension-core-python-documentation?style=flat-square&logo=readthedocs
+
+.. image:: https://img.shields.io/readthedocs/force-dimension-core-python-documentation?style=flat-square&logo=readthedocs&link=https%3A%2F%2Fforce-dimension-core-python-documentation.readthedocs.io%2Fen%2Flatest%2F
    :alt: Read the Docs
 
 Looking for the documentation? You can find it here:
