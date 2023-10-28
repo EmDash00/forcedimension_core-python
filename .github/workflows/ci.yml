@@ -1,0 +1,41 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "main", "v1.0.0-dev" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python }}
+    - name: Install dependencies
+      run: |
+        python3 -m pip install pipx
+        pipx install poetry==1.6.1
+        poetry install --with numpy,tests
+    - name: Lint and Check Style
+      run: |
+        poetry run flake8 forcedimension_core --ignore "F401,E501"
+    - name: Unittest
+      run: |
+        poetry run coverage -m unittests tests
+        poetry run coveralls
