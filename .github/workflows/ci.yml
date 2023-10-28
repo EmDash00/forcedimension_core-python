@@ -22,23 +22,45 @@ jobs:
         python: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set up Python Environment
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python }}
-    - env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Install dependencies
       run: |
         python3 -m pip install -U pip setuptools wheel
         python3 -m pip install pipx
         pipx install poetry==1.6.1
         poetry install --with numpy,test
+
     - name: Lint and Check Style
       run: |
         poetry run flake8 forcedimension_core --ignore "F401,E501"
-    - name: Unittest
+
+    - name: Unittest and populate coverage data
       run: |
         poetry run coverage run -m unittest tests
+
+    - name: Upload coverage data to coveralls.io
+      run: |
         poetry run coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
+          COVERALLS_PARALLEL: true
+  coveralls:
+    name: Indicate completion to coveralls.io
+    needs: test
+    runs-on: ubuntu-latest
+    container: python:3-slim
+    steps:
+    - name: Finished
+      run: |
+        pip3 install --upgrade coveralls
+        coveralls --service=github --finish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
