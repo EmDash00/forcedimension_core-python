@@ -4,6 +4,10 @@ forcedimension_core-python
 |PyPI - Version| |PyPI - License| |PyPI - Python Version| |build|
 |Coveralls branch| |Read the Docs| |Pydantic v2|
 
+
+.. image:: https://img.shields.io/readthedocs/force-dimension-core-python-documentation?style=flat-square&logo=readthedocs
+   :alt: Read the Docs
+
 Looking for the documentation? You can find it here:
 
 https://force-dimension-core-python-documentation.readthedocs.io/en/latest/
