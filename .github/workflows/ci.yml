@@ -37,20 +37,18 @@ jobs:
         poetry install --with numpy,test
 
     - name: Lint and Check Style
-      run: |
-        poetry run flake8 forcedimension_core --ignore "F401,E501"
+      run: poetry run flake8 forcedimension_core --ignore "F401,E501"
 
     - name: Unittest and populate coverage data
-      run: |
-        poetry run coverage run -m unittest tests
+      run: poetry run coverage run -m unittest tests
 
     - name: Upload coverage data to coveralls.io
-      run: |
-        poetry run coveralls --service=github
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
-          COVERALLS_PARALLEL: true
+      run: poetry run coveralls --service=github
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
+        COVERALLS_PARALLEL: true
+          
   coveralls:
     name: Indicate completion to coveralls.io
     needs: test
