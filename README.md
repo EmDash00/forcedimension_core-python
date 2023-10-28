@@ -10,7 +10,7 @@
 
 <p align="center">
 <a href="Read The Docs">
-<object src="https://img.shields.io/readthedocs/force-dimension-core-python-documentation?logo=readthedocs&link=https%3A%2F%2Fforce-dimension-core-python-documentation.readthedocs.io%2Fen%2Flatest%2F">
+<object src="https://img.shields.io/readthedocs/force-dimension-core-python-documentation?style=flat-square&logo=readthedocs&link=https%3A%2F%2Fforce-dimension-core-python-documentation.readthedocs.io%2Fen%2Flatest%2F">
 </a>
 </p>
 
