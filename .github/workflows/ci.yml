@@ -33,7 +33,8 @@ jobs:
       run: |
         python3 -m pip install -U pip setuptools wheel
         python3 -m pip install pipx
-        pipx install poetry==1.6.1
+        pipx install 'poetry==1.6.1'
+        pipx install 'coveralls~=3.3.1'
         poetry install --with numpy,test
 
     - name: Lint and Check Style
@@ -45,7 +46,7 @@ jobs:
         poetry run coverage report
 
     - name: Upload coverage data to coveralls.io
-      run: poetry run coveralls --service=github
+      run: coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
@@ -55,6 +56,7 @@ jobs:
     name: Indicate completion to coveralls.io
     needs: test
     runs-on: ubuntu-latest
+    container: python:3-slim
     steps:
     - name: Finished
       run: |
