@@ -48,7 +48,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
         COVERALLS_PARALLEL: true
-          
+
   coveralls:
     name: Indicate completion to coveralls.io
     needs: test
@@ -57,7 +57,9 @@ jobs:
     steps:
     - name: Finished
       run: |
-        pip3 install --upgrade coveralls
+        python3 -m pip install -U pip setuptools wheel
+        python3 -m pip install pipx
+        pipx install coveralls ~=3.3.1
         coveralls --service=github --finish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
