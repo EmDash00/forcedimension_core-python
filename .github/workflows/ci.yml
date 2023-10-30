@@ -40,7 +40,9 @@ jobs:
       run: poetry run flake8 forcedimension_core --ignore "F401,E501"
 
     - name: Unittest and populate coverage data
-      run: poetry run coverage run -m unittest tests
+      run: |
+        poetry run coverage run -m unittest tests
+        poetry run coverage report
 
     - name: Upload coverage data to coveralls.io
       run: poetry run coveralls --service=github
