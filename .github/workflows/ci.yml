@@ -55,6 +55,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Finished
-      run: poetry run coveralls --service=github --finish
+      run: |
+          python3 -m pip install -U pip setuptools wheel
+          python3 -m pip install pipx
+          pipx install poetry==1.6.1
+          poetry install --with numpy,test
+          poetry run coveralls --service=github --finish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
