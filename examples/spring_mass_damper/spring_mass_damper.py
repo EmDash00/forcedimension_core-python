@@ -26,9 +26,10 @@ try:
 
     # Make closing a gripper be an emulated as a button on button ID 0.
     if dhd.emulateButton(True, ID) == -1:
-        raise fd.errno_to_exception(dhd.errorGetLast())(
-            op='forcedimension_core.dhd.getPosition', ID=ID
-        )
+        if dhd.errorGetLast() != fd.ErrorNum.NOT_AVAILABLE:
+            raise fd.errno_to_exception(dhd.errorGetLast())(
+                op='forcedimension_core.dhd.emulateButton', ID=ID
+            )
 
     btn_state = False
 
@@ -42,27 +43,28 @@ try:
                 op='forcedimension_core.dhd.getPosition', ID=ID
             )
 
-    # Try to get the velocity
-    if (dhd.getLinearVelocity(out=v, ID=ID) == -1):
-        raise fd.errno_to_exception(dhd.errorGetLast())(
-            op='forcedimension_core.dhd.getLinearVelocity', ID=ID
-        )
+        # Try to get the velocity
+        if (dhd.getLinearVelocity(out=v, ID=ID) == -1):
+            raise fd.errno_to_exception(dhd.errorGetLast())(
+                op='forcedimension_core.dhd.getLinearVelocity', ID=ID
+            )
 
-    # Set the dynamics to be a spring-mass damper
-    f[0] = -k * pos[0] - b * v[0]
-    f[1] = -k * pos[1] - b * v[1]
-    f[2] = -k * pos[2] - b * v[2]
+        # Set the dynamics to be a spring-mass damper
+        f[0] = -k * pos[0] - b * v[0]
+        f[1] = -k * pos[1] - b * v[1]
+        f[2] = -k * pos[2] - b * v[2]
 
-    # Try to set the force
-    if (dhd.setForce(f, ID=ID) == -1):
-        raise fd.errno_to_exception(dhd.errorGetLast())(
-            op='forcedimension_core.dhd.setForce', ID=ID
-        )
+        # Try to set the force
+        if (dhd.setForce(f, ID=ID) == -1):
+            raise fd.errno_to_exception(dhd.errorGetLast())(
+                op='forcedimension_core.dhd.setForce', ID=ID
+            )
 
-    if (btn_state := dhd.getButton(index=0)) == -1:
-        raise fd.errno_to_exception(dhd.errorGetLast())(
-            op='forcedimension_core.dhd.getButton', ID=ID
-        )
+        if (btn_state := dhd.getButton(index=0, ID=ID)) == -1:
+            raise fd.errno_to_exception(dhd.errorGetLast())(
+                op='forcedimension_core.dhd.getButton', ID=ID
+            )
+
 except DHDError as ex:
     print(str(ex))
 finally:
