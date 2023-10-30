@@ -511,8 +511,14 @@ class TestContainers(unittest.TestCase):
         self.assertSequenceEqual(data.dofint, containers.DOFInt())  # type: ignore
         self.assertSequenceEqual(data.dofmotor, containers.DOFMotorArray())  # type: ignore
         self.assertSequenceAlmostEqual(data.doffloat, containers.DOFFloat())  # type: ignore
-        self.assertSequenceAlmostEqual(data.mat3x3, containers.Mat3x3())  # type: ignore
-        self.assertSequenceAlmostEqual(data.mat6x6, containers.Mat6x6())  # type: ignore
+
+        for i in range(3):
+            for j in range(3):
+                self.assertAlmostEqual(data.mat3x3[i, j], 0.0)
+
+        for i in range(6):
+            for j in range(6):
+                self.assertAlmostEqual(data.mat6x6[i, j], 0.0)
 
         status = containers.Status(
             *tuple(bool(randint(0, 1)) for _ in range(MAX_STATUS))
