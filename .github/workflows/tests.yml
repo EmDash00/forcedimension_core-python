@@ -29,9 +29,6 @@ jobs:
     - name: Install dependencies
       run: |
         python3 -m pip install -U pip setuptools wheel
-        python3 -m pip install pipx
-        pipx install 'coveralls~=3.3.1'
-        pipx inject coveralls 'coverage[toml]'
 
         python3 -m pip install 'poetry==1.6.1'
         poetry config virtualenvs.create false
