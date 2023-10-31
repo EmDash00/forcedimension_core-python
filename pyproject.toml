@@ -18,14 +18,13 @@ python = ">=3.8,<3.13"
 pydantic = "^2"
 typing-extensions = "^4.6.0"
 
-[tool.poetry.group.numpy]
-optional = true
-
-[tool.poetry.group.numpy.dependencies]
 numpy = [
-  { version = "^1.20.0", python = "<3.12" },
-  { version = "^1.26.0", python = ">=3.12,<3.13" },
+  { version = "^1.20.0", python = "<3.12", optional=true },
+  { version = "^1.26.0", python = ">=3.12,<3.13", optional=true },
 ]
+
+[tool.poetry.extras]
+numpy = ['numpy']
 
 [tool.poetry.group.docs]
 optional = true
@@ -43,7 +42,6 @@ flake8 = [
   { version = "^5.0.0", python = "<3.8.1" },
   { version = "^6.0.0", python = ">=3.8.1" },
 ]
-
 
 [build-system]
 requires = ["poetry-core"]
