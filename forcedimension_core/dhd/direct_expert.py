@@ -39,8 +39,8 @@ def getDeltaEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.deltaEncodersToJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaEncoderToPosition()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncoderToPosition()`
     """
 
     return _runtime._libdhd.dhdGetDeltaEncoders(*out.ptrs, ID)
@@ -138,9 +138,9 @@ def deltaEncoderToPosition(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getDeltaEncoders()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaPositionToEncoder()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaPositionToEncoder()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdDeltaEncoderToPosition(
@@ -195,9 +195,9 @@ def deltaPositionToEncoder(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getDeltaEncoders()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaEncoderToPosition()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncoderToPosition()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdDeltaPositionToEncoder(
@@ -267,7 +267,7 @@ def deltaMotorToForce(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.deltaForceToMotor()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaForceToMotor()`
     """
 
     return _runtime._libdhd.dhdDeltaMotorToForce(
@@ -341,7 +341,7 @@ def deltaForceToMotor(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.deltaMotorToForce()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaMotorToForce()`
     """
 
     return _runtime._libdhd.dhdDeltaForceToMotor(
@@ -410,9 +410,9 @@ def wristEncoderToOrientation(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristEncodersToJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristOrientationToEncoder()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristOrientationToEncoder()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
     return _runtime._libdhd.dhdWristEncoderToOrientation(
         enc[0], enc[1], enc[2],
@@ -487,9 +487,9 @@ def wristOrientationToEncoder(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristEncodersToJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristEncodersToOrientation()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToOrientation()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
 
     return _runtime._libdhd.dhdWristOrientationToEncoder(
@@ -568,8 +568,8 @@ def wristMotorToTorque(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristTorqueToMotor()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristTorqueToMotor()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
     """
 
     return _runtime._libdhd.dhdWristMotorToTorque(
@@ -650,7 +650,7 @@ def wristTorqueToMotor(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristTorqueToMotor()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristTorqueToMotor()`
     """
 
     return _runtime._libdhd.dhdWristTorqueToMotor(
@@ -708,7 +708,7 @@ def gripperMotorToForce(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.gripperForceToMotor()`
+    | :func:`forcedimension_core.dhd.direct_expert.gripperForceToMotor()`
     """
 
     return _runtime._libdhd.dhdGripperMotorToForce(
@@ -762,7 +762,7 @@ def gripperForceToMotor(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.gripperForceToMotor()`
+    | :func:`forcedimension_core.dhd.direct_expert.gripperForceToMotor()`
     """
 
     return _runtime._libdhd.dhdGripperForceToMotor(f, out, enc_wrist_grip.ptr, ID)
@@ -805,7 +805,7 @@ def getEnc(out: SupportsPtr[c_int], mask: int = 0xff, ID: int = -1) -> int:
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getEncVelocities()`
+    | :func:`forcedimension_core.dhd.direct_expert.getEncVelocities()`
     """
 
     return _runtime._libdhd.dhdGetEnc(out.ptr, mask, ID)
@@ -841,9 +841,9 @@ def getDeltaJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.deltaEncodersToJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointAnglesToEncoders()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
     """
 
     return _runtime._libdhd.dhdGetDeltaJointAngles(*out.ptrs, ID)
@@ -876,7 +876,7 @@ def getDeltaJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
     """
 
     return _runtime._libdhd.dhdGetDeltaJacobian(out.ptr, ID)
@@ -926,9 +926,9 @@ def deltaJointAnglesToJacobian(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.getDeltaJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.getDeltaJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJacobian()`
     """
 
     return _runtime._libdhd.dhdDeltaJointAnglesToJacobian(
@@ -1000,9 +1000,9 @@ def deltaJointTorquesExtrema(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointTorquesExtrema()`
-    | :func:`forcedimension_core.dhd.dco_expert.getDeltaJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
     """
 
     return _runtime._libdhd.dhdDeltaJointTorquesExtrema(
@@ -1062,8 +1062,8 @@ def deltaEncodersToJointAngles(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointAnglesToJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
     """
 
     return _runtime._libdhd.dhdDeltaEncodersToJointAngles(
@@ -1112,8 +1112,8 @@ def deltaJointAnglesToEncoders(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointAnglesToJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdDeltaJointAnglesToEncoders(
@@ -1154,10 +1154,10 @@ def getWristJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.dhdWristJointAnglesToJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.dhdWristJointTorquesExtrema()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToEncoders()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.dhdWristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.dhdWristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdGetWristJointAngles(*out.ptrs, ID)
@@ -1190,7 +1190,7 @@ def getWristJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
     """
 
     return _runtime._libdhd.dhdGetWristJacobian(out.ptr, ID)
@@ -1240,8 +1240,8 @@ def wristJointAnglesToJacobian(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristEncodersToJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.getWristJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
     """
 
     return _runtime._libdhd.dhdWristJointAnglesToJacobian(
@@ -1317,11 +1317,11 @@ def wristJointTorquesExtrema(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.getWristJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristEncodersToJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
 
     return _runtime._libdhd.dhdWristJointTorquesExtrema(
@@ -1393,9 +1393,9 @@ def wristEncodersToJointAngles(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointTorquesExtrema()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
     """
 
     return _runtime._libdhd.dhdWristEncodersToJointAngles(
@@ -1450,8 +1450,8 @@ def wristJointAnglesToEncoders(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristEncodersToJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristEncodersToJointAngles()`
     """
 
     return _runtime._libdhd.dhdWristJointAnglesToEncoders(
@@ -1495,17 +1495,17 @@ def getJointAngles(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
     See Also
     ---------
-    | :func:`forcedimension_core.dhd.dco_expert.getDeltaJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.getWristJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointAnglesToEncoders()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToEncoders()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointTorquesExtrema()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointTorquesExtrema()`
-    | :func:`forcedimension_core.dhd.dco_expert.deltaJointAnglesToJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.wristJointAnglesToJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.jointAnglesToIntertiaMatrix()`
-    | :func:`forcedimension_core.dhd.dco_expert.jointAnglesToGravityJointTorques()`
-    | :func:`forcedimension_core.dhd.dco_expert.getJointVelocities()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getWristJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToEncoders()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointTorquesExtrema()`
+    | :func:`forcedimension_core.dhd.direct_expert.deltaJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.wristJointAnglesToJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.jointAnglesToIntertiaMatrix()`
+    | :func:`forcedimension_core.dhd.direct_expert.jointAnglesToGravityJointTorques()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointVelocities()`
     """
 
     return _runtime._libdhd.dhdGetJointAngles(out.ptr, ID)
@@ -1540,9 +1540,9 @@ def getJointVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getJointAngles()`
-    | :func:`forcedimension_core.dhd.dco_expert.getDeltaJacobian()`
-    | :func:`forcedimension_core.dhd.dco_expert.getWristJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getDeltaJacobian()`
+    | :func:`forcedimension_core.dhd.direct_expert.getWristJacobian()`
     """
 
     return _runtime._libdhd.dhdGetJointVelocities(out.ptr, ID)
@@ -1580,7 +1580,7 @@ def getEncVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getEnc()`
+    | :func:`forcedimension_core.dhd.direct_expert.getEnc()`
     """
 
     return _runtime._libdhd.dhdGetEncVelocities(out.ptr, ID)
@@ -1629,7 +1629,7 @@ def jointAnglesToIntertiaMatrix(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
     """
 
     return _runtime._libdhd.dhdJointAnglesToInertiaMatrix(
@@ -1681,7 +1681,7 @@ def jointAnglesToGravityJointTorques(
 
     See Also
     --------
-    | :func:`forcedimension_core.dhd.dco_expert.getJointAngles()`
+    | :func:`forcedimension_core.dhd.direct_expert.getJointAngles()`
     """
 
     return _runtime._libdhd.dhdJointAnglesToGravityJointTorques(
