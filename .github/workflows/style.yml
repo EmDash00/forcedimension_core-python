@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  push:
+    branches: [ "main", "v1.0.0-dev" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python Environment
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python3 -m pip install -U pip setuptools wheel
+        python3 -m pip install pipx
+        pipx install 'poetry==1.6.1'
+        pipx install 'coveralls~=3.3.1'
+        poetry install --with numpy,test
+
+    - name: Lint and Check Style
+      run: poetry run flake8 forcedimension_core --ignore "F401,E501"

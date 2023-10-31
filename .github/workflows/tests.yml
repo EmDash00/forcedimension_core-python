@@ -35,9 +35,6 @@ jobs:
         pipx inject coveralls 'coverage[toml]'
         poetry install --with numpy,test
 
-    - name: Lint and Check Style
-      run: poetry run flake8 forcedimension_core --ignore "F401,E501"
-
     - name: Upload coverage data to coveralls.io
       run: coveralls --service=github
       env:
