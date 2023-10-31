@@ -27,6 +27,7 @@ def enableExpertMode() -> int:
     --------
     | :func:`forcedimension_core.dhd.expert.disableExpertMode()`
     """
+
     return _runtime._libdhd.dhdEnableExpertMode()
 
 
@@ -44,6 +45,7 @@ def disableExpertMode() -> int:
     --------
     | :func:`forcedimension_core.dhd.expert.disableExpertMode()`
     """
+
     return _runtime._libdhd.dhdDisableExpertMode()
 
 
@@ -84,6 +86,7 @@ def preset(val: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
 
     :returns: 0 on success, -1 otherwise
     """
+
     vals = (c_int * MAX_DOF)(
         val[0], val[1], val[2], val[3], val[4], val[5], val[6], val[7]
     )
@@ -2788,7 +2791,7 @@ def setForceAndWristJointTorquesAndGripperForce(
     :raises TypeError:
         If ``t`` is not subscriptable.
 
-   :raises ctypes.ArgumentError:
+    :raises ctypes.ArgumentError:
         If ``gripper_force`` is not implicitly convertible to
         a C double.
 
@@ -3064,7 +3067,7 @@ def getEncVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
 
     :param MutableArray[int, float] out:
         An output buffer to store the encoder velocities (in
-       [inc/s]).
+        [inc/s]).
 
     :raises TypeError:
         If ``out`` does not support item assignment either

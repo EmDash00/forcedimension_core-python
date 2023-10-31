@@ -640,7 +640,7 @@ def setForceAndTorqueAndGripperForce(
         Grasping force of the gripper (in [N]).
 
     :param int ID:
-         Device ID (see :ref:`multiple_devices` section for
+        Device ID (see :ref:`multiple_devices` section for
         details).
 
     :raises ctypes.ArgumentError:
@@ -680,7 +680,6 @@ def setForceAndTorqueAndGripperForce(
         0 or
         :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
         on success, and -1 otherwise.
-
     """
 
     return _runtime._libdrd.drdSetForceAndTorqueAndGripperForce(

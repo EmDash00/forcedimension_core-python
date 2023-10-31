@@ -3153,7 +3153,7 @@ def configGripperVelocity(
     :param int ms:
         Time interval used to compute velocity (in [ms]).
 
-   :param VelocityEstimator mode:
+    :param VelocityEstimator mode:
         Velocity estimator mode to use.
 
     :param int ID:
