@@ -15,6 +15,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.13"
+mock = "^5.1.0"
 
 [tool.poetry.group.docs]
 optional = true
