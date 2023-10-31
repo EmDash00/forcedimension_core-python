@@ -55,4 +55,4 @@ from forcedimension_core.dhd.constants import (
 )
 
 
-__version__ = '1.0.0'
+__version__ = '1.0.0rc1'
