@@ -1,27 +1,54 @@
-[build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "forcedimension_core"
+[tool.poetry]
+name = "forcedimension-core"
 version = "0.1.0"
-authors = [
-    { name="Ember Chow", email="emberchow.business@gmail.com" },
-]
-description = "Python Bindings for the ForceDimension SDK"
+description = "Unofficial Python Bindings for the Force Dimension SDK"
+authors = ["Ember Chow <emberchow.business@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.8"
-license = {file="LICENSE"}
+license = "LGPL-3.0-or-later"
+documentation = "https://force-dimension-core-python-documentation.readthedocs.io/en/latest/index.html"
+repository = "https://github.com/EmDash00/forcedimension_core-python"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Operating System :: POSIX :: Linux",
-    "Operating System :: Microsoft :: Windows",
+    "Python :: Implementation :: CPython",
+    "Python :: Implementation :: PyPy",
+    "Operating System :: OS Independent"
 ]
 
-[project.urls]
-"Homepage" = "https://github.com/EmDash00/forcedimension_core-python"
+[tool.poetry.dependencies]
+python = ">=3.8,<3.13"
+pydantic = "^2"
+typing-extensions = "^4.6.0"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^6.2.1"
+sphinx-rtd-theme = "^1.3.0"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+coveralls = "~3.3.1"
+coverage = { version = "*", extras = ["toml"] }
+flake8 = [
+  { version = "^5.0.0", python = "<3.8.1" },
+  { version = "^6.0.0", python = ">=3.8.1" },
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+branch = true
+omit = [
+  "tests",
+]
+
+[tool.coverage.report]
+omit = [
+  "tests/*",
+  "forcedimension_core/typing.py"
+]
+exclude_lines = [ "\\.\\.\\." ]
