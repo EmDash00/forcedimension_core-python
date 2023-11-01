@@ -7,7 +7,7 @@
 
 ## Installation
 
-v0.1.0 of the bindings bind Force Dimension SDK v3.14.0+. They are available through a PyPI package for Python 3.8+.
+v0.1.0 of the bindings target Force Dimension SDK v3.14.0+. They are available through a PyPI package for Python 3.8+.
 
 ```
 python3 -m pip install forcedimension_core
