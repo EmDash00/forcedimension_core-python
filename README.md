@@ -1,7 +1,7 @@
 # forcedimension_core-python
 
-![PyPI - Version](https://img.shields.io/pypi/v/forcedimension_core?logo=pypi)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/forcedimension_core?logo=python)  
+![PyPI - Version](https://img.shields.io/pypi/v/forcedimension-core?logo=pypi)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/forcedimension-core?logo=python)  
 [![Read the Docs](https://img.shields.io/readthedocs/forcedimension_core-python-docs?logo=Read%20the%20Docs)](https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/)  
 [![PyPI - License](https://img.shields.io/pypi/l/forcedimension-core)](LICENSE)
 
