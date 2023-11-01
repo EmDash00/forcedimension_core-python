@@ -1,3 +1,7 @@
+# Release 0.1.0 (November 1, 2023)
+
+No changes between 0.1.0rc3 and 0.1.0.
+
 # Release 0.1.0rc3 (November 1, 2023)
 
 Add proper links for the PyPI version, Python version, and LICENSE badge in the README.md.
