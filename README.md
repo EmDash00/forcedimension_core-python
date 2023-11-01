@@ -5,10 +5,6 @@
 [![Read the Docs](https://img.shields.io/readthedocs/forcedimension_core-python-docs?logo=Read%20the%20Docs)](https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/)  
 [![PyPI - License](https://img.shields.io/pypi/l/forcedimension-core)](https://github.com/EmDash00/forcedimension_core-python/blob/main/LICENSE)
 
-Looking for the documentation? You can find it here:
-
-https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/
-
 ## Installation
 
 v0.1.0 of the bindings bind Force Dimension SDK v3.14.0+. They are available through a PyPI package for Python 3.8+.
