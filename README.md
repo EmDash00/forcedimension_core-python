@@ -7,7 +7,7 @@
 
 Looking for the documentation? You can find it here:
 
-https://force-dimension-core-python-documentation.readthedocs.io/en/latest/
+https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/
 
 ## Installation
 
