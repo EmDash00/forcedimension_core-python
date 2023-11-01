@@ -81,7 +81,7 @@ python3 -m pip install forcedimension_core
 
 You will also need to install the Force Dimension SDK and setup any drivers
 or udev rules. If you are unfamiliar with how to do this please refer to the
-[detailed installation instructions](https://force-dimension-core-python-documentation.readthedocs.io/en/latest/installation.html).
+[detailed installation instructions](https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/installation.html).
 
 ## Licensing and Rights
 
