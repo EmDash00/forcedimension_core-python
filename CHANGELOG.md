@@ -1,4 +1,4 @@
-# Release 0.1.0rc1
+# Release 0.1.0rc1 (November 1, 2023)
 
 Refactor of Force Dimension SDK bindings from the `forcedimension` v0.1.6 package. All functionality is maintained from that release as well as some minor typo fixes.
 
