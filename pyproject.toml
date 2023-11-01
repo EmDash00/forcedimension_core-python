@@ -8,8 +8,8 @@ license = "LGPL-3.0"
 documentation = "https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/"
 repository = "https://github.com/EmDash00/forcedimension_core-python"
 classifiers = [
-    "Python :: Implementation :: CPython",
-    "Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
     "Operating System :: OS Independent"
 ]
 
