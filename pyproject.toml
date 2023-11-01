@@ -3,16 +3,21 @@ name = "forcedimension-core"
 version = "0.1.0"
 description = "Unofficial Python Bindings for the Force Dimension SDK"
 authors = ["Ember Chow <emberchow.business@gmail.com>"]
+include = ["CHANGELOG.md"]
 readme = "README.md"
 license = "LGPL-3.0"
 documentation = "https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/"
 repository = "https://github.com/EmDash00/forcedimension_core-python"
+keywords = ["forcedimension", "haptics", "bindings"]
 classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Operating System :: OS Independent",
     "Topic :: System :: Hardware :: Universal Serial Bus (USB) :: Human Interface Device (HID)"
 ]
+
+[tool.poetry.urls]
+Changelog = "https://github.com/EmDash00/forcedimension_core-python/blob/main/CHANGELOG.md"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.13"
