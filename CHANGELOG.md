@@ -1,3 +1,11 @@
+# Release 0.1.0rc3 (November 1, 2023)
+
+Add proper links for the PyPI version, Python version, and LICENSE badge in the README.md.
+
+# Release 0.1.0rc2 (November 1, 2023)
+
+Fix README.md Python version badge incorrectly linking the wrong PyPI package.
+
 # Release 0.1.0rc1 (November 1, 2023)
 
 Refactor of Force Dimension SDK bindings from the `forcedimension` v0.1.6 package. All functionality is maintained from that release as well as some minor typo fixes.
