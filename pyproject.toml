@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "forcedimension-core"
-version = "0.1.0"
+version = "0.1.0rc1"
 description = "Unofficial Python Bindings for the Force Dimension SDK"
 authors = ["Ember Chow <emberchow.business@gmail.com>"]
 include = ["CHANGELOG.md"]
