@@ -23,7 +23,7 @@ try:
 
         raise ImportError
     else:
-        import forcedimension_core.numpy_containers as numpy
+        import forcedimension_core.containers.numpy as numpy
 except ImportError:
     pass
 
