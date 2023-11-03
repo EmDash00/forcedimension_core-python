@@ -10,7 +10,7 @@ import pydantic as pyd
 import pydantic_core as pyd_core
 from pydantic_core import core_schema as _core_schema
 
-from forcedimension_core.dhd.constants import MAX_DOF, MAX_STATUS
+from forcedimension_core.constants import MAX_DOF, MAX_STATUS
 from forcedimension_core.typing import (
     CBoolLike, Pointer, c_double_ptr, c_int_ptr, c_ushort_ptr
 )

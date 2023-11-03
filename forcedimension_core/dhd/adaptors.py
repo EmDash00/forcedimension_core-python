@@ -2,7 +2,7 @@ import typing
 from enum import IntEnum
 from typing import Any, Callable, Dict, Optional
 
-from forcedimension_core.dhd.constants import (
+from forcedimension_core.constants import (
     DEFAULT_VELOCITY_WINDOW, MAX_STATUS,
     ComMode, DeviceType, ErrorNum, VelocityEstimatorMode
 )

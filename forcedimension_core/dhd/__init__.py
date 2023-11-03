@@ -5,7 +5,7 @@ from typing import Optional, Union
 
 import forcedimension_core.containers as containers
 import forcedimension_core.runtime as _runtime
-from forcedimension_core.dhd.constants import (
+from forcedimension_core.constants import (
     DEFAULT_VELOCITY_WINDOW,
     ComMode, DeviceType, ErrorNum, VelocityEstimatorMode
 )
@@ -406,7 +406,7 @@ def checkControllerMemory(ID: int = -1) -> int:
 
     :returns:
         0 on success,
-        :data:`forcedimension_core.dhd.constants.ErrorNum.CONFIGURATION`
+        :data:`forcedimension_core.constants.ErrorNum.CONFIGURATION`
         if the firmware or internal configuration health check
         failed.
     """
@@ -899,7 +899,7 @@ def getButton(index: int, ID: int = -1) -> int:
 
     :param int index:
         button index, 0 for the gripper button up to
-        :data:`forcedimension_core.dhd.constants.MAX_BUTTONS`
+        :data:`forcedimension_core.constants.MAX_BUTTONS`
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -1247,7 +1247,7 @@ def waitForReset(timeout: Optional[int] = None, ID: int = -1) -> int:
 
     If the timeout is reached, the call returns with error and
     :func:`forcedimension_core.dhd.dhdErrorGetLast()` will return
-    :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
+    :data:`forcedimension_core.constants.ErrorNum.TIMEOUT`.
 
     :param Optional[int] timeout:
         Maximum time to wait for calibration (in [ms]).
@@ -1649,7 +1649,7 @@ def setForce(f: Array[int, float], ID: int = -1) -> int:
         If ``f`` is not subscriptable.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
+        0 or :data:`forcedimension_core.constants.MOTOR_SATURATED`
         on success, -1 otherwise.
 
     See Also
@@ -1688,9 +1688,9 @@ def getOrientationRad(out: MutableArray[int, float], ID: int = -1) -> int:
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_RIGHT`
     and
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_LEFT`
     have angles that are instead computed with respect to their
     internal reference frame, which is rotated π/4 radians around
     the Y axis. Please refer to your device user manual for more
@@ -1716,7 +1716,7 @@ def getOrientationRad(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -1764,9 +1764,9 @@ def getOrientationDeg(out: MutableArray[int, float], ID: int = -1) -> int:
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_RIGHT`
     and
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_LEFT`
     have angles that are instead computed with respect to their
     internal reference frame, which is rotated π/4 radians around
     the Y axis. Please refer to your device user manual for more
@@ -1791,7 +1791,7 @@ def getOrientationDeg(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -1847,9 +1847,9 @@ def getPositionAndOrientationRad(
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_RIGHT`
     and
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_LEFT`
     have angles that are instead computed with respect to their
     internal reference frame, which is rotated π/4 radians around
     the Y axis. Please refer to your device user manual for more
@@ -1886,7 +1886,7 @@ def getPositionAndOrientationRad(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -1951,9 +1951,9 @@ def getPositionAndOrientationDeg(
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_RIGHT`
     and
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_LEFT`
     have angles that are instead computed with respect to their
     internal reference frame, which is rotated π/4 radians around
     the Y axis. Please refer to your device user manual for more
@@ -1990,7 +1990,7 @@ def getPositionAndOrientationDeg(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2053,9 +2053,9 @@ def getPositionAndOrientationFrame(
 
     Note
     ----
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_RIGHT`
     and
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_LEFT`
     have angles that are instead computed with respect to their
     internal reference frame, which is rotated π/4 radians around
     the Y axis. Please refer to your device user manual for more
@@ -2087,7 +2087,7 @@ def getPositionAndOrientationFrame(
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2263,7 +2263,7 @@ def setForceAndTorque(
         If ``len(t) < 3``.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
+        0 or :data:`forcedimension_core.constants.MOTOR_SATURATED`
         on success, and -1 otherwise.
 
     See Also
@@ -2315,7 +2315,7 @@ def getOrientationFrame(
         If ``out`` any dimension of out is less than length 3.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2362,7 +2362,7 @@ def getGripperAngleDeg(out: c_double, ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2401,7 +2401,7 @@ def getGripperAngleRad(out: c_double, ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2439,7 +2439,7 @@ def getGripperGap(out: c_double, ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2483,7 +2483,7 @@ def getGripperThumbPos(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2545,7 +2545,7 @@ def getGripperFingerPos(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2648,7 +2648,7 @@ def setForceAndGripperForce(
         If ``len(f) < 3``
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
+        0 or :data:`forcedimension_core.constants.MOTOR_SATURATED`
         on success, -1 otherwise.
 
     See Also
@@ -2742,7 +2742,7 @@ def setForceAndTorqueAndGripperForce(
 
     :returns:
         0 or
-        :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
+        :data:`forcedimension_core.constants.MOTOR_SATURATED`
         on success, and -1 otherwise.
 
     See Also
@@ -2915,7 +2915,7 @@ def getLinearVelocity(out: MutableArray[int, float], ID: int = -1) -> int:
     are no calls to :func:`forcedimension_core.dhd.getPosition()`
     or :func:`forcedimension_core.dhd.getLinearVelocity()`, this
     function will error with
-    :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
+    :data:`forcedimension_core.constants.ErrorNum.TIMEOUT`.
     For more information refer to :ref:`velocity_estimator`.
 
 
@@ -3026,7 +3026,7 @@ def getAngularVelocityRad(out: MutableArray[int, float], ID: int = -1) -> int:
     are no  calls to :func:`forcedimension_core.dhd.getPosition()`
     or :func:`forcedimension_core.dhd.getAngularVelocityRad()`,
     this function will return error with
-    :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
+    :data:`forcedimension_core.constants.ErrorNum.TIMEOUT`.
     For more information refer to :ref:`velocity_estimator`.
 
 
@@ -3093,7 +3093,7 @@ def getAngularVelocityDeg(out: MutableArray[int, float], ID: int = -1) -> int:
     are no calls to :func:`forcedimension_core.dhd.getPosition()`
     or :func:`forcedimension_core.dhd.getAngularVelocityDeg()`,
     this function will error with
-    :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
+    :data:`forcedimension_core.constants.ErrorNum.TIMEOUT`.
     For more information refer to :ref:`velocity_estimator`.
 
 
@@ -3200,7 +3200,7 @@ def getGripperLinearVelocity(out: c_double, ID: int = -1) -> int:
     are no calls to :func:`forcedimension_core.dhd.getGripperGap()`
     or :func:`forcedimension_core.dhd.getGripperLinearVelocity()`,
     this function will error with
-    :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
+    :data:`forcedimension_core.constants.ErrorNum.TIMEOUT`.
     For more information please refer to :ref:`velocity_estimator`
 
 
@@ -3246,7 +3246,7 @@ def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.getGripperGap()` or
     :func:`forcedimension_core.dhd.getGripperAngularVelocityRad()`,
     this function will error with
-    :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
+    :data:`forcedimension_core.constants.ErrorNum.TIMEOUT`.
     For more information please refer to :ref:`velocity_estimator`
 
 
@@ -3294,7 +3294,7 @@ def getGripperAngularVelocityDeg(out: c_double, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.getGripperGap()` or
     :func:`forcedimension_core.dhd.getGripperAngularVelocityDeg()`,
     this funtion will error with
-    :data:`forcedimension_core.dhd.constants.ErrorNum.TIMEOUT`.
+    :data:`forcedimension_core.constants.ErrorNum.TIMEOUT`.
     For more information refer to :ref:`velocity_estimator`
 
 

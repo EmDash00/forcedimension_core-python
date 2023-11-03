@@ -5,7 +5,7 @@ from typing import Any
 import unittest
 from forcedimension_core import containers, drd, runtime
 
-from forcedimension_core.dhd.constants import MAX_DOF, ErrorNum
+from forcedimension_core.constants import MAX_DOF, ErrorNum
 
 
 libdrd = runtime._libdrd

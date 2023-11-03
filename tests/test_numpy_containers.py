@@ -6,7 +6,7 @@ import pydantic
 import numpy as np
 
 import forcedimension_core.containers as containers
-from forcedimension_core.dhd.constants import MAX_DOF, MAX_STATUS
+from forcedimension_core.constants import MAX_DOF, MAX_STATUS
 
 class TestNumpyContainers(unittest.TestCase):
     def assertSequenceAlmostEqual(self, seq1, seq2):

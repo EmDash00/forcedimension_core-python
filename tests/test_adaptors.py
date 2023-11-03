@@ -27,7 +27,7 @@ from forcedimension_core.dhd.adaptors import (
     DHDErrorRedundantFail,
     DHDErrorTimeout, Handedness
 )
-from forcedimension_core.dhd.constants import (ComMode, DeviceType, ErrorNum,
+from forcedimension_core.constants import (ComMode, DeviceType, ErrorNum,
                                                VelocityEstimatorMode)
 
 from forcedimension_core.drd.adaptors import TrajectoryGenParams

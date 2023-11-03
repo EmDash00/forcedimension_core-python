@@ -81,7 +81,7 @@ def getPositionAndOrientation(
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
     """
 

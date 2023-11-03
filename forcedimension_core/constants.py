@@ -156,12 +156,12 @@ class ForceOffCause(IntEnum):
 class ComMode(IntEnum):
     """
     Communication mode with the device. USB operations using
-    :data:`forcedimension.dhd.constants.ComMode.SYNC` and
-    :data:`forcedimension.dhd.constants.ComMode.ASYNC`.
+    :data:`forcedimension.constants.ComMode.SYNC` and
+    :data:`forcedimension.constants.ComMode.ASYNC`.
     Other operation modes are reported for virtual devices
-    (:data:`forcedimension.dhd.constants.ComMode.VIRTUAL`) and devices that are
+    (:data:`forcedimension.constants.ComMode.VIRTUAL`) and devices that are
     connected over the network
-    (:data:`forcedimension.dhd.constants.ComMode.NETWORK`).
+    (:data:`forcedimension.constants.ComMode.NETWORK`).
     """
     #: The synchronous USB mode performs USB read and write operations in
     #: sequence, allowing for a theoretical haptic refresh rate of 4 kHz.

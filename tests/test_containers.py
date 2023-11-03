@@ -7,7 +7,7 @@ from random import randint, random
 import pydantic
 
 import forcedimension_core.containers as containers
-from forcedimension_core.dhd.constants import MAX_DOF, MAX_STATUS
+from forcedimension_core.constants import MAX_DOF, MAX_STATUS
 
 
 class TestContainers(unittest.TestCase):

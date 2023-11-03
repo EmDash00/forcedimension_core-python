@@ -5,7 +5,7 @@ from typing import Tuple
 import typing_extensions
 
 import forcedimension_core.runtime as _runtime
-from forcedimension_core.dhd.constants import MAX_DOF, ComMode, DeviceType
+from forcedimension_core.constants import MAX_DOF, ComMode, DeviceType
 from forcedimension_core.typing import (
     Array, FloatDOFTuple, MutableArray,
     c_double_ptr, c_int_ptr, c_ubyte_ptr, c_uint_ptr, c_ushort_ptr
@@ -61,7 +61,7 @@ def preset(val: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
 
     :param Array[int, int] val:
         Vector of encoder offsets refering to each DOF with length
-        :data:`forcedimension_core.dhd.constants.MAX_DOF`.
+        :data:`forcedimension_core.constants.MAX_DOF`.
 
     :param int mask:
         Bitwise mask of which encoder should be set.
@@ -258,7 +258,7 @@ def getDeltaEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, and -1 otherwise.
 
     See Also
@@ -319,7 +319,7 @@ def getWristEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD` on success,
+        0 or :data:`forcedimension_core.constants.TIMEGUARD` on success,
         -1 otherwise.
 
     See Also
@@ -371,7 +371,7 @@ def getGripperEncoder(out: c_int, ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
     """
 
@@ -388,7 +388,7 @@ def getEncoder(index: int, ID: int = -1) -> int:
 
     :param int index:
         The motor index number as defined by
-        :data:`forcedimension_core.dhd.constants.MAX_DOF`
+        :data:`forcedimension_core.constants.MAX_DOF`
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -419,7 +419,7 @@ def setMotor(index: int, output: int, ID: int = -1) -> int:
 
     :param int index:
         The motor index number as defined by
-        :data:`forcedimension_core.dhd.constants.MAX_DOF`
+        :data:`forcedimension_core.constants.MAX_DOF`
 
     :param int output:
         The motor DAa C char.
@@ -505,8 +505,8 @@ def setWristMotor(output: Array[int, int], ID: int = -1) -> int:
     ----
     This feature only applies to the following devices:
 
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.SIGMA7_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.SIGMA7_LEFT`
 
 
     :param Array[int, int] output:
@@ -887,7 +887,7 @@ def deltaForceToMotor(
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
+        0 or :data:`forcedimension_core.constants.MOTOR_SATURATED`
         on success, and -1 otherwise.
 
     See Also
@@ -934,9 +934,9 @@ def wristEncoderToOrientation(
     Note
     ----
     For the
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_RIGHT`
     and the
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_LEFT`
     devices, angles are computed with respect to their internal
     reference frame, which is rotated 45 degrees or π/4 radians
     about the Y axis. Please refer to your device user manual for
@@ -1027,9 +1027,9 @@ def wristOrientationToEncoder(
     Note
     ----
     For the
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6`
     and
-    :data:`forcedimension_core.dhd.constants.DeviceType.OMEGA6_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.OMEGA6_LEFT`
     devices, angles must be expressed with respect to their
     internal reference frame, which is rotated 45 degrees or π/4
     radians about the Y axis. Please refer to  your device user
@@ -1126,8 +1126,8 @@ def wristMotorToTorque(
     ----
     This feature only applies to the following devices:
 
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.SIGMA7_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.SIGMA7_LEFT`
 
 
     :param Array[int, int] cmd:
@@ -1227,8 +1227,8 @@ def wristTorqueToMotor(
     ----
     This feature only applies to the following devices:
 
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_RIGHT`
-    :data:`forcedimension_core.dhd.constants.DeviceType.SIGMA7_LEFT`
+    :data:`forcedimension_core.constants.DeviceType.SIGMA7_RIGHT`
+    :data:`forcedimension_core.constants.DeviceType.SIGMA7_LEFT`
 
 
     :param Array[int, float] t:
@@ -1340,7 +1340,7 @@ def gripperEncoderToAngleRad(enc: int, out: c_double, ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -1609,7 +1609,7 @@ def gripperForceToMotor(
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
+        0 or :data:`forcedimension_core.constants.MOTOR_SATURATED`
         on success, -1 otherwise.
 
     See Also
@@ -1835,7 +1835,7 @@ def getEnc(out: MutableArray[int, int], mask: int = 0xff, ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -1922,7 +1922,7 @@ def getDeltaJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -1978,7 +1978,7 @@ def getDeltaJacobian(
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2382,7 +2382,7 @@ def getWristJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -2438,7 +2438,7 @@ def getWristJacobian(
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, and -1 otherwise.
 
     See Also
@@ -2978,7 +2978,7 @@ def getJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -3033,7 +3033,7 @@ def getJointVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
 
     See Also
@@ -3080,7 +3080,7 @@ def getEncVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
         If ``ID`` is not implicitly convertible to a C char.
 
     :returns:
-       0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+       0 or :data:`forcedimension_core.constants.TIMEGUARD`
        on success, -1 otherwise.
 
     See Also
@@ -3211,7 +3211,7 @@ def jointAnglesToGravityJointTorques(
         C char.
 
     :raises IndexError:
-        If ``len(joint_angles) < forcedimension_core.dhd.constants.MAX_DOF``.
+        If ``len(joint_angles) < forcedimension_core.constants.MAX_DOF``.
 
     :raises TypeError:
         If ``joint_angles`` is not subscriptable.
@@ -3222,7 +3222,7 @@ def jointAnglesToGravityJointTorques(
 
     :raises IndexError:
         If ``len(out)`` is less than
-        :data:`forcedimension_core.dhd.constants.MAX_DOF`.
+        :data:`forcedimension_core.constants.MAX_DOF`.
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -3389,7 +3389,7 @@ def getEncRange(
 
     :raises IndexError:
         If either enc_min_out or enc_max_out have length less
-        than :data:`forcedimension_core.dhd.constants.MAX_DOF`
+        than :data:`forcedimension_core.constants.MAX_DOF`
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.
@@ -3446,7 +3446,7 @@ def getJointAngleRange(
 
     :raises IndexError:
         If either jmin_out or jmax_out have length less than
-        :data:`forcedimension_core.dhd.constants.MAX_DOF`
+        :data:`forcedimension_core.constants.MAX_DOF`
 
     :raises ctypes.ArgumentError:
         If ``ID`` is not implicitly convertible to a C char.

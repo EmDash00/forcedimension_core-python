@@ -4,7 +4,7 @@ from typing import Tuple
 
 import forcedimension_core.runtime as _runtime
 
-from forcedimension_core.dhd.constants import MAX_DOF
+from forcedimension_core.constants import MAX_DOF
 from forcedimension_core.drd.adaptors import (
     DEFAULT_ENC_MOVE_PARAMS,
     DEFAULT_ENC_TRACK_PARAMS,
@@ -678,7 +678,7 @@ def setForceAndTorqueAndGripperForce(
 
     :returns:
         0 or
-        :data:`forcedimension_core.dhd.constants.MOTOR_SATURATED`
+        :data:`forcedimension_core.constants.MOTOR_SATURATED`
         on success, and -1 otherwise.
     """
 
@@ -861,7 +861,7 @@ def getPositionAndOrientation(
         If ``ID`` is not implicitly convertible to a C int.
 
     :returns:
-        0 or :data:`forcedimension_core.dhd.constants.TIMEGUARD`
+        0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
     """
 

@@ -9,7 +9,7 @@ from forcedimension_core import containers
 
 import forcedimension_core.dhd as dhd
 import forcedimension_core.runtime as runtime
-from forcedimension_core.dhd.constants import MAX_DOF, ComMode, DeviceType, ErrorNum
+from forcedimension_core.constants import MAX_DOF, ComMode, DeviceType, ErrorNum
 
 libdhd = runtime._libdhd
 

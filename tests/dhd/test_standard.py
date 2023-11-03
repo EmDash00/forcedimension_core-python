@@ -10,8 +10,9 @@ from forcedimension_core.containers import Status
 
 import forcedimension_core.dhd as dhd
 import forcedimension_core.runtime as runtime
-from forcedimension_core import ErrorNum
-from forcedimension_core.dhd.constants import MAX_STATUS, ComMode, DeviceType, VelocityEstimatorMode
+from forcedimension_core.constants import (
+    MAX_STATUS, ComMode, DeviceType, ErrorNum, VelocityEstimatorMode
+)
 
 libdhd = runtime._libdhd
 
