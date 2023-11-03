@@ -4,7 +4,7 @@ import unittest
 import pydantic
 
 import forcedimension_core as fd
-from forcedimension_core.dhd.adaptors import (
+from forcedimension_core import (
     DHDError, DHDErrorArgument,
     DHDErrorCom,
     DHDErrorConfiguration,
