@@ -17,6 +17,31 @@ from forcedimension_core.typing import (
 from . import deprecated
 from . import direct as direct
 from . import expert, os_independent
+from .adaptors import (
+    DHDError,
+    DHDIOError,
+    DHDErrorCom,
+    DHDErrorDHCBusy,
+    DHDErrorNoDriverFound,
+    DHDErrorNoDeviceFound,
+    DHDErrorFeatureNotAvailable,
+    DHDErrorTimeout,
+    DHDErrorGeometry,
+    DHDErrorExpertModeDisabled,
+    DHDErrorNotImplemented,
+    DHDErrorMemory,
+    DHDErrorDeviceNotReady,
+    DHDErrorFileNotFound,
+    DHDErrorConfiguration,
+    DHDErrorInvalidIndex,
+    DHDErrorDeprecated,
+    DHDErrorNullArgument,
+    DHDErrorRedundantFail,
+    DHDErrorFeatureNotEnabled,
+    DHDErrorDeviceInUse,
+    DHDErrorArgument,
+    DHDErrorNoRegulation
+)
 
 _runtime._libdhd.dhdErrorGetLast.argtypes = []
 _runtime._libdhd.dhdErrorGetLast.restype = c_int

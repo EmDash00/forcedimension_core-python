@@ -1,8 +1,10 @@
+#! /usr/bin/env python3
+
 import sys
 
-import forcedimension_core as fd
+import forcedimension_core as fdsdk
 from forcedimension_core import dhd
-from forcedimension_core.dhd.adaptors import DHDError
+from forcedimension_core import DHDError
 from forcedimension_core.dhd.os_independent import kbGet, kbHit
 
 b = 5  # damping coefficient in [N][s]/[m]
@@ -26,8 +28,8 @@ try:
 
     # Make closing a gripper be an emulated as a button on button ID 0.
     if dhd.emulateButton(True, ID) == -1:
-        if dhd.errorGetLast() != fd.ErrorNum.NOT_AVAILABLE:
-            raise fd.errno_to_exception(dhd.errorGetLast())(
+        if dhd.errorGetLast() != fdsdk.constants.ErrorNum.NOT_AVAILABLE:
+            raise fdsdk.errno_to_exception(dhd.errorGetLast())(
                 op='forcedimension_core.dhd.emulateButton', ID=ID
             )
 
@@ -39,13 +41,13 @@ try:
     while not (btn_state or (kbHit() and kbGet() == 'q')):
         # Try to get the position
         if (dhd.getPosition(out=pos, ID=ID) == -1):
-            raise fd.errno_to_exception(dhd.errorGetLast())(
+            raise fdsdk.errno_to_exception(dhd.errorGetLast())(
                 op='forcedimension_core.dhd.getPosition', ID=ID
             )
 
         # Try to get the velocity
         if (dhd.getLinearVelocity(out=v, ID=ID) == -1):
-            raise fd.errno_to_exception(dhd.errorGetLast())(
+            raise fdsdk.errno_to_exception(dhd.errorGetLast())(
                 op='forcedimension_core.dhd.getLinearVelocity', ID=ID
             )
 
@@ -56,12 +58,12 @@ try:
 
         # Try to set the force
         if (dhd.setForce(f, ID=ID) == -1):
-            raise fd.errno_to_exception(dhd.errorGetLast())(
+            raise fdsdk.errno_to_exception(dhd.errorGetLast())(
                 op='forcedimension_core.dhd.setForce', ID=ID
             )
 
         if (btn_state := dhd.getButton(index=0, ID=ID)) == -1:
-            raise fd.errno_to_exception(dhd.errorGetLast())(
+            raise fdsdk.errno_to_exception(dhd.errorGetLast())(
                 op='forcedimension_core.dhd.getButton', ID=ID
             )
 

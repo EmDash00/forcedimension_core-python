@@ -4,8 +4,10 @@ import unittest
 import pydantic
 
 import forcedimension_core as fd
-from forcedimension_core import (
-    DHDError, DHDErrorArgument,
+from forcedimension_core import Handedness
+from forcedimension_core.dhd.adaptors import (
+    DHDError,
+    DHDErrorArgument,
     DHDErrorCom,
     DHDErrorConfiguration,
     DHDErrorDeprecated,
@@ -25,7 +27,7 @@ from forcedimension_core import (
     DHDErrorNotImplemented,
     DHDErrorNullArgument,
     DHDErrorRedundantFail,
-    DHDErrorTimeout, Handedness
+    DHDErrorTimeout
 )
 from forcedimension_core.constants import (ComMode, DeviceType, ErrorNum,
                                                VelocityEstimatorMode)
