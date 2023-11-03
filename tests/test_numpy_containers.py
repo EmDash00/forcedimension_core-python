@@ -144,15 +144,15 @@ class TestNumpyContainers(unittest.TestCase):
 
     def testDOFIntArray(self):
         self.assertRaises(
-            ValueError, lambda: containers.numpy.DOFIntArray([0] * (MAX_DOF - 1))
+            ValueError, lambda: containers.numpy.DOFInt([0] * (MAX_DOF - 1))
         )
         self.assertRaises(
-            ValueError, lambda: containers.numpy.DOFIntArray([0] * (MAX_DOF + 1))
+            ValueError, lambda: containers.numpy.DOFInt([0] * (MAX_DOF + 1))
         )
 
         dofs = [randint(0, 100) for _ in range(MAX_DOF)]
 
-        dof_ints = containers.numpy.DOFIntArray(dofs)
+        dof_ints = containers.numpy.DOFInt(dofs)
         self.assertEqual(MAX_DOF, len(dof_ints))
         self.assertTrue(np.shares_memory(dof_ints.delta, dof_ints[:3]))
         self.assertTrue(np.shares_memory(dof_ints.wrist, dof_ints[3:6]))
@@ -173,15 +173,15 @@ class TestNumpyContainers(unittest.TestCase):
 
     def testDOFMotorArray(self):
         self.assertRaises(
-            ValueError, lambda: containers.numpy.DOFMotorArray([0] * (MAX_DOF - 1))
+            ValueError, lambda: containers.numpy.DOFMotor([0] * (MAX_DOF - 1))
         )
         self.assertRaises(
-            ValueError, lambda: containers.numpy.DOFMotorArray([0] * (MAX_DOF + 1))
+            ValueError, lambda: containers.numpy.DOFMotor([0] * (MAX_DOF + 1))
         )
 
         dofs = [randint(0, 100) for _ in range(MAX_DOF)]
 
-        dof_mots = containers.numpy.DOFMotorArray(dofs)
+        dof_mots = containers.numpy.DOFMotor(dofs)
         self.assertEqual(MAX_DOF, len(dof_mots))
 
         for i in range(MAX_DOF):
@@ -193,15 +193,15 @@ class TestNumpyContainers(unittest.TestCase):
 
     def testDOFFloatArray(self):
         self.assertRaises(
-            ValueError, lambda: containers.numpy.DOFFloatArray([0] * (MAX_DOF - 1))
+            ValueError, lambda: containers.numpy.DOFFloat([0] * (MAX_DOF - 1))
         )
         self.assertRaises(
-            ValueError, lambda: containers.numpy.DOFFloatArray([0] * (MAX_DOF + 1))
+            ValueError, lambda: containers.numpy.DOFFloat([0] * (MAX_DOF + 1))
         )
 
         dofs = [random() for _ in range(MAX_DOF)]
 
-        dof_floats = containers.numpy.DOFFloatArray(dofs)
+        dof_floats = containers.numpy.DOFFloat(dofs)
         self.assertAlmostEqual(MAX_DOF, len(dof_floats))
 
         self.assertTrue(np.shares_memory(dof_floats.delta, dof_floats[:3]))
@@ -327,16 +327,16 @@ class TestNumpyContainers(unittest.TestCase):
                 default_factory=containers.numpy.Enc4
             )
 
-            dofint: containers.numpy.DOFIntArray = pydantic.Field(
-                default_factory=containers.numpy.DOFIntArray
+            dofint: containers.numpy.DOFInt = pydantic.Field(
+                default_factory=containers.numpy.DOFInt
             )
 
-            dofmotor: containers.numpy.DOFMotorArray = pydantic.Field(
-                default_factory=containers.numpy.DOFMotorArray
+            dofmotor: containers.numpy.DOFMotor = pydantic.Field(
+                default_factory=containers.numpy.DOFMotor
             )
 
-            doffloat: containers.numpy.DOFFloatArray = pydantic.Field(
-                default_factory=containers.numpy.DOFFloatArray
+            doffloat: containers.numpy.DOFFloat = pydantic.Field(
+                default_factory=containers.numpy.DOFFloat
             )
 
             mat3x3: containers.numpy.Mat3x3 = pydantic.Field(
@@ -353,27 +353,27 @@ class TestNumpyContainers(unittest.TestCase):
         self.assertIsInstance(data.enc3, containers.numpy.Mot3)
         self.assertIsInstance(data.mot3, containers.numpy.Mot3)
         self.assertIsInstance(data.enc4, containers.numpy.Enc4)
-        self.assertIsInstance(data.dofint, containers.numpy.DOFIntArray)
-        self.assertIsInstance(data.dofmotor, containers.numpy.DOFMotorArray)
-        self.assertIsInstance(data.doffloat, containers.numpy.DOFFloatArray)
+        self.assertIsInstance(data.dofint, containers.numpy.DOFInt)
+        self.assertIsInstance(data.dofmotor, containers.numpy.DOFMotor)
+        self.assertIsInstance(data.doffloat, containers.numpy.DOFFloat)
         self.assertIsInstance(data.mat3x3, containers.numpy.Mat3x3)
         self.assertIsInstance(data.mat6x6, containers.numpy.Mat6x6)
 
         self.assertTrue(np.allclose(data.vec3, containers.numpy.Vector3()))  # type: ignore
         self.assertTrue(np.array_equal(data.enc3, containers.numpy.Mot3()))  # type: ignore
         self.assertTrue(np.array_equal(data.enc4, containers.numpy.Enc4()))  # type: ignore
-        self.assertTrue(np.array_equal(data.dofint, containers.numpy.DOFIntArray()))  # type: ignore
-        self.assertTrue(np.array_equal(data.dofmotor, containers.numpy.DOFMotorArray()))  # type: ignore
-        self.assertTrue(np.allclose(data.doffloat, containers.numpy.DOFFloatArray()))  # type: ignore
+        self.assertTrue(np.array_equal(data.dofint, containers.numpy.DOFInt()))  # type: ignore
+        self.assertTrue(np.array_equal(data.dofmotor, containers.numpy.DOFMotor()))  # type: ignore
+        self.assertTrue(np.allclose(data.doffloat, containers.numpy.DOFFloat()))  # type: ignore
         self.assertTrue(np.allclose(data.mat3x3, containers.numpy.Mat3x3()))  # type: ignore
         self.assertTrue(np.allclose(data.mat6x6, containers.numpy.Mat6x6()))  # type: ignore
 
         enc3 = containers.numpy.Enc3(tuple(randint(0, 100) for _ in range(3)))
         mot3 = containers.numpy.Mot3(tuple(randint(0, 100) for _ in range(3)))
         enc4 = containers.numpy.Enc4(tuple(randint(0, 100) for _ in range(4)))
-        dofint = containers.numpy.DOFIntArray(tuple(randint(0, 100) for _ in range(MAX_DOF)))
-        dofmotor= containers.numpy.DOFMotorArray(tuple(randint(0, 100) for _ in range(MAX_DOF)))
-        doffloat = containers.numpy.DOFFloatArray(tuple(random() for _ in range(MAX_DOF)))
+        dofint = containers.numpy.DOFInt(tuple(randint(0, 100) for _ in range(MAX_DOF)))
+        dofmotor= containers.numpy.DOFMotor(tuple(randint(0, 100) for _ in range(MAX_DOF)))
+        doffloat = containers.numpy.DOFFloat(tuple(random() for _ in range(MAX_DOF)))
         mat3x3 = containers.numpy.Mat3x3(tuple(random() for _ in range(3 * 3)))
         mat6x6 = containers.numpy.Mat6x6(tuple(random() for _ in range(6 * 6)))
 

@@ -312,15 +312,15 @@ class TestContainers(unittest.TestCase):
 
     def testDOFMotorArray(self):
         self.assertRaises(
-            ValueError, lambda: containers.DOFMotorArray([0] * (MAX_DOF - 1))
+            ValueError, lambda: containers.DOFMotor([0] * (MAX_DOF - 1))
         )
         self.assertRaises(
-            ValueError, lambda: containers.DOFMotorArray([0] * (MAX_DOF + 1))
+            ValueError, lambda: containers.DOFMotor([0] * (MAX_DOF + 1))
         )
 
         dofs = [randint(0, 100) for _ in range(MAX_DOF)]
 
-        dof_mots = containers.DOFMotorArray(dofs)
+        dof_mots = containers.DOFMotor(dofs)
         self.assertEqual(MAX_DOF, len(dof_mots))
 
         for i in range(MAX_DOF):
@@ -471,8 +471,8 @@ class TestContainers(unittest.TestCase):
                 default_factory=containers.DOFInt
             )
 
-            dofmotor: containers.DOFMotorArray = pydantic.Field(
-                default_factory=containers.DOFMotorArray
+            dofmotor: containers.DOFMotor = pydantic.Field(
+                default_factory=containers.DOFMotor
             )
 
             doffloat: containers.DOFFloat = pydantic.Field(
@@ -495,7 +495,7 @@ class TestContainers(unittest.TestCase):
         self.assertIsInstance(data.mot3, containers.Mot3)
         self.assertIsInstance(data.enc4, containers.Enc4)
         self.assertIsInstance(data.dofint, containers.DOFInt)
-        self.assertIsInstance(data.dofmotor, containers.DOFMotorArray)
+        self.assertIsInstance(data.dofmotor, containers.DOFMotor)
         self.assertIsInstance(data.doffloat, containers.DOFFloat)
         self.assertIsInstance(data.mat3x3, containers.Mat3x3)
         self.assertIsInstance(data.mat6x6, containers.Mat6x6)
@@ -509,7 +509,7 @@ class TestContainers(unittest.TestCase):
         self.assertSequenceEqual(data.enc3, containers.Mot3())  # type: ignore
         self.assertSequenceEqual(data.enc4, containers.Enc4())  # type: ignore
         self.assertSequenceEqual(data.dofint, containers.DOFInt())  # type: ignore
-        self.assertSequenceEqual(data.dofmotor, containers.DOFMotorArray())  # type: ignore
+        self.assertSequenceEqual(data.dofmotor, containers.DOFMotor())  # type: ignore
         self.assertSequenceAlmostEqual(data.doffloat, containers.DOFFloat())  # type: ignore
 
         for i in range(3):
@@ -527,7 +527,7 @@ class TestContainers(unittest.TestCase):
         mot3 = containers.Mot3(randint(0, 100) for _ in range(3))
         enc4 = containers.Enc4(randint(0, 100) for _ in range(4))
         dofint = containers.DOFInt(randint(0, 100) for _ in range(MAX_DOF))
-        dofmotor= containers.DOFMotorArray(randint(0, 100) for _ in range(MAX_DOF))
+        dofmotor= containers.DOFMotor(randint(0, 100) for _ in range(MAX_DOF))
         doffloat = containers.DOFFloat(random() for _ in range(MAX_DOF))
         mat3x3 = containers.Mat3x3(random() for _ in range(3 * 3))
         mat6x6 = containers.Mat6x6(random() for _ in range(6 * 6))

@@ -537,7 +537,7 @@ class DOFInt(array):
         return self._ptr
 
 
-class DOFMotorArray(array):
+class DOFMotor(array):
     """
     Represents an array of motor commands as a Python ``array.array``.
     """
@@ -545,7 +545,7 @@ class DOFMotorArray(array):
     def __new__(
         cls, initializer: Iterable[int] = tuple(0 for _ in range(MAX_DOF))
     ):
-        arr = super(DOFMotorArray, cls).__new__(
+        arr = super(DOFMotor, cls).__new__(
             cls, 'H', initializer  # type: ignore
         )
 

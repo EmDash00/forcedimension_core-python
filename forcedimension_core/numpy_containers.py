@@ -207,7 +207,7 @@ class Enc4(np.ndarray):
         return self._ptr
 
 
-class DOFIntArray(np.ndarray):
+class DOFInt(np.ndarray):
     """
     Represents an array of encoder values for each degree-of-freedom as a
     view over a `numpy.ndarray`.
@@ -265,7 +265,7 @@ class DOFIntArray(np.ndarray):
         return self._gripper
 
 
-class DOFMotorArray(np.ndarray):
+class DOFMotor(np.ndarray):
     """
     Represents an array of motor commands for each degree-of-freedom as
     a view over a `numpy.ndarray`.
@@ -300,7 +300,7 @@ class DOFMotorArray(np.ndarray):
         return self._ptr
 
 
-class DOFFloatArray(np.ndarray):
+class DOFFloat(np.ndarray):
     """
     A class representing an array of joint angles for all
     degree-of-freedoms as a view over a `numpy.ndarray`.
