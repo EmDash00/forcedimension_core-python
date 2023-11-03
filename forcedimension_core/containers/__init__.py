@@ -3,7 +3,6 @@ from __future__ import annotations
 import ctypes as ct
 from array import array
 from ctypes import c_int
-import os
 from typing import Any, Iterable, NamedTuple, Tuple
 from typing_extensions import overload
 
@@ -17,13 +16,7 @@ from forcedimension_core.typing import (
 )
 
 try:
-    if os.environ.get('__fdsdkpy_unittest_opt_has_numpy__', 'True') != 'True':
-        if 'numpy' in globals():
-            del numpy  # type: ignore
-
-        raise ImportError
-    else:
-        import forcedimension_core.containers.numpy as numpy
+    import forcedimension_core.containers.numpy as numpy
 except ImportError:
     pass
 

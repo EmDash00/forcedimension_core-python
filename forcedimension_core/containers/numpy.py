@@ -4,8 +4,15 @@ import ctypes
 from ctypes import c_double, c_int, c_ushort
 from typing import Any, Tuple
 
-import numpy as np
-import numpy.typing as npt
+try:
+    import numpy as np
+    import numpy.typing as npt
+except ModuleNotFoundError as ex:
+    raise ImportError(
+        "Optional dependency numpy as not found. NumPy containers not "
+        "available. Use the basic containers instead."
+    ) from ex
+
 import pydantic as pyd
 import pydantic_core as pyd_core
 from pydantic_core import core_schema as _core_schema
