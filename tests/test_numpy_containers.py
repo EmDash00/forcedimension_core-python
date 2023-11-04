@@ -19,10 +19,10 @@ class TestNumpyContainers(unittest.TestCase):
         y = random()
         z = random()
 
-        self.assertRaises(ValueError, lambda: containers.numpy.Vector3((x, y, z, 0)))
-        self.assertRaises(ValueError, lambda: containers.numpy.Vector3((x, y)))
+        self.assertRaises(ValueError, lambda: containers.numpy.Vec3((x, y, z, 0)))
+        self.assertRaises(ValueError, lambda: containers.numpy.Vec3((x, y)))
 
-        v = containers.numpy.Vector3((x, y, z))
+        v = containers.numpy.Vec3((x, y, z))
 
         self.assertEqual(3, len(v))
 
@@ -311,8 +311,8 @@ class TestNumpyContainers(unittest.TestCase):
     def testSerialization(self):
 
         class Data(pydantic.BaseModel):
-            vec3: containers.numpy.Vector3 = pydantic.Field(
-                default_factory=containers.numpy.Vector3
+            vec3: containers.numpy.Vec3 = pydantic.Field(
+                default_factory=containers.numpy.Vec3
             )
 
             enc3: containers.numpy.Enc3 = pydantic.Field(
@@ -349,7 +349,7 @@ class TestNumpyContainers(unittest.TestCase):
 
         data = Data()
 
-        self.assertIsInstance(data.vec3, containers.numpy.Vector3)
+        self.assertIsInstance(data.vec3, containers.numpy.Vec3)
         self.assertIsInstance(data.enc3, containers.numpy.Mot3)
         self.assertIsInstance(data.mot3, containers.numpy.Mot3)
         self.assertIsInstance(data.enc4, containers.numpy.Enc4)
@@ -359,7 +359,7 @@ class TestNumpyContainers(unittest.TestCase):
         self.assertIsInstance(data.mat3x3, containers.numpy.Mat3x3)
         self.assertIsInstance(data.mat6x6, containers.numpy.Mat6x6)
 
-        self.assertTrue(np.allclose(data.vec3, containers.numpy.Vector3()))  # type: ignore
+        self.assertTrue(np.allclose(data.vec3, containers.numpy.Vec3()))  # type: ignore
         self.assertTrue(np.array_equal(data.enc3, containers.numpy.Mot3()))  # type: ignore
         self.assertTrue(np.array_equal(data.enc4, containers.numpy.Enc4()))  # type: ignore
         self.assertTrue(np.array_equal(data.dofint, containers.numpy.DOFInt()))  # type: ignore

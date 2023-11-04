@@ -23,7 +23,7 @@ from forcedimension_core.typing import (
 )
 
 
-class Vector3(np.ndarray):
+class Vec3(np.ndarray):
     """
     Represents a vector in Cartesian coordinates as a view over a
     `numpy.ndarray`. The "x" , "y", and "z" properties
@@ -328,8 +328,8 @@ class DOFFloat(np.ndarray):
 
         self._ptr = ctypes.cast(self.ctypes.data, c_double_ptr)
 
-        self._delta = Vector3(self[:3])
-        self._wrist = Vector3(self[3:6])
+        self._delta = Vec3(self[:3])
+        self._wrist = Vec3(self[3:6])
         self._gripper = ctypes.cast(
             self.ctypes.data + 7 * self.itemsize, c_double_ptr
         ).contents
@@ -350,11 +350,11 @@ class DOFFloat(np.ndarray):
         return self._ptr
 
     @property
-    def delta(self) -> Vector3:
+    def delta(self) -> Vec3:
         return self._delta
 
     @property
-    def wrist(self) -> Vector3:
+    def wrist(self) -> Vec3:
         return self._wrist
 
     @property
