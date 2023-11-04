@@ -25,9 +25,11 @@ from forcedimension_core.typing import (
 
 class Vec3(np.ndarray):
     """
-    Represents a vector in Cartesian coordinates as a view over a
-    `numpy.ndarray`. The "x" , "y", and "z" properties
-    corresponding to the 0th, 1st, and 2nd elements, respectively.
+    Represents an array of three C floats as a view over a
+    :class:`numpy.ndarray`. Typically used by functions which
+    return a vector or take a vector. Can also be used by
+    functions which convert a set of 3 float such as in the
+    functions which get orientation.
     """
 
     def __new__(cls, data: npt.ArrayLike = (0., 0., 0.)):
@@ -60,10 +62,18 @@ class Vec3(np.ndarray):
 
     @property
     def ptr(self) -> c_double_ptr:
+        """
+        A pointer to the front of the array.
+        """
+
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> Tuple[c_double_ptr, c_double_ptr, c_double_ptr]:
+        """
+        A tuple of pointers to each element of the array in order.
+        """
+
         return self._ptrs
 
     @property
@@ -72,10 +82,18 @@ class Vec3(np.ndarray):
 
     @x.setter
     def x(self, value: float):
+        """
+        Alias to 0th element
+        """
+
         self[0] = value
 
     @property
     def y(self) -> float:
+        """
+        Alias to 1st element
+        """
+
         return self[1]
 
     @y.setter
@@ -84,6 +102,10 @@ class Vec3(np.ndarray):
 
     @property
     def z(self) -> float:
+        """
+        Alias to 2nd element
+        """
+
         return self[2]
 
     @z.setter
@@ -93,9 +115,10 @@ class Vec3(np.ndarray):
 
 class Enc3(np.ndarray):
     """
-    Represents a 3 axis array of encoders
-    (e.g. the delta encoders or wrist encoders) as a view over a
-    `numpy.ndarray`.
+    Represents an array of three C ints as a view over a
+    :class:`numpy.ndarray`. Typically used by functions which
+    return information about encoders from the WRIST or DELTA
+    structure.
     """
 
     def __new__(cls, data: npt.ArrayLike = (0., 0., 0.)):
@@ -128,18 +151,28 @@ class Enc3(np.ndarray):
 
     @property
     def ptr(self) -> c_int_ptr:
+        """
+        A pointer to the front of the array.
+        """
+
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> Tuple[c_int_ptr, c_int_ptr, c_int_ptr]:
+        """
+        A tuple of pointers to each element of the array in order.
+        """
+
         return self._ptrs
 
 
 class Mot3(np.ndarray):
     """
-    Represents a 3 axis array of encoders
-    (e.g. the delta encoders or wrist encoders) as a view over a
-    `numpy.ndarray`.
+    Represents an array of three C ushorts as a view over a
+    :class:`numpy.ndarray`. Typically used functions which take
+    motor commands or convert motor commands to forces (and vice
+    versa). In those functions, represents an array of motor
+    commands for each axis of the delta or wrist structure.
     """
 
     def __new__(cls, data: npt.ArrayLike = (0., 0., 0.)):
@@ -172,17 +205,26 @@ class Mot3(np.ndarray):
 
     @property
     def ptr(self) -> c_ushort_ptr:
+        """
+        A pointer to the front of the array.
+        """
+
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> Tuple[c_ushort_ptr, c_ushort_ptr, c_ushort_ptr]:
+        """
+        A tuple of pointers to each element of the array in order.
+        """
+
         return self._ptrs
 
 
 class Enc4(np.ndarray):
     """
-    Represents an array containing 3 wrist encoders and a gripper encoder
-    (in that order) as a view over a `numpy.ndarray`.
+    Represents an array of four C ints as a view over a
+    :class:`numpy.ndarray`. Typically used functions which
+    convert gripper motor commands to forces and vice versa.
     """
 
     def __new__(cls, data: npt.ArrayLike = (0., 0., 0., 0.)):
@@ -211,13 +253,19 @@ class Enc4(np.ndarray):
 
     @property
     def ptr(self) -> c_int_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
 
 
 class DOFInt(np.ndarray):
     """
-    Represents an array of encoder values for each degree-of-freedom as a
-    view over a `numpy.ndarray`.
+    Represents an array of C ints, one for each
+    degree-of-freedom as a view over a :class:`numpy.ndarray`.
+    Typically used by functions that get encoder values for each
+    degree-of-freedom
     """
 
     def __new__(cls, data: Array[int, int] = tuple(0 for _ in range(MAX_DOF))):
@@ -257,25 +305,49 @@ class DOFInt(np.ndarray):
 
     @property
     def delta(self) -> Enc3:
+        """
+        A view over the part of the buffer that corresponds to the
+        degrees-of-freedom typically associated with the DELTA
+        structure.
+        """
         return self._delta
 
     @property
     def wrist(self) -> Enc3:
+        """
+        A view over the part of the buffer that corresponds to the
+        degrees-of-freedom typically associated with the WRIST
+        structure.
+        """
+
         return self._wrist
 
     @property
     def wrist_grip(self) -> Enc4:
+        """
+        A view over the part of the buffer that corresponds to the
+        degrees-of-freedom typically associated with the WRIST structure
+        and the gripper.
+        """
+
         return self._wrist_grip
 
     @property
     def gripper(self) -> c_int:
+        """
+        A view over the part of the buffer that corresponds to the
+        degrees-of-freedom typically associated with the gripper.
+        """
+
         return self._gripper
 
 
 class DOFMotor(np.ndarray):
     """
-    Represents an array of motor commands for each degree-of-freedom as
-    a view over a `numpy.ndarray`.
+    Represents an array of C unsigned shorts, one for each
+    degree-of-freedom  as a view over a :class:`numpy.ndarray`.
+    Typically used by functions that request motor commands for
+    each degree-of-freedom.
     """
 
     def __new__(cls, data: Array[int, int] = tuple(0 for _ in range(MAX_DOF))):
@@ -309,8 +381,10 @@ class DOFMotor(np.ndarray):
 
 class DOFFloat(np.ndarray):
     """
-    A class representing an array of joint angles for all
-    degree-of-freedoms as a view over a `numpy.ndarray`.
+    Represents an array of floats, one for each
+    degree-of-freedom as a view over a :class:`numpy.array`.
+    Typically used by functions that request joint angles or
+    linear/angular velocities for each  degree-of-freedom.
     """
 
     def __new__(
@@ -347,25 +421,45 @@ class DOFFloat(np.ndarray):
 
     @property
     def ptr(self) -> c_double_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
 
     @property
     def delta(self) -> Vec3:
+        """
+        A view over the part of the buffer that corresponds to the
+        degrees-of-freedom typically associated with the DELTA structure.
+        """
+
         return self._delta
 
     @property
     def wrist(self) -> Vec3:
+        """
+        A view over the part of the buffer that corresponds to the
+        degrees-of-freedom typically associated with the WRIST structure.
+        """
+
         return self._wrist
 
     @property
     def gripper(self) -> c_double:
+        """
+        A view over the part of the buffer that corresponds to the
+        degrees-of-freedom typically associated with the gripper.
+        """
+
         return self._gripper
 
 
 class Mat3x3(np.ndarray):
     """
-    Represents a 3x3 orientation frame matrix as a view over a
-    `numpy.ndarray`.
+    Represents the type of a 3x3 matrix of floats as a view
+    over a :class:`numpy.ndarray``. Typically used to represent
+    a 3x3 coordinate frame matrix.
     """
 
     def __new__(cls, data: npt.ArrayLike = tuple(0. for _ in range(9))):
@@ -394,12 +488,18 @@ class Mat3x3(np.ndarray):
 
     @property
     def ptr(self) -> c_double_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr
 
 
 class Mat6x6(np.ndarray):
     """
-    Represents a 6x6 inertia matrix as a view over a `numpy.ndarray`.
+    Represents the type of a 6x6 matrix of floats as a view over
+    a :class:`numpy.ndarray`. Typically used to represent a 6x6
+    inertia matrix.
     """
 
     def __new__(cls, data: npt.ArrayLike = tuple(0. for _ in range(36))):
@@ -428,4 +528,8 @@ class Mat6x6(np.ndarray):
 
     @property
     def ptr(self) -> c_double_ptr:
+        """
+        A pointer to the front of the underlying contiguous data.
+        """
+
         return self._ptr

@@ -247,8 +247,13 @@ class Status(ct.Structure):
 
 class Vec3(array):
     """
-    Represents a vector with attributes x, y, and z corresponding to the 0th,
-    1st, and 2nd indicies, respectively, as a Python ``array.array``.
+    Represents an array of three C floats as a
+    :class:`array.array`. Typically used by functions which
+    return a vector or take a vector. Can also be used by
+    functions which convert a set of 3 float such as in the
+    functions which get orientation. Has convinence "x", "y",
+    and "z" properties to access the 0th, 1st, and 2nd elements,
+    respectively.
     """
 
     def __new__(
@@ -340,8 +345,9 @@ class Vec3(array):
 
 class Enc3(array):
     """
-    Represents the type of a 3-axis encoder array (e.g. delta or wrist encoder
-    arrays) as a Python ``array.array``.
+    Represents an array of three C ints as a :class:`array.array`.
+    Typically used by functions which return information about
+    encoders from the WRIST or DELTA structure.
     """
 
     def __new__(
@@ -397,7 +403,12 @@ class Enc3(array):
 
 class Mot3(array):
     """
-    Represents an array of motor commands as a Python ``array.array``.
+    Represents an array of three C ushorts as a
+    :class:`array.array`. Typically used functions which take
+    motor commands or convert motor commands to forces
+    (and vice versa). In those functions, represents an array
+    of motor commands for each axis of the delta or wrist
+    structure.
     """
 
     def __new__(
@@ -450,8 +461,9 @@ class Mot3(array):
 
 class Enc4(array):
     """
-    Represents an array of wrist encoders and a gripper encoder as a Python
-    ``array.array``
+    Represents an array of four C ints as a
+    :class:`array.array`. Typically used functions which convert
+    gripper motor commands to forces and vice versa.
     """
 
     def __new__(
@@ -491,8 +503,10 @@ class Enc4(array):
 
 class DOFInt(array):
     """
-    Represents an array of encoders for each degree-of-freedom as a Python
-    ``array.array``
+    Represents an array of C ints, one for each
+    degree-of-freedom  as a Python :class:`array.array`.
+    Typically used by functions that get encoder values for each
+    degree-of-freedom.
     """
 
     def __new__(
@@ -532,7 +546,10 @@ class DOFInt(array):
 
 class DOFMotor(array):
     """
-    Represents an array of motor commands as a Python ``array.array``.
+    Represents an array of C unsigned shorts, one for each
+    degree-of-freedom  as a Python :class:`array.array`.
+    Typically used by functions that request motor commands for
+    each degree-of-freedom.
     """
 
     def __new__(
@@ -572,7 +589,10 @@ class DOFMotor(array):
 
 class DOFFloat(array):
     """
-    Represents an array of joint angles as a Python ``array.array``.
+    Represents an array of floats, one for each
+    degree-of-freedom as a :class:`array.array`. Typically
+    used by functions that request joint angles or linear/angular
+    velocities for each  degree-of-freedom.
     """
 
     def __new__(
@@ -612,8 +632,9 @@ class DOFFloat(array):
 
 class Mat3x3(array):
     """
-    Represents the type of a coordinate frame matrix as a Python
-    ``array.array``.
+    Represents the type of a 3x3 matrix of floats
+    :class:`array.array`. Typically used to represent a 3x3
+    coordinate frame matrix.
     """
 
     def __new__(
@@ -684,9 +705,11 @@ class Mat3x3(array):
 
 class Mat6x6(array):
     """
-    Represents the type of an inertia matrix as a list of Python
-    ``array.array``.
+    Represents the type of a 6x6 matrix of floats
+    :class:`array.array`. Typically used to represent a 6x6
+    inertia matrix.
     """
+
     def __new__(
         cls, initializer: Iterable[float] = tuple(0. for _ in range(36))
     ):

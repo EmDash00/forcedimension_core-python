@@ -39,6 +39,8 @@ def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationRad()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationDeg()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationFrame()`
@@ -83,6 +85,8 @@ def getForce(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.setForce()`
     | :func:`forcedimension_core.dhd.direct.setForceAndTorque()`
     | :func:`forcedimension_core.dhd.direct.setForceAndTorqueAndGripperForce()`
@@ -148,6 +152,8 @@ def getOrientationRad(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getOrientationDeg()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationRad()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationDeg()`
@@ -211,6 +217,8 @@ def getOrientationDeg(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getOrientationRad()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationRad()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationDeg()`
@@ -290,6 +298,8 @@ def getPositionAndOrientationRad(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getOrientationRad()`
     | :func:`forcedimension_core.dhd.direct.getOrientationDeeg()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationDeg()`
@@ -372,6 +382,8 @@ def getPositionAndOrientationDeg(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getOrientationRad()`
     | :func:`forcedimension_core.dhd.direct.getOrientationDeg()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationRad()`
@@ -440,6 +452,8 @@ def getPositionAndOrientationFrame(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getOrientationRad()`
     | :func:`forcedimension_core.dhd.direct.getOrientationDeg()`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationRad()`
@@ -502,6 +516,8 @@ def getForceAndTorque(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.setForce()`
     | :func:`forcedimension_core.dhd.direct.setForceAndTorque()`
     | :func:`forcedimension_core.dhd.direct.setForceAndTorqueAndGripperForce()`
@@ -541,6 +557,8 @@ def getOrientationFrame(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Mat3x3`
+    | :class:`forcedimension_core.containers.numpy.Mat3x3`
     | :func:`forcedimension_core.dhd.direct.getPositionAndOrientationFrame()`
     """
 
@@ -587,6 +605,8 @@ def getGripperThumbPos(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getGripperFingerPos()`
     """
 
@@ -633,6 +653,8 @@ def getGripperFingerPos(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getGripperFingerPos()`
     """
 
@@ -696,6 +718,8 @@ def getForceAndTorqueAndGripperForce(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.getForce()`
     | :func:`forcedimension_core.dhd.direct.getForceAndTorque()`
     """
@@ -748,6 +772,8 @@ def getLinearVelocity(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.configLinearVelocity()`
     """
 
@@ -800,6 +826,8 @@ def getAngularVelocityRad(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.configAngularVelocity()`
     | :func:`forcedimension_core.dhd.direct.getAngularVelocityDeg()`
     """
@@ -851,6 +879,8 @@ def getAngularVelocityDeg(
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     | :func:`forcedimension_core.dhd.direct.configAngularVelocity()`
     | :func:`forcedimension_core.dhd.direct.getAngularVelocityRad()`
     """

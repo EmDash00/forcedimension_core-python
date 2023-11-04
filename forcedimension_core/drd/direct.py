@@ -83,6 +83,13 @@ def getPositionAndOrientation(
     :returns:
         0 or :data:`forcedimension_core.constants.TIMEGUARD`
         on success, -1 otherwise.
+
+    See Also
+    --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.Mat3x3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Mat3x3`
     """
 
     return _runtime._libdrd.drdGetPositionAndOrientation(
@@ -153,7 +160,13 @@ def getVelocity(
 
     :returns:
         0 on success and -1 otherwise.
+
+    See Also
+    --------
+    | :class:`forcedimension_core.containers.Vec3`
+    | :class:`forcedimension_core.containers.numpy.Vec3`
     """
+
     return _runtime._libdrd.drdGetVelocity(*v_out.ptrs, *w_out.ptrs, vg_out, ID)
 
 
@@ -205,6 +218,8 @@ def moveTo(pos: SupportsPtr[c_double], block: bool, ID: int = -1):
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.DOFFloat`
+    | :class:`forcedimension_core.containers.numpy.DOFFloat`
     | :func:`forcedimension_core.drd.moveToAllEnc()`
 
     """
@@ -255,6 +270,8 @@ def moveToAllEnc(enc: SupportsPtr[c_int], block: bool, ID: int = -1):
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.DOFInt`
+    | :class:`forcedimension_core.containers.numpy.DOFInt`
     | :func:`forcedimension_core.drd.direct.moveTo()`
     """
     return _runtime._libdrd.drdMoveToAllEnc(enc.ptr, block, ID)
@@ -299,6 +316,8 @@ def track(pos: SupportsPtr[c_double], ID: int = -1):
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.DOFFloat`
+    | :class:`forcedimension_core.containers.numpy.DOFFloat`
     | :func:`forcedimension_core.drd.direct.trackAllEnc()`
     """
 
@@ -342,6 +361,8 @@ def trackAllEnc(enc: SupportsPtr[c_int], ID: int = -1):
 
     See Also
     --------
+    | :class:`forcedimension_core.containers.DOFInt`
+    | :class:`forcedimension_core.containers.numpy.DOFInt`
     | :func:`forcedimension_core.drd.direct.track()`
     """
     return _runtime._libdrd.drdTrackAllEnc(enc.ptr, ID)

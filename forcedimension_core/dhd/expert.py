@@ -1709,10 +1709,10 @@ def setJointTorques(q: Array[int, float], mask: int = 0xff, ID: int = -1):
         to a C double.
 
     :raises IndexError:
-        If ``len(cmds) < MAX_DOF``.
+        If ``len(q) < MAX_DOF``.
 
     :raises TypeError:
-        If ``cmds`` is not subscriptable.
+        If ``q`` is not subscriptable.
 
     :raises ctypes.ArgumentError:
         If ``mask`` is not implicitly convertible to a C uchar.
