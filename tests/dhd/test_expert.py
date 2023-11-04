@@ -2118,7 +2118,7 @@ class TestExpertSDK(unittest.TestCase):
         )
 
         enc = containers.Enc3()
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdDeltaEncoderToPosition.px = random()
@@ -2208,7 +2208,7 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdDeltaPositionToEncoder.mock
         )
 
-        pos = containers.Vector3()
+        pos = containers.Vec3()
         out = containers.Enc3()
 
         for _ in range(100):
@@ -2312,7 +2312,7 @@ class TestExpertSDK(unittest.TestCase):
         mot = containers.Mot3()
         enc = containers.Enc3()
 
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdDeltaMotorToForce.fx = random()
@@ -2530,7 +2530,7 @@ class TestExpertSDK(unittest.TestCase):
         )
 
         enc = [0, 0, 0]
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdWristEncoderToOrientation.oa = random()
@@ -2734,7 +2734,7 @@ class TestExpertSDK(unittest.TestCase):
         mot = [0, 0, 0]
         enc = [0, 0, 0]
 
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdWristMotorToTorque.tx = random()
@@ -3439,7 +3439,7 @@ class TestExpertSDK(unittest.TestCase):
         libdhd.dhdGetDeltaJointAngles = (  # type: ignore
             MockDHD.dhdGetDeltaJointAngles.mock
         )
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetDeltaJointAngles.j0 = random()
@@ -3692,8 +3692,8 @@ class TestExpertSDK(unittest.TestCase):
     def test_deltaJointTorquesExtremaDirect(self):
         joint_angles = [0.0, 0.0, 0.0]
 
-        minq = containers.Vector3()
-        maxq = containers.Vector3()
+        minq = containers.Vec3()
+        maxq = containers.Vec3()
 
         for _ in range(100):
             for i in range(3):
@@ -3819,7 +3819,7 @@ class TestExpertSDK(unittest.TestCase):
         )
 
         enc = [0, 0, 0]
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdDeltaEncodersToJointAngles.j0 = random()
@@ -3969,7 +3969,7 @@ class TestExpertSDK(unittest.TestCase):
         libdhd.dhdGetWristJointAngles = (  # type: ignore
             MockDHD.dhdGetWristJointAngles.mock
         )
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetWristJointAngles.j0 = random()
@@ -4221,8 +4221,8 @@ class TestExpertSDK(unittest.TestCase):
     def test_wristJointTorquesExtremaDirect(self):
         joint_angles = [0.0, 0.0, 0.0]
 
-        minq = containers.Vector3()
-        maxq = containers.Vector3()
+        minq = containers.Vec3()
+        maxq = containers.Vec3()
 
         for _ in range(100):
             for i in range(3):
@@ -4471,7 +4471,7 @@ class TestExpertSDK(unittest.TestCase):
         )
 
         enc = [0, 0, 0]
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdWristEncodersToJointAngles.j0 = random()

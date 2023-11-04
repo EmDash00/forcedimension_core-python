@@ -245,7 +245,7 @@ class Status(ct.Structure):
     """
 
 
-class Vector3(array):
+class Vec3(array):
     """
     Represents a vector with attributes x, y, and z corresponding to the 0th,
     1st, and 2nd indicies, respectively, as a Python ``array.array``.
@@ -254,7 +254,7 @@ class Vector3(array):
     def __new__(
         cls, initializer: Iterable[float] = (0., 0., 0.)
     ):
-        arr = super(Vector3, cls).__new__(
+        arr = super(Vec3, cls).__new__(
             cls, 'd', initializer  # type: ignore
         )
 

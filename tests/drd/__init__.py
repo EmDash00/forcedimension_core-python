@@ -1613,8 +1613,8 @@ class TestRoboticSDK(unittest.TestCase):
             MockDRD.drdGetPositionAndOrientation.mock
         )
 
-        p_out = containers.Vector3()
-        o_out = containers.Vector3()
+        p_out = containers.Vec3()
+        o_out = containers.Vec3()
         pg_out = c_double()
         frame = containers.Mat3x3()
 
@@ -1724,8 +1724,8 @@ class TestRoboticSDK(unittest.TestCase):
             MockDRD.drdGetVelocity.mock
         )
 
-        v_out = containers.Vector3()
-        w_out = containers.Vector3()
+        v_out = containers.Vec3()
+        w_out = containers.Vec3()
         vg_out = c_double()
 
         for _ in range(100):

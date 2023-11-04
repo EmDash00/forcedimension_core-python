@@ -154,10 +154,10 @@ class TestContainers(unittest.TestCase):
         y = random()
         z = random()
 
-        self.assertRaises(ValueError, lambda: containers.Vector3((x, y, z, 0)))
-        self.assertRaises(ValueError, lambda: containers.Vector3((x, y)))
+        self.assertRaises(ValueError, lambda: containers.Vec3((x, y, z, 0)))
+        self.assertRaises(ValueError, lambda: containers.Vec3((x, y)))
 
-        v = containers.Vector3((x, y, z))
+        v = containers.Vec3((x, y, z))
 
         self.assertEqual(3, len(v))
 
@@ -438,8 +438,8 @@ class TestContainers(unittest.TestCase):
                 default_factory=containers.Status
             )
 
-            vec3: containers.Vector3 = pydantic.Field(
-                default_factory=containers.Vector3
+            vec3: containers.Vec3 = pydantic.Field(
+                default_factory=containers.Vec3
             )
 
             enc3: containers.Enc3 = pydantic.Field(
@@ -477,7 +477,7 @@ class TestContainers(unittest.TestCase):
         data = Data()
 
         self.assertIsInstance(data.status, containers.Status)
-        self.assertIsInstance(data.vec3, containers.Vector3)
+        self.assertIsInstance(data.vec3, containers.Vec3)
         self.assertIsInstance(data.enc3, containers.Mot3)
         self.assertIsInstance(data.mot3, containers.Mot3)
         self.assertIsInstance(data.enc4, containers.Enc4)
@@ -492,7 +492,7 @@ class TestContainers(unittest.TestCase):
         ):
             self.assertEqual(status_elem1, status_elem2)  # type: ignore
 
-        self.assertSequenceAlmostEqual(data.vec3, containers.Vector3())  # type: ignore
+        self.assertSequenceAlmostEqual(data.vec3, containers.Vec3())  # type: ignore
         self.assertSequenceEqual(data.enc3, containers.Mot3())  # type: ignore
         self.assertSequenceEqual(data.enc4, containers.Enc4())  # type: ignore
         self.assertSequenceEqual(data.dofint, containers.DOFInt())  # type: ignore

@@ -2525,7 +2525,7 @@ class TestStandardSDK(unittest.TestCase):
 
     def test_getPositionDirect(self):
         libdhd.dhdGetPosition = MockDHD.dhdGetPosition.mock  # type: ignore
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetPosition.px = random()
@@ -2576,7 +2576,7 @@ class TestStandardSDK(unittest.TestCase):
 
     def test_getForceDirect(self):
         libdhd.dhdGetForce = MockDHD.dhdGetForce.mock  # type: ignore
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetForce.fx = random()
@@ -2656,7 +2656,7 @@ class TestStandardSDK(unittest.TestCase):
         libdhd.dhdGetOrientationRad = (  # type: ignore
             MockDHD.dhdGetOrientationRad.mock
         )
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetOrientationRad.oa = random()
@@ -2711,7 +2711,7 @@ class TestStandardSDK(unittest.TestCase):
         libdhd.dhdGetOrientationDeg = (  # type: ignore
             MockDHD.dhdGetOrientationDeg.mock
         )
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetOrientationDeg.oa = random()
@@ -2791,8 +2791,8 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetPositionAndOrientationRad.mock
         )
 
-        p_out = containers.Vector3()
-        o_out = containers.Vector3()
+        p_out = containers.Vec3()
+        o_out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetPositionAndOrientationRad.oa = random()
@@ -2894,8 +2894,8 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetPositionAndOrientationDeg.mock
         )
 
-        p_out = containers.Vector3()
-        o_out = containers.Vector3()
+        p_out = containers.Vec3()
+        o_out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetPositionAndOrientationDeg.oa = random()
@@ -2997,7 +2997,7 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetPositionAndOrientationFrame.mock
         )
 
-        p_out = containers.Vector3()
+        p_out = containers.Vec3()
         frame = containers.Mat3x3()
 
         for _ in range(100):
@@ -3084,8 +3084,8 @@ class TestStandardSDK(unittest.TestCase):
     def test_getForceAndTorqueDirect(self):
         libdhd.dhdGetForceAndTorque = MockDHD.dhdGetForceAndTorque.mock  # type: ignore
 
-        f_out = containers.Vector3()
-        t_out = containers.Vector3()
+        f_out = containers.Vec3()
+        t_out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetForceAndTorque.fx = random()
@@ -3332,7 +3332,7 @@ class TestStandardSDK(unittest.TestCase):
 
     def test_getGripperThumbPosDirect(self):
         libdhd.dhdGetGripperThumbPos = MockDHD.dhdGetGripperThumbPos.mock  # type: ignore
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetGripperThumbPos.px = random()
@@ -3386,7 +3386,7 @@ class TestStandardSDK(unittest.TestCase):
 
     def test_getGripperFingerPosDirect(self):
         libdhd.dhdGetGripperFingerPos = MockDHD.dhdGetGripperFingerPos.mock  # type: ignore
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetGripperFingerPos.px = random()
@@ -3582,8 +3582,8 @@ class TestStandardSDK(unittest.TestCase):
             MockDHD.dhdGetForceAndTorqueAndGripperForce.mock
         )
 
-        f_out = containers.Vector3()
-        t_out = containers.Vector3()
+        f_out = containers.Vec3()
+        t_out = containers.Vec3()
         fg_out = c_double()
 
         for _ in range(100):
@@ -3697,7 +3697,7 @@ class TestStandardSDK(unittest.TestCase):
         libdhd.dhdGetLinearVelocity = (  # type: ignore
             MockDHD.dhdGetLinearVelocity.mock
         )
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetLinearVelocity.vx = random()
@@ -3790,7 +3790,7 @@ class TestStandardSDK(unittest.TestCase):
         libdhd.dhdGetAngularVelocityRad = (  # type: ignore
             MockDHD.dhdGetAngularVelocityRad.mock
         )
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetAngularVelocityRad.wx = random()
@@ -3852,7 +3852,7 @@ class TestStandardSDK(unittest.TestCase):
         libdhd.dhdGetAngularVelocityDeg = (  # type: ignore
             MockDHD.dhdGetAngularVelocityDeg.mock
         )
-        out = containers.Vector3()
+        out = containers.Vec3()
 
         for _ in range(100):
             MockDHD.dhdGetAngularVelocityDeg.wx = random()
