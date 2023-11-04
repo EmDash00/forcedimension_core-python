@@ -16,6 +16,15 @@ class TestContainers(unittest.TestCase):
         for elem1, elem2 in zip(seq1, seq2):
             self.assertAlmostEqual(elem1, elem2)
 
+    def test_import(self):
+        os.environ['__fdsdk__unittest_opt_has_numpy__'] = 'False'
+        importlib.reload(containers)
+        self.assertRaises(
+            ImportError, lambda: importlib.reload(containers.numpy)
+        )
+
+        os.environ['__fdsdk__unittest_opt_has_numpy__'] = 'True'
+
     def testVersion(self):
         major = randint(0, 100)
         minor = randint(0, 100)

@@ -2,9 +2,13 @@ from __future__ import annotations
 
 import ctypes
 from ctypes import c_double, c_int, c_ushort
+import os
 from typing import Any, Tuple
 
 try:
+    if os.environ.get('__fdsdk__unittest_opt_has_numpy__', 'True') == 'False':
+        raise ModuleNotFoundError
+
     import numpy as np
     import numpy.typing as npt
 except ModuleNotFoundError as ex:
