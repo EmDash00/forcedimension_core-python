@@ -14,7 +14,6 @@ from forcedimension_core.typing import (
     Array, MutableArray, c_double_ptr, c_int_ptr, c_ushort_ptr
 )
 
-from . import deprecated
 from . import direct as direct
 from . import expert, os_independent
 from .adaptors import (

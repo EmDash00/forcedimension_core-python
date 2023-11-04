@@ -190,6 +190,7 @@ class ThreadPriority(IntEnum):
     HIGH = 1
     LOW = 2
 
+
 class Handedness(IntEnum):
     NONE = 0
     LEFT = 1

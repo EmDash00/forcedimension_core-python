@@ -1,5 +1,6 @@
 from typing import Any, Callable, Optional
 
+
 class DHDError(Exception):
     def __init__(
         self, msg: Optional[str] = "An undocumented error has occured.",
@@ -275,4 +276,3 @@ class DHDErrorNoRegulation(DHDError):
             "The robotic regulation thread is not running. This only applies "
             "to functions from the robotic SDK (DRD)."
         )
-
