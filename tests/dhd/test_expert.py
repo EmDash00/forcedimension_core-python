@@ -3266,6 +3266,32 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdSetMot
         )
 
+    def test_setMotDirect(self):
+        libdhd.dhdSetMot = MockDHD.dhdSetMot.mock  # type: ignore
+
+        cmds = containers.DOFMotor()
+
+        for _ in range(100):
+            for i in range(MAX_DOF):
+                cmds[i] = randint(0, 100)
+
+            mask = randint(0, 100)
+
+            dhd.expert.direct.setMot(cmds, mask)
+
+            self.assertSequenceEqual(cmds, MockDHD.dhdSetMot.mot)
+            self.assertEqual(mask, MockDHD.dhdSetMot.mask)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.setMot(cmds, 0, ID),
+            MockDHD.dhdSetMot
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.setMot(cmds, 0),
+            MockDHD.dhdSetMot
+        )
+
     def test_setJointTorques(self):
         self.assertSignaturesEqual(
             libdhd.dhdSetJointTorques, MockDHD.dhdSetJointTorques
@@ -3296,6 +3322,32 @@ class TestExpertSDK(unittest.TestCase):
             MockDHD.dhdSetJointTorques
         )
 
+    def test_setJointTorquesDirect(self):
+        libdhd.dhdSetJointTorques = MockDHD.dhdSetJointTorques.mock  # type: ignore
+
+        q = containers.DOFFloat()
+
+        for _ in range(100):
+            for i in range(MAX_DOF):
+                q[i] = random()
+
+            mask = randint(0, 100)
+
+            dhd.expert.direct.setJointTorques(q, mask)
+
+            self.assertSequenceEqual(q, MockDHD.dhdSetJointTorques.q)
+            self.assertEqual(mask, MockDHD.dhdSetJointTorques.mask)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.setJointTorques(q, 0, ID),
+            MockDHD.dhdSetJointTorques
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.setJointTorques(q, 0),
+            MockDHD.dhdSetJointTorques
+        )
+
     def test_preloadMot(self):
         self.assertSignaturesEqual(
             libdhd.dhdPreloadMot, MockDHD.dhdPreloadMot
@@ -3323,6 +3375,32 @@ class TestExpertSDK(unittest.TestCase):
 
         self.assertRetImpl(
             lambda: dhd.expert.preloadMot(cmds, 0),
+            MockDHD.dhdPreloadMot
+        )
+
+    def test_preloadMotDirect(self):
+        libdhd.dhdPreloadMot = MockDHD.dhdPreloadMot.mock  # type: ignore
+
+        cmds = containers.DOFMotor()
+
+        for _ in range(100):
+            for i in range(MAX_DOF):
+                cmds[i] = randint(0, 100)
+
+            mask = randint(0, 100)
+
+            dhd.expert.direct.preloadMot(cmds, mask)
+
+            self.assertSequenceEqual(cmds, MockDHD.dhdPreloadMot.mot)
+            self.assertEqual(mask, MockDHD.dhdPreloadMot.mask)
+
+        self.assertIDImpl(
+            lambda ID = -1: dhd.expert.direct.preloadMot(cmds, 0, ID),
+            MockDHD.dhdPreloadMot
+        )
+
+        self.assertRetImpl(
+            lambda: dhd.expert.direct.preloadMot(cmds, 0),
             MockDHD.dhdPreloadMot
         )
 

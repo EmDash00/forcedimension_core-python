@@ -738,6 +738,138 @@ def gripperMotorToForce(
     )
 
 
+def setMot(cmds: SupportsPtr[c_ushort], mask: int = 0xff, ID: int = -1) -> int:
+    """
+    Program motor commands to a selection of motor channels.
+    Particularly useful when using the generic controller
+    directly, without a device model attached.
+
+    :param SupportsPtr[c_ushort] cmds:
+        An input buffer to store the motor command values.
+
+    :param int mask:
+        Bitwise mask of which motor should be set.
+
+    :param int ID:
+        Device ID (see :ref:`multiple_devices` section for details).
+
+    :raises ctypes.ArgumentError:
+        If ``cmds.ptr`` is not  of type ``Pointer[c_int]``
+
+    :raises IndexError:
+        If ``len(cmds) < MAX_DOF``.
+
+    :raises ctypes.ArgumentError:
+        If ``mask`` is not implicitly convertible to a C uchar.
+
+    :raises ctypes.ArgumentError:
+        If ``ID`` is not implicitly convertible to a C char.
+
+    :returns: 0 on success, -1 otherwise
+
+    See Also
+    --------
+    | :class:`forcedimension_core.containers.DOFMot`
+    | :class:`forcedimension_core.containers.numpy.DOFMot`
+    | :data:`forcedimension_core.dhd.expert.setMotor()`
+    | :data:`forcedimension_core.dhd.expert.setDeltaMotor()`
+    | :data:`forcedimension_core.dhd.expert.setWristMotor()`
+    | :data:`forcedimension_core.dhd.expert.setGripperMotor()`
+
+    """
+
+    return _runtime._libdhd.dhdSetMot(cmds.ptr, mask, ID)
+
+
+def setJointTorques(q: SupportsPtr[c_double], mask: int = 0xff, ID: int = -1):
+    """
+    Sets all joint torques on all active axes.
+
+    :param SupportsPtr[c_double] q:
+        An input buffer to store the Joint torques for each
+        degree-of-freedom (in [Nm]).
+
+    :param int mask:
+        Bitwise mask of which joints should be set
+
+    :param int ID:
+        Device ID (see :ref:`multiple_devices` section for details).
+
+    :raises ctypes.ArgumentError:
+        If any element of ``cmds`` is not implicitly convertible
+        to a C double.
+
+    :raises IndexError:
+        If ``len(cmds) < MAX_DOF``.
+
+    :raises ctypes.ArgumentError:
+        If ``q.ptr`` is not  of type ``Pointer[c_double]``
+
+    :raises ctypes.ArgumentError:
+        If ``ID`` is not implicitly convertible to a C char.
+
+    :returns:
+        0 on success, -1 otherwise.
+
+    See Also
+    --------
+    | :class:`forcedimension_core.containers.DOFFloat`
+    | :class:`forcedimension_core.containers.numpy.DOFFloat`
+    | :func:`forcedimension_core.dhd.expert.setDeltaJointTorques()`
+    | :func:`forcedimension_core.dhd.expert.setWristJointTorques()`
+    | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorques()`
+    | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
+    """
+
+    return _runtime._libdhd.dhdSetJointTorques(q.ptr, mask, ID)
+
+
+def preloadMot(
+    cmds: SupportsPtr[c_ushort], mask: int = 0xff, ID: int = -1
+) -> int:
+    """
+    Program motor commands to a selection of motor channels.
+    Unlike :func:`forcedimension_core.dhd.expert.setMot()`, this
+    function saves the requested commands internally for later
+    application by calling
+    :func:`forcedimension_core.dhd.setForce()` and the friends.
+
+    :param SupportsPtr[c_ushort] cmds:
+        An input buffer to store the motor command values.
+
+    :param int mask:
+        Bitwise mask of which motor should be set.
+
+    :param int ID:
+        Device ID (see :ref:`multiple_devices` section for details).
+
+    :raises ctypes.ArgumentError:
+        If ``cmds.ptr`` is not  of type ``Pointer[c_ushort]``
+
+    :raises IndexError:
+        If ``len(cmds) < MAX_DOF``.
+
+    :raises TypeError:
+        If ``cmds`` is not subscriptable.
+
+    :raises ctypes.ArgumentError:
+        If ``mask`` is not implicitly convertible to a C char.
+
+    :raises ctypes.ArgumentError:
+        If ``ID`` is not implicitly convertible to a C char.
+
+    :returns: 0 on success, -1 otherwise
+
+    See Also
+    --------
+    | :class:`forcedimension_core.containers.DOFMot`
+    | :class:`forcedimension_core.containers.numpy.DOFMot`
+    | :func:`forcedimension_core.dhd.direct_expert.setMot()`
+    """
+
+    return _runtime._libdhd.dhdPreloadMot(cmds.ptr, mask, ID)
+
+
 def gripperForceToMotor(
     f: float,
     enc_wrist_grip: SupportsPtr[c_int],
@@ -828,7 +960,6 @@ def getEnc(out: SupportsPtr[c_int], mask: int = 0xff, ID: int = -1) -> int:
     | :class:`forcedimension_core.containers.numpy.DOFInt`
     | :func:`forcedimension_core.dhd.direct_expert.getEncVelocities()`
     """
-
 
     return _runtime._libdhd.dhdGetEnc(out.ptr, mask, ID)
 
