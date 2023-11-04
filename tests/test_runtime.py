@@ -71,8 +71,20 @@ class MockGlob:
         if MockGlob.should_fail:
             return []
 
-        if not (pathname.endswith('sdk-*') or pathname.endswith('.*')):
+        if not (
+            pathname.endswith('sdk-*') or
+            pathname.endswith('.*') or
+            pathname.endswith('*dylib')
+        ):
             return [pathname.replace('*', '')]
+
+
+        if pathname.endswith('*dylib'):
+            return [
+                pathname.replace('*', '3.14.0.'),
+                pathname.replace('*', '3.15.0.'),
+                pathname.replace('*', '3.16.0.'),
+            ]
 
         return [
             pathname.replace('*', '3.14.0'),
@@ -250,8 +262,10 @@ class TestRuntime(unittest.TestCase):
         self.assertListEqual(
             runtime._get_search_paths(),
             [
-                '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/libdrd.so',
-                '/home/GeneEric2/forcedimension_sdk/lib/release/lin-x86_64-gcc/libdrd.so',
+                '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/'
+                'libdrd.so.3.16.0',
+                '/home/GeneEric2/forcedimension_sdk/lib/release/lin-x86_64-gcc'
+                '/libdrd.so.3.16.0',
                 MockOS.path.expanduser('~/.local/lib/libdrd.so'),
                 MockOS.path.expanduser('~/.local/lib/libdrd.so.3.16.0'),
                 '/usr/local/lib/libdrd.so',
@@ -280,7 +294,8 @@ class TestRuntime(unittest.TestCase):
         self.assertListEqual(
             runtime._get_search_paths(),
             [
-                '/home/GeneEric2/forcedimension_sdk/lib/release/lin-x86_64-gcc/libdrd.so',
+                '/home/GeneEric2/forcedimension_sdk/lib/release/lin-x86_64-gcc'
+                '/libdrd.so.3.16.0',
                 MockOS.path.expanduser('~/.local/lib/libdrd.so'),
                 MockOS.path.expanduser('~/.local/lib/libdrd.so.3.16.0'),
                 '/usr/local/lib/libdrd.so',
@@ -298,7 +313,8 @@ class TestRuntime(unittest.TestCase):
         self.assertListEqual(
             runtime._get_search_paths(),
             [
-                '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/libdrd.so',
+                '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/'
+                'libdrd.so.3.16.0',
                 MockOS.path.expanduser('~/.local/lib/libdrd.so'),
                 MockOS.path.expanduser('~/.local/lib/libdrd.so.3.16.0'),
                 '/usr/local/lib/libdrd.so',
@@ -333,8 +349,10 @@ class TestRuntime(unittest.TestCase):
         self.assertListEqual(
             runtime._get_search_paths(),
             [
-                '/home/GeneEric/forcedimension_sdk/lib/release/lin-aarch64-gcc/libdrd.so',
-                '/home/GeneEric2/forcedimension_sdk/lib/release/lin-aarch64-gcc/libdrd.so',
+                '/home/GeneEric/forcedimension_sdk/lib/release/lin-aarch64-gcc'
+                '/libdrd.so.3.16.0',
+                '/home/GeneEric2/forcedimension_sdk/lib/release/lin-aarch64-gcc'
+                '/libdrd.so.3.16.0',
                 MockOS.path.expanduser('~/.local/lib/libdrd.so'),
                 MockOS.path.expanduser('~/.local/lib/libdrd.so.3.16.0'),
                 '/usr/local/lib/libdrd.so',
@@ -352,8 +370,10 @@ class TestRuntime(unittest.TestCase):
         self.assertListEqual(
             runtime._get_search_paths(),
             [
-                '/home/GeneEric/forcedimension_sdk/lib/release/lin-armv7l-gcc/libdrd.so',
-                '/home/GeneEric2/forcedimension_sdk/lib/release/lin-armv7l-gcc/libdrd.so',
+                '/home/GeneEric/forcedimension_sdk/lib/release/lin-armv7l-gcc/'
+                'libdrd.so.3.16.0',
+                '/home/GeneEric2/forcedimension_sdk/lib/release/lin-armv7l-gcc/'
+                'libdrd.so.3.16.0',
                 MockOS.path.expanduser('~/.local/lib/libdrd.so'),
                 MockOS.path.expanduser('~/.local/lib/libdrd.so.3.16.0'),
                 '/usr/local/lib/libdrd.so',
@@ -372,17 +392,17 @@ class TestRuntime(unittest.TestCase):
             runtime._get_search_paths(),
             [
                 '/home/GeneEric/forcedimension_sdk/lib/release/'
-                'mac-x86_64-clang/libdrd.dylib',
+                'mac-x86_64-clang/libdrd.3.16.0.dylib',
 
                 '/home/GeneEric2/forcedimension_sdk/lib/release/'
-                'mac-x86_64-clang/libdrd.dylib',
+                'mac-x86_64-clang/libdrd.3.16.0.dylib',
 
                 MockOS.path.expanduser('~/.local/lib/libdrd.dylib'),
 
-                MockOS.path.expanduser('~/.local/lib/libdrd.dylib.3.16.0'),
+                MockOS.path.expanduser('~/.local/lib/libdrd.3.16.0.dylib'),
 
                 '/usr/local/lib/libdrd.dylib',
-                '/usr/local/lib/libdrd.dylib.3.16.0'
+                '/usr/local/lib/libdrd.3.16.0.dylib'
             ]
         )
 
@@ -397,15 +417,15 @@ class TestRuntime(unittest.TestCase):
             runtime._get_search_paths(),
             [
                 '/home/GeneEric/forcedimension_sdk/lib/release/'
-                'mac-arm64-clang/libdrd.dylib',
+                'mac-arm64-clang/libdrd.3.16.0.dylib',
 
                 '/home/GeneEric2/forcedimension_sdk/lib/release/'
-                'mac-arm64-clang/libdrd.dylib',
+                'mac-arm64-clang/libdrd.3.16.0.dylib',
 
                 MockOS.path.expanduser('~/.local/lib/libdrd.dylib'),
-                MockOS.path.expanduser('~/.local/lib/libdrd.dylib.3.16.0'),
+                MockOS.path.expanduser('~/.local/lib/libdrd.3.16.0.dylib'),
                 '/usr/local/lib/libdrd.dylib',
-                '/usr/local/lib/libdrd.dylib.3.16.0'
+                '/usr/local/lib/libdrd.3.16.0.dylib'
 
             ]
         )
@@ -666,9 +686,12 @@ class TestRuntime(unittest.TestCase):
         MockEnviron.FORCEDIM_SDK = '/home/GeneEric2/forcedimension_sdk'
         MockOS.sep = '/'
         MockOS.path.sep = MockOS.sep
+        MockOS.path.HOME = '/home/GeneEric'
         MockOS.path.VALID_PATHS = set([
-            '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/libdrd.so',
-            '/home/GeneEric2/forcedimension_sdk/lib/release/lin-x86_64-gcc/libdrd.so',
+            '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/'
+            'libdrd.so.3.16.0',
+            '/home/GeneEric2/forcedimension_sdk/lib/release/lin-x86_64-gcc/'
+            'libdrd.so.3.16.0',
             MockOS.path.expanduser('~/.local/lib/libdrd.so'),
             MockOS.path.expanduser('~/.local/lib/libdrd.so.3.16.0'),
             '/usr/local/lib/libdrd.so',
@@ -677,7 +700,8 @@ class TestRuntime(unittest.TestCase):
 
         self.assertEqual(
             runtime.load().path,   # type: ignore
-            '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/libdrd.so'
+            '/home/GeneEric/forcedimension_sdk/lib/release/lin-x86_64-gcc/'
+            'libdrd.so.3.16.0'
         )
 
         os.environ['__fdsdkpy_unittest_runtime__'] = 'True'

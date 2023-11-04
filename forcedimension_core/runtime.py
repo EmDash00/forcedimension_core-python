@@ -86,10 +86,12 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
     machine = _platform_impl.machine()
 
     if _sys_impl.platform == 'linux':
+        lib_file_glob = "libdrd.so.*"
         lib_file = "libdrd.so"
         platform_name = 'lin'
         compiler = 'gcc'
     else:
+        lib_file_glob = "libdrd.*dylib"
         lib_file = "libdrd.dylib"
         platform_name = 'mac'
         compiler = 'clang'
@@ -104,8 +106,9 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
             )
         )
         # type: ignore
-        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file}*")):  # noqa
-            search_dirs.append(glob_res[0])
+        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file_glob}")):  # noqa
+            glob_res.sort()
+            search_dirs.append(glob_res[-1])
 
     # Legacy support for the old environment variable
 
@@ -119,8 +122,18 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
             )
         )
 
-        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file}*")):  # noqa
-            search_dirs.append(glob_res[0])
+        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file_glob}")):  # noqa
+            glob_res.sort()
+            search_dirs.append(glob_res[-1])
+
+    lib_loc_local_glob = os.path.join(
+        _os_impl.path.expanduser('~'),
+        '.local', 'lib', lib_file_glob  # type: ignore
+    )
+
+    lib_loc_glob = os.path.join(
+        _os_impl.path.sep, 'usr', 'local', 'lib', lib_file_glob  # type: ignore
+    )
 
     lib_loc_local = os.path.join(
         _os_impl.path.expanduser('~'),
@@ -131,18 +144,18 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
         _os_impl.path.sep, 'usr', 'local', 'lib', lib_file  # type: ignore
     )
 
-    glob_res_local = _glob_impl.glob(lib_loc_local + '.*')
-    glob_res = _glob_impl.glob(lib_loc + '.*')
-
-    glob_res_local.sort()
-    glob_res.sort()
+    glob_res_local = _glob_impl.glob(lib_loc_local_glob)
+    glob_res = _glob_impl.glob(lib_loc_glob)
 
     search_dirs.append(lib_loc_local)
+
     if glob_res_local:
+        glob_res_local.sort()
         search_dirs.append(glob_res_local[-1])
 
     search_dirs.append(lib_loc)
     if glob_res:
+        glob_res.sort()
         search_dirs.append(glob_res[-1])
 
     return search_dirs  # type: ignore
