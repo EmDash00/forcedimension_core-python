@@ -8,6 +8,9 @@
 [![PyPI - License](https://img.shields.io/pypi/l/forcedimension_core)](LICENSE)
 [![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
 
+Want to do more with the Force Dimension SDK with less code? Also check out
+the [experimental high level wrappers](https://github.com/EmDash00/forcedimension-python).
+
 ## Installation
 
 v1.0.0 of the bindings bind Force Dimension SDK v3.16.0+. They are available through a PyPI package for Python 3.8+.
