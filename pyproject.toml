@@ -11,6 +11,8 @@ keywords = ["forcedimension", "haptics", "bindings"]
 classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: 3.12",
+    "Development Status :: 5 - Production/Stable",
     "Operating System :: OS Independent",
     "Topic :: System :: Hardware :: Universal Serial Bus (USB) :: Human Interface Device (HID)"
 ]
