@@ -3423,7 +3423,7 @@ def getBaseAngleXDeg(out: c_double, ID: int = -1) -> int:
     Get the device base plate angle around the X axis (in [deg]).
 
     :param c_double out:
-        Output buffer to store the base plate angle around the Y
+        Output buffer to store the base plate angle around the X
         axis (in [deg]).
 
     :param int ID:
@@ -3555,7 +3555,7 @@ def getBaseAngleZDeg(out: c_double, ID: int = -1) -> float:
     Get the device base plate angle around the Z axis (in [deg]).
 
     :param c_double out:
-        Output buffer to store the base plate angle around the X
+        Output buffer to store the base plate angle around the Z
         axis (in [deg]).
 
     :param int ID:
