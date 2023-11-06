@@ -8,6 +8,25 @@
 [![PyPI - License](https://img.shields.io/pypi/l/forcedimension_core)](LICENSE)
 [![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
 
+## Installation
+
+v1.0.0 of the bindings bind Force Dimension SDK v3.16.0+. They are available through a PyPI package for Python 3.8+.
+
+```
+python3 -m pip install forcedimension_core
+```
+
+NumPy is an optional dependency.
+
+```
+python3 -m pip install forcedimension_core[numpy]
+```
+
+
+You will also need to install the Force Dimension SDK and setup any drivers
+or udev rules. If you are unfamiliar with how to do this please refer to the
+[detailed installation instructions](https://force-dimension-core-python-documentation.readthedocs.io/en/latest/installation.html).
+
 ## About
 
 This project aims to create unofficial Python bindings for the Force Dimension SDK's C/C++ API.
@@ -88,5 +107,5 @@ This project is NOT directly associated with Force Dimension. It does NOT involv
 of proprietary code. Docstrings are lifted from the Force Dimension SDK documentation and revised to fit the Python bindings
 with the express permission of Force Dimension.
 
-The Python code itself is licensed under GPLv3 for the benefit of public
+The Python code itself is licensed under LGPLv3 for the benefit of public
 research.
