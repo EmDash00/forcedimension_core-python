@@ -4,22 +4,9 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/forcedimension_core?logo=python)  
 [![tests](https://github.com/EmDash00/forcedimension_core-python/actions/workflows/tests.yml/badge.svg)](https://github.com/EmDash00/forcedimension_core-python/actions/workflows/tests.yml)
 [![Coveralls branch](https://img.shields.io/coverallsCoverage/github/EmDash00/forcedimension_core-python?branch=main&logo=coveralls)](https://coveralls.io/github/EmDash00/forcedimension_core-python)
-[![Read the Docs](https://img.shields.io/readthedocs/forcedimension-core-python-docs?logo=Read%20the%20Docs)](https://force-dimension-core-python-documentation.readthedocs.io/en/v1.0.0/)
+[![Read the Docs](https://img.shields.io/readthedocs/forcedimension-core-python-docs?logo=Read%20the%20Docs)](https://force-dimension-core-python-documentation.readthedocs.io/en/v1.0.0/)  
 [![PyPI - License](https://img.shields.io/pypi/l/forcedimension_core)](LICENSE)
 [![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
-
-
-## Installation
-
-v0.1.0 of the bindings target Force Dimension SDK v3.14.0+. They are available through a PyPI package for Python 3.8+.
-
-```
-python3 -m pip install forcedimension_core
-```
-
-You will also need to install the Force Dimension SDK and setup any drivers
-or udev rules. If you are unfamiliar with how to do this please refer to the
-[detailed installation instructions](https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/installation.html).
 
 ## About
 
@@ -81,11 +68,25 @@ finally:
   sys.exit(1)
 ```
 
+
+## Installation
+
+v0.1.0 of the bindings bind Force Dimension SDK v3.14.0+ and supports Windows
+and Linux. They are available through a PyPI package for Python 3.8+.
+
+```
+python3 -m pip install forcedimension_core
+```
+
+You will also need to install the Force Dimension SDK and setup any drivers
+or udev rules. If you are unfamiliar with how to do this please refer to the
+[detailed installation instructions](https://force-dimension-core-python-documentation.readthedocs.io/en/latest/installation.html).
+
 ## Licensing and Rights
 
 This project is NOT directly associated with Force Dimension. It does NOT involve reverse-engineering or distribution
 of proprietary code. Docstrings are lifted from the Force Dimension SDK documentation and revised to fit the Python bindings
 with the express permission of Force Dimension.
 
-The Python code itself is licensed under LGPLv3 for the benefit of public
+The Python code itself is licensed under GPLv3 for the benefit of public
 research.
