@@ -11,7 +11,7 @@ from forcedimension_core.typing import (
     c_double_ptr, c_int_ptr, c_ubyte_ptr, c_uint_ptr, c_ushort_ptr
 )
 
-from . import direct_expert as direct
+from . import direct as direct
 
 _runtime._libdhd.dhdEnableExpertMode.argtypes = []
 _runtime._libdhd.dhdEnableExpertMode.restype = c_int
