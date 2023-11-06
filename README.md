@@ -16,14 +16,14 @@ the [experimental high level wrappers](https://github.com/EmDash00/forcedimensio
 v1.0.0 of the bindings bind Force Dimension SDK v3.16.0+. They are available through a PyPI package for Python 3.8+.
 
 ```
-python3 -m pip install forcedimension_core
+python3 -m pip install forcedimension-core
 ```
 
 NumPy is an optional dependency which allows the usage of special NumPy style
 [containers](https://forcedimension-core-python-docs.readthedocs.io/en/v1.0.0-dev/direct_copy_optimization.html).
 
 ```
-python3 -m pip install "forcedimension_core[numpy]"
+python3 -m pip install "forcedimension-core[numpy]"
 ```
 
 
