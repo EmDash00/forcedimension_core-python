@@ -1,3 +1,10 @@
+# Release 1.0.0rc2 (November 5, 2023)
+
+## Breaking Changes
+
+- `forcedimension_core.dhd.direct_expert` has been refactored into `forcedimension_core.expert.direct`
+
+
 # Release 1.0.0rc1 (November 5, 2023)
 
 Targets: Force Dimension SDK 3.16.0+
