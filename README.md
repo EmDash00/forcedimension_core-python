@@ -87,20 +87,6 @@ finally:
   sys.exit(1)
 ```
 
-
-## Installation
-
-v0.1.0 of the bindings bind Force Dimension SDK v3.14.0+ and supports Windows
-and Linux. They are available through a PyPI package for Python 3.8+.
-
-```
-python3 -m pip install forcedimension_core
-```
-
-You will also need to install the Force Dimension SDK and setup any drivers
-or udev rules. If you are unfamiliar with how to do this please refer to the
-[detailed installation instructions](https://force-dimension-core-python-documentation.readthedocs.io/en/latest/installation.html).
-
 ## Licensing and Rights
 
 This project is NOT directly associated with Force Dimension. It does NOT involve reverse-engineering or distribution
