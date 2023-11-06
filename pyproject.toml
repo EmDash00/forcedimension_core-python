@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "forcedimension-core"
-version = "1.0.0rc2"
+version = "1.0.0"
 description = "Unofficial Python Bindings for the Force Dimension SDK"
 authors = ["Ember Chow <emberchow.business@gmail.com>"]
 readme = "README.md"
 license = "LGPL-3.0"
-documentation = "https://forcedimension-core-python-docs.readthedocs.io/en/v1.0.0rc2/"
+documentation = "https://forcedimension-core-python-docs.readthedocs.io/en/v1.0.0/"
 repository = "https://github.com/EmDash00/forcedimension_core-python"
 keywords = ["forcedimension", "haptics", "bindings"]
 classifiers = [
