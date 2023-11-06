@@ -23,7 +23,7 @@ NumPy is an optional dependency which allows the usage of special NumPy style
 [containers](https://forcedimension-core-python-docs.readthedocs.io/en/v1.0.0-dev/direct_copy_optimization.html).
 
 ```
-python3 -m pip install forcedimension_core[numpy]
+python3 -m pip install "forcedimension_core[numpy]"
 ```
 
 
