@@ -1,8 +1,6 @@
 name: tests
 
 on:
-  push:
-    branches: [ "main", "v1.0.0-dev" ]
   pull_request:
     branches: [ "main" ]
 
