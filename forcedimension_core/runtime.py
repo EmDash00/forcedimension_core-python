@@ -66,16 +66,17 @@ def _get_search_paths_win32(search_dirs: Iterable[str] = ()):
     lib_versions.sort()
     lib_versions_local.sort()
 
+    if lib_versions_local:
+        search_dirs.append(
+            _os_impl.path.join(lib_versions_local[-1], "bin", f"{lib_name}.dll")
+        )
+
+
     if lib_versions:
         search_dirs.append(
             _os_impl.path.join(
-                lib_versions_local[-1], "bin", f"{lib_name}.dll"
+                lib_versions[-1], "bin", f"{lib_name}.dll"
             )
-        )
-
-    if lib_versions_local:
-        search_dirs.append(
-            _os_impl.path.join(lib_versions[-1], "bin", f"{lib_name}.dll")
         )
 
     return search_dirs
