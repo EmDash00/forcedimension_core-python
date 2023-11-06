@@ -1,9 +1,13 @@
 # forcedimension_core-python
 
-[![PyPI - Version](https://img.shields.io/pypi/v/forcedimension-core?logo=pypi)](https://pypi.org/project/forcedimension-core/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/forcedimension-core?logo=python)](https://github.com/EmDash00/forcedimension_core-python)  
-[![Read the Docs](https://img.shields.io/readthedocs/forcedimension_core-python-docs?logo=Read%20the%20Docs)](https://forcedimension-core-python-docs.readthedocs.io/en/v0.1.0/)  
-[![PyPI - License](https://img.shields.io/pypi/l/forcedimension-core)](https://github.com/EmDash00/forcedimension_core-python/blob/main/LICENSE)
+![PyPI - Version](https://img.shields.io/pypi/v/forcedimension_core?logo=pypi)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/forcedimension_core?logo=python)  
+[![tests](https://github.com/EmDash00/forcedimension_core-python/actions/workflows/tests.yml/badge.svg)](https://github.com/EmDash00/forcedimension_core-python/actions/workflows/tests.yml)
+[![Coveralls branch](https://img.shields.io/coverallsCoverage/github/EmDash00/forcedimension_core-python?branch=main&logo=coveralls)](https://coveralls.io/github/EmDash00/forcedimension_core-python)
+[![Read the Docs](https://img.shields.io/readthedocs/forcedimension-core-python-docs?logo=Read%20the%20Docs)](https://force-dimension-core-python-documentation.readthedocs.io/en/v1.0.0/)
+[![PyPI - License](https://img.shields.io/pypi/l/forcedimension_core)](LICENSE)
+[![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
+
 
 ## Installation
 

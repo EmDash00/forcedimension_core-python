@@ -1,0 +1,64 @@
+name: tests
+
+on:
+  push:
+    branches: [ "main", "v1.0.0-dev" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python: ["pypy3.8", "pypy3.9", "pypy3.10", "3.8", "3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python Environment
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python }}
+
+    - name: Install dependencies
+      run: |
+        python3 -m pip install -U pip setuptools wheel
+        python3 -m pip install pipx
+
+        pipx install 'poetry==1.6.1'
+        poetry install --with test --extras numpy
+
+    - name: Lint and Check Style
+      run: poetry run flake8 forcedimension_core --ignore "F401,E501"
+
+    - name: Unittest and populate coverage data
+      run: |
+        poetry run coverage run -m unittest tests
+        poetry run coverage report
+
+    - name: Upload coverage data to coveralls.io
+      run: poetry run coveralls --service=github
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
+        COVERALLS_PARALLEL: true
+
+  coveralls:
+    name: Indicate completion to coveralls.io
+    needs: test
+    runs-on: ubuntu-latest
+    container: python:3-slim
+    steps:
+    - name: Finished
+      run: |
+        python3 -m pip install -U pip setuptools wheel
+        python3 -m pip install coveralls
+        python3 -m coveralls --service=github --finish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,43 +1,103 @@
-from typing import Any, Container, Tuple, TypeVar, Protocol, Sized
+import ctypes as ct
+from ctypes import c_double, c_int, c_ubyte, c_uint, c_ushort
+from typing import (
+    TYPE_CHECKING, Container, Generic, Literal, Protocol, Sized, Tuple,
+    TypeVar, Union
+)
+
 
 _KT_contra = TypeVar("_KT_contra", contravariant=True)
 _VT = TypeVar("_VT")
 _VT_co = TypeVar("_VT_co", covariant=True)
 
 
-class _Array(Sized, Container[_KT_contra], Protocol[_KT_contra, _VT_co]):
-    def __getitem__(self, __k: _KT_contra) -> _VT_co: ...
+ComModeStr = Literal['sync', 'async', 'virtual', 'network']
 
 
-class _MutableArray(
-    _Array[_KT_contra, _VT], Protocol[_KT_contra, _VT]
+class Array(Sized, Container[_VT_co], Protocol[_KT_contra, _VT_co]):
+    """
+    A set of values (all the same type) indexed by keys
+    (all the same type).
+    """
+
+    def __getitem__(self, __k: _KT_contra) -> _VT_co:
+        ...
+
+
+class MutableArray(
+    Array[_KT_contra, _VT], Protocol[_KT_contra, _VT]
 ):
-    def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
+    """
+    A set of values (all the same type) indexed by keys
+    (all the same type) that allows setting items.
+    """
 
-#: Represents the type of a vectors of floats
-#: specifically, it implements ``__getitem__`` and ``__len__``
-FloatVectorLike = TypeVar('FloatVectorLike', bound=_Array[int, float])
-
-#: Represents vectors of ints
-#: specifically, it implements ``__getitem__`` and ``__len__``
-IntVectorLike = TypeVar('IntVectorLike', bound=_Array[int, int])
-
-#: Represents the type of a mutable vectors of floats
-#: specifically, it implements ``__setitem__``, ``__getitem__``, and
-#: ``__len__``
-MutableFloatVectorLike = TypeVar(
-    'MutableFloatVectorLike', bound=_MutableArray[int, float]
-)
-
-# I would like to type this as
-# TypeVar('MatrixLike', bound=SupportsGetSetItem[int, VectorLike])
-# however, generics cannot be used in bounds. See mypy#2756.
+    def __setitem__(self, __k: _KT_contra, __v: _VT) -> None:
+        ...
 
 
-#: Represents a mutable matrix. WIP
-MutableFloatMatrixLike = TypeVar(
-    'MutableFloatMatrixLike', bound=_MutableArray[int, Any]
-)
+if not TYPE_CHECKING:
+    class Pointer:
+        @classmethod
+        def __class_getitem__(cls, item):
 
-#: Represents a tuple of MAX_DOF ints, one for each DOF
-DOFTuple = Tuple[int, int, int, int, int, int, int, int]
+            # Don't try to resolve generic types at runtime.
+            # They only matter for typing anyways.
+            if isinstance(item, TypeVar):
+                return None
+
+            return ct.POINTER(item)
+
+    CType = TypeVar('CType')
+else:
+    #: Generic type representing a C pointer
+    Pointer = ct._Pointer
+
+    #: Generic type representing a C data type (e.g. int, float, etc.)
+    CType = TypeVar('CType', bound=ct._CData)
+
+CBoolLike = Union[bool, int]
+
+c_double_ptr = Pointer[c_double]
+c_ubyte_ptr = Pointer[c_ubyte]
+c_ushort_ptr = Pointer[c_ushort]
+c_int_ptr = Pointer[c_int]
+c_uint_ptr = Pointer[c_uint]
+
+
+class SupportsPtr(Protocol, Generic[CType]):
+    """
+    A type which supports direct memory addressing of the front of a contiguous
+    array.
+    """
+
+    @property
+    def ptr(self) -> Pointer[CType]:
+        """
+        A pointer to the front of a contiguous section of data.
+        """
+
+        ...
+
+
+class SupportsPtrs3(Protocol, Generic[CType]):
+    """
+    A type which supports direct memory addressing of its stored values.
+    """
+
+    @property
+    def ptrs(self) -> Tuple[
+        Pointer[CType], Pointer[CType], Pointer[CType]
+    ]:
+        """
+        A tuple of 3 pointers to sequentially ordered set of 3 values.
+        """
+
+        ...
+
+
+#: Represents a tuple of integers, one for each DOF.
+IntDOFTuple = Tuple[int, int, int, int, int, int, int, int]
+
+#: Represents a tuple of floats, one for each DOF.
+FloatDOFTuple = Tuple[float, float, float, float, float, float, float, float]

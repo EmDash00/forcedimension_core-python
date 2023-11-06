@@ -1,17 +1,21 @@
 from enum import IntEnum
-from typing import Final
+from typing import Final, Literal, Tuple
 
 MAX_DOF: Final[int] = 8   #: Maximum number of DOF a device can have
-MAX_BUTTONS: Final[int] = 16  #: Maximum number of buttons a device can have
+MAX_BUTTONS: Final[int] = 32  #: Maximum number of buttons a device can have
 
 VELOCITY_WINDOWING: Final[int] = 0  #: Velocity Windowing Mode
-VELOCITY_WINDOW: Final[int] = 20   #: Default velocity window size
+DEFAULT_VELOCITY_WINDOW: Final[int] = 20   #: Default velocity window size
 
-MAX_STATUS: Final[int] = 16  #: Maximum number of elements in a status tuple
+MAX_STATUS: Final[int] = 17  #: Maximum number of elements in a status tuple
 
 #: Return value used when the TimeGuard feature prevented an unnecessary
 #: communication with the device.
 TIMEGUARD: Final[int] = 1
+
+#: Convinence constant used to set device to default timeguard value
+#: Not the actual default timeguard value.
+DEFAULT_TIMEGUARD_US: Final[int] = -1
 
 #: Return value used when at least one of the motors cannot deliver the
 #: requested torque. Motor groups are scaled in order to preserve force and
@@ -19,23 +23,46 @@ TIMEGUARD: Final[int] = 1
 MOTOR_SATURATED: Final[int] = 2
 
 
+class VelocityEstimatorMode(IntEnum):
+    """
+    Supported velocity estimator modes. Currently only WINDOWING mode is
+    available.
+    """
+    #: The default velocity estimator mode. In this mode, the velocity is
+    #: estimated by comparing the current position with the position a given
+    #: time interval ago. This time interval (or "window") can be adjusted
+    #: using dhdConfigLinearVelocity, and should be modified to best suit the
+    #: dynamic behavior of the device for a given application. The windowing
+    #: estimator mode is the least resource intensive.
+    WINDOWING = 0
+    """
+    The default velocity estimator mode. In this mode, the velocity is
+    estimated by comparing the current position with the position a given
+    time interval ago.
+    """
+
+
 class DeviceType(IntEnum):
     """
     Supported device type IDs as an enumeration.
     """
     NONE = 0
+    DELTA3 = 63
     OMEGA3 = 33
-    OMEGA33 = 34
-    OMEGA33_LEFT = 36
-    OMEGA331 = 35
-    OMEGA331_LEFT = 37
-    FALCON = 60
+    OMEGA6_RIGHT = 34
+    OMEGA6_LEFT = 36
+    OMEGA7_RIGHT = 35
+    OMEGA7_LEFT = 37
     CONTROLLER = 81
     CONTROLLER_HR = 82
     CUSTOM = 91
-    SIGMA331 = 104
-    SIGMA331_LEFT = 105
-    DELTA3 = 63
+    SIGMA3 = 206
+    SIGMA7_RIGHT = 104
+    SIGMA7_LEFT = 105
+    LAMBDA3 = 203
+    LAMBDA7_RIGHT = 108
+    LAMBDA7_LEFT = 109
+    FALCON = 60
 
 
 class ErrorNum(IntEnum):
@@ -57,37 +84,30 @@ class ErrorNum(IntEnum):
     DEVICE_NOT_READY = 12
     FILE_NOT_FOUND = 13
     CONFIGURATION = 14
-    NULL_ARGUMENT = 15
-    REDUNDANT_FAIL = 16
-    NOT_ENABLED = 17
-    DEVICE_IN_USE = 18
+    INVALID_INDEX = 15
+    DEPRECATED = 16
+    NULL_ARGUMENT = 17
+    REDUNDANT_FAIL = 18
+    NOT_ENABLED = 19
+    DEVICE_IN_USE = 20
+    INVALID = 21
+    NO_REGULATION = 22
 
 
-class DeltaMotorID(IntEnum):
-    MOTOR0 = 0
-    MOTOR1 = 1
-    MOTOR2 = 2
+#: Array index for motors/encoders of the WRIST structure.
+#: i.e. DELTA motor/encoder 0 has index 0
+DELTA_IDX: Final[Tuple[Literal[0], Literal[1], Literal[2]]] = (0, 1, 2)
 
 
-class DeltaEncID(IntEnum):
-    ENC0 = 0
-    ENC1 = 1
-    ENC2 = 2
-
-
-class WristMotorID(IntEnum):
-    MOTOR0 = 3
-    MOTOR1 = 4
-    MOTOR2 = 5
-
-
-class WristEncID(IntEnum):
-    ENC0 = 3
-    ENC1 = 4
-    ENC2 = 5
+#: Array index for motors/encoders of the WRIST structure.
+#: i.e. WRIST motor/encoder 0 has index 3
+WRIST_IDX: Final[Tuple[Literal[3], Literal[4], Literal[5]]] = (3, 4, 5)
 
 
 class NovintButtonID(IntEnum):
+    """
+    Enumeration mapping button type to button ID for the Novint Falcon.
+    """
     CENTER = 0
     LEFT = 1
     UP = 2
@@ -115,20 +135,33 @@ class StatusIndex(IntEnum):
     FORCEOFFCAUSE = 14
 
 
-class State(IntEnum):
-    OFF = 0
-    ON = 1
+class ForceOffCause(IntEnum):
+    """
+    The event that caused forces to be disabled on the device (the last time
+    forces were turned off).
+
+    Info
+    ----
+    Not all devices suppport all the force-disabling mechanisms listed above.
+    """
+    FORCES_NOT_OFF = 0
+    BUTTON = 1
+    VELOCITY = 2
+    WATCHDOG = 3
+    SOFTWARE = 4
+    USBDISCN = 5
+    DEADMAN = 6
 
 
 class ComMode(IntEnum):
     """
     Communication mode with the device. USB operations using
-    :data:`forcedimension.dhd.constants.ComMode.SYNC` and
-    :data:`forcedimension.dhd.constants.ComMode.ASYNC`.
+    :data:`forcedimension.constants.ComMode.SYNC` and
+    :data:`forcedimension.constants.ComMode.ASYNC`.
     Other operation modes are reported for virtual devices
-    (:data:`forcedimension.dhd.constants.ComMode.VIRTUAL`) and devices that are
+    (:data:`forcedimension.constants.ComMode.VIRTUAL`) and devices that are
     connected over the network
-    (:data:`forcedimension.dhd.constants.ComMode.NETWORK`).
+    (:data:`forcedimension.constants.ComMode.NETWORK`).
     """
     #: The synchronous USB mode performs USB read and write operations in
     #: sequence, allowing for a theoretical haptic refresh rate of 4 kHz.
@@ -156,3 +189,9 @@ class ThreadPriority(IntEnum):
     DEFAULT = 0
     HIGH = 1
     LOW = 2
+
+
+class Handedness(IntEnum):
+    NONE = 0
+    LEFT = 1
+    RIGHT = 2
