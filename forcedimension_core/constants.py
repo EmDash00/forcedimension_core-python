@@ -60,6 +60,8 @@ class DeviceType(IntEnum):
     SIGMA7_RIGHT = 104
     SIGMA7_LEFT = 105
     LAMBDA3 = 203
+    LAMBDA6_RIGHT = 131
+    LAMBDA6_LEFT = 132
     LAMBDA7_RIGHT = 108
     LAMBDA7_LEFT = 109
     FALCON = 60

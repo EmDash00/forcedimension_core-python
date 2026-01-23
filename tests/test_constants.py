@@ -28,6 +28,9 @@ class TestConstants(unittest.TestCase):
 
         self.assertEqual(fdsdk_core.constants.DeviceType.LAMBDA3, 203)
 
+        self.assertEqual(fdsdk_core.constants.DeviceType.LAMBDA6_RIGHT, 131)
+        self.assertEqual(fdsdk_core.constants.DeviceType.LAMBDA6_LEFT, 132)
+
         self.assertEqual(fdsdk_core.constants.DeviceType.LAMBDA7_RIGHT, 108)
         self.assertEqual(fdsdk_core.constants.DeviceType.LAMBDA7_LEFT, 109)
 
