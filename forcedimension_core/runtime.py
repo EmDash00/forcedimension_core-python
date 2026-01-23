@@ -11,7 +11,7 @@ from typing import Final
 
 from forcedimension_core.containers import VersionTuple
 
-VERSION_TARGET = VersionTuple(3, 16, 0, 0)
+VERSION_TARGET = VersionTuple(3, 17, 6, 0)
 
 SUPPORTED_PLATFORMS: Final[set[str]] = {"linux", "win32", "cygwin", "darwin"}
 
