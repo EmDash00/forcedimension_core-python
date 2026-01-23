@@ -20,7 +20,7 @@ class MockDHD:
     restype = None
 
     major: int = 3
-    minor: int = 16
+    minor: int = 17
     release: int = 0
     revision: int = 0
 
@@ -650,7 +650,7 @@ class TestRuntime(unittest.TestCase):
         self.assertIsNone(runtime.load())
         self.assertEqual(
             MockSys.stderr.data,
-            "Invalid version. v3.15.0-0 found but v3.16.0-0 is required.\n"
+            "Invalid version. v3.15.0-0 found but v3.17.6-0 is required.\n"
         )
 
         MockSys.stderr.data = ""
@@ -658,8 +658,8 @@ class TestRuntime(unittest.TestCase):
         self.assertEqual(MockSys.stderr.data, "")
 
         MockDHD.major = 3
-        MockDHD.minor = 16
-        MockDHD.release = 0
+        MockDHD.minor = 17
+        MockDHD.release = 6
         MockDHD.revision = 0
 
         for i in range(len(paths) - 1):
