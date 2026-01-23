@@ -1,0 +1,51 @@
+name: "Staging Publish"
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  staging-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install Python 3.13
+        run: uv python install 3.13
+
+      - name: Generate and set hash-based version
+        id: version
+        run: |
+          # Get current version from pyproject.toml (strip any suffixes)
+          BASE_VERSION=$(uv version | awk '{print $2}' | sed -E 's/\.(dev|a|b|rc)[0-9]*.*//')
+
+          # Use first 8 chars of commit hash
+          COMMIT_HASH=${GITHUB_SHA:0:7}
+          VERSION="${BASE_VERSION}.dev0+${COMMIT_HASH}"
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+          uv version "$VERSION"
+
+      - name: Build
+        run: uv build
+
+      - name: Publish to TestPyPI
+        run: uv publish --repository https://test.pypi.org/legacy/
+
+      - name: Verify publication
+        run: |
+          uv pip install --extra numpy \
+            --index-url https://test.pypi.org/simple \
+            --extra-index-url https://pypi.org/simple \
+            forcedimension-core==${{ steps.version.outputs.VERSION }}
+
+          uv run python -c "import forcedimension_core"
