@@ -1,3 +1,5 @@
+"""Deprecated names for constants. Kept for backward compatibility."""
+
 from enum import IntEnum
 
 
