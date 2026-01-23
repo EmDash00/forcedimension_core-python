@@ -9,4 +9,4 @@ import forcedimension_core.dhd as dhd
 import forcedimension_core.drd as drd
 import forcedimension_core.util as util
 
-__version__ = '1.0.0rc2'
+__version__ = '1.1.0-dev'

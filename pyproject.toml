@@ -1,6 +1,6 @@
 [project]
 name = "forcedimension-core"
-version = "1.0.0"
+version = "1.1.0-dev"
 description = "Unofficial Python Bindings for the Force Dimension SDK"
 authors = [{ name = "Ember Chow", email = "emberchow.business@gmail.com" }]
 requires-python = ">=3.8,<3.13"
