@@ -1,20 +1,24 @@
 from __future__ import annotations
 
 import ctypes as ct
-from array import array
-from ctypes import c_int
 import os
+from array import array
 from collections.abc import Iterable
+from ctypes import c_int
 from typing import Any, NamedTuple
-from typing_extensions import overload
 
 import pydantic as pyd
 import pydantic_core as pyd_core
 from pydantic_core import core_schema as _core_schema
+from typing_extensions import overload
 
 from forcedimension_core.constants import MAX_DOF, MAX_STATUS
 from forcedimension_core.typing import (
-    CBoolLike, Pointer, c_double_ptr, c_int_ptr, c_ushort_ptr
+    CBoolLike,
+    Pointer,
+    c_double_ptr,
+    c_int_ptr,
+    c_ushort_ptr,
 )
 
 try:

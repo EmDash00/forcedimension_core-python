@@ -1,9 +1,7 @@
 from ctypes import c_double
 
 import forcedimension_core.runtime as _runtime
-from forcedimension_core.typing import (
-    SupportsPtr, SupportsPtrs3
-)
+from forcedimension_core.typing import SupportsPtr, SupportsPtrs3
 
 
 def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:

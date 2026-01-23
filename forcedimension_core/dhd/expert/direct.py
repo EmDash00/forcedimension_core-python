@@ -1,9 +1,7 @@
 from ctypes import c_byte, c_double, c_int, c_ushort
 
 import forcedimension_core.runtime as _runtime
-from forcedimension_core.typing import (
-    Array, SupportsPtr, SupportsPtrs3, c_double_ptr
-)
+from forcedimension_core.typing import Array, SupportsPtr, SupportsPtrs3, c_double_ptr
 
 
 def getDeltaEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:

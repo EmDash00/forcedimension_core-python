@@ -6,11 +6,19 @@ import typing_extensions
 import forcedimension_core.runtime as _runtime
 from forcedimension_core.constants import MAX_DOF, ComMode, DeviceType
 from forcedimension_core.typing import (
-    Array, FloatDOFTuple, MutableArray,
-    c_double_ptr, c_int_ptr, c_ubyte_ptr, c_uint_ptr, c_ushort_ptr
+    Array,
+    FloatDOFTuple,
+    MutableArray,
+    c_double_ptr,
+    c_int_ptr,
+    c_ubyte_ptr,
+    c_uint_ptr,
+    c_ushort_ptr,
 )
 
-from . import direct as direct
+from . import direct
+
+__all__ = ["direct"]
 
 _runtime._libdhd.dhdEnableExpertMode.argtypes = []
 _runtime._libdhd.dhdEnableExpertMode.restype = c_int

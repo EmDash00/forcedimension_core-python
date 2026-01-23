@@ -1,45 +1,89 @@
 import ctypes as ct
-from ctypes import (c_bool, c_byte, c_char_p, c_double, c_int, c_size_t,
-                    c_uint, c_uint32, c_ushort)
+from ctypes import (
+    c_bool,
+    c_byte,
+    c_char_p,
+    c_double,
+    c_int,
+    c_size_t,
+    c_uint,
+    c_uint32,
+    c_ushort,
+)
 
 import forcedimension_core.containers as containers
 import forcedimension_core.runtime as _runtime
 from forcedimension_core.constants import (
     DEFAULT_VELOCITY_WINDOW,
-    ComMode, DeviceType, ErrorNum, VelocityEstimatorMode
+    ComMode,
+    DeviceType,
+    ErrorNum,
+    VelocityEstimatorMode,
 )
 from forcedimension_core.runtime import VersionTuple
 from forcedimension_core.typing import (
-    Array, MutableArray, c_double_ptr, c_int_ptr, c_ushort_ptr
+    Array,
+    MutableArray,
+    c_double_ptr,
+    c_int_ptr,
+    c_ushort_ptr,
 )
 
 from . import direct as direct
 from . import expert, os_independent
 from .adaptors import (
     DHDError,
-    DHDIOError,
+    DHDErrorArgument,
     DHDErrorCom,
-    DHDErrorDHCBusy,
-    DHDErrorNoDriverFound,
-    DHDErrorNoDeviceFound,
-    DHDErrorFeatureNotAvailable,
-    DHDErrorTimeout,
-    DHDErrorGeometry,
-    DHDErrorExpertModeDisabled,
-    DHDErrorNotImplemented,
-    DHDErrorMemory,
-    DHDErrorDeviceNotReady,
-    DHDErrorFileNotFound,
     DHDErrorConfiguration,
-    DHDErrorInvalidIndex,
     DHDErrorDeprecated,
+    DHDErrorDeviceInUse,
+    DHDErrorDeviceNotReady,
+    DHDErrorDHCBusy,
+    DHDErrorExpertModeDisabled,
+    DHDErrorFeatureNotAvailable,
+    DHDErrorFeatureNotEnabled,
+    DHDErrorFileNotFound,
+    DHDErrorGeometry,
+    DHDErrorInvalidIndex,
+    DHDErrorMemory,
+    DHDErrorNoDeviceFound,
+    DHDErrorNoDriverFound,
+    DHDErrorNoRegulation,
+    DHDErrorNotImplemented,
     DHDErrorNullArgument,
     DHDErrorRedundantFail,
-    DHDErrorFeatureNotEnabled,
-    DHDErrorDeviceInUse,
-    DHDErrorArgument,
-    DHDErrorNoRegulation
+    DHDErrorTimeout,
+    DHDIOError,
 )
+
+__all__ = [
+    "expert",
+    "os_independent",
+    "DHDError",
+    "DHDErrorArgument",
+    "DHDErrorCom",
+    "DHDErrorConfiguration",
+    "DHDErrorDeprecated",
+    "DHDErrorDeviceInUse",
+    "DHDErrorDeviceNotReady",
+    "DHDErrorDHCBusy",
+    "DHDErrorExpertModeDisabled",
+    "DHDErrorFeatureNotAvailable",
+    "DHDErrorFeatureNotEnabled",
+    "DHDErrorFileNotFound",
+    "DHDErrorGeometry",
+    "DHDErrorInvalidIndex",
+    "DHDErrorMemory",
+    "DHDErrorNoDeviceFound",
+    "DHDErrorNoDriverFound",
+    "DHDErrorNoRegulation",
+    "DHDErrorNotImplemented",
+    "DHDErrorNullArgument",
+    "DHDErrorRedundantFail",
+    "DHDErrorTimeout",
+    "DHDIOError"
+]
 
 _runtime._libdhd.dhdErrorGetLast.argtypes = []
 _runtime._libdhd.dhdErrorGetLast.restype = c_int

@@ -1,10 +1,7 @@
 import ctypes as ct
-from ctypes import c_double, c_int, c_ubyte, c_uint, c_ushort
 from collections.abc import Container, Sized
-from typing import (
-    TYPE_CHECKING, Generic, Literal, Protocol, TypeVar
-)
-
+from ctypes import c_double, c_int, c_ubyte, c_uint, c_ushort
+from typing import TYPE_CHECKING, Generic, Literal, Protocol, TypeVar
 
 _KT_contra = TypeVar("_KT_contra", contravariant=True)
 _VT = TypeVar("_VT")

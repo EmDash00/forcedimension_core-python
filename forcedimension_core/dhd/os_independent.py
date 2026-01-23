@@ -1,6 +1,6 @@
 from ctypes import c_bool, c_byte, c_double
-from forcedimension_core import runtime as _runtime
 
+from forcedimension_core import runtime as _runtime
 
 _runtime._libdhd.dhdKbHit.argtypes = []
 _runtime._libdhd.dhdKbHit.restype = c_bool

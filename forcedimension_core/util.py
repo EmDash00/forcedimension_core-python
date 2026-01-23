@@ -2,10 +2,12 @@ from typing import cast as _cast
 
 from forcedimension_core import dhd
 from forcedimension_core.constants import (
-    ComMode, DeviceType, Handedness, VelocityEstimatorMode
+    ComMode,
+    DeviceType,
+    Handedness,
+    VelocityEstimatorMode,
 )
 from forcedimension_core.typing import ComModeStr
-
 
 _error = [
     None,
