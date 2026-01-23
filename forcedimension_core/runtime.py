@@ -13,7 +13,7 @@ from forcedimension_core.containers import VersionTuple
 
 VERSION_TARGET = VersionTuple(3, 16, 0, 0)
 
-SUPPORTED_PLATFORMS: Final[set[str]] = {'linux', 'win32', 'cygwin', 'darwin'}
+SUPPORTED_PLATFORMS: Final[set[str]] = {"linux", "win32", "cygwin", "darwin"}
 
 _ctypes_impl = ctypes
 _getpass_impl = getpass
@@ -29,39 +29,38 @@ _test_load = False
 def _get_search_paths_win32(search_dirs: Iterable[str] = ()):
     search_dirs = list(search_dirs)
 
-    if _platform_impl.architecture()[0] == '64bit':
+    if _platform_impl.architecture()[0] == "64bit":
         lib_name = "drd64"
     else:
         lib_name = "drd"
 
-    if _os_impl.environ.get('FDSDK'):
+    if _os_impl.environ.get("FDSDK"):
         search_dirs.append(
             _os_impl.path.join(
-                _os_impl.environ.get(
-                    'FDSDK'), 'bin', f'{lib_name}.dll'  # type: ignore
+                _os_impl.environ.get("FDSDK"),
+                "bin",
+                f"{lib_name}.dll",  # type: ignore
             )
         )
 
-    if _sys_impl.platform == 'cygwin':
+    if _sys_impl.platform == "cygwin":
         root = _os_impl.path.join(
-            _os_impl.path.sep + 'cygdrive',
-            _pathlib_impl.Path.home().drive[0].lower()
+            _os_impl.path.sep + "cygdrive", _pathlib_impl.Path.home().drive[0].lower()
         )
     else:
         root = _pathlib_impl.Path.home().drive + _os_impl.path.sep
 
     app_local = _os_impl.path.join(
-        root, 'Users', _getpass_impl.getuser(), 'AppData', 'Local'
+        root, "Users", _getpass_impl.getuser(), "AppData", "Local"
     )
 
     lib_versions = _glob_impl.glob(
-        f'{_os_impl.path.join(root, "Program Files", "Force Dimension")}'
-        f'{_os_impl.path.sep}sdk-*'
+        f"{_os_impl.path.join(root, 'Program Files', 'Force Dimension')}"
+        f"{_os_impl.path.sep}sdk-*"
     )
 
     lib_versions_local = _glob_impl.glob(
-        f'{_os_impl.path.join(app_local, "Force Dimension")}'
-        f'{_os_impl.path.sep}sdk-*'
+        f"{_os_impl.path.join(app_local, 'Force Dimension')}{_os_impl.path.sep}sdk-*"
     )
 
     lib_versions.sort()
@@ -74,9 +73,7 @@ def _get_search_paths_win32(search_dirs: Iterable[str] = ()):
 
     if lib_versions:
         search_dirs.append(
-            _os_impl.path.join(
-                lib_versions[-1], "bin", f"{lib_name}.dll"
-            )
+            _os_impl.path.join(lib_versions[-1], "bin", f"{lib_name}.dll")
         )
 
     return search_dirs
@@ -86,18 +83,18 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
     search_dirs = list(search_dirs)
     machine = _platform_impl.machine()
 
-    if _sys_impl.platform == 'linux':
+    if _sys_impl.platform == "linux":
         lib_file_glob = "libdrd.so.*"
         lib_file = "libdrd.so"
-        platform_name = 'lin'
-        compiler = 'gcc'
+        platform_name = "lin"
+        compiler = "gcc"
     else:
         lib_file_glob = "libdrd.*dylib"
         lib_file = "libdrd.dylib"
-        platform_name = 'mac'
-        compiler = 'clang'
+        platform_name = "mac"
+        compiler = "clang"
 
-    if (libpath := _os_impl.environ.get('FDSDK')):
+    if libpath := _os_impl.environ.get("FDSDK"):
         lib_folder = _os_impl.path.realpath(
             _os_impl.path.join(
                 libpath,
@@ -107,13 +104,13 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
             )
         )
         # type: ignore
-        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file_glob}")):  # noqa
+        if glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file_glob}"):  # noqa
             glob_res.sort()
             search_dirs.append(glob_res[-1])
 
     # Legacy support for the old environment variable
 
-    if (libpath := _os_impl.environ.get('FORCEDIM_SDK')):
+    if libpath := _os_impl.environ.get("FORCEDIM_SDK"):
         lib_folder = _os_impl.path.realpath(
             _os_impl.path.join(
                 libpath,
@@ -123,26 +120,38 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
             )
         )
 
-        if (glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file_glob}")):  # noqa
+        if glob_res := _glob_impl.glob(f"{lib_folder}/{lib_file_glob}"):  # noqa
             glob_res.sort()
             search_dirs.append(glob_res[-1])
 
     lib_loc_local_glob = os.path.join(
-        _os_impl.path.expanduser('~'),
-        '.local', 'lib', lib_file_glob  # type: ignore
+        _os_impl.path.expanduser("~"),
+        ".local",
+        "lib",
+        lib_file_glob,  # type: ignore
     )
 
     lib_loc_glob = os.path.join(
-        _os_impl.path.sep, 'usr', 'local', 'lib', lib_file_glob  # type: ignore
+        _os_impl.path.sep,
+        "usr",
+        "local",
+        "lib",
+        lib_file_glob,  # type: ignore
     )
 
     lib_loc_local = os.path.join(
-        _os_impl.path.expanduser('~'),
-        '.local', 'lib', lib_file  # type: ignore
+        _os_impl.path.expanduser("~"),
+        ".local",
+        "lib",
+        lib_file,  # type: ignore
     )
 
     lib_loc = os.path.join(
-        _os_impl.path.sep, 'usr', 'local', 'lib', lib_file  # type: ignore
+        _os_impl.path.sep,
+        "usr",
+        "local",
+        "lib",
+        lib_file,  # type: ignore
     )
 
     glob_res_local = _glob_impl.glob(lib_loc_local_glob)
@@ -162,18 +171,15 @@ def _get_search_paths_unix(search_dirs: Iterable[str] = ()):
     return search_dirs  # type: ignore
 
 
-def _get_search_paths(
-    search_dirs: Iterable[str] = (), silent: bool = False
-):
-    if _sys_impl.platform == 'win32' or _sys_impl.platform == 'cygwin':
+def _get_search_paths(search_dirs: Iterable[str] = (), silent: bool = False):
+    if _sys_impl.platform == "win32" or _sys_impl.platform == "cygwin":
         return _get_search_paths_win32(search_dirs)
-    elif _sys_impl.platform == 'linux' or _sys_impl.platform == 'darwin':
+    if _sys_impl.platform == "linux" or _sys_impl.platform == "darwin":
         return _get_search_paths_unix(search_dirs)
-    else:
-        if not silent:
-            _sys_impl.stderr.write("Unsupported platform.\n")
+    if not silent:
+        _sys_impl.stderr.write("Unsupported platform.\n")
 
-        return []
+    return []
 
 
 def _get_version(lib: _ctypes_impl.CDLL):
@@ -186,25 +192,16 @@ def _get_version(lib: _ctypes_impl.CDLL):
         _ctypes_impl.byref(major),
         _ctypes_impl.byref(minor),
         _ctypes_impl.byref(release),
-        _ctypes_impl.byref(revision)
+        _ctypes_impl.byref(revision),
     )
 
-    return VersionTuple(
-        major.value,
-        minor.value,
-        release.value,
-        revision.value
-    )
+    return VersionTuple(major.value, minor.value, release.value, revision.value)
 
 
 def _should_mock():
-    sphinx_build = (
-        _os_impl.environ.get('__fdsdkpy_sphinx_build__', 'False') == 'True'
-    )
+    sphinx_build = _os_impl.environ.get("__fdsdkpy_sphinx_build__", "False") == "True"
 
-    unittest = (
-        _os_impl.environ.get('__fdsdkpy_unittest__', 'False') == 'True'
-    )
+    unittest = _os_impl.environ.get("__fdsdkpy_unittest__", "False") == "True"
 
     return sphinx_build or unittest
 
@@ -213,8 +210,7 @@ def load(
     search_dirs=(),
     silent=False,
 ):
-
-    if _os_impl.environ.get('__fdsdkpy_unittest_runtime__', 'False') == 'True':
+    if _os_impl.environ.get("__fdsdkpy_unittest_runtime__", "False") == "True":
         return None
 
     if _should_mock() and not _test_load:
@@ -229,15 +225,14 @@ def load(
 
         # Make sure to add the directory to PATH for Windows DLL loading
         if _sys_impl.platform == "win32":
-
-            path = _os_impl.environ.get('PATH')
+            path = _os_impl.environ.get("PATH")
             directory, _ = _os_impl.path.split(lib_path)
 
             if not path:
-                _os_impl.environ['PATH'] = directory
+                _os_impl.environ["PATH"] = directory
             else:
                 if directory not in path:
-                    _os_impl.environ['PATH'] = f"{directory};{path}"
+                    _os_impl.environ["PATH"] = f"{directory};{path}"
 
         try:
             lib = _ctypes_impl.CDLL(lib_path)

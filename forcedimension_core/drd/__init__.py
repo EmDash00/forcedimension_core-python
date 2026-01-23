@@ -36,8 +36,7 @@ _runtime._libdrd.drdOpen.restype = c_int
 
 
 def open() -> int:
-    """
-    Open a connection to the first available device connected to
+    """Open a connection to the first available device connected to
     the system. The order in which devices are opened persists
     until devices are added or removed.
 
@@ -62,8 +61,7 @@ _runtime._libdrd.drdOpenID.restype = c_int
 
 
 def openID(ID: int) -> int:
-    """
-    Open a connection to one particular device connected to the
+    """Open a connection to one particular device connected to the
     system. The order in which devices are opened persists until
     devices are added or removed. If the device at the specified
     index is already opened, its device ID is returned.
@@ -96,8 +94,7 @@ _runtime._libdrd.drdSetDevice.restype = c_int
 
 
 def setDevice(ID: int) -> int:
-    """
-    Select the default device that will receive the API commands.
+    """Select the default device that will receive the API commands.
     The API supports multiple devices. This routine allows the
     programmer to decide which device the API single-device calls
     will address by default. APIs call that do not specify the ID
@@ -126,8 +123,7 @@ _runtime._libdrd.drdGetDeviceID.restype = c_int
 
 
 def getDeviceID() -> int:
-    """
-    Return the ID of the current default device.
+    """Return the ID of the current default device.
 
     :returns:
         The device ID on success, -1 otherwise.
@@ -145,8 +141,7 @@ _runtime._libdrd.drdClose.restype = c_int
 
 
 def close(ID: int = -1) -> int:
-    """
-    Close the connection to a particular device.
+    """Close the connection to a particular device.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -167,8 +162,7 @@ _runtime._libdrd.drdIsSupported.restype = c_bool
 
 
 def isSupported(ID: int = -1) -> bool:
-    """
-    Determine if the device is supported out-of-the-box by the
+    """Determine if the device is supported out-of-the-box by the
     DRD. The regulation gains of supported devices are
     configured internally so that such devices are ready to use.
 
@@ -193,6 +187,7 @@ def isSupported(ID: int = -1) -> bool:
         ``True`` if the device is supported, ``False`` otherwise.
 
     """
+
     return _runtime._libdrd.drdIsSupported(ID)
 
 
@@ -201,8 +196,7 @@ _runtime._libdrd.drdIsRunning.restype = c_bool
 
 
 def isRunning(ID: int = -1) -> bool:
-    """
-    Checks the state of the robotic control thread for a
+    """Checks the state of the robotic control thread for a
     particular device.
 
     :param int ID:
@@ -225,8 +219,7 @@ _runtime._libdrd.drdIsFiltering.restype = c_bool
 
 
 def isFiltering(ID: int = -1) -> bool:
-    """
-    Checks whether the particular robot control thread is
+    """Checks whether the particular robot control thread is
     applying a motion filter while tracking a target using
     :func:`forcedimension_core.drd.trackPos()` or
     :func:`forcedimension_core.drd.trackEnc()`.
@@ -255,8 +248,7 @@ _runtime._libdrd.drdIsInitialized.restype = c_bool
 
 
 def isInitialized(ID: int = -1) -> bool:
-    """
-    Checks the initialization status of a particular robot. The
+    """Checks the initialization status of a particular robot. The
     initialization status reflects the status of the controller
     RESET LED. The robot can be (re)initialized by calling
     :func:`forcedimension_core.drd.autoInit()`.
@@ -285,8 +277,7 @@ _runtime._libdrd.drdIsMoving.restype = c_bool
 
 
 def isMoving(ID: int = -1) -> bool:
-    """
-    Checks whether the particular robot is moving (following a
+    """Checks whether the particular robot is moving (following a
     call to
     :func:`forcedimension_core.drd.moveToPos()`,
     :func:`forcedimension_core.drd.moveToEnc()`,
@@ -318,9 +309,8 @@ _runtime._libdrd.drdAutoInit.restype = c_int
 
 
 def autoInit(ID: int = -1) -> int:
-    """
-    Performs automatic initialization of that particular robot by
-    robotically moving to a known position and reseting encoder
+    """Performs automatic initialization of that particular robot by
+    robotically moving to a known position and resetting encoder
     counters to their correct values.
 
     :param int ID:
@@ -348,8 +338,7 @@ _runtime._libdrd.drdCheckInit.restype = c_int
 
 
 def checkInit(ID: int = -1) -> int:
-    """
-    Check the validity of that particular robot initialization
+    """Check the validity of that particular robot initialization
     by robotically sweeping all endstops and comparing their
     joint space position to expected values (stored in each
     device internal memory). If the robot is not yet initialized,
@@ -382,10 +371,9 @@ _runtime._libdrd.drdPrecisionInit.restype = c_int
 
 
 def precisionInit(ID: int = -1) -> int:
-    """
-    This function performs automatic initialization of supported
+    """This function performs automatic initialization of supported
     devices byrobotically moving each axis to a known position
-    and reseting its encoder counter to its correct values. This
+    and resetting its encoder counter to its correct values. This
     initialization is carried out for each device axis in turn,
     and validates the initialization by asserting the position
     of a validation reference for each axis.
@@ -429,8 +417,7 @@ _runtime._libdrd.drdGetCtrlFreq.restype = c_double
 
 
 def getCtrlFreq(ID: int = -1) -> float:
-    """
-    This function returns the average refresh rate of the control loop
+    """This function returns the average refresh rate of the control loop
     (in [kHz]) since the function was last called.
 
     :param int ID:
@@ -452,8 +439,7 @@ _runtime._libdrd.drdStart.restype = c_int
 
 
 def start(ID: int = -1) -> int:
-    """
-    Start the robotic control loop for the given robot.
+    """Start the robotic control loop for the given robot.
 
     Note
     ----
@@ -487,8 +473,7 @@ _runtime._libdrd.drdRegulatePos.restype = c_int
 
 
 def regulatePos(enable: bool, ID: int = -1) -> int:
-    """
-    Enable/disable robotic regulation of the device delta base,
+    """Enable/disable robotic regulation of the device delta base,
     which provides translations. If regulation is disabled,
     the base can move freely and will display any force set using
     :func:`forcedimension_core.drd.setForceAndTorqueAndGripperForce()`.
@@ -526,8 +511,7 @@ _runtime._libdrd.drdRegulateRot.restype = c_int
 
 
 def regulateRot(enable: bool, ID: int = -1) -> int:
-    """
-    Enable/disable robotic regulation of the device wrist. If
+    """Enable/disable robotic regulation of the device wrist. If
     regulation is disabled, the wrist can move freely and will
     display any torque set using
     :func:`forcedimension_core.drd.setForceAndTorqueAndGripperForce()`.
@@ -565,8 +549,7 @@ _runtime._libdrd.drdRegulateGrip.restype = c_int
 
 
 def regulateGrip(enable: bool, ID: int = -1) -> int:
-    """
-    Enable/disable robotic regulation of the device gripper. If
+    """Enable/disable robotic regulation of the device gripper. If
     regulation is disabled, the gripper can move freely and will
     display any force set using
     :func:`forcedimension_core.drd.setForceAndTorqueAndGripperForce()`.
@@ -618,8 +601,7 @@ def setForceAndTorqueAndGripperForce(
     fg: float,
     ID: int = -1
 ) -> int:
-    """
-    Set the desired force and torque vectors to be applied to
+    """Set the desired force and torque vectors to be applied to
     the device end-effector and gripper.
 
     Note
@@ -711,8 +693,7 @@ def setForceAndWristJointTorquesAndGripperForce(
         t: Array[int, float],
         fg: float,
         ID: int = -1) -> int:
-    """
-    Set Cartesian force, wrist joint torques, and gripper force
+    """Set Cartesian force, wrist joint torques, and gripper force
 
     Note
     ----
@@ -772,6 +753,7 @@ def setForceAndWristJointTorquesAndGripperForce(
 
     :returns: 0 on success, -1 otherwise
     """
+
     return _runtime._libdrd.drdSetForceAndWristJointTorquesAndGripperForce(
         f[0],
         f[1],
@@ -805,8 +787,7 @@ def getPositionAndOrientation(
     matrix_out: Array[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
-    """
-    Retrieve the position (in [m]) about the X, Y, and Z axes,
+    """Retrieve the position (in [m]) about the X, Y, and Z axes,
     the angle of each joint (in [rad]), (if applicable) the
     gripper position (in [m]), and orientation frame matrix of
     the  end-effector. Please refer to your device user manual
@@ -923,8 +904,7 @@ def getVelocity(
     vg_out: c_double,
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the linear velocity of the end-effector (in [m/s])
+    """Retrieve the linear velocity of the end-effector (in [m/s])
     as well as the angular velocity (in [rad/s]) about the X, Y,
     and Z axes. Please refer to your device user manual for more
     information on your device coordinate system.
@@ -998,8 +978,7 @@ _runtime._libdrd.drdEnableFilter.restype = c_int
 
 
 def enableFilter(enabled: bool, ID: int = -1) -> int:
-    """
-    Enable or disable motion filtering for subsequent calls to
+    """Enable or disable motion filtering for subsequent calls to
     :func:`forcedimension_core.drd.trackPos()` and
     :func:`forcedimension_core.drd.trackEnc()`
 
@@ -1020,6 +999,7 @@ def enableFilter(enabled: bool, ID: int = -1) -> int:
     :returns:
         0 on success, and -1 otherwise.
     """
+
     return _runtime._libdrd.drdEnableFilter(enabled, ID)
 
 
@@ -1030,8 +1010,7 @@ _runtime._libdrd.drdMoveToPos.restype = c_int
 
 
 def moveToPos(pos: Array[int, float], block: bool, ID: int = -1):
-    """
-    Send the robot end-effector to a desired Cartesian position.
+    """Send the robot end-effector to a desired Cartesian position.
     The motion follows a straight line, with smooth
     acceleration/deceleration. The acceleration and velocity
     profiles can be controlled by adjusting the trajectory
@@ -1039,10 +1018,10 @@ def moveToPos(pos: Array[int, float], block: bool, ID: int = -1):
 
     Note
     ----
-    the paths generated by this function are not guarunteed to be
+    the paths generated by this function are not guaranteed to be
     continuous if a command is interrupted by another call to
     this function while still in the process of being executed.
-    If you want to guaruntee continuity use
+    If you want to guarantee continuity use
     :func:`forcedimension_core.drd.trackPos()`. For more information see
     :ref:`regulation`.
 
@@ -1082,8 +1061,7 @@ _runtime._libdrd.drdMoveToRot.restype = c_int
 
 
 def moveToRot(orientation: Array[int, float], block: bool, ID: int = -1):
-    """
-    Send the robot end-effector to a desired Cartesian rotation.
+    """Send the robot end-effector to a desired Cartesian rotation.
     The motion follows a straight curve, with smooth
     acceleration/deceleration. The acceleration and velocity
     profiles can be controlled by adjusting the trajectory
@@ -1091,10 +1069,10 @@ def moveToRot(orientation: Array[int, float], block: bool, ID: int = -1):
 
     Note
     ----
-    the paths generated by this function are not guarunteed to be
+    the paths generated by this function are not guaranteed to be
     continuous if a command is interrupted by another call to
     this function while still in the process of being executed.
-    If you want to guaruntee continuity use
+    If you want to guarantee continuity use
     :func:`forcedimension_core.drd.trackRot()`
 
 
@@ -1133,18 +1111,17 @@ _runtime._libdrd.drdMoveToGrip.restype = c_int
 
 
 def moveToGrip(pg: float, block: bool, ID: int = -1):
-    """
-    Send the robot gripper to a desired opening distance. The
+    """Send the robot gripper to a desired opening distance. The
     motion is executed with smooth acceleration/deceleration.
     The acceleration and velocity profiles can be controlled by
     adjusting the trajectory generation parameters.
 
     Note
     ----
-    The paths generated by this function are not guarunteed to be
+    The paths generated by this function are not guaranteed to be
     continuous if a command is interrupted by another call to
     this function while still in the process of being executed.
-    If you want to guaruntee continuity use
+    If you want to guarantee continuity use
     :func:`forcedimension_core.drd.trackGrip()`. For more information
     see :ref:`regulation`.
 
@@ -1179,8 +1156,7 @@ _runtime._libdrd.drdMoveTo.restype = c_int
 
 
 def moveTo(pos: Array[int, float], block: bool, ID: int = -1):
-    """
-    Send the robot end-effector to a desired Cartesian 7-DOF
+    """Send the robot end-effector to a desired Cartesian 7-DOF
     configuration. The motion uses smooth
     acceleration/deceleration. The acceleration and velocity
     profiles can be controlled by adjusting the trajectory
@@ -1188,10 +1164,10 @@ def moveTo(pos: Array[int, float], block: bool, ID: int = -1):
 
     Note
     ----
-    The paths generated by this function are not guarunteed to be
+    The paths generated by this function are not guaranteed to be
     continuous if a command is interrupted by another call to
     this function while still in the process of being executed.
-    If you want to guaruntee continuity use
+    If you want to guarantee continuity use
     :func:`forcedimension_core.drd.track()`. For more information
     see :ref:`regulation`.
 
@@ -1247,8 +1223,7 @@ _runtime._libdrd.drdMoveToEnc.restype = c_int
 
 
 def moveToEnc(enc: Array[int, int], block: bool, ID: int = -1) -> int:
-    """
-    Send the robot end-effector to a desired encoder position.
+    """Send the robot end-effector to a desired encoder position.
     The motion follows a straight line in the encoder space,
     with smooth acceleration/deceleration. The acceleration and
     velocity profiles can be controlled by adjusting the
@@ -1256,10 +1231,10 @@ def moveToEnc(enc: Array[int, int], block: bool, ID: int = -1) -> int:
 
     Note
     ----
-    The paths generated by this function are not guarunteed to be
+    The paths generated by this function are not guaranteed to be
     continuous if a command is interrupted by another call to
     this function while still in the process of being executed. If
-    you want to guaruntee continuity use
+    you want to guarantee continuity use
     :func:`forcedimension_core.drd.trackEnc()`. For more
     information see :ref:`regulation`.
 
@@ -1311,8 +1286,7 @@ _runtime._libdrd.drdMoveToAllEnc.restype = c_int
 
 
 def moveToAllEnc(enc: Array[int, int], block: bool, ID: int = -1):
-    """
-    Send the robot end-effector to a desired encoder position.
+    """Send the robot end-effector to a desired encoder position.
     The motionfollows a straight line in the encoder space, with
     smooth acceleration/deceleration. The acceleration and
     velocity profiles can be controlled by adjusting the
@@ -1370,8 +1344,7 @@ _runtime._libdrd.drdHold.restype = c_int
 
 
 def hold(ID: int = -1) -> int:
-    """
-    Immediately make the robot hold its current position. All
+    """Immediately make the robot hold its current position. All
     motion commands are abandoned.
 
     :param int ID:
@@ -1397,8 +1370,7 @@ _runtime._libdrd.drdLock.restype = c_int
 
 
 def lock(enable: bool, init: bool, ID: int = -1) -> int:
-    """
-    Depending on the value of the mask parameter, either:
+    """Depending on the value of the mask parameter, either:
 
     - Move the device to its park position and engage the locks, or
     - Removes the locks
@@ -1463,8 +1435,7 @@ _runtime._libdrd.drdStop.restype = c_int
 
 
 def stop(force_on: bool, ID: int = -1) -> int:
-    """
-    Stop the robotic control loop for the given robot.
+    """Stop the robotic control loop for the given robot.
 
     :param bool force_on:
         If ``False``, puts the device in BRAKE mode upon exiting.
@@ -1494,8 +1465,7 @@ _runtime._libdrd.drdGetPriorities.restype = c_int
 
 
 def getPriorities(ID: int = -1) -> tuple[int, int, int]:
-    """
-    This function makes it possible to retrieve the priority of
+    """This function makes it possible to retrieve the priority of
     the control thread and the calling thread. Thread priority is
     system dependent, as described in thread priorities.
 
@@ -1527,8 +1497,7 @@ _runtime._libdrd.drdSetPriorities.restype = c_int
 
 
 def setPriorities(prio: int, ctrlprio: int, ID: int = -1) -> int:
-    """
-    This function makes it possible to adjust the priority of
+    """This function makes it possible to adjust the priority of
     the control thread and the calling thread. Thread priority
     is system dependent, as described in thread priorities.
 
@@ -1578,8 +1547,7 @@ _runtime._libdrd.drdSetEncPGain.restype = c_int
 
 
 def setEncPGain(gain: float, ID: int = -1) -> int:
-    """
-    Set the P term of the PID controller that regulates the
+    """Set the P term of the PID controller that regulates the
     base joint positions. In practice, this affects the stiffness
     of the regulation.
 
@@ -1612,8 +1580,7 @@ _runtime._libdrd.drdGetEncPGain.restype = c_double
 
 
 def getEncPGain(ID: int = -1) -> float:
-    """
-    Retrieve the P term of the PID controller that regulates the
+    """Retrieve the P term of the PID controller that regulates the
     base joint positions.
 
     :param int ID:
@@ -1640,8 +1607,7 @@ _runtime._libdrd.drdSetEncIGain.restype = c_int
 
 
 def setEncIGain(gain: float, ID: int = -1) -> int:
-    """
-    Set the I term of the PID controller that regulates the base
+    """Set the I term of the PID controller that regulates the base
     joint positions. In practice, this affects the precision of
     the regulation.
 
@@ -1674,8 +1640,7 @@ _runtime._libdrd.drdGetEncIGain.restype = c_double
 
 
 def getEncIGain(ID: int = -1) -> float:
-    """
-    Retrieve the P term of the PID controller that regulates the
+    """Retrieve the P term of the PID controller that regulates the
     base joint positions.
 
     :param int ID:
@@ -1702,8 +1667,7 @@ _runtime._libdrd.drdSetEncDGain.restype = c_int
 
 
 def setEncDGain(gain: float, ID: int = -1) -> int:
-    """
-    Set the D term of the PID controller that regulates the base
+    """Set the D term of the PID controller that regulates the base
     joint positions. In practice, this affects the velocity of
     the regulation.
 
@@ -1736,8 +1700,7 @@ _runtime._libdrd.drdGetEncDGain.restype = c_double
 
 
 def getEncDGain(ID: int = -1) -> float:
-    """
-    Retrieve the D term of the PID controller that regulates the
+    """Retrieve the D term of the PID controller that regulates the
     base joint positions.
 
     :param int ID:
@@ -1764,8 +1727,7 @@ _runtime._libdrd.drdTrackPos.restype = c_int
 
 
 def trackPos(pos: Array[int, float], ID: int = -1):
-    """
-    Send the robot end-effector to a desired Cartesian position.
+    """Send the robot end-effector to a desired Cartesian position.
     If motion filters are enabled, the motion follows a smooth
     acceleration/deceleration constraint on each Cartesian axis.
     The acceleration and velocity profiles can be controlled by
@@ -1786,6 +1748,7 @@ def trackPos(pos: Array[int, float], ID: int = -1):
     :returns:
         0 on success, and -1 otherwise.
     """
+
     return _runtime._libdrd.drdTrackPos(pos[0], pos[1], pos[2], ID)
 
 
@@ -1794,8 +1757,7 @@ _runtime._libdrd.drdTrackRot.restype = c_int
 
 
 def trackRot(orientation: Array[int, float], ID: int = -1):
-    """
-    Send the robot end-effector to a desired Cartesian rotation.
+    """Send the robot end-effector to a desired Cartesian rotation.
     If motion filters are enabled, the motion follows a smooth
     acceleration/deceleration curve along each Cartesian axis.
     The acceleration and velocity profiles can be controlled by
@@ -1817,6 +1779,7 @@ def trackRot(orientation: Array[int, float], ID: int = -1):
         0 on success, and -1 otherwise.
 
     """
+
     return _runtime._libdrd.drdTrackRot(
         orientation[0], orientation[1], orientation[2], ID
     )
@@ -1827,8 +1790,7 @@ _runtime._libdrd.drdTrackGrip.restype = c_int
 
 
 def trackGrip(pg: float, ID: int = -1):
-    """
-    Send the robot gripper to a desired opening distance. If
+    """Send the robot gripper to a desired opening distance. If
     motion filters are enabled, the motion follows a smooth
     acceleration/deceleration. The acceleration and velocity
     profiles can be controlled by adjusting the trajectory
@@ -1848,6 +1810,7 @@ def trackGrip(pg: float, ID: int = -1):
         0 on success, and -1 otherwise.
 
     """
+
     return _runtime._libdrd.drdTrackGrip(pg, ID)
 
 
@@ -1856,8 +1819,7 @@ _runtime._libdrd.drdTrack.restype = c_int
 
 
 def track(pos: Array[int, float], ID: int = -1):
-    """
-    Send the robot end-effector to a desired Cartesian 7-DOF
+    """Send the robot end-effector to a desired Cartesian 7-DOF
     configuration. If motion filters are enabled, the motion
     follows a smooth acceleration/deceleration. The acceleration
     and velocity profiles can be controlled by adjusting the
@@ -1911,8 +1873,7 @@ _runtime._libdrd.drdTrackEnc.restype = c_int
 
 
 def trackEnc(enc: Array[int, int], ID: int = -1) -> int:
-    """
-    Send the robot end-effector to a desired encoder position. If
+    """Send the robot end-effector to a desired encoder position. If
     motion filters are enabled, the motion follows a smooth
     acceleration/deceleration constraint on each encoder axis.
     The acceleration and velocity profiles can be controlled by
@@ -1965,8 +1926,7 @@ _runtime._libdrd.drdTrackAllEnc.restype = c_int
 
 
 def trackAllEnc(enc: Array[int, int], ID: int = -1):
-    """
-    Send the robot end-effector to a desired encoder position. If
+    """Send the robot end-effector to a desired encoder position. If
     motion filters are enabled, th emotion follows a smooth
     acceleration/deceleration constraint on each encoder axis.
     The acceleration and velocity profiles can be controlled by
@@ -2021,8 +1981,7 @@ _runtime._libdrd.drdSetMotRatioMax.restype = c_int
 
 
 def setMotRatioMax(scale: float, ID: int = -1) -> int:
-    """
-    Set the maximum joint torque applied to all regulated joints
+    """Set the maximum joint torque applied to all regulated joints
     expressed as a fraction of the maximum torque available for
     each joint.
 
@@ -2060,8 +2019,7 @@ _runtime._libdrd.drdGetMotRatioMax.restype = c_double
 
 
 def getMotRatioMax(ID: int = -1) -> float:
-    """
-    Retrieve the maximum joint torque applied to all regulated
+    """Retrieve the maximum joint torque applied to all regulated
     joints expressed as a fraction of the maximum torque
     available for each joint.
 
@@ -2093,8 +2051,7 @@ _runtime._libdrd.drdSetEncMoveParam.restype = c_int
 def setEncMoveParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
-    """
-    Sets the encoder positioning trajectory generation
+    """Sets the encoder positioning trajectory generation
     parameters.
 
     :param float vmax:
@@ -2144,8 +2101,7 @@ _runtime._libdrd.drdSetEncTrackParam.restype = c_int
 def setEncTrackParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
-    """
-    Sets the encoder tracking trajectory generation parameters.
+    """Sets the encoder tracking trajectory generation parameters.
 
     :param float vmax:
         max velocity (in [m/s])
@@ -2194,8 +2150,7 @@ _runtime._libdrd.drdSetPosMoveParam.restype = c_int
 def setPosMoveParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
-    """
-    Sets the cartesian positioning trajectory generation
+    """Sets the cartesian positioning trajectory generation
     parameters.
 
     :param float vmax:
@@ -2245,8 +2200,7 @@ _runtime._libdrd.drdSetPosTrackParam.restype = c_int
 def setPosTrackParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
-    """
-    Sets the cartesian tracking trajectory generation
+    """Sets the cartesian tracking trajectory generation
     parameters.
 
     :param float vmax:
@@ -2296,8 +2250,7 @@ _runtime._libdrd.drdSetRotMoveParam.restype = c_int
 def setRotMoveParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
-    """
-    Sets the cartesian rotation trajectory generation
+    """Sets the cartesian rotation trajectory generation
     parameters.
 
     :param float vmax:
@@ -2347,8 +2300,7 @@ _runtime._libdrd.drdSetRotTrackParam.restype = c_int
 def setRotTrackParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
-    """
-    Sets the cartesian rotation tracking trajectory generation
+    """Sets the cartesian rotation tracking trajectory generation
     parameters.
 
     :param float vmax:
@@ -2398,8 +2350,7 @@ _runtime._libdrd.drdSetGripMoveParam.restype = c_int
 def setGripMoveParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
-    """
-    Sets the gripper trajectory generation parameters.
+    """Sets the gripper trajectory generation parameters.
 
     :param float vmax:
         max velocity (in [m/s])
@@ -2448,8 +2399,7 @@ _runtime._libdrd.drdSetGripTrackParam.restype = c_int
 def setGripTrackParam(
     vmax: float, amax: float, jerk: float, ID: int = -1
 ) -> int:
-    """
-    Sets the gripper trajectory generation parameters.
+    """Sets the gripper trajectory generation parameters.
 
     :param float vmax:
         max velocity (in [m/s])
@@ -2496,8 +2446,7 @@ _runtime._libdrd.drdGetEncMoveParam.restype = c_int
 
 
 def getEncMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
-    """
-    Retrieve encoder positioning trajectory generation
+    """Retrieve encoder positioning trajectory generation
     parameters.
 
     :param int ID:
@@ -2519,6 +2468,7 @@ def getEncMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
     | :func:`forcedimension_core.setEncTrackParam()`
     | :func:`forcedimension_core.getEncTrackParam()`
     """
+
     a_max = c_double()
     v_max = c_double()
     jerk_max = c_double()
@@ -2535,8 +2485,7 @@ _runtime._libdrd.drdGetEncTrackParam.restype = c_int
 
 
 def getEncTrackParam(ID: int = -1) -> tuple[float, float, float, int]:
-    """
-    Retrieve encoder tracking trajectory generation parameters.
+    """Retrieve encoder tracking trajectory generation parameters.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -2574,8 +2523,7 @@ _runtime._libdrd.drdGetPosMoveParam.restype = c_int
 
 
 def getPosMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
-    """
-    Retrieve cartesian positioning trajectory generation
+    """Retrieve cartesian positioning trajectory generation
     parameters.
 
     :param int ID:
@@ -2614,8 +2562,7 @@ _runtime._libdrd.drdGetPosTrackParam.restype = c_int
 
 
 def getPosTrackParam(ID: int = -1) -> tuple[float, float, float, int]:
-    """
-    Retrieve cartesian tracking trajectory generation
+    """Retrieve cartesian tracking trajectory generation
     parameters.
 
     :param int ID:
@@ -2654,8 +2601,7 @@ _runtime._libdrd.drdGetRotMoveParam.restype = c_int
 
 
 def getRotMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
-    """
-    Retrieve cartesian positioning trajectory generation
+    """Retrieve cartesian positioning trajectory generation
     parameters.
 
     :param int ID:
@@ -2694,8 +2640,7 @@ _runtime._libdrd.drdGetRotTrackParam.restype = c_int
 
 
 def getRotTrackParam(ID: int = -1) -> tuple[float, float, float, int]:
-    """
-    Retrieve cartesian tracking trajectory generation
+    """Retrieve cartesian tracking trajectory generation
     parameters.
 
     :param int ID:
@@ -2734,8 +2679,7 @@ _runtime._libdrd.drdGetGripMoveParam.restype = c_int
 
 
 def getGripMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
-    """
-    Retrieve cartesian positioning trajectory generation parameters.
+    """Retrieve cartesian positioning trajectory generation parameters.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -2773,8 +2717,7 @@ _runtime._libdrd.drdGetGripTrackParam.restype = c_int
 
 
 def getGripTrackParam(ID: int = -1) -> tuple[float, float, float, int]:
-    """
-    Retrieve cartesian tracking trajectory generation parameters.
+    """Retrieve cartesian tracking trajectory generation parameters.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -2810,8 +2753,7 @@ _runtime._libdrd.drdWaitForTick.restype = None
 
 
 def waitForTick(ID: int = -1):
-    """
-    Puts the current thread to sleep until the next iteration of
+    """Puts the current thread to sleep until the next iteration of
     the robotic control loop begins.
 
     :param int ID:
@@ -2821,4 +2763,5 @@ def waitForTick(ID: int = -1):
     :raises ctypes.ArgumentError:
         If ``ID`` is not convertible to a C char.
     """
+
     _runtime._libdrd.drdWaitForTick(ID)

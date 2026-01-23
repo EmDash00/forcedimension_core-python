@@ -13,9 +13,7 @@ class TrajectoryGenParams(pydantic.BaseModel):
         yield self.amax
         yield self.jerk
 
-    def pretty_str(
-        self, default_vmax: float, default_amax: float, default_jerk: float
-    ):
+    def pretty_str(self, default_vmax: float, default_amax: float, default_jerk: float):
         return (
             f"vmax={self.vmax}"
             f"{' (default)' if self.vmax == default_vmax else ''} "
@@ -25,7 +23,7 @@ class TrajectoryGenParams(pydantic.BaseModel):
             f"{' (default)' if self.jerk == default_jerk else ''}"
         )
 
-    @pydantic.field_validator('vmax')
+    @pydantic.field_validator("vmax")
     @classmethod
     def validate_vmax(cls, val: float):
         if val < 0:
@@ -33,7 +31,7 @@ class TrajectoryGenParams(pydantic.BaseModel):
 
         return val
 
-    @pydantic.field_validator('amax')
+    @pydantic.field_validator("amax")
     @classmethod
     def validate_amax(cls, val: float):
         if val < 0:
@@ -41,7 +39,7 @@ class TrajectoryGenParams(pydantic.BaseModel):
 
         return val
 
-    @pydantic.field_validator('jerk')
+    @pydantic.field_validator("jerk")
     @classmethod
     def validate_jerk(cls, val: float):
         if val < 0:
@@ -50,14 +48,14 @@ class TrajectoryGenParams(pydantic.BaseModel):
         return val
 
 
-DEFAULT_ENC_TRACK_PARAMS = TrajectoryGenParams(vmax=1., amax=1., jerk=1.)
+DEFAULT_ENC_TRACK_PARAMS = TrajectoryGenParams(vmax=1.0, amax=1.0, jerk=1.0)
 DEFAULT_ENC_MOVE_PARAMS = TrajectoryGenParams(vmax=2e4, amax=2e4, jerk=2e4)
 
-DEFAULT_POS_TRACK_PARAMS = TrajectoryGenParams(vmax=1., amax=1., jerk=1.)
-DEFAULT_POS_MOVE_PARAMS = TrajectoryGenParams(vmax=1., amax=1., jerk=1.)
+DEFAULT_POS_TRACK_PARAMS = TrajectoryGenParams(vmax=1.0, amax=1.0, jerk=1.0)
+DEFAULT_POS_MOVE_PARAMS = TrajectoryGenParams(vmax=1.0, amax=1.0, jerk=1.0)
 
-DEFAULT_ROT_TRACK_PARAMS = TrajectoryGenParams(vmax=30., amax=30., jerk=30.)
-DEFAULT_ROT_MOVE_PARAMS = TrajectoryGenParams(vmax=30., amax=30., jerk=30.)
+DEFAULT_ROT_TRACK_PARAMS = TrajectoryGenParams(vmax=30.0, amax=30.0, jerk=30.0)
+DEFAULT_ROT_MOVE_PARAMS = TrajectoryGenParams(vmax=30.0, amax=30.0, jerk=30.0)
 
-DEFAULT_GRIP_TRACK_PARAMS = TrajectoryGenParams(vmax=30., amax=30., jerk=30.)
-DEFAULT_GRIP_MOVE_PARAMS = TrajectoryGenParams(vmax=30., amax=30., jerk=30.)
+DEFAULT_GRIP_TRACK_PARAMS = TrajectoryGenParams(vmax=30.0, amax=30.0, jerk=30.0)
+DEFAULT_GRIP_MOVE_PARAMS = TrajectoryGenParams(vmax=30.0, amax=30.0, jerk=30.0)

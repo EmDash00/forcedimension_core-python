@@ -7,8 +7,7 @@ _runtime._libdhd.dhdKbHit.restype = c_bool
 
 
 def kbHit() -> bool:
-    """
-    Check keyboard for a key hit. This function is OS
+    """Check keyboard for a key hit. This function is OS
     independent.
 
     :returns:
@@ -23,8 +22,7 @@ _runtime._libdhd.dhdKbGet.restype = c_byte
 
 
 def kbGet() -> str:
-    """
-    Retrieve a character from the keyboard. This function is OS
+    """Retrieve a character from the keyboard. This function is OS
     independent.
 
     :returns:
@@ -38,11 +36,12 @@ _runtime._libdhd.dhdGetTime.restype = c_double
 
 
 def getTime() -> float:
-    """
-    Returns the current value from the high-resolution system
-    counter in [s]. The resolution of the system counter may be
+    """Return the current value from the high-resolution system
+    counter in [s].
+
+    The resolution of the system counter may be
     machine-dependent, as it is usually derived from one of the
-    CPU clock signals. The time returned, however, is guarunteed
+    CPU clock signals. The time returned, however, is guaranteed
     to be monotonic.
 
     :returns:
@@ -57,8 +56,7 @@ _runtime._libdhd.dhdSleep.restype = None
 
 
 def sleep(sec: float) -> None:
-    """
-    Sleep for a given period of time in [s]. This function is OS
+    """Sleep for a given period of time in [s]. This function is OS
     independent.
     """
     _runtime._libdhd.dhdSleep(sec)

@@ -32,65 +32,65 @@ _error = [
     dhd.DHDErrorFeatureNotEnabled,
     dhd.DHDErrorDeviceInUse,
     dhd.DHDErrorArgument,
-    dhd.DHDErrorNoRegulation
+    dhd.DHDErrorNoRegulation,
 ]
 
 _com_mode_strs = {
-    ComMode.SYNC: 'sync',
-    ComMode.ASYNC: 'async',
-    ComMode.VIRTUAL: 'virtual',
-    ComMode.NETWORK: 'network'
+    ComMode.SYNC: "sync",
+    ComMode.ASYNC: "async",
+    ComMode.VIRTUAL: "virtual",
+    ComMode.NETWORK: "network",
 }
 
 _com_modes: dict[ComModeStr, ComMode] = {
-    'sync': ComMode.SYNC,
-    'async': ComMode.ASYNC,
-    'virtual': ComMode.VIRTUAL,
-    'network': ComMode.NETWORK,
+    "sync": ComMode.SYNC,
+    "async": ComMode.ASYNC,
+    "virtual": ComMode.VIRTUAL,
+    "network": ComMode.NETWORK,
 }
 
 _devtype_strs = {
-    DeviceType.NONE: 'none',
-    DeviceType.DELTA3: 'delta.3',
-    DeviceType.OMEGA3: 'omega.3',
-    DeviceType.OMEGA6_RIGHT: 'omega.6 right',
-    DeviceType.OMEGA6_LEFT: 'omega.6 left',
-    DeviceType.OMEGA7_RIGHT: 'omega.7 right',
-    DeviceType.OMEGA7_LEFT: 'omega.7 left',
-    DeviceType.CONTROLLER: 'controller',
-    DeviceType.CONTROLLER_HR: 'controller hr',
-    DeviceType.CUSTOM: 'custom',
-    DeviceType.SIGMA3: 'sigma.3',
-    DeviceType.SIGMA7_RIGHT: 'sigma.7 right',
-    DeviceType.SIGMA7_LEFT: 'sigma.7 left',
-    DeviceType.LAMBDA3: 'lambda.3',
-    DeviceType.LAMBDA6_RIGHT: 'lambda.6 right',
-    DeviceType.LAMBDA6_LEFT: 'lambda.6 left',
-    DeviceType.LAMBDA7_RIGHT: 'lambda.7 right',
-    DeviceType.LAMBDA7_LEFT: 'lambda.7 left',
-    DeviceType.FALCON: 'novint falcon',
+    DeviceType.NONE: "none",
+    DeviceType.DELTA3: "delta.3",
+    DeviceType.OMEGA3: "omega.3",
+    DeviceType.OMEGA6_RIGHT: "omega.6 right",
+    DeviceType.OMEGA6_LEFT: "omega.6 left",
+    DeviceType.OMEGA7_RIGHT: "omega.7 right",
+    DeviceType.OMEGA7_LEFT: "omega.7 left",
+    DeviceType.CONTROLLER: "controller",
+    DeviceType.CONTROLLER_HR: "controller hr",
+    DeviceType.CUSTOM: "custom",
+    DeviceType.SIGMA3: "sigma.3",
+    DeviceType.SIGMA7_RIGHT: "sigma.7 right",
+    DeviceType.SIGMA7_LEFT: "sigma.7 left",
+    DeviceType.LAMBDA3: "lambda.3",
+    DeviceType.LAMBDA6_RIGHT: "lambda.6 right",
+    DeviceType.LAMBDA6_LEFT: "lambda.6 left",
+    DeviceType.LAMBDA7_RIGHT: "lambda.7 right",
+    DeviceType.LAMBDA7_LEFT: "lambda.7 left",
+    DeviceType.FALCON: "novint falcon",
 }
 
 _devtype_strs_pretty = {
-    DeviceType.NONE: 'None',
-    DeviceType.DELTA3: 'DELTA.3',
-    DeviceType.OMEGA3: 'OMEGA.3',
-    DeviceType.OMEGA6_RIGHT: 'OMEGA.6 Right',
-    DeviceType.OMEGA6_LEFT: 'OMEGA.6 Left',
-    DeviceType.OMEGA7_RIGHT: 'OMEGA.7 Right',
-    DeviceType.OMEGA7_LEFT: 'OMEGA.7 Left',
-    DeviceType.CONTROLLER: 'CONTROLLER',
-    DeviceType.CONTROLLER_HR: 'CONTROLLER HR',
-    DeviceType.CUSTOM: 'Custom',
-    DeviceType.SIGMA3: 'SIGMA.3',
-    DeviceType.SIGMA7_RIGHT: 'SIGMA.7 Right',
-    DeviceType.SIGMA7_LEFT: 'SIGMA.7 Left',
-    DeviceType.LAMBDA3: 'LAMBDA.3',
-    DeviceType.LAMBDA6_RIGHT: 'LAMBDA.6 Right',
-    DeviceType.LAMBDA6_LEFT: 'LAMBDA.6 Left',
-    DeviceType.LAMBDA7_RIGHT: 'LAMBDA.7 Right',
-    DeviceType.LAMBDA7_LEFT: 'LAMBDA.7 Left',
-    DeviceType.FALCON: 'Novint Falcon',
+    DeviceType.NONE: "None",
+    DeviceType.DELTA3: "DELTA.3",
+    DeviceType.OMEGA3: "OMEGA.3",
+    DeviceType.OMEGA6_RIGHT: "OMEGA.6 Right",
+    DeviceType.OMEGA6_LEFT: "OMEGA.6 Left",
+    DeviceType.OMEGA7_RIGHT: "OMEGA.7 Right",
+    DeviceType.OMEGA7_LEFT: "OMEGA.7 Left",
+    DeviceType.CONTROLLER: "CONTROLLER",
+    DeviceType.CONTROLLER_HR: "CONTROLLER HR",
+    DeviceType.CUSTOM: "Custom",
+    DeviceType.SIGMA3: "SIGMA.3",
+    DeviceType.SIGMA7_RIGHT: "SIGMA.7 Right",
+    DeviceType.SIGMA7_LEFT: "SIGMA.7 Left",
+    DeviceType.LAMBDA3: "LAMBDA.3",
+    DeviceType.LAMBDA6_RIGHT: "LAMBDA.6 Right",
+    DeviceType.LAMBDA6_LEFT: "LAMBDA.6 Left",
+    DeviceType.LAMBDA7_RIGHT: "LAMBDA.7 Right",
+    DeviceType.LAMBDA7_LEFT: "LAMBDA.7 Left",
+    DeviceType.FALCON: "Novint Falcon",
 }
 
 _handedness = {
@@ -106,16 +106,12 @@ _handedness = {
     DeviceType.LAMBDA7_LEFT: Handedness.LEFT,
 }
 
-_handedness_str = ['none', 'left', 'right']
-_handedness_str_pretty = ['None', 'Left', 'Right']
+_handedness_str = ["none", "left", "right"]
+_handedness_str_pretty = ["None", "Left", "Right"]
 
-_estimator_mode_str = {
-    VelocityEstimatorMode.WINDOWING: "windowing"
-}
+_estimator_mode_str = {VelocityEstimatorMode.WINDOWING: "windowing"}
 
-_estimator_mode_str_pretty = {
-    VelocityEstimatorMode.WINDOWING: "Windowing"
-}
+_estimator_mode_str_pretty = {VelocityEstimatorMode.WINDOWING: "Windowing"}
 
 _dof = {
     DeviceType.DELTA3: 3,
@@ -137,14 +133,23 @@ _dof = {
 
 
 def com_mode_str(com_mode: ComMode) -> ComModeStr:
+    """Get the string that represents the
+    :data:`forcedimension_core.constants.ComMode`.
+    """
     return _cast(ComModeStr, _com_mode_strs[com_mode])
 
 
 def com_mode_from_str(com_mode_str: ComModeStr) -> ComMode:
+    """Get the :data:`forcedimension_core.constants.ComMode`
+    associated with the string.
+    """
     return _com_modes[com_mode_str]
 
 
 def num_dof(devtype: DeviceType) -> int:
+    """Get the number of degrees of freedom the
+    :data:`forcedimension_core.constants.DeviceType` has.
+    """
     if devtype not in _dof:
         return 0
 
@@ -152,6 +157,9 @@ def num_dof(devtype: DeviceType) -> int:
 
 
 def devtype_str(devtype: DeviceType, pretty: bool = False) -> str:
+    """Get a string that represents the
+    :data:`forcedimension_core.constants.DeviceType`.
+    """
     if pretty:
         return _devtype_strs_pretty[devtype]
 
@@ -159,6 +167,7 @@ def devtype_str(devtype: DeviceType, pretty: bool = False) -> str:
 
 
 def handedness(devtype: DeviceType) -> Handedness:
+    """Get the handedness of a device."""
     if devtype in _handedness:
         return _handedness[devtype]
 
@@ -166,15 +175,20 @@ def handedness(devtype: DeviceType) -> Handedness:
 
 
 def handedness_str(handedness: Handedness, pretty: bool = False) -> str:
+    """Get a string that represents the handedness of a
+    :data:`forcedimension_core.constants.Handedness` enum
+    literal.
+    """
     if pretty:
         return _handedness_str_pretty[handedness]
 
     return _handedness_str[handedness]
 
 
-def velocity_estimator_mode_str(
-    mode: VelocityEstimatorMode, pretty: bool = False
-):
+def velocity_estimator_mode_str(mode: VelocityEstimatorMode, pretty: bool = False):
+    """Get a string that represents the given :data:`forcedimensi
+    on_core.constants.VelocityEstimatorMode`.
+    """
     if pretty:
         return _estimator_mode_str_pretty[mode]
 
@@ -182,7 +196,5 @@ def velocity_estimator_mode_str(
 
 
 def errno_to_exception(errno: int):
-    """
-    Convert a DHD error number to an exception.
-    """
+    """Convert a DHD error number to an exception."""
     return _error[errno]

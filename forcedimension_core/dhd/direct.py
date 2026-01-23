@@ -5,10 +5,11 @@ from forcedimension_core.typing import SupportsPtr, SupportsPtrs3
 
 
 def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the position of the end-effector about the X, Y, and
-    Z axes. Please refer to your device user manual for more
-    information on your device coordinate system.
+    """Retrieve the position of the end-effector about the X, Y, and
+    Z axes.
+
+    Please refer to your device user manual for more information on your
+    device coordinate system.
 
     :param SupportsPtrs3[ctypes.c_double] out:
         An output buffer to store the position of the end-effector
@@ -48,8 +49,7 @@ def getPosition(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
 
 def getForce(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the force vector applied to the end-effector (in [N])
+    """Retrieve the force vector applied to the end-effector (in [N])
     about the X, Y, and Z axes Please refer to your device user
     manual for more information on your device coordinate system.
 
@@ -98,8 +98,7 @@ def getForce(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 def getOrientationRad(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
-    """
-    For devices with a wrist structure, retrieve individual angle
+    """For devices with a wrist structure, retrieve individual angle
     (in [rad]) of each joint, starting with the one located
     nearest to the wrist base plate.
 
@@ -163,8 +162,7 @@ def getOrientationRad(
 def getOrientationDeg(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
-    """
-    For devices with a wrist structure, retrieve individual angle
+    """For devices with a wrist structure, retrieve individual angle
     (in [deg]) of each joint, starting with the one located
     nearest to the wrist base plate.
 
@@ -230,8 +228,7 @@ def getPositionAndOrientationRad(
     o_out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the position (in [m]) and
+    """Retrieve the position (in [m]) and
     for devices with a wrist structure, retrieve individual angle
     of each joint (in [rad]), starting with the one located nearest
     to the wrist base plate.
@@ -313,8 +310,7 @@ def getPositionAndOrientationDeg(
     o_out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the position (in [m]) and
+    """Retrieve the position (in [m]) and
     for devices with a wrist structure, retrieve individual angle
     of each joint (in [deg]), starting with the one located nearest
     to the wrist base plate.
@@ -397,8 +393,7 @@ def getPositionAndOrientationFrame(
     matrix_out: SupportsPtr[c_double],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the position (in [m]) and orientation matrix of the
+    """Retrieve the position (in [m]) and orientation matrix of the
     end-effector about the X, Y, and Z axes. Please refer to your
     device user manual for more information on your device
     coordinate system.
@@ -468,8 +463,7 @@ def getForceAndTorque(
     t_out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the forces (in [N]) and torques (in [Nm]) applied to
+    """Retrieve the forces (in [N]) and torques (in [Nm]) applied to
     the device end-effector about the X, Y, and Z axes. Please
     refer to your device user manual for more information on your
     device coordinate system.
@@ -528,8 +522,7 @@ def getForceAndTorque(
 
 
 def getOrientationFrame(out: SupportsPtr[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the rotation matrix of the wrist structure. The
+    """Retrieve the rotation matrix of the wrist structure. The
     identity matrix is returned for devices that do not support
     orientations.
 
@@ -566,8 +559,7 @@ def getOrientationFrame(out: SupportsPtr[c_double], ID: int = -1) -> int:
 def getGripperThumbPos(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
-    """
-    Read the position (in [m]) of thumb rest location about the
+    """Read the position (in [m]) of thumb rest location about the
     X, Y, and Z axes of the force gripper structure if present.
 
     Note
@@ -614,8 +606,7 @@ def getGripperThumbPos(
 def getGripperFingerPos(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
-    """
-    Read the position (in [m]) of forefinger rest location about
+    """Read the position (in [m]) of forefinger rest location about
     the X, Y, and Z axes of the force gripper structure if present.
 
     Note
@@ -665,8 +656,7 @@ def getForceAndTorqueAndGripperForce(
     fg_out: c_double,
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the forces (in [N]) and torques (in [Nm]) applied
+    """Retrieve the forces (in [N]) and torques (in [Nm]) applied
     to the device end-effector as well as the gripper force (in
     [N]). Forces and torques are about the X, Y, and Z axes.
 
@@ -729,8 +719,7 @@ def getForceAndTorqueAndGripperForce(
 
 
 def getLinearVelocity(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the estimated instanteous linear velocity (in [m/s]).
+    """Retrieve the estimated instanteous linear velocity (in [m/s]).
 
     Note
     ----
@@ -781,8 +770,7 @@ def getLinearVelocity(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 def getAngularVelocityRad(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
-    """
-    Retrieve the estimated angular velocity (in [rad/s]).
+    """Retrieve the estimated angular velocity (in [rad/s]).
 
     Note
     ----
@@ -836,8 +824,7 @@ def getAngularVelocityRad(
 def getAngularVelocityDeg(
     out: SupportsPtrs3[c_double], ID: int = -1
 ) -> int:
-    """
-    Retrieve the estimated angular velocity (in [deg/s]).
+    """Retrieve the estimated angular velocity (in [deg/s]).
 
     Note
     ----

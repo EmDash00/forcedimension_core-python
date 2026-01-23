@@ -25,8 +25,7 @@ _runtime._libdhd.dhdEnableExpertMode.restype = c_int
 
 
 def enableExpertMode() -> int:
-    """
-    Enable expert mode.
+    """Enable expert mode.
 
     :returns: 0 on success, -1 otherwise.
 
@@ -43,8 +42,7 @@ _runtime._libdhd.dhdDisableExpertMode.restype = c_int
 
 
 def disableExpertMode() -> int:
-    """
-    Disable expert mode.
+    """Disable expert mode.
 
     :returns: 0 on success, -1 otherwise.
 
@@ -61,8 +59,7 @@ _runtime._libdhd.dhdPreset.restype = c_int
 
 
 def preset(val: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
-    """
-    Set selected encoder offsets to a given value. Intended for
+    """Set selected encoder offsets to a given value. Intended for
     use with the generic controller when no RESET button is
     available.
 
@@ -110,8 +107,7 @@ _runtime._libdhd.dhdSetTimeGuard.restype = c_int
 
 
 def setTimeGuard(min_period: int, ID: int = -1) -> int:
-    """
-    Enable/disable the :ref:timeguard: feature with an arbitrary
+    """Enable/disable the :ref:timeguard: feature with an arbitrary
     minimum period.
 
     :param int min_period:
@@ -139,8 +135,7 @@ _runtime._libdhd.dhdSetVelocityThreshold.restype = c_int
 
 
 def setVelocityThreshold(thresh: int, ID: int = -1) -> int:
-    """
-    Adjust the :ref:`velocity_threshold` of the device (in [m/s]).
+    """Adjust the :ref:`velocity_threshold` of the device (in [m/s]).
     The velocity threshold is a safety feature that prevents
     the device from accelerating to high  velocities without
     control. If the velocity of one of the device axis passes the
@@ -179,8 +174,7 @@ _runtime._libdhd.dhdGetVelocityThreshold.restype = c_int
 
 
 def getVelocityThreshold(ID: int = -1) -> int:
-    """
-    Get the velocity threshold of the device. The velocity
+    """Get the velocity threshold of the device. The velocity
     threshold is a safety feature that prevents the device from
     accelerating to high velocities without control. If the
     velocity of one of the device axis passes the threshold, the
@@ -213,8 +207,7 @@ _runtime._libdhd.dhdUpdateEncoders.restype = c_int
 
 
 def updateEncoders(ID: int = -1) -> int:
-    """
-    Force an update of the internal encoder values in the state
+    """Force an update of the internal encoder values in the state
     vector. This call retrieves the encoder values from the
     device and places them into the state vector. No kinematic
     model is called.
@@ -231,6 +224,7 @@ def updateEncoders(ID: int = -1) -> int:
     --------
     | :func:`forcedimension_core.dhd.expert.getEnc()`
     """
+
     return _runtime._libdhd.dhdUpdateEncoders(ID)
 
 
@@ -242,8 +236,7 @@ _runtime._libdhd.dhdGetDeltaEncoders.restype = c_int
 
 
 def getDeltaEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
-    """
-    Read all encoders values of the DELTA structure.
+    """Read all encoders values of the DELTA structure.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -297,8 +290,7 @@ _runtime._libdhd.dhdGetWristEncoders.restype = c_int
 
 
 def getWristEncoders(out: MutableArray[int, int], ID: int = -1) -> int:
-    """
-    Read all encoders values of the WRIST structure.
+    """Read all encoders values of the WRIST structure.
 
     Note
     ----
@@ -359,8 +351,7 @@ _runtime._libdhd.dhdGetGripperEncoder.restype = c_int
 
 
 def getGripperEncoder(out: c_int, ID: int = -1) -> int:
-    """
-    Read the encoder value of the force gripper.
+    """Read the encoder value of the force gripper.
 
     Note
     ----
@@ -390,8 +381,7 @@ _runtime._libdhd.dhdGetEncoder.restype = c_int
 
 
 def getEncoder(index: int, ID: int = -1) -> int:
-    """
-    Read a single encoder value from the haptic device.
+    """Read a single encoder value from the haptic device.
 
     :param int index:
         The motor index number as defined by
@@ -421,8 +411,7 @@ _runtime._libdhd.dhdSetMotor.restype = c_int
 
 
 def setMotor(index: int, output: int, ID: int = -1) -> int:
-    """
-    Program a command to a single motor channel.
+    """Program a command to a single motor channel.
 
     :param int index:
         The motor index number as defined by
@@ -461,8 +450,7 @@ _runtime._libdhd.dhdSetDeltaMotor.restype = c_int
 
 
 def setDeltaMotor(mot: Array[int, int], ID: int = -1) -> int:
-    """
-    Set desired motor commands to the amplifier channels
+    """Set desired motor commands to the amplifier channels
     commanding the DELTA motors.
 
     :param Array[int, int] mot:
@@ -493,6 +481,7 @@ def setDeltaMotor(mot: Array[int, int], ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.expert.setMotor()`
     | :func:`forcedimension_core.dhd.expert.setWristMotor()`
     """
+
     return _runtime._libdhd.dhdSetDeltaMotor(mot[0], mot[1], mot[2], ID)
 
 
@@ -504,8 +493,7 @@ _runtime._libdhd.dhdSetWristMotor.restype = c_int
 
 
 def setWristMotor(output: Array[int, int], ID: int = -1) -> int:
-    """
-    Set desired motor commands to the amplifier channels
+    """Set desired motor commands to the amplifier channels
     commanding the WRIST motors.
 
     Note
@@ -545,6 +533,7 @@ def setWristMotor(output: Array[int, int], ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.setDeltaMotor()`
     | :func:`forcedimension_core.dhd.setGripperMotor()`
     """
+
     return _runtime._libdhd.dhdSetWristMotor(output[0], output[1], output[2], ID)
 
 
@@ -553,8 +542,7 @@ _runtime._libdhd.dhdSetGripperMotor.restype = c_int
 
 
 def setGripperMotor(output: int, ID: int = -1) -> int:
-    """
-    Set desired motor commands to the amplifier channels
+    """Set desired motor commands to the amplifier channels
     commanding the force gripper.
 
     :param int output:
@@ -578,6 +566,7 @@ def setGripperMotor(output: int, ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.setDeltaMotor()`
     | :func:`forcedimension_core.dhd.setWristMotor()`
     """
+
     return _runtime._libdhd.dhdSetGripperMotor(output, ID)
 
 
@@ -594,8 +583,7 @@ def deltaEncoderToPosition(
     out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute and return the position of the end-effector (in [m])
+    """Compute and return the position of the end-effector (in [m])
     about the X, Y, and Z axes for a given set of encoder values.
 
     :param Array[int, int] enc:
@@ -672,8 +660,7 @@ def deltaPositionToEncoder(
     out: MutableArray[int, int],
     ID: int = -1,
 ) -> int:
-    """
-    Computes and returns the encoder values of the end-effector
+    """Computes and returns the encoder values of the end-effector
     for a given end-effector position.
 
     :param Array[int, float] pos:
@@ -752,8 +739,7 @@ def deltaMotorToForce(
     out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute and return the force applied to the end-effector for
+    """Compute and return the force applied to the end-effector for
     a given set of motor commands at a given position (defined
     by encoder readings)
 
@@ -848,8 +834,7 @@ def deltaForceToMotor(
     out: MutableArray[int, int],
     ID: int = -1
 ) -> int:
-    """
-    Compute and return the motor commands necessary to obtain a
+    """Compute and return the motor commands necessary to obtain a
     given force on the end-effector at a given position (defined
     by encoder readings).
 
@@ -933,8 +918,7 @@ def wristEncoderToOrientation(
     out: MutableArray[int, float],
     ID: int = -1,
 ) -> int:
-    """
-    For devices with a wrist structure, compute the individual
+    """For devices with a wrist structure, compute the individual
     angle of each joint, starting with the one located nearest
     to the wrist base plate.
 
@@ -996,6 +980,7 @@ def wristEncoderToOrientation(
     | :func:`forcedimension_core.dhd.expert.wristOrientationToEncoder()`
     | :func:`forcedimension_core.dhd.expert.wristJointAnglesToEncoders()`
     """
+
     px = c_double()
     py = c_double()
     pz = c_double()
@@ -1026,8 +1011,7 @@ def wristOrientationToEncoder(
     out: MutableArray[int, int],
     ID: int = -1,
 ) -> int:
-    """
-    For devices with a wrist structure, compute the encoder
+    """For devices with a wrist structure, compute the encoder
     values from the individual angle of each joint, starting with
     the one located nearest to the wrist plate base.
 
@@ -1124,8 +1108,7 @@ def wristMotorToTorque(
     out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute and return the torque applied to the wrist
+    """Compute and return the torque applied to the wrist
     end-effector for a given set of motor commands at a given
     orientation (defined by encoder values).
 
@@ -1225,8 +1208,7 @@ def wristTorqueToMotor(
     out: MutableArray[int, int],
     ID: int = -1
 ) -> int:
-    """
-    Compute and return the wrist motor commands necessary to
+    """Compute and return the wrist motor commands necessary to
     obtain a given torque (in [Nm]) on the wrist end-effector at
     a given orientation (defined by encoder values).
 
@@ -1319,8 +1301,7 @@ _runtime._libdhd.dhdGripperEncoderToAngleRad.restype = c_int
 
 
 def gripperEncoderToAngleRad(enc: int, out: c_double, ID: int = -1) -> int:
-    """
-    Compute the gripper angle (in [rad]) for a given encoder value.
+    """Compute the gripper angle (in [rad]) for a given encoder value.
 
     Note
     ----
@@ -1366,8 +1347,7 @@ _runtime._libdhd.dhdGripperEncoderToGap.restype = c_int
 
 
 def gripperEncoderToGap(enc: int, out: c_double, ID: int = -1) -> int:
-    """
-    Compute and return the gripper opening (in [m]) for a
+    """Compute and return the gripper opening (in [m]) for a
     given encoder reading.
 
     Note
@@ -1410,8 +1390,7 @@ _runtime._libdhd.dhdGripperAngleRadToEncoder.restype = c_int
 
 
 def gripperAngleRadToEncoder(angle: float, out: c_int, ID: int = -1) -> int:
-    """
-    Computes and return the gripper encoder value for a given
+    """Computes and return the gripper encoder value for a given
     gripper opening distance (in [rad]).
 
     Note
@@ -1451,8 +1430,7 @@ _runtime._libdhd.dhdGripperGapToEncoder.restype = c_int
 
 
 def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
-    """
-    Compute and return the gripper encoder value for a given
+    """Compute and return the gripper encoder value for a given
     gripper opening distance (in [m]).
 
     Note
@@ -1464,7 +1442,7 @@ def gripperGapToEncoder(gap: float, out: c_int, ID: int = -1) -> int:
         Gripper opening distance (in [m]).
 
     :param c_int out:
-        Outpu buffer to store the gripper encoder value.
+        Output buffer to store the gripper encoder value.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1501,8 +1479,7 @@ def gripperMotorToForce(
     out: c_double,
     ID: int = -1
 ) -> int:
-    """
-    Compute the force applied to the end-effector for a given
+    """Compute the force applied to the end-effector for a given
     motor command.
 
     Note
@@ -1574,8 +1551,7 @@ def gripperForceToMotor(
     out: c_ushort,
     ID: int = -1
 ) -> int:
-    """
-    Given a desired force (in [N]) to be displayed by the force
+    """Given a desired force (in [N]) to be displayed by the force
     gripper, compute and return the refering motor command.
 
     Note
@@ -1634,8 +1610,7 @@ _runtime._libdhd.dhdSetMot.restype = c_int
 
 
 def setMot(cmds: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
-    """
-    Program motor commands to a selection of motor channels.
+    """Program motor commands to a selection of motor channels.
     Particularly useful when using the generic controller
     directly, without a device model attached.
 
@@ -1674,6 +1649,7 @@ def setMot(cmds: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
     | :data:`forcedimension_core.dhd.expert.setGripperMotor()`
 
     """
+
     cmd_arr = (c_ushort * MAX_DOF)(
         cmds[0],
         cmds[1],
@@ -1699,8 +1675,7 @@ _runtime._libdhd.dhdSetJointTorques.restype = c_int
 
 
 def setJointTorques(q: Array[int, float], mask: int = 0xff, ID: int = -1):
-    """
-    Sets all joint torques on all active axes.
+    """Sets all joint torques on all active axes.
 
     :param Array[int, float] q:
         Joint torques for each degree-of-freedom (in [Nm]).
@@ -1752,8 +1727,7 @@ _runtime._libdhd.dhdPreloadMot.restype = c_int
 
 
 def preloadMot(cmds: Array[int, int], mask: int = 0xff, ID: int = -1) -> int:
-    """
-    Program motor commands to a selection of motor channels.
+    """Program motor commands to a selection of motor channels.
     Unlike :func:`forcedimension_core.dhd.expert.setMot()`, this
     function saves the requested commands internally for later
     application by calling
@@ -1814,8 +1788,7 @@ _runtime._libdhd.dhdGetEnc.restype = c_int
 
 
 def getEnc(out: MutableArray[int, int], mask: int = 0xff, ID: int = -1) -> int:
-    """
-    Get a selective list of encoder values. Particularly useful
+    """Get a selective list of encoder values. Particularly useful
     when using the generic controller directly, without a device
     model attached.
 
@@ -1850,6 +1823,7 @@ def getEnc(out: MutableArray[int, int], mask: int = 0xff, ID: int = -1) -> int:
     | :data:`forcedimension_core.dhd.expert.getEncoder()`
     | :data:`forcedimension_core.dhd.expert.getEncVelocities()`
     """
+
     enc = (c_int * MAX_DOF)()
 
     err = _runtime._libdhd.dhdGetEnc(ct.cast(enc, c_int_ptr), mask, ID)
@@ -1865,8 +1839,7 @@ _runtime._libdhd.dhdSetBrk.restype = c_int
 
 
 def setBrk(mask: int = 0xff, ID: int = -1) -> int:
-    """
-    Set electromagnetic braking status on selective motor groups.
+    """Set electromagnetic braking status on selective motor groups.
     Only applies when using the generic controller directly,
     without a device model attached.
 
@@ -1909,8 +1882,7 @@ _runtime._libdhd.dhdGetDeltaJointAngles.restype = c_int
 
 
 def getDeltaJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the joint angles (in [rad]) for the DELTA structure.
+    """Retrieve the joint angles (in [rad]) for the DELTA structure.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1962,8 +1934,7 @@ def getDeltaJacobian(
     out: Array[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the 3x3 jacobian matrix for the DELTA structure
+    """Retrieve the 3x3 jacobian matrix for the DELTA structure
     based on the current end-effector position. Please refer to
     your device user manual for more information on your device
     coordinate system.
@@ -2016,8 +1987,7 @@ def deltaJointAnglesToJacobian(
     out: Array[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
-    """
-    Retrieve the 3x3 jacobian matrix for the DELTA structure
+    """Retrieve the 3x3 jacobian matrix for the DELTA structure
     based on a given joint configuration. Please refer to your
     device user manual for more information on your device
     coordinate system.
@@ -2092,8 +2062,7 @@ def deltaJointTorquesExtrema(
     maxq_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute the range of applicable DELTA joint torques for a
+    """Compute the range of applicable DELTA joint torques for a
     given DELTA joint angle configuration. Please refer to your
     device user manual for more information on your device
     coordinate system.
@@ -2179,8 +2148,7 @@ def setDeltaJointTorques(
     q: Array[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Set all joint torques of the DELTA structure.
+    """Set all joint torques of the DELTA structure.
 
     :param Array[int, float] t:
         Sequence of ``(t0, t1, t2)`` where ``t0``, ``t1``, and
@@ -2209,6 +2177,7 @@ def setDeltaJointTorques(
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorques()`
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
     """
+
     return _runtime._libdhd.dhdSetDeltaJointTorques(q[0], q[1], q[2], ID)
 
 
@@ -2225,8 +2194,7 @@ def deltaEncodersToJointAngles(
     out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute and return the DELTA joint angles for a given set of
+    """Compute and return the DELTA joint angles for a given set of
     encoder values.
 
     :param Array[int, int] enc:
@@ -2299,8 +2267,7 @@ def deltaJointAnglesToEncoders(
     out: MutableArray[int, int],
     ID: int = -1,
 ) -> int:
-    """
-    Compute and return the DELTA encoder values for a given
+    """Compute and return the DELTA encoder values for a given
     set of joint angles.
 
     :param Array[int, float] enc:
@@ -2369,8 +2336,7 @@ _runtime._libdhd.dhdGetWristJointAngles.restype = c_int
 
 
 def getWristJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the joint angles (in [rad]) for the wrist structure.
+    """Retrieve the joint angles (in [rad]) for the wrist structure.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -2422,8 +2388,7 @@ def getWristJacobian(
     out: Array[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the 3x3 jacobian matrix for the wrist structure
+    """Retrieve the 3x3 jacobian matrix for the wrist structure
     based on the current end-effector position. Please refer to
     your device user manual for more information on your device
     coordinate system.
@@ -2477,8 +2442,7 @@ def wristJointAnglesToJacobian(
     out: Array[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
-    """
-    Retrieve the 3x3 jacobian matrix for the wrist structure
+    """Retrieve the 3x3 jacobian matrix for the wrist structure
     based on a given joint configuration. Please refer to your
     device user manual for more information on your device
     coordinate system.
@@ -2552,8 +2516,7 @@ def wristJointTorquesExtrema(
     maxq_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute the range of applicable wrist joint torques for a
+    """Compute the range of applicable wrist joint torques for a
     given wrist joint angle configuration. Please refer to your
     device user manual for more information on your device
     coordinate system.
@@ -2641,8 +2604,7 @@ def setWristJointTorques(
     t: Array[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Set all joint torques of the wrist structure.
+    """Set all joint torques of the wrist structure.
 
     :param Array[int, float] t:
         Sequence of (t0, t1, t2) where t0, t1, t2 are the wrist
@@ -2672,6 +2634,7 @@ def setWristJointTorques(
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorques()`
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
     """
+
     return _runtime._libdhd.dhdSetWristJointTorques(t[0], t[1], t[2], ID)
 
 
@@ -2688,8 +2651,7 @@ def setForceAndWristJointTorques(
     t: Array[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Set force (in [N]) and wrist joint torques (in [Nm]) about
+    """Set force (in [N]) and wrist joint torques (in [Nm]) about
     the X, Y, and Z axes.
 
     :param Array[int, float] f:
@@ -2737,6 +2699,7 @@ def setForceAndWristJointTorques(
     | :func:`forcedimension_core.dhd.expert.setWristJointTorques()`
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorquesAndGripperForce()`
     """
+
     return _runtime._libdhd.dhdSetForceAndWristJointTorques(
         f[0], f[1], f[2], t[0], t[1], t[2], ID
     )
@@ -2756,8 +2719,7 @@ def setForceAndWristJointTorquesAndGripperForce(
         t: Array[int, float],
         fg: float,
         ID: int = -1) -> int:
-    """
-    Set force (in [N]) and wrist joint torques (in [Nm]) about
+    """Set force (in [N]) and wrist joint torques (in [Nm]) about
     the X, Y, and Z axes as well as the and gripper force.
 
     :param Array[int, float] f:
@@ -2812,6 +2774,7 @@ def setForceAndWristJointTorquesAndGripperForce(
     | :func:`forcedimension_core.dhd.expert.setWristJointTorques()`
     | :func:`forcedimension_core.dhd.expert.setForceAndWristJointTorques()`
     """
+
     return _runtime._libdhd.dhdSetForceAndWristJointTorquesAndGripperForce(
         f[0], f[1], f[2], t[0], t[1], t[2], fg, ID
     )
@@ -2830,8 +2793,7 @@ def wristEncodersToJointAngles(
     out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute and return the wrist joint angles (in [rad]) for a
+    """Compute and return the wrist joint angles (in [rad]) for a
     given set of encoder values.
 
     :param Array[int, int] enc:
@@ -2898,8 +2860,7 @@ def wristJointAnglesToEncoders(
     out: MutableArray[int, int],
     ID: int = -1
 ) -> int:
-    """
-    Compute and return the wrist encoder values for a given set
+    """Compute and return the wrist encoder values for a given set
     of wrist joint angles (in [rad]).
 
     :param Array[int, float] enc:
@@ -2964,8 +2925,7 @@ _runtime._libdhd.dhdGetJointAngles.restype = c_int
 
 
 def getJointAngles(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the joint angles (in [rad]) for all sensed
+    """Retrieve the joint angles (in [rad]) for all sensed
     degrees-of-freedom of the current device.
 
     :param int ID:
@@ -3019,8 +2979,7 @@ _runtime._libdhd.dhdGetJointVelocities.restype = c_int
 
 
 def getJointVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the joint angle velocities (in [rad/s]) for all
+    """Retrieve the joint angle velocities (in [rad/s]) for all
     sensed degrees-of-freedom of the current device.
 
     :param int ID:
@@ -3065,8 +3024,7 @@ _runtime._libdhd.dhdGetEncVelocities.restype = c_int
 
 
 def getEncVelocities(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the encoder angle velocities (in [inc/s]) for all
+    """Retrieve the encoder angle velocities (in [inc/s]) for all
     sensed degrees-of-freedom of the current device.
 
     :param int ID:
@@ -3118,8 +3076,7 @@ def jointAnglesToIntertiaMatrix(
     out: Array[int, MutableArray[int, float]],
     ID: int = -1,
 ) -> int:
-    """
-    Retrieve the inertia matrix based on a given joint
+    """Retrieve the inertia matrix based on a given joint
     configuration. Please refer to your device user manual for
     more information on your device coordinate system.
 
@@ -3197,8 +3154,7 @@ def jointAnglesToGravityJointTorques(
     mask: int = 0xff,
     ID: int = -1,
 ) -> int:
-    """
-    This function computes the joint torques (in [Nm]) required
+    """This function computes the joint torques (in [Nm]) required
     to provide gravity compensation on all actuated
     degrees-of-freedom of the current device for a given joint
     angles configuration (in [rad]).
@@ -3275,8 +3231,7 @@ _runtime._libdhd.dhdSetComMode.restype = c_int
 
 
 def setComMode(mode: ComMode, ID: int = -1) -> int:
-    """
-    Set the COM operation mode on compatible devices.
+    """Set the COM operation mode on compatible devices.
 
     :param ComMode mode:
         desired COM operation mode.
@@ -3305,8 +3260,7 @@ _runtime._libdhd.dhdSetWatchdog.restype = c_int
 
 
 def setWatchdog(duration: int, ID: int = -1) -> int:
-    """
-    Set the watchdog duration in multiples of 125 microseconds
+    """Set the watchdog duration in multiples of 125 microseconds
     on compatible devices. If the watchdog duration is exceeded
     before the device recieves a new force command, the device
     firmware will disable forces.
@@ -3339,8 +3293,7 @@ _runtime._libdhd.dhdGetWatchdog.restype = c_int
 
 
 def getWatchdog(ID: int = -1) -> int:
-    """
-    Get the watchdog duration in multiples of 125 us on
+    """Get the watchdog duration in multiples of 125 us on
     compatible devices.
 
     :param int ID:
@@ -3374,8 +3327,7 @@ def getEncRange(
     enc_max_out: MutableArray[int, int],
     ID: int = -1
 ) -> int:
-    """
-    Get the expected min and max encoder values for all axes
+    """Get the expected min and max encoder values for all axes
     present on the current device. Axis indices that do not
     exist on the device will return a range of 0.
 
@@ -3430,8 +3382,7 @@ def getJointAngleRange(
 ) -> tuple[
     FloatDOFTuple, FloatDOFTuple, int
 ]:
-    """
-    This function retrieves the expected min and max joint angles
+    """This function retrieves the expected min and max joint angles
     (in [rad]) for all sensed degrees-of-freedom on the current
     device. Axis indices that do not exist on the device will
     return a range of 0.0.
@@ -3481,8 +3432,7 @@ _runtime._libdhd.dhdControllerSetDevice.restype = c_int
 
 
 def controllerSetDevice(devtype: DeviceType, ID: int = -1) -> int:
-    """
-    If the connected device is a controller lets the programmer
+    """If the connected device is a controller lets the programmer
     define the Force Dimension mechanical structure attached to
     it. Upon selecting a device model, the routine will attempt
     to read that particular device configuration from the
@@ -3518,8 +3468,7 @@ _runtime._libdhd.dhdReadConfigFromFile.restype = c_int
 
 
 def readConfigFromFile(filename: str, ID: int = -1):
-    """
-    This function loads a specific device
+    """This function loads a specific device
     calibration/configuration data from a file. Particularly
     useful when using the generic controller connected to a Force
     Dimension device without using the
@@ -3560,8 +3509,7 @@ def deltaGravityJointTorques(
     out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute the DELTA joint torques required to compensate for
+    """Compute the DELTA joint torques required to compensate for
     gravity in a given DELTA joint angle configuration. Please
     refer to your device user manual for more information on
     your device coordinate system.
@@ -3642,8 +3590,7 @@ def wristGravityJointTorques(
     out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Compute the wrist joint torques required to compensate for
+    """Compute the wrist joint torques required to compensate for
     gravity in a given wrist joint angle configuration. Please
     refer to your device user manual for more information on your
     device coordinate system.

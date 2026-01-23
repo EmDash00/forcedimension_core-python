@@ -1,11 +1,11 @@
 from enum import IntEnum
 from typing import Final, Literal
 
-MAX_DOF: Final[int] = 8   #: Maximum number of DOF a device can have
+MAX_DOF: Final[int] = 8  #: Maximum number of DOF a device can have
 MAX_BUTTONS: Final[int] = 32  #: Maximum number of buttons a device can have
 
 VELOCITY_WINDOWING: Final[int] = 0  #: Velocity Windowing Mode
-DEFAULT_VELOCITY_WINDOW: Final[int] = 20   #: Default velocity window size
+DEFAULT_VELOCITY_WINDOW: Final[int] = 20  #: Default velocity window size
 
 MAX_STATUS: Final[int] = 17  #: Maximum number of elements in a status tuple
 
@@ -13,7 +13,7 @@ MAX_STATUS: Final[int] = 17  #: Maximum number of elements in a status tuple
 #: communication with the device.
 TIMEGUARD: Final[int] = 1
 
-#: Convinence constant used to set device to default timeguard value
+#: Convenience constant used to set device to default timeguard value
 #: Not the actual default timeguard value.
 DEFAULT_TIMEGUARD_US: Final[int] = -1
 
@@ -24,10 +24,12 @@ MOTOR_SATURATED: Final[int] = 2
 
 
 class VelocityEstimatorMode(IntEnum):
+    """Supported velocity estimator modes.
+
+    Currently only WINDOWING mode is available.
+
     """
-    Supported velocity estimator modes. Currently only WINDOWING mode is
-    available.
-    """
+
     #: The default velocity estimator mode. In this mode, the velocity is
     #: estimated by comparing the current position with the position a given
     #: time interval ago. This time interval (or "window") can be adjusted
@@ -35,17 +37,17 @@ class VelocityEstimatorMode(IntEnum):
     #: dynamic behavior of the device for a given application. The windowing
     #: estimator mode is the least resource intensive.
     WINDOWING = 0
-    """
-    The default velocity estimator mode. In this mode, the velocity is
-    estimated by comparing the current position with the position a given
-    time interval ago.
+    """The default velocity estimator mode.
+
+    In this mode, the velocity is estimated by comparing the
+    current position with the position a given time interval ago.
+
     """
 
 
 class DeviceType(IntEnum):
-    """
-    Supported device type IDs as an enumeration.
-    """
+    """Supported device type IDs as an enumeration."""
+
     NONE = 0
     DELTA3 = 63
     OMEGA3 = 33
@@ -68,9 +70,8 @@ class DeviceType(IntEnum):
 
 
 class ErrorNum(IntEnum):
-    """
-    Error numbers reported by DHD as an enumeration.
-    """
+    """Error numbers reported by DHD as an enumeration."""
+
     NO_ERROR = 0
     ERROR = 1
     COM = 2
@@ -107,9 +108,10 @@ WRIST_IDX: Final[tuple[Literal[3], Literal[4], Literal[5]]] = (3, 4, 5)
 
 
 class NovintButtonID(IntEnum):
+    """Enumeration mapping button type to button ID for the
+    Novint Falcon.
     """
-    Enumeration mapping button type to button ID for the Novint Falcon.
-    """
+
     CENTER = 0
     LEFT = 1
     UP = 2
@@ -117,9 +119,10 @@ class NovintButtonID(IntEnum):
 
 
 class StatusIndex(IntEnum):
+    """Index of statuses in the DHD status vector as an
+    enumeration.
     """
-    Index of statuses in the DHD status vector as an enumeration.
-    """
+
     POWER = 0
     CONNECTED = 1
     STARTED = 2
@@ -138,14 +141,14 @@ class StatusIndex(IntEnum):
 
 
 class ForceOffCause(IntEnum):
-    """
-    The event that caused forces to be disabled on the device (the last time
-    forces were turned off).
+    """The event that caused forces to be disabled on the device
+    (the last time forces were turned off).
 
-    Info
-    ----
-    Not all devices suppport all the force-disabling mechanisms listed above.
+    Info ---- Not all devices support all the force-disabling
+    mechanisms listed above.
+
     """
+
     FORCES_NOT_OFF = 0
     BUTTON = 1
     VELOCITY = 2
@@ -156,15 +159,18 @@ class ForceOffCause(IntEnum):
 
 
 class ComMode(IntEnum):
-    """
-    Communication mode with the device. USB operations using
+    """Communication mode with the device.
+
+    USB operations using
     :data:`forcedimension.constants.ComMode.SYNC` and
-    :data:`forcedimension.constants.ComMode.ASYNC`.
-    Other operation modes are reported for virtual devices
-    (:data:`forcedimension.constants.ComMode.VIRTUAL`) and devices that are
-    connected over the network
+    :data:`forcedimension.constants.ComMode.ASYNC`. Other
+    operation modes are reported for virtual devices
+    (:data:`forcedimension.constants.ComMode.VIRTUAL`) and
+    devices that are connected over the network
     (:data:`forcedimension.constants.ComMode.NETWORK`).
+
     """
+
     #: The synchronous USB mode performs USB read and write operations in
     #: sequence, allowing for a theoretical haptic refresh rate of 4 kHz.
     #: Please note that Other factors also influence USB performance, including

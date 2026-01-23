@@ -22,7 +22,7 @@ from forcedimension_core.typing import (
 )
 
 try:
-    if os.environ.get('__fdsdk__unittest_opt_has_numpy__', 'True') == 'False':
+    if os.environ.get("__fdsdk__unittest_opt_has_numpy__", "True") == "False":
         raise ImportError
 
     import forcedimension_core.containers.numpy as numpy
@@ -31,9 +31,8 @@ except ImportError:
 
 
 class VersionTuple(NamedTuple):
-    """
-    Adapts the four seperate number return into a single grouped
-    :class:`typing.NamedTuple`.
+    """Adapts the four separate number return into a single
+    grouped :class:`typing.NamedTuple`.
     """
 
     major: int
@@ -46,29 +45,34 @@ class VersionTuple(NamedTuple):
 
 
 class Status(ct.Structure):
-    """
-    Adapts the status array returned by
-    :func:`forcedimension.bindings.dhd.getStatus()`
+    """Adapts the status array returned by
+    :func:`forcedimension.bindings.dhd.getStatus()`.
     """
 
     @overload
-    def __init__(self, status: Status):
-        ...
+    def __init__(self, status: Status): ...
 
     @overload
     def __init__(
         self,
-        power: CBoolLike = False, connected: CBoolLike = False,
-        started: CBoolLike = False, reset: CBoolLike = False,
-        idle: CBoolLike = False, force: CBoolLike = False,
-        brake: CBoolLike = False, torque: CBoolLike = False,
+        power: CBoolLike = False,
+        connected: CBoolLike = False,
+        started: CBoolLike = False,
+        reset: CBoolLike = False,
+        idle: CBoolLike = False,
+        force: CBoolLike = False,
+        brake: CBoolLike = False,
+        torque: CBoolLike = False,
         wrist_detected: CBoolLike = False,
-        error: int = False, gravity: CBoolLike = False,
-        timeguard: CBoolLike = False, wrist_init: CBoolLike = False,
-        redundancy: CBoolLike = False, forceoffcause: int = 0,
-        locks: CBoolLike = False, axis_checked: CBoolLike = False
-    ):
-        ...
+        error: int = False,
+        gravity: CBoolLike = False,
+        timeguard: CBoolLike = False,
+        wrist_init: CBoolLike = False,
+        redundancy: CBoolLike = False,
+        forceoffcause: int = 0,
+        locks: CBoolLike = False,
+        axis_checked: CBoolLike = False,
+    ): ...
 
     def __init__(self, *args, **kwargs):
         if len(args) == 1:
@@ -94,15 +98,14 @@ class Status(ct.Structure):
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda status: {
                     field: getattr(status, field)
-                    for field in map(
-                        lambda fields: fields[0], status._fields_[:-1]
-                    )
+                    for field in map(lambda fields: fields[0], status._fields_[:-1])
                 }
-            )
+            ),
         )
 
     @property
     def ptr(self) -> Pointer[c_int]:
+        """A pointer to this container's data."""
         return self._ptr
 
     def __len__(self) -> int:
@@ -123,32 +126,29 @@ class Status(ct.Structure):
             "Status(power={}, connected={}, started={}, reset={}, idle={}, "
             "force={}, brake={}, torque={}, wrist_detected={}, error={}, "
             "gravity={}, timeguard={}, wrist_init={}, redundancy={}, "
-            "forceoffcause={}, locks={}, axis_checked={})".format(
-                *self
-            )
+            "forceoffcause={}, locks={}, axis_checked={})".format(*self)
         )
 
     _fields_ = (
-        ('power', c_int),
-        ('connected', c_int),
-        ('started', c_int),
-        ('reset', c_int),
-        ('idle', c_int),
-        ('force', c_int),
-        ('brake', c_int),
-        ('torque', c_int),
-        ('wrist_detected', c_int),
-        ('error', c_int),
-        ('gravity', c_int),
-        ('timeguard', c_int),
-        ('wrist_init', c_int),
-        ('redundancy', c_int),
-        ('forceoffcause', c_int),
-        ('locks', c_int),
-        ('axis_checked', c_int),
-
+        ("power", c_int),
+        ("connected", c_int),
+        ("started", c_int),
+        ("reset", c_int),
+        ("idle", c_int),
+        ("force", c_int),
+        ("brake", c_int),
+        ("torque", c_int),
+        ("wrist_detected", c_int),
+        ("error", c_int),
+        ("gravity", c_int),
+        ("timeguard", c_int),
+        ("wrist_init", c_int),
+        ("redundancy", c_int),
+        ("forceoffcause", c_int),
+        ("locks", c_int),
+        ("axis_checked", c_int),
         # Prevents out of bounds access if they expand MAX_STATUS.
-        ('__padding', c_int * (32 - MAX_STATUS)),
+        ("__padding", c_int * (32 - MAX_STATUS)),
     )
 
     #: Indicates if the device is powered or not.
@@ -195,7 +195,7 @@ class Status(ct.Structure):
 
     #: Indicates if the an error happened on the device controller.
     error: int
-    "1 if an error happend on the device controller, 0 otherwise"
+    "1 if an error happened on the device controller, 0 otherwise"
 
     #: Indicates if the gravity compensation option is enabled or not.
     gravity: int
@@ -216,27 +216,29 @@ class Status(ct.Structure):
     #: redundancy check is successful. A value of 0 is reported otherwise, or
     # if the device does not op redundant encoders.
     redundancy: int
-    """
-    1 if the redundant encoder check was successful. For devices that
-    don't op redundant encoders, this value is 0.
+    """1 if the redundant encoder check was successful.
+
+    For devices that don't op redundant encoders, this value is
+    0.
+
     """
 
     #: The event that caused forces to be disabled on the device (the last time
     #: forces were turned off).
     forceoffcause: int
-    """
-    The event that caused forces to be disabled on the device (the last time
-    forces were turned off).
-    """
+    """The event that caused forces to be disabled on the device
+    (the last time forces were turned off)."""
 
     #: The status of the locks on supported devices. The value can be either
     #: 1 if the locks are engaged, 0 if the locks are disengagned,
     #: or -1 if the status of the locks is unknown.
     locks: int
-    """
-    The status of the locks on supported devices. The value can be either
-    1 if the locks are engaged, 0 if the locks are disengagned, or -1 if the
-    status of the locks is unknown.
+    """The status of the locks on supported devices.
+
+    The value can be either 1 if the locks are engaged, 0 if the
+    locks are disengagned, or -1 if the status of the locks is
+    unknown.
+
     """
 
     #: A bit vector that indicates the validation status of each axis. The
@@ -245,38 +247,47 @@ class Status(ct.Structure):
     #: Robotic SDK (DRD). Each bit of the status value returned corresponds
     #: to the validation status of the corresponding axis.
     axis_checked: int
-    """
-    A bit vector that indicates the validation status of each axis. The
-    validation status of all device axes can be assessed by calling the
-    drd.checkInit() function in the Force Dimension Robotic SDK (DRD). Each bit
-    of the status value returned corresponds to a the validation status of the
-    corresponding axis:
+    """A bit vector that indicates the validation status of each
+    axis.
+
+    The validation status of all device axes can be assessed by
+    calling the drd.checkInit() function in the Force Dimension
+    Robotic SDK (DRD). Each bit of the status value returned
+    corresponds to a the validation status of the corresponding
+    axis:
+
     """
 
 
 class Vec3(array):
-    """
-    Represents an array of three C floats as a
-    :class:`array.array`. Typically used by functions which
-    return a vector or take a vector. Can also be used by
-    functions which convert a set of 3 float such as in the
-    functions which get orientation. Has convinence "x", "y",
-    and "z" properties to access the 0th, 1st, and 2nd elements,
-    respectively.
+    """Represents an array of three C floats as a
+    :class:`array.array`.
+
+    Typically used by functions which return a vector or take a
+    vector. Can also be used by functions which convert a set of
+    3 float such as in the functions which get orientation. Has
+    convinence "x", "y", and "z" properties to access the 0th,
+    1st, and 2nd elements, respectively.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[float] = (0., 0., 0.)
-    ):
-        arr = super(Vec3, cls).__new__(
-            cls, 'd', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[float] = (0.0, 0.0, 0.0)):
+        """Create a new Vec3.
+
+        :param Iterable[float] initializer: The initial value of
+        the Vec3.
+
+        :raises ValueError: If the initializer's length is not 3.
+
+        """
+        arr = super().__new__(
+            cls,
+            "d",
+            initializer,  # type: ignore
         )
 
         if len(arr) != 3:
-            raise ValueError(
-                "Vector 3 initializer must be only contain 3 "
-                "elements"
-            )
+            raise ValueError("Vector 3 initializer must be only contain 3 elements")
 
         return arr
 
@@ -296,31 +307,24 @@ class Vec3(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_double_ptr:
-        """
-        A pointer to the front of the array.
-        """
-
+        """A pointer to the front of the array."""
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> tuple[c_double_ptr, c_double_ptr, c_double_ptr]:
+        """A tuple of pointers to each element of the array in
+        order.
         """
-        A tuple of pointers to each element of the array in order.
-        """
-
         return self._ptrs
 
     @property
     def x(self) -> float:
-        """
-        Alias to 0th element
-        """
-
+        """Alias to 0th element."""
         return self[0]
 
     @x.setter
@@ -329,10 +333,7 @@ class Vec3(array):
 
     @property
     def y(self) -> float:
-        """
-        Alias to 1st element
-        """
-
+        """Alias to 1st element."""
         return self[1]
 
     @y.setter
@@ -341,10 +342,7 @@ class Vec3(array):
 
     @property
     def z(self) -> float:
-        """
-        Alias to 2nd element
-        """
-
+        """Alias to 2nd element."""
         return self[2]
 
     @z.setter
@@ -353,24 +351,31 @@ class Vec3(array):
 
 
 class Enc3(array):
-    """
-    Represents an array of three C ints as a :class:`array.array`.
+    """Represents an array of three C ints as a
+    :class:`array.array`.
+
     Typically used by functions which return information about
     encoders from the WRIST or DELTA structure.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[int] = (0, 0, 0)
-    ):
-        arr = super(Enc3, cls).__new__(
-            cls, 'i', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[int] = (0, 0, 0)):
+        """Create a new Enc3.
+
+        :param Iterable[float] initializer: The initial value of
+        the Enc3.
+
+        :raises ValueError: If the initializer's length is not 3.
+
+        """
+        arr = super().__new__(
+            cls,
+            "i",
+            initializer,  # type: ignore
         )
 
         if len(arr) != 3:
-            raise ValueError(
-                "Vector 3 initializer must be only contain 3 "
-                "elements"
-            )
+            raise ValueError("Vector 3 initializer must be only contain 3 elements")
 
         return arr
 
@@ -390,45 +395,50 @@ class Enc3(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_int_ptr:
-        """
-        A pointer to the front of the array.
-        """
-
+        """A pointer to the front of the array."""
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> tuple[c_int_ptr, c_int_ptr, c_int_ptr]:
+        """A tuple of pointers to each element of the array in
+        order.
         """
-        A tuple of pointers to each element of the array in order.
-        """
-
         return self._ptrs
 
 
 class Mot3(array):
-    """
-    Represents an array of three C ushorts as a
-    :class:`array.array`. Typically used functions which take
-    motor commands or convert motor commands to forces
-    (and vice versa). In those functions, represents an array
-    of motor commands for each axis of the delta or wrist
-    structure.
+    """Represents an array of three C ushorts as a
+    :class:`array.array`.
+
+    Typically used functions which take motor commands or convert
+    motor commands to forces (and vice versa). In those
+    functions, represents an array of motor commands for each
+    axis of the delta or wrist structure.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[int] = tuple(0 for _ in range(3))
-    ):
-        arr = super(Mot3, cls).__new__(
-            cls, 'H', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[int] = tuple(0 for _ in range(3))):
+        """Create a new Mot3.
+
+        :param Iterable[float] initializer: The initial value of
+        the Mot3.
+
+        :raises ValueError: If the initializer's length is not 3.
+
+        """
+        arr = super().__new__(
+            cls,
+            "H",
+            initializer,  # type: ignore
         )
 
         if len(arr) != 3:
-            raise ValueError()
+            raise ValueError
 
         return arr
 
@@ -448,42 +458,46 @@ class Mot3(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_ushort_ptr:
-        """
-        A pointer to the front of the array.
-        """
-
+        """A pointer to the front of the array."""
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> tuple[c_ushort_ptr, c_ushort_ptr, c_ushort_ptr]:
+        """A tuple of pointers to each element of the array in
+        order.
         """
-        A tuple of pointers to each element of the array in order.
-        """
-
         return self._ptrs
 
 
 class Enc4(array):
-    """
-    Represents an array of four C ints as a
-    :class:`array.array`. Typically used functions which convert
-    gripper motor commands to forces and vice versa.
+    """Represents an array of four C ints as a
+    :class:`array.array`.
+
+    Typically used functions which convert gripper motor commands
+    to forces and vice versa.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[int] = (0, 0, 0, 0)
-    ):
-        arr = super(Enc4, cls).__new__(
-            cls, 'i', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[int] = (0, 0, 0, 0)):
+        """Create a new Enc4.
+
+        :param Iterable[float] initializer: The initial value of
+        the Enc4.
+
+        """
+        arr = super().__new__(
+            cls,
+            "i",
+            initializer,  # type: ignore
         )
 
         if len(arr) != 4:
-            raise ValueError()
+            raise ValueError
 
         return arr
 
@@ -498,35 +512,44 @@ class Enc4(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_int_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
 
 
 class DOFInt(array):
-    """
-    Represents an array of C ints, one for each
-    degree-of-freedom  as a Python :class:`array.array`.
+    """Represents an array of C ints, one for each degree-of-
+    freedom  as a Python :class:`array.array`.
+
     Typically used by functions that get encoder values for each
     degree-of-freedom.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[int] = tuple(0 for _ in range(MAX_DOF))
-    ):
-        arr = super(DOFInt, cls).__new__(
-            cls, 'i', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[int] = tuple(0 for _ in range(MAX_DOF))):
+        """Create a new DOFInt.
+
+        :param Iterable[int] initializer: The initial value of
+        the DOFInt
+
+        :raises ValueError: If the initializer's length is not
+            :data:`forcedimension_core.constants.MAX_DOF`
+
+        """
+        arr = super().__new__(
+            cls,
+            "i",
+            initializer,  # type: ignore
         )
 
         if len(arr) != MAX_DOF:
-            raise ValueError()
+            raise ValueError
 
         return arr
 
@@ -541,35 +564,44 @@ class DOFInt(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_int_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
 
 
 class DOFMotor(array):
-    """
-    Represents an array of C unsigned shorts, one for each
+    """Represents an array of C unsigned shorts, one for each
     degree-of-freedom  as a Python :class:`array.array`.
+
     Typically used by functions that request motor commands for
     each degree-of-freedom.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[int] = tuple(0 for _ in range(MAX_DOF))
-    ):
-        arr = super(DOFMotor, cls).__new__(
-            cls, 'H', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[int] = tuple(0 for _ in range(MAX_DOF))):
+        """Create a new DOFMotor.
+
+        :param Iterable[float] initializer: The initial value of
+        the DOFMotor
+
+        :raises ValueError: If the initializer's length is not
+            :data:`forcedimension_core.constants.MAX_DOF`
+
+        """
+        arr = super().__new__(
+            cls,
+            "H",
+            initializer,  # type: ignore
         )
 
         if len(arr) != MAX_DOF:
-            raise ValueError()
+            raise ValueError
 
         return arr
 
@@ -584,35 +616,44 @@ class DOFMotor(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_ushort_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
 
 
 class DOFFloat(array):
-    """
-    Represents an array of floats, one for each
-    degree-of-freedom as a :class:`array.array`. Typically
-    used by functions that request joint angles or linear/angular
-    velocities for each  degree-of-freedom.
+    """Represents an array of floats, one for each degree-of-
+    freedom as a :class:`array.array`.
+
+    Typically used by functions that request joint angles or
+    linear/angular velocities for each  degree-of-freedom.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[float] = tuple(0 for _ in range(MAX_DOF))
-    ):
-        arr = super(DOFFloat, cls).__new__(
-            cls, 'd', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[float] = tuple(0 for _ in range(MAX_DOF))):
+        """Create a new DOFloat.
+
+        :param Iterable[float] initializer: The initial value of
+        the DOFFloat
+
+        :raises ValueError: If the initializer's length is not
+            :data:`forcedimension_core.constants.MAX_DOF`
+
+        """
+        arr = super().__new__(
+            cls,
+            "d",
+            initializer,  # type: ignore
         )
 
         if len(arr) != MAX_DOF:
-            raise ValueError()
+            raise ValueError
 
         return arr
 
@@ -627,37 +668,40 @@ class DOFFloat(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_double_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
 
 
 class Mat3x3(array):
-    """
-    Represents the type of a 3x3 matrix of floats
-    :class:`array.array`. Typically used to represent a 3x3
-    coordinate frame matrix.
+    """Represents the type of a 3x3 matrix of floats
+    :class:`array.array`.
+
+    Typically used to represent a 3x3 coordinate frame matrix.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[float] = tuple(0. for _ in range(9))
-    ):
-        arr = super(Mat3x3, cls).__new__(
-            cls, 'd', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[float] = tuple(0.0 for _ in range(9))):
+        """Create a new Mat3x3.
+
+        :param Iterable[float] initializer: The initial value
+        Mat3x3 as a 3-strided 1D array of length 9.
+
+        """
+        arr = super().__new__(
+            cls,
+            "d",
+            initializer,  # type: ignore
         )
 
         if len(arr) != 9:
-            raise ValueError(
-                "Mat3x3 initializer must be only contain 9 "
-                "elements"
-            )
+            raise ValueError("Mat3x3 initializer must be only contain 9 elements")
 
         return arr
 
@@ -700,37 +744,40 @@ class Mat3x3(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: [[arr[i, j] for j in range(3)] for i in range(3)]
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_double_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
 
 
 class Mat6x6(array):
-    """
-    Represents the type of a 6x6 matrix of floats
-    :class:`array.array`. Typically used to represent a 6x6
-    inertia matrix.
+    """Represents the type of a 6x6 matrix of floats
+    :class:`array.array`.
+
+    Typically used to represent a 6x6 inertia matrix.
+
     """
 
-    def __new__(
-        cls, initializer: Iterable[float] = tuple(0. for _ in range(36))
-    ):
-        arr = super(Mat6x6, cls).__new__(
-            cls, 'd', initializer  # type: ignore
+    def __new__(cls, initializer: Iterable[float] = tuple(0.0 for _ in range(36))):
+        """Create a new Mat6x6.
+
+        :param Iterable[float] initializer: The initial value
+        Mat6x6 as a 3-strided 1D array of length 36.
+
+        """
+        arr = super().__new__(
+            cls,
+            "d",
+            initializer,  # type: ignore
         )
 
         if len(arr) != 36:
-            raise ValueError(
-                "Mat3x3 initializer must be only contain 36 "
-                "elements"
-            )
+            raise ValueError("Mat3x3 initializer must be only contain 36 elements")
 
         return arr
 
@@ -773,13 +820,12 @@ class Mat6x6(array):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: [[arr[i, j] for j in range(6)] for i in range(6)]
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_double_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr

@@ -5,8 +5,7 @@ from forcedimension_core.typing import Array, SupportsPtr, SupportsPtrs3, c_doub
 
 
 def getDeltaEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
-    """
-    Read all encoders values of the DELTA structure.
+    """Read all encoders values of the DELTA structure.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -46,8 +45,7 @@ def getDeltaEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
 
 
 def getWristEncoders(out: SupportsPtrs3[c_int], ID: int = -1) -> int:
-    """
-    Read all encoders values of the wrist structure.
+    """Read all encoders values of the wrist structure.
 
 
     Note
@@ -96,8 +94,7 @@ def deltaEncoderToPosition(
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
-    """
-    This routine computes and returns the position of the end-effector about
+    """This routine computes and returns the position of the end-effector about
     the X, Y, and Z axes (in [m]) for a given set of encoder values.
 
     :param Array[int, int] enc:
@@ -156,8 +153,7 @@ def deltaPositionToEncoder(
     out: SupportsPtrs3[c_int],
     ID: int = -1,
 ) -> int:
-    """
-    Computes and returns the encoder values of the end-effector
+    """Computes and returns the encoder values of the end-effector
     for a given end-effector position.
 
     :param Array[int, float] pos:
@@ -216,8 +212,7 @@ def deltaMotorToForce(
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
-    """
-    This routine computes and returns the force applied to the end-effector
+    """This routine computes and returns the force applied to the end-effector
     about the X, Y, and Z axes (in [N]) for a given set of motor commands at a
     given position (defined by encoder readings)
 
@@ -291,8 +286,7 @@ def deltaForceToMotor(
     out: SupportsPtrs3[c_ushort],
     ID=-1
 ) -> int:
-    """
-    This routine computes and returns the motor commands necessary to obtain a
+    """This routine computes and returns the motor commands necessary to obtain a
     given force on the end-effector at a given position (defined by encoder
     readings).
 
@@ -366,8 +360,7 @@ def wristEncoderToOrientation(
     out: SupportsPtrs3[c_double],
     ID: int = -1,
 ) -> int:
-    """
-    For devices with a wrist structure, compute the individual angle of each
+    """For devices with a wrist structure, compute the individual angle of each
     joint (in [rad]), starting with the one located nearest to the wrist base
     plate. For the :data:`forcedimension_core.constants.DeviceType.OMEGA6`
     and the :data:`forcedimension_core.constants.DeviceType.OMEGA6_LEFT`
@@ -425,6 +418,7 @@ def wristEncoderToOrientation(
     | :func:`forcedimension_core.dhd.expert.direct.wristOrientationToEncoder()`
     | :func:`forcedimension_core.dhd.expert.direct.wristJointAnglesToEncoders()`
     """
+
     return _runtime._libdhd.dhdWristEncoderToOrientation(
         enc[0], enc[1], enc[2],
         *out.ptrs,
@@ -437,8 +431,7 @@ def wristOrientationToEncoder(
     out: SupportsPtrs3[c_int],
     ID: int = -1,
 ) -> int:
-    """
-    For devices with a wrist structure, compute the encoder values from the
+    """For devices with a wrist structure, compute the encoder values from the
     individual angle of each joint, starting with the one located nearest to
     the wrist plate base.
 
@@ -518,8 +511,7 @@ def wristMotorToTorque(
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
-    """
-    This routine computes and returns the torque applied to the wrist
+    """This routine computes and returns the torque applied to the wrist
     end-effector about the, X, Y, and Z axes (in [Nm]) for a given set of motor
     commands at a given orientation (defined by encoder values)
 
@@ -601,8 +593,7 @@ def wristTorqueToMotor(
     out: SupportsPtrs3[c_ushort],
     ID: int = -1
 ) -> int:
-    """
-    This routine computes and returns the wrist motor commands necessary to
+    """This routine computes and returns the wrist motor commands necessary to
     obtain a given torque on the wrist end-effector about the X, Y, and Z axes
     (in [Nm]) at a given orientation (defined by encoder values)
 
@@ -684,8 +675,7 @@ def gripperMotorToForce(
     out: c_double,
     ID: int = -1
 ) -> int:
-    """
-    Computes the force applied to the end-effector (in [N]) for a given
+    """Computes the force applied to the end-effector (in [N]) for a given
     motor command.
 
     Note
@@ -736,8 +726,7 @@ def gripperMotorToForce(
 
 
 def setMot(cmds: SupportsPtr[c_ushort], mask: int = 0xff, ID: int = -1) -> int:
-    """
-    Program motor commands to a selection of motor channels.
+    """Program motor commands to a selection of motor channels.
     Particularly useful when using the generic controller
     directly, without a device model attached.
 
@@ -779,8 +768,7 @@ def setMot(cmds: SupportsPtr[c_ushort], mask: int = 0xff, ID: int = -1) -> int:
 
 
 def setJointTorques(q: SupportsPtr[c_double], mask: int = 0xff, ID: int = -1):
-    """
-    Sets all joint torques on all active axes.
+    """Sets all joint torques on all active axes.
 
     :param SupportsPtr[c_double] q:
         An input buffer to store the Joint torques for each
@@ -824,8 +812,7 @@ def setJointTorques(q: SupportsPtr[c_double], mask: int = 0xff, ID: int = -1):
 def preloadMot(
     cmds: SupportsPtr[c_ushort], mask: int = 0xff, ID: int = -1
 ) -> int:
-    """
-    Program motor commands to a selection of motor channels.
+    """Program motor commands to a selection of motor channels.
     Unlike :func:`forcedimension_core.dhd.expert.setMot()`, this
     function saves the requested commands internally for later
     application by calling
@@ -873,9 +860,8 @@ def gripperForceToMotor(
     out: c_ushort,
     ID: int = -1
 ) -> tuple[int, int]:
-    """
-    Given a desired force to be displayed by the force gripper, this routine
-    computes and returns the refering motor command.
+    """Given a desired force to be displayed by the force gripper, this routine
+    computes and returns the referring motor command.
 
     Note
     ----
@@ -922,8 +908,7 @@ def gripperForceToMotor(
 
 
 def getEnc(out: SupportsPtr[c_int], mask: int = 0xff, ID: int = -1) -> int:
-    """
-    Get a selective list of encoder values. Particularly useful when using the
+    """Get a selective list of encoder values. Particularly useful when using the
     generic controller directly, without a device model attached.
 
     :param SupportsPtr[c_int] out:
@@ -962,8 +947,7 @@ def getEnc(out: SupportsPtr[c_int], mask: int = 0xff, ID: int = -1) -> int:
 
 
 def getDeltaJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the joint angles (in [rad]) for the DELTA structure.
+    """Retrieve the joint angles (in [rad]) for the DELTA structure.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1002,8 +986,7 @@ def getDeltaJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
 
 def getDeltaJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the 3x3 jacobian matrix for the DELTA structure based on the
+    """Retrieve the 3x3 jacobian matrix for the DELTA structure based on the
     current end-effector position. Please refer to your device user manual for
     more information on your device coordinate system.
 
@@ -1041,8 +1024,7 @@ def deltaJointAnglesToJacobian(
     out: SupportsPtr[c_double],
     ID: int = -1,
 ) -> int:
-    """
-    Retrieve the 3x3 jacobian matrix for the DELTA structure
+    """Retrieve the 3x3 jacobian matrix for the DELTA structure
     based on a given joint configuration. Please refer to your device user
     manual for more information on your device coordinate system.
 
@@ -1100,8 +1082,7 @@ def deltaJointTorquesExtrema(
     maxq_out: SupportsPtr[c_double],
     ID: int = -1
 ) -> int:
-    """
-    Compute the range of applicable DELTA joint torques (in [Nm]) for a
+    """Compute the range of applicable DELTA joint torques (in [Nm]) for a
     given DELTA joint angle configuration (in [rad]).
     Please refer to your device user manual for more information on your device
     coordinate system.
@@ -1178,8 +1159,7 @@ def deltaEncodersToJointAngles(
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
-    """
-    This routine computes and returns the DELTA joint angles (in [rad]) for a
+    """This routine computes and returns the DELTA joint angles (in [rad]) for a
     given set of encoder values.
 
     :param Array[int, int] enc:
@@ -1239,8 +1219,7 @@ def deltaJointAnglesToEncoders(
     out: SupportsPtrs3[c_int],
     ID: int = -1,
 ) -> int:
-    """
-    This routine computes and returns the DELTA encoder values for a given
+    """This routine computes and returns the DELTA encoder values for a given
     set of joint angles (in [rad]).
 
     :param Array[int, float] enc:
@@ -1287,8 +1266,7 @@ def deltaJointAnglesToEncoders(
 
 
 def getWristJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the joint angles (in [rad]) for the wrist structure.
+    """Retrieve the joint angles (in [rad]) for the wrist structure.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for details).
@@ -1327,8 +1305,7 @@ def getWristJointAngles(out: SupportsPtrs3[c_double], ID: int = -1) -> int:
 
 
 def getWristJacobian(out: SupportsPtr[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the 3x3 jacobian matrix for the wrist structure based on the
+    """Retrieve the 3x3 jacobian matrix for the wrist structure based on the
     current end-effector position. Please refer to your device user manual for
     more information on your device coordinate system.
 
@@ -1366,8 +1343,7 @@ def wristJointAnglesToJacobian(
     out: SupportsPtr[c_double],
     ID: int = -1,
 ) -> int:
-    """
-    Retrieve the 3x3 jacobian matrix for the wrist structure
+    """Retrieve the 3x3 jacobian matrix for the wrist structure
     based on a given joint configuration. Please refer to your device user
     manual for more information on your device coordinate system.
 
@@ -1426,8 +1402,7 @@ def wristJointTorquesExtrema(
     maxq_out: SupportsPtr[c_double],
     ID: int = -1
 ) -> int:
-    """
-    Compute the range of applicable wrist joint torques for a given wrist joint
+    """Compute the range of applicable wrist joint torques for a given wrist joint
     angle configuration. Please refer to your device user manual for more
     information on your device coordinate system.
 
@@ -1520,8 +1495,7 @@ def wristEncodersToJointAngles(
     out: SupportsPtrs3[c_double],
     ID: int = -1
 ) -> int:
-    """
-    This routine computes and returns the wrist joint angles (in [rad])
+    """This routine computes and returns the wrist joint angles (in [rad])
     for a given set of encoder values.
 
     :param Array[int, int] enc:
@@ -1579,8 +1553,7 @@ def wristJointAnglesToEncoders(
     out: SupportsPtrs3[c_int],
     ID: int = -1
 ) -> int:
-    """
-    This routine computes and returns the wrist encoder values for a given
+    """This routine computes and returns the wrist encoder values for a given
     set of wrist joint angles (in [rad]).
 
     :param Array[int, float] enc:
@@ -1637,8 +1610,7 @@ def wristJointAnglesToEncoders(
 
 
 def getJointAngles(out: SupportsPtr[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the joint angles (in [rad]) for all sensed degrees-of-freedom of
+    """Retrieve the joint angles (in [rad]) for all sensed degrees-of-freedom of
     the current device.
 
     :param int ID:
@@ -1687,8 +1659,7 @@ def getJointAngles(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
 def getJointVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the joint angle velocities (in [rad/s]) for all sensed
+    """Retrieve the joint angle velocities (in [rad/s]) for all sensed
     degrees-of-freedom of the current device.
 
     :param SupportsPtr[c_double] out:
@@ -1727,8 +1698,7 @@ def getJointVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
 
 
 def getEncVelocities(out: SupportsPtr[c_double], ID: int = -1) -> int:
-    """
-    Retrieve the encoder angle velocities (in [inc/s]) for all sensed
+    """Retrieve the encoder angle velocities (in [inc/s]) for all sensed
     degrees-of-freedom of the current device.
 
     :param int ID:
@@ -1771,8 +1741,7 @@ def jointAnglesToIntertiaMatrix(
     out: SupportsPtr[c_double],
     ID: int = -1,
 ) -> int:
-    """
-    Retrieve the inertia matrix based on a given joint
+    """Retrieve the inertia matrix based on a given joint
     configuration. Please refer to your device user manual for more information
     on your device coordinate system.
 
@@ -1825,8 +1794,7 @@ def jointAnglesToGravityJointTorques(
     mask: int = 0xff,
     ID: int = -1,
 ) -> int:
-    """
-    This function computes the joint torques (in [Nm]) required to provide
+    """This function computes the joint torques (in [Nm]) required to provide
     gravity compensation on all actuated degrees-of-freedom of the current
     device for a given joint angles configuration (in [rad])
 

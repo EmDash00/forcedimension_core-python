@@ -90,8 +90,7 @@ _runtime._libdhd.dhdErrorGetLast.restype = c_int
 
 
 def errorGetLast() -> ErrorNum:
-    """
-    Gets the last error code encountered in the running thread.
+    """Gets the last error code encountered in the running thread.
     See :ref:`error_management` for details.
 
     :returns:
@@ -114,8 +113,7 @@ _runtime._libdhd.dhdErrorGetLastStr.restype = c_char_p
 
 
 def errorGetLastStr() -> str:
-    """
-    Get a brief string describing the last error encountered in
+    """Get a brief string describing the last error encountered in
     the running thread. See :ref:`error_management` for details.
 
     :returns:
@@ -136,8 +134,7 @@ _runtime._libdhd.dhdErrorGetStr.restype = c_char_p
 
 
 def errorGetStr(error: ErrorNum) -> str:
-    """
-    Get a brief string describing a given error code.
+    """Get a brief string describing a given error code.
     See :ref:`error_management` for details.
 
     :param ErrorNum error:
@@ -160,13 +157,13 @@ _runtime._libdhd.dhdEnableSimulator.restype = None
 
 
 def enableSimulator(enable: bool) -> None:
-    """
-    Enable device simulator support. This enables network access
+    """Enable device simulator support. This enables network access
     on the loopback interface.
 
     :param enable:
         ``True`` to enable, ``False`` to disable
     """
+
     _runtime._libdhd.dhdEnableSimulator(enable)
 
 
@@ -175,8 +172,7 @@ _runtime._libdhd.dhdGetDeviceCount.restype = c_int
 
 
 def getDeviceCount() -> int:
-    """
-    Return the number of compatible Force Dimension devices
+    """Return the number of compatible Force Dimension devices
     connected to the system. This encompasses all devices
     connected locally, including devices already locked by other
     applications. Devices are given a unique identifier, as
@@ -198,8 +194,7 @@ _runtime._libdhd.dhdGetAvailableCount.restype = c_int
 
 
 def getAvailableCount() -> int:
-    """
-    Return the number of available Force Dimension devices
+    """Return the number of available Force Dimension devices
     connected to the system. This encompasses all devices
     connected locally, but excludes devices already locked by
     other applications. Devices are given a unique identifier,
@@ -212,6 +207,7 @@ def getAvailableCount() -> int:
     --------
     | :func:`forcedimension_core.dhd.getDeviceCount()`
     """
+
     return _runtime._libdhd.dhdGetAvailableCount()
 
 
@@ -220,8 +216,7 @@ _runtime._libdhd.dhdSetDevice.restype = c_int
 
 
 def setDevice(ID: int = -1) -> int:
-    """
-    Select the default device that will receive the SDK commands.
+    """Select the default device that will receive the SDK commands.
     The SDK supports multiple devices. This routine allows the
     programmer to decide which device the SDK single device calls
     will address. Any subsequent SDK call that does not
@@ -252,8 +247,7 @@ _runtime._libdhd.dhdGetDeviceID.restype = c_int
 
 
 def getDeviceID() -> int:
-    """
-    Get the ID of the current default device.
+    """Get the ID of the current default device.
 
     :returns:
         The ID of the current default device
@@ -272,8 +266,7 @@ _runtime._libdhd.dhdGetSerialNumber.restype = c_int
 
 
 def getSerialNumber(ID: int = -1) -> int:
-    """
-    Return the device serial number.
+    """Return the device serial number.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -300,8 +293,7 @@ _runtime._libdhd.dhdOpen.restype = c_int
 
 
 def open() -> int:
-    """
-    Open a connection to the first available device connected to
+    """Open a connection to the first available device connected to
     the system. The order in which devices are opened persists
     until devices are added or removed.
 
@@ -329,8 +321,7 @@ _runtime._libdhd.dhdOpenType.restype = c_int
 
 
 def openType(device_type: DeviceType) -> int:
-    """
-    Open a connection to the first device of a given type
+    """Open a connection to the first device of a given type
     connected to the system. The order in which devices are
     opened persists  until devices are added or removed.
 
@@ -361,8 +352,7 @@ _runtime._libdhd.dhdOpenSerial.restype = c_int
 
 
 def openSerial(serial: int) -> int:
-    """
-    Open a connection to the device with a given serial number
+    """Open a connection to the device with a given serial number
     (available on recent models only).
 
     If this call is successful the default device ID is set to
@@ -392,8 +382,7 @@ _runtime._libdhd.dhdOpenID.restype = c_int
 
 
 def openID(index: int) -> int:
-    """
-    Open a connection to one particular device connected to the
+    """Open a connection to one particular device connected to the
     system. The order in which devices are opened persists until
     devices are added or removed. If the device at the specified
     index is already opened, its device ID is returned.
@@ -430,8 +419,7 @@ _runtime._libdhd.dhdClose.restype = c_int
 
 
 def close(ID: int = -1) -> int:
-    """
-    Close the connection to a particular device.
+    """Close the connection to a particular device.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -451,6 +439,7 @@ def close(ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.openType()`
     | :func:`forcedimension_core.dhd.openSerial()`
     """
+
     return _runtime._libdhd.dhdClose(ID)
 
 
@@ -459,8 +448,7 @@ _runtime._libdhd.dhdCheckControllerMemory.restype = c_int
 
 
 def checkControllerMemory(ID: int = -1) -> int:
-    """
-    This function evaluates the integrity of the device
+    """This function evaluates the integrity of the device
     controller firmware and internal configuration on supported
     device types.
 
@@ -486,8 +474,7 @@ _runtime._libdhd.dhdStop.restype = c_int
 
 
 def stop(ID: int = -1) -> int:
-    """
-    Stop the device. This routine disables the force on the
+    """Stop the device. This routine disables the force on the
     haptic device and puts it into BRAKE mode.
 
     :param int ID:
@@ -506,6 +493,7 @@ def stop(ID: int = -1) -> int:
     | :func:`forcedimension_core.dhd.enableGripperForce()`
     | :func:`forcedimension_core.dhd.setBrakes()`
     """
+
     return _runtime._libdhd.dhdStop(ID)
 
 
@@ -514,8 +502,7 @@ _runtime._libdhd.dhdGetComMode.restype = c_int
 
 
 def getComMode(ID: int = -1) -> ComMode:
-    """
-    Retrive the COM operation mode on compatible devices.
+    """Retrieve the COM operation mode on compatible devices.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -540,8 +527,7 @@ _runtime._libdhd.dhdEnableForce.restype = c_int
 
 
 def enableForce(enable: bool, ID: int = -1) -> int:
-    """
-    Enable the force mode in the device controller.
+    """Enable the force mode in the device controller.
 
     :param bool enable:
         ``True`` to enable force, ``False`` to disable it.
@@ -574,8 +560,7 @@ _runtime._libdhd.dhdEnableGripperForce.restype = c_int
 
 
 def enableGripperForce(enable: bool, ID: int = -1) -> int:
-    """
-    This function enables the gripper force mode in the device
+    """This function enables the gripper force mode in the device
     controller. This function is only relevant to devices that
     have a gripper with a default  closed or opened state. It
     does not apply to the sigma.x and omega.x range  of devices,
@@ -614,8 +599,7 @@ _runtime._libdhd.dhdGetSystemType.restype = c_int
 
 
 def getSystemType(ID: int = -1) -> DeviceType:
-    """
-    Return the :ref:`device_types`. As this SDK can be used to
+    """Return the :ref:`device_types`. As this SDK can be used to
     control all of Force Dimension haptic products, this can help
     programmers ensure that their application is running on the
     appropriate target haptic device.
@@ -646,8 +630,7 @@ _runtime._libdhd.dhdGetSystemRev.restype = c_int
 
 
 def getSystemRev(ID: int = -1) -> int:
-    """
-    Return the revision associated with this instance of haptic
+    """Return the revision associated with this instance of haptic
     device type. As this SDK can be used to control all of Force
     Dimension haptic products, this can help programmers ensure
     that their application is running on the appropriate target
@@ -679,8 +662,7 @@ _runtime._libdhd.dhdGetSystemName.restype = c_char_p
 
 
 def getSystemName(ID: int = -1) -> str | None:
-    """
-    Return the haptic device type name. As this SDK can be used
+    """Return the haptic device type name. As this SDK can be used
     to control all of Force Dimension haptic products, this can
     help programmers ensure that their application is running on
     the appropriate target haptic device.
@@ -714,8 +696,7 @@ _runtime._libdhd.dhdGetVersion.restype = c_int
 
 
 def getVersion(ID: int = -1) -> float:
-    """
-    Return the :ref:`device_controller` version. As this SDK can
+    """Return the :ref:`device_controller` version. As this SDK can
     be used to control all of Force Dimension haptic products,
     this can help programmers ensurethat their application is
     running on the appropriate version of the haptic controller.
@@ -750,8 +731,7 @@ _runtime._libdhd.dhdGetSDKVersion.restype = None
 
 
 def getSDKVersion() -> containers.VersionTuple:
-    """
-    Get the version of the Force Dimension SDK in the form
+    """Get the version of the Force Dimension SDK in the form
     (major, minor, release, revision). Versions of the Force
     Dimension SDK are reported as major.minor.release-revision by
     Force Dimension.
@@ -763,6 +743,7 @@ def getSDKVersion() -> containers.VersionTuple:
     --------
     | :class:`forcedimension_core._runtime.VersionTuple`
     """
+
     major = c_int()
     minor = c_int()
     release = c_int()
@@ -787,8 +768,7 @@ _runtime._libdhd.dhdGetComponentVersionStr.restype = c_int
 def getComponentVersionStr(
     component: int, N: int = 256, ID: int = -1
 ) -> str:
-    """
-    This function returns a string of length at most `N` that
+    """This function returns a string of length at most `N` that
     describes an internal component version (if present).
 
     :param int component:
@@ -836,8 +816,7 @@ _runtime._libdhd.dhdGetStatus.restype = c_int
 
 
 def getStatus(out: containers.Status, ID: int = -1) -> int:
-    """
-    Get a tuple representing the status of the haptic device.
+    """Get a tuple representing the status of the haptic device.
     The status is described in the status section.
 
     :param int ID:
@@ -859,8 +838,7 @@ _runtime._libdhd.dhdGetDeviceAngleRad.restype = c_int
 
 
 def getDeviceAngleRad(out: c_double, ID: int = -1) -> int:
-    """
-    Get the device base plate angle around the Y axis in radians.
+    """Get the device base plate angle around the Y axis in radians.
 
     :param c_double out:
         Output buffer to store the base plate angle around the Y
@@ -893,8 +871,7 @@ _runtime._libdhd.dhdGetDeviceAngleDeg.restype = c_int
 
 
 def getDeviceAngleDeg(out: c_double, ID: int = -1) -> int:
-    """
-    Get the device base plate angle around the Y axis in degrees.
+    """Get the device base plate angle around the Y axis in degrees.
 
     :param c_double out:
         Output buffer to store the base plate angle around the Y
@@ -927,8 +904,7 @@ _runtime._libdhd.dhdGetEffectorMass.restype = c_int
 
 
 def getEffectorMass(ID: int = -1) -> float:
-    """
-    Get the mass (in [kg]) of the end-effector currently defined
+    """Get the mass (in [kg]) of the end-effector currently defined
     for a device. The gripper mass is used in the gravity
     compensation feature.
 
@@ -961,8 +937,7 @@ _runtime._libdhd.dhdGetButton.restype = c_int
 
 
 def getButton(index: int, ID: int = -1) -> int:
-    """
-    Return the status of the button located on the end-effector
+    """Return the status of the button located on the end-effector
 
     :param int index:
         button index, 0 for the gripper button up to
@@ -991,8 +966,7 @@ _runtime._libdhd.dhdGetButtonMask.restype = c_uint
 
 
 def getButtonMask(ID: int = -1) -> int:
-    """
-    Return the 32-bit binary mask of the device buttons.
+    """Return the 32-bit binary mask of the device buttons.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -1020,8 +994,7 @@ _runtime._libdhd.dhdSetOutput.restype = c_int
 
 
 def setOutput(output: int, ID: int = -1) -> int:
-    """
-    Set the user programmable output bits on devices that
+    """Set the user programmable output bits on devices that
     support it.
 
     Note
@@ -1055,8 +1028,7 @@ _runtime._libdhd.dhdIsLeftHanded.restype = c_bool
 
 
 def isLeftHanded(ID: int = -1) -> bool:
-    """
-    ``True`` if the device is configured for left-handed use,
+    """``True`` if the device is configured for left-handed use,
     ``False`` otherwise.
 
     Note
@@ -1094,8 +1066,7 @@ _runtime._libdhd.dhdHasBase.restype = c_bool
 
 
 def hasBase(ID: int = -1) -> bool:
-    """
-     ``True`` if the device has a base, ``False`` otherwise.
+    """ ``True`` if the device has a base, ``False`` otherwise.
 
     Note
     ----
@@ -1131,8 +1102,7 @@ _runtime._libdhd.dhdHasWrist.restype = c_bool
 
 
 def hasWrist(ID: int = -1) -> bool:
-    """
-     ``True`` if the device has a wrist, ``False`` otherwise.
+    """ ``True`` if the device has a wrist, ``False`` otherwise.
 
     Note
     ----
@@ -1168,8 +1138,7 @@ _runtime._libdhd.dhdHasActiveWrist.restype = c_bool
 
 
 def hasActiveWrist(ID: int = -1) -> bool:
-    """
-     ``True`` if the device has an active wrist, ``False``
+    """ ``True`` if the device has an active wrist, ``False``
      otherwise.
 
     Note
@@ -1206,8 +1175,7 @@ _runtime._libdhd.dhdHasGripper.restype = c_bool
 
 
 def hasGripper(ID: int = -1) -> bool:
-    """
-    Checks if the device has a gripper.
+    """Checks if the device has a gripper.
 
     Note
     ----
@@ -1243,8 +1211,7 @@ _runtime._libdhd.dhdHasActiveGripper.restype = c_bool
 
 
 def hasActiveGripper(ID: int = -1) -> bool:
-    """
-    Checks if the specified device has an active gripper.
+    """Checks if the specified device has an active gripper.
 
     Note
     ----
@@ -1280,8 +1247,7 @@ _runtime._libdhd.dhdReset.restype = c_int
 
 
 def reset(ID: int = -1) -> int:
-    """
-    Puts the device in RESET mode.
+    """Puts the device in RESET mode.
 
     :param int ID:
         Device ID (see :ref:`multiple_devices` section for
@@ -1306,8 +1272,7 @@ _runtime._libdhd.dhdWaitForReset.restype = c_int
 
 
 def waitForReset(timeout: int | None = None, ID: int = -1) -> int:
-    """
-    Puts the device in RESET mode and waits for the user to
+    """Puts the device in RESET mode and waits for the user to
     calibrate the device. Optionally, a timeout can be defined
     after which the call returns even if calibration has not
     occured.
@@ -1352,8 +1317,7 @@ _runtime._libdhd.dhdSetStandardGravity.restype = c_int
 
 
 def setStandardGravity(g: float, ID: int = -1) -> int:
-    """
-    Set the standard gravity constant used in gravity
+    """Set the standard gravity constant used in gravity
     compensation in (in [m/s^2]). By default, the constant is
     set to 9.81 m/s^2.
 
@@ -1387,8 +1351,7 @@ _runtime._libdhd.dhdSetGravityCompensation.restype = c_int
 
 
 def setGravityCompensation(enable: bool, ID: int = -1) -> int:
-    """
-    Enable/disable gravity compensation.
+    """Enable/disable gravity compensation.
 
     :param bool enable:
         ``True`` to turn on gravity compensation, ``False`` to
@@ -1407,7 +1370,7 @@ def setGravityCompensation(enable: bool, ID: int = -1) -> int:
     :returns:
         0 on success, -1 otherwise.
 
-    See Also
+
     -------
     | :func:`forcedimension_core.dhd.setEffectorMass()`
     | :func:`forcedimension_core.dhd.setStandardGravity()`
@@ -1421,8 +1384,7 @@ _runtime._libdhd.dhdSetBrakes.restype = c_int
 
 
 def setBrakes(enable: bool, ID: int = -1) -> int:
-    """
-    Enable/disable [device electromagnetic brakes].
+    """Enable/disable [device electromagnetic brakes].
 
     :param bool enable:
         ``True`` to turn on the device electromagnetic brakes,
@@ -1456,8 +1418,7 @@ _runtime._libdhd.dhdSetDeviceAngleRad.restype = c_int
 
 
 def setDeviceAngleRad(angle: float, ID: int = -1) -> int:
-    """
-    Set the device base plate angle around the (inverted) Y axis.
+    """Set the device base plate angle around the (inverted) Y axis.
     Please refer to your device user manual for more information
     on your device coordinate system. An angle value of 0 refers
     to the device "upright" position, with its base plate
@@ -1495,8 +1456,7 @@ _runtime._libdhd.dhdSetDeviceAngleDeg.restype = c_int
 
 
 def setDeviceAngleDeg(angle: float, ID: int = -1) -> int:
-    """
-    Set the device base plate angle around the (inverted) Y axis.
+    """Set the device base plate angle around the (inverted) Y axis.
     Please referto your device user manual for more information
     on your device coordinate system. An angle value of 0 refers
     to the device "upright" position, with its base plate
@@ -1534,8 +1494,7 @@ _runtime._libdhd.dhdSetEffectorMass.restype = c_int
 
 
 def setEffectorMass(mass: float, ID: int = -1) -> int:
-    """
-    Define the mass of the end-effector (in [kg]). This function
+    """Define the mass of the end-effector (in [kg]). This function
     is required to  provide accurate gravity compensation when
     custom-made or modified end-effectors are used.
 
@@ -1575,8 +1534,7 @@ _runtime._libdhd.dhdGetPosition.restype = c_int
 
 
 def getPosition(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the position of the end-effector about the X, Y, and
+    """Retrieve the position of the end-effector about the X, Y, and
     Z axes. Please refer to your device user manual for more
     information on your device coordinate system.
 
@@ -1633,8 +1591,7 @@ _runtime._libdhd.dhdGetForce.restype = c_int
 
 
 def getForce(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the force vector applied to the end-effector (in
+    """Retrieve the force vector applied to the end-effector (in
     [N]) about the X, Y, and Z axes Please refer to your device
     user manual for more information on your device coordinate
     system.
@@ -1691,8 +1648,7 @@ _runtime._libdhd.dhdSetForce.restype = c_int
 
 
 def setForce(f: Array[int, float], ID: int = -1) -> int:
-    """
-    Set the desired force (in [N]) about the X, Y, and Z axes to
+    """Set the desired force (in [N]) about the X, Y, and Z axes to
     be applied to the end-effector of the device.
 
     :param VectorLike f:
@@ -1742,8 +1698,7 @@ _runtime._libdhd.dhdGetOrientationRad.restype = c_int
 
 
 def getOrientationRad(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    For devices with a wrist structure, retrieve individual angle
+    """For devices with a wrist structure, retrieve individual angle
     (in [rad]) of each joint, starting with the one located nearest
     to the wrist base plate.
 
@@ -1817,8 +1772,7 @@ _runtime._libdhd.dhdGetOrientationDeg.restype = c_int
 
 
 def getOrientationDeg(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    For devices with a wrist structure, retrieve individual angle
+    """For devices with a wrist structure, retrieve individual angle
     of each joint (in [deg]), starting with the one located
     nearest to the wrist base plate.
 
@@ -1900,8 +1854,7 @@ def getPositionAndOrientationRad(
     o_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the position (in [m]) and for devices with a wrist
+    """Retrieve the position (in [m]) and for devices with a wrist
     structure, retrieve individual angle of each  joint (in [rad]),
     starting with the one located nearest to the  wrist base plate.
 
@@ -2004,8 +1957,7 @@ def getPositionAndOrientationDeg(
     o_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the Cartesian position (in [m]), and for devices with
+    """Retrieve the Cartesian position (in [m]), and for devices with
     a wrist structure, retrieve individual angle of each joint
     (in [deg]), starting with the one located nearest to the wrist
     base plate.
@@ -2106,8 +2058,7 @@ def getPositionAndOrientationFrame(
     matrix_out: Array[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the position (in [m]) and orientation matrix of the
+    """Retrieve the position (in [m]) and orientation matrix of the
     end-effector about the X, Y, and Z axes. Please refer to your
     device user manual for more information on your device
     coordinate system.
@@ -2205,8 +2156,7 @@ def getForceAndTorque(
     t_out: MutableArray[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the force and torque vectors applied to the device
+    """Retrieve the force and torque vectors applied to the device
     end-effector.
 
     :param int ID:
@@ -2278,8 +2228,7 @@ def setForceAndTorque(
     t: Array[int, float],
     ID: int = -1
 ) -> int:
-    """
-    Set the desired force and torque vectors to be applied to the
+    """Set the desired force and torque vectors to be applied to the
     device end-effector.
 
     :param VectorLike f:
@@ -2358,8 +2307,7 @@ def getOrientationFrame(
     out: Array[int, MutableArray[int, float]],
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the rotation matrix of the wrist structure. The
+    """Retrieve the rotation matrix of the wrist structure. The
     identity matrix is returned for devices that do not support
     orientations.
 
@@ -2408,8 +2356,7 @@ _runtime._libdhd.dhdGetGripperAngleDeg.restype = c_int
 
 
 def getGripperAngleDeg(out: c_double, ID: int = -1) -> int:
-    """
-    Get the gripper opening angle (in [deg]).
+    """Get the gripper opening angle (in [deg]).
 
     Note
     ----
@@ -2446,8 +2393,7 @@ _runtime._libdhd.dhdGetGripperAngleRad.restype = c_int
 
 
 def getGripperAngleRad(out: c_double, ID: int = -1) -> int:
-    """
-    Get the gripper opening angle (in [rad]).
+    """Get the gripper opening angle (in [rad]).
 
     Note
     ----
@@ -2485,8 +2431,7 @@ _runtime._libdhd.dhdGetGripperGap.restype = c_int
 
 
 def getGripperGap(out: c_double, ID: int = -1) -> int:
-    """
-    Get the gripper opening distance (in [m]).
+    """Get the gripper opening distance (in [m]).
 
     Note
     ----
@@ -2528,8 +2473,7 @@ _runtime._libdhd.dhdGetGripperThumbPos.restype = c_int
 
 
 def getGripperThumbPos(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Read the position (in [m]) of thumb rest location about the X,
+    """Read the position (in [m]) of thumb rest location about the X,
     Y, and Z axes of the force gripper structure if present.
 
     Note
@@ -2581,8 +2525,7 @@ _runtime._libdhd.dhdGetGripperFingerPos.restype = c_int
 
 
 def getGripperFingerPos(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Read the position (in [m]) of forefinger rest location about
+    """Read the position (in [m]) of forefinger rest location about
     the X, Y, and Z axes of the force gripper structure if
     present.
 
@@ -2642,8 +2585,7 @@ _runtime._libdhd.dhdGetComFreq.restype = c_double
 
 
 def getComFreq(ID: int = -1) -> float:
-    """
-    Return the communication refresh rate (in [kHz]) between the
+    """Return the communication refresh rate (in [kHz]) between the
     computer and the device. Refresh rate computation is based on
     function calls that apply a force on the device
     (e.g. :func:`forcedimension_core.dhd.setForce()`).
@@ -2677,8 +2619,7 @@ def setForceAndGripperForce(
     fg: float,
     ID: int = -1
 ) -> int:
-    """
-    Set the desired force to be applied to the end-effector about
+    """Set the desired force to be applied to the end-effector about
     the X, Y, and Z axes as well as the force applied by force
     gripper of the device.
 
@@ -2752,8 +2693,7 @@ def setForceAndTorqueAndGripperForce(
     fg: float,
     ID: int = -1
 ) -> int:
-    """
-    Set the desired force and torque vectors to be applied to the
+    """Set the desired force and torque vectors to be applied to the
     device end-effector and gripper. Forces and torques are about
     the X, Y, and Z axes.
 
@@ -2852,8 +2792,7 @@ def getForceAndTorqueAndGripperForce(
     fg_out: c_double,
     ID: int = -1
 ) -> int:
-    """
-    Retrieve the forces (in [N]) and torques (in [Nm]) applied to
+    """Retrieve the forces (in [N]) and torques (in [Nm]) applied to
     the device end-effector. Forces and torques are about the X,
     Y, and Z axes.
 
@@ -2923,8 +2862,7 @@ def configLinearVelocity(
     mode: VelocityEstimatorMode = VelocityEstimatorMode.WINDOWING,
     ID: int = -1
 ) -> int:
-    """
-    Configure the internal linear velocity computation estimator.
+    """Configure the internal linear velocity computation estimator.
     This only applies to the device base.
     For more information refer to :ref:`velocity_estimator`.
 
@@ -2970,8 +2908,7 @@ _runtime._libdhd.dhdGetLinearVelocity.restype = c_int
 
 
 def getLinearVelocity(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the estimated instanteous linear velocity (in [m/s]).
+    """Retrieve the estimated instanteous linear velocity (in [m/s]).
 
     Note
     ----
@@ -3035,8 +2972,7 @@ def configAngularVelocity(
     ID: int = -1
 
 ) -> int:
-    """
-    Configure the internal angular velocity computation estimator.
+    """Configure the internal angular velocity computation estimator.
     This only applies to the device wrist.
     For more information refer to :ref:`velocity_estimator`.
 
@@ -3081,8 +3017,7 @@ _runtime._libdhd.dhdGetAngularVelocityRad.restype = c_int
 
 
 def getAngularVelocityRad(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the estimated angular velocity (in [rad/s]).
+    """Retrieve the estimated angular velocity (in [rad/s]).
 
     Note
     ----
@@ -3148,8 +3083,7 @@ _runtime._libdhd.dhdGetAngularVelocityDeg.restype = c_int
 
 
 def getAngularVelocityDeg(out: MutableArray[int, float], ID: int = -1) -> int:
-    """
-    Retrieve the estimated angular velocity (in [deg/s]).
+    """Retrieve the estimated angular velocity (in [deg/s]).
 
     Note
     ----
@@ -3212,8 +3146,7 @@ def configGripperVelocity(
     mode: VelocityEstimatorMode = VelocityEstimatorMode.WINDOWING,
     ID: int = -1
 ) -> int:
-    """
-    Configure the internal linear velocity computation estimator.
+    """Configure the internal linear velocity computation estimator.
     This only applies to the device gripper. For more information
     refer to :ref:`velocity_estimator`.
 
@@ -3254,8 +3187,7 @@ _runtime._libdhd.dhdGetGripperLinearVelocity.restype = c_int
 
 
 def getGripperLinearVelocity(out: c_double, ID: int = -1) -> int:
-    """
-    Retrieve the estimated linear velocity of the gripper
+    """Retrieve the estimated linear velocity of the gripper
     (in [m/s]).
 
     Note
@@ -3299,8 +3231,7 @@ _runtime._libdhd.dhdGetGripperAngularVelocityRad.restype = c_int
 
 
 def getGripperAngularVelocityRad(out: c_double, ID: int = -1) -> int:
-    """
-    Retrieve the estimated angular velocity of the gripper (in
+    """Retrieve the estimated angular velocity of the gripper (in
     [rad/s]).
 
     Note
@@ -3347,8 +3278,7 @@ _runtime._libdhd.dhdGetGripperAngularVelocityDeg.restype = c_int
 
 
 def getGripperAngularVelocityDeg(out: c_double, ID: int = -1) -> int:
-    """
-    Retrieve the estimated angular velocity of the gripper (in
+    """Retrieve the estimated angular velocity of the gripper (in
     [rad/s]).
 
     Note
@@ -3391,8 +3321,7 @@ _runtime._libdhd.dhdEmulateButton.restype = c_int
 
 
 def emulateButton(enable: bool, ID: int = -1) -> int:
-    """
-    Enable the button behavior emulation in devices that feature
+    """Enable the button behavior emulation in devices that feature
     a gripper.
 
     Note
@@ -3429,8 +3358,7 @@ _runtime._libdhd.dhdGetBaseAngleXRad.restype = c_int
 
 
 def getBaseAngleXRad(out: c_double, ID: int = -1) -> int:
-    """
-    Get the device base plate angle around the X axis (in [rad]).
+    """Get the device base plate angle around the X axis (in [rad]).
 
     :param c_double out:
         Output buffer to store the base plate angle around the X
@@ -3462,8 +3390,7 @@ _runtime._libdhd.dhdGetBaseAngleXDeg.restype = c_int
 
 
 def getBaseAngleXDeg(out: c_double, ID: int = -1) -> int:
-    """
-    Get the device base plate angle around the X axis (in [deg]).
+    """Get the device base plate angle around the X axis (in [deg]).
 
     :param c_double out:
         Output buffer to store the base plate angle around the X
@@ -3495,8 +3422,7 @@ _runtime._libdhd.dhdSetBaseAngleXRad.restype = c_int
 
 
 def setBaseAngleXRad(angle: float, ID: int = -1) -> int:
-    """
-    Set the device base plate angle around the X axis (in [rad]).
+    """Set the device base plate angle around the X axis (in [rad]).
     Please refer to your device user manual for more information
     on your device coordinate system.
 
@@ -3529,8 +3455,7 @@ _runtime._libdhd.dhdSetBaseAngleXDeg.restype = c_int
 
 
 def setBaseAngleXDeg(angle: float, ID: int = -1) -> int:
-    """
-    Set the device base plate angle around the X axis (in [deg]).
+    """Set the device base plate angle around the X axis (in [deg]).
     Please refer to your device user manual for more information
     on your device coordinate system.
 
@@ -3562,8 +3487,7 @@ _runtime._libdhd.dhdGetBaseAngleZRad.restype = c_int
 
 
 def getBaseAngleZRad(out: c_double, ID: int = -1) -> int:
-    """
-    Get the device base plate angle around the Z axis (in [rad]).
+    """Get the device base plate angle around the Z axis (in [rad]).
 
     :param c_double out:
         Output buffer to store the base plate angle around the Z
@@ -3594,8 +3518,7 @@ _runtime._libdhd.dhdGetBaseAngleZDeg.restype = c_int
 
 
 def getBaseAngleZDeg(out: c_double, ID: int = -1) -> float:
-    """
-    Get the device base plate angle around the Z axis (in [deg]).
+    """Get the device base plate angle around the Z axis (in [deg]).
 
     :param c_double out:
         Output buffer to store the base plate angle around the Z
@@ -3626,8 +3549,7 @@ _runtime._libdhd.dhdSetBaseAngleZRad.restype = c_int
 
 
 def setBaseAngleZRad(angle: float, ID: int = -1) -> int:
-    """
-    Set the device base plate angle around the Z axis (in [rad]).
+    """Set the device base plate angle around the Z axis (in [rad]).
     Please refer to your device user manual for more information
     on your device coordinate system.
 
@@ -3659,8 +3581,7 @@ _runtime._libdhd.dhdSetBaseAngleZDeg.restype = c_int
 
 
 def setBaseAngleZDeg(angle: float, ID: int = -1) -> int:
-    """
-    Set the device base plate angle around the Z axis (in [deg]).
+    """Set the device base plate angle around the Z axis (in [deg]).
     Please refer to your device user manual for more information
     on your device coordinate system.
 
@@ -3695,8 +3616,7 @@ _runtime._libdhd.dhdSetVibration.restype = c_int
 
 
 def setVibration(f: float, A: float, profile: int = 0, ID: int = -1) -> int:
-    """
-    Apply a vibration to the end-effector. The vibration is added
+    """Apply a vibration to the end-effector. The vibration is added
     to the force requested by
     :func:`forcedimension_core.dhd.setForce()`.
 
@@ -3741,8 +3661,7 @@ _runtime._libdhd.dhdSetMaxForce.restype = c_int
 
 
 def setMaxForce(limit: float, ID: int = -1) -> int:
-    """
-    Define a limit (in [N]) to the magnitude of the force that
+    """Define a limit (in [N]) to the magnitude of the force that
     can be applied to the haptic device. The limit applies to all
     :func:`forcedimension_core.dhd.setForce()` and related calls,
     and ensures the force applied to the device end-effector
@@ -3790,8 +3709,7 @@ _runtime._libdhd.dhdSetMaxTorque.restype = c_int
 
 
 def setMaxTorque(limit: float, ID: int = -1) -> int:
-    """
-    Define a limit (in [Nm]) to the magnitude of the torque that
+    """Define a limit (in [Nm]) to the magnitude of the torque that
     can be applied to the haptic device. The limit applies to all
     :func:`forcedimension_core.dhd.libdhd.setTorque()` and
     related calls, and ensures the torque applied to the device
@@ -3841,8 +3759,7 @@ _runtime._libdhd.dhdSetMaxGripperForce.restype = c_int
 
 
 def setMaxGripperForce(limit: float, ID: int = -1) -> int:
-    """
-    Define a limit (in [N]) to the magnitude of the force that
+    """Define a limit (in [N]) to the magnitude of the force that
     can be applied to the haptic device gripper. The limit
     applies to all
     :func:`forcedimension_core.dhd.setForceAndTorqueAndGripperForce()`
@@ -3892,8 +3809,7 @@ _runtime._libdhd.dhdGetMaxForce.restype = c_double
 
 
 def getMaxForce(ID: int = -1) -> float:
-    """
-    Retrieve the current limit (in [N]) to the force magnitude
+    """Retrieve the current limit (in [N]) to the force magnitude
     that can be applied by the haptic device. If the return value
     if negative, the limit is disabled and the full range of force
     available can be applied.
@@ -3924,8 +3840,7 @@ _runtime._libdhd.dhdGetMaxTorque.restype = c_double
 
 
 def getMaxTorque(ID: int = -1) -> float:
-    """
-    Retrieve the current limit (in [Nm]) to the force magnitude
+    """Retrieve the current limit (in [Nm]) to the force magnitude
     that can be appliedby the haptic device. If the return value
     if negative, the limit is disabled and the full range of
     force available can be applied.
@@ -3956,8 +3871,7 @@ _runtime._libdhd.dhdGetMaxGripperForce.restype = c_double
 
 
 def getMaxGripperForce(ID: int = -1) -> float:
-    """
-    Retrieve the current limit (in [N]) to the force magnitude
+    """Retrieve the current limit (in [N]) to the force magnitude
     that can be applied by the haptic device gripper. If the
     return value if negative, the limit is disabled and the full
     range of force available can be applied.

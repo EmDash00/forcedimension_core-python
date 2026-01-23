@@ -6,7 +6,7 @@ from ctypes import c_double, c_int, c_ushort
 from typing import Any
 
 try:
-    if os.environ.get('__fdsdk__unittest_opt_has_numpy__', 'True') == 'False':
+    if os.environ.get("__fdsdk__unittest_opt_has_numpy__", "True") == "False":
         raise ModuleNotFoundError
 
     import numpy as np
@@ -22,21 +22,25 @@ import pydantic_core as pyd_core
 from pydantic_core import core_schema as _core_schema
 
 from forcedimension_core.constants import MAX_DOF
-from forcedimension_core.typing import (
-    Array, c_double_ptr, c_int_ptr, c_ushort_ptr
-)
+from forcedimension_core.typing import Array, c_double_ptr, c_int_ptr, c_ushort_ptr
 
 
 class Vec3(np.ndarray):
-    """
-    Represents an array of three C floats as a view over a
-    :class:`numpy.ndarray`. Typically used by functions which
-    return a vector or take a vector. Can also be used by
-    functions which convert a set of 3 float such as in the
-    functions which get orientation.
+    """Represents an array of three C floats as a view over a
+    :class:`numpy.ndarray`.
+
+    Typically used by functions which return a vector or take a
+    vector. Can also be used by functions which convert a set of
+    3 float such as in the functions which get orientation.
+
     """
 
-    def __new__(cls, data: npt.ArrayLike = (0., 0., 0.)):
+    def __new__(cls, data: npt.ArrayLike = (0.0, 0.0, 0.0)):
+        """Create a new Vec3.
+
+        :param ArrayLike data: The initial value of the Vec3.
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_double).view(cls)
 
         if len(arr) != 3:
@@ -50,7 +54,7 @@ class Vec3(np.ndarray):
         self._ptrs = (
             ctypes.cast(self.ctypes.data, c_double_ptr),
             ctypes.cast(self.ctypes.data + self.itemsize, c_double_ptr),
-            ctypes.cast(self.ctypes.data + 2 * self.itemsize, c_double_ptr)
+            ctypes.cast(self.ctypes.data + 2 * self.itemsize, c_double_ptr),
         )
 
     @classmethod
@@ -61,43 +65,34 @@ class Vec3(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_double_ptr:
-        """
-        A pointer to the front of the array.
-        """
-
+        """A pointer to the front of the array."""
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> tuple[c_double_ptr, c_double_ptr, c_double_ptr]:
+        """A tuple of pointers to each element of the array in
+        order.
         """
-        A tuple of pointers to each element of the array in order.
-        """
-
         return self._ptrs
 
     @property
     def x(self) -> float:
+        """Alias to 0th element."""
         return self[0]
 
     @x.setter
     def x(self, value: float):
-        """
-        Alias to 0th element
-        """
-
+        """Alias to 0th element."""
         self[0] = value
 
     @property
     def y(self) -> float:
-        """
-        Alias to 1st element
-        """
-
+        """Alias to 1st element."""
         return self[1]
 
     @y.setter
@@ -106,10 +101,7 @@ class Vec3(np.ndarray):
 
     @property
     def z(self) -> float:
-        """
-        Alias to 2nd element
-        """
-
+        """Alias to 2nd element."""
         return self[2]
 
     @z.setter
@@ -118,14 +110,22 @@ class Vec3(np.ndarray):
 
 
 class Enc3(np.ndarray):
-    """
-    Represents an array of three C ints as a view over a
-    :class:`numpy.ndarray`. Typically used by functions which
-    return information about encoders from the WRIST or DELTA
-    structure.
+    """Represents an array of three C ints as a view over a
+    :class:`numpy.ndarray`.
+
+    Typically used by functions which return information about
+    encoders from the WRIST or DELTA structure.
+
     """
 
-    def __new__(cls, data: npt.ArrayLike = (0., 0., 0.)):
+    def __new__(cls, data: npt.ArrayLike = (0.0, 0.0, 0.0)):
+        """Create a new Enc3.
+
+        :param ArrayLike data: The initial value of the Enc3.
+        :raises ValueError: If the data is not 3 elements in
+            length.
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_int).view(cls)
 
         if len(arr) != 3:
@@ -139,7 +139,7 @@ class Enc3(np.ndarray):
         self._ptrs = (
             ctypes.cast(self.ctypes.data, c_int_ptr),
             ctypes.cast(self.ctypes.data + self.itemsize, c_int_ptr),
-            ctypes.cast(self.ctypes.data + 2 * self.itemsize, c_int_ptr)
+            ctypes.cast(self.ctypes.data + 2 * self.itemsize, c_int_ptr),
         )
 
     @classmethod
@@ -150,36 +150,41 @@ class Enc3(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_int_ptr:
-        """
-        A pointer to the front of the array.
-        """
-
+        """A pointer to the front of the array."""
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> tuple[c_int_ptr, c_int_ptr, c_int_ptr]:
+        """A tuple of pointers to each element of the array in
+        order.
         """
-        A tuple of pointers to each element of the array in order.
-        """
-
         return self._ptrs
 
 
 class Mot3(np.ndarray):
-    """
-    Represents an array of three C ushorts as a view over a
-    :class:`numpy.ndarray`. Typically used functions which take
-    motor commands or convert motor commands to forces (and vice
-    versa). In those functions, represents an array of motor
-    commands for each axis of the delta or wrist structure.
+    """Represents an array of three C ushorts as a view over a
+    :class:`numpy.ndarray`.
+
+    Typically used functions which take motor commands or convert
+    motor commands to forces (and vice versa). In those
+    functions, represents an array of motor commands for each
+    axis of the delta or wrist structure.
+
     """
 
-    def __new__(cls, data: npt.ArrayLike = (0., 0., 0.)):
+    def __new__(cls, data: npt.ArrayLike = (0.0, 0.0, 0.0)):
+        """Create a new Mot3.
+
+        :param ArrayLike data: The initial value of the Vec3.
+        :raises ValueError: If the data is not 3 elements in
+            length.
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_ushort).view(cls)
 
         if len(arr) != 3:
@@ -193,7 +198,7 @@ class Mot3(np.ndarray):
         self._ptrs = (
             ctypes.cast(self.ctypes.data, c_ushort_ptr),
             ctypes.cast(self.ctypes.data + self.itemsize, c_ushort_ptr),
-            ctypes.cast(self.ctypes.data + 2 * self.itemsize, c_ushort_ptr)
+            ctypes.cast(self.ctypes.data + 2 * self.itemsize, c_ushort_ptr),
         )
 
     @classmethod
@@ -204,34 +209,40 @@ class Mot3(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_ushort_ptr:
-        """
-        A pointer to the front of the array.
-        """
-
+        """A pointer to the front of the array."""
         return self._ptrs[0]
 
     @property
     def ptrs(self) -> tuple[c_ushort_ptr, c_ushort_ptr, c_ushort_ptr]:
+        """A tuple of pointers to each element of the array in
+        order.
         """
-        A tuple of pointers to each element of the array in order.
-        """
-
         return self._ptrs
 
 
 class Enc4(np.ndarray):
-    """
-    Represents an array of four C ints as a view over a
-    :class:`numpy.ndarray`. Typically used functions which
-    convert gripper motor commands to forces and vice versa.
+    """Represents an array of four C ints as a view over a
+    :class:`numpy.ndarray`.
+
+    Typically used functions which convert gripper motor commands
+    to forces and vice versa.
+
     """
 
-    def __new__(cls, data: npt.ArrayLike = (0., 0., 0., 0.)):
+    def __new__(cls, data: npt.ArrayLike = (0.0, 0.0, 0.0, 0.0)):
+        """Create a new Enc4.
+
+        :param ArrayLike data: The initial value of the Enc4.
+        :raises ValueError: If the data is not
+            :data:`forcedimension_core.constants.MAX_DOF` in
+            length.
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_int).view(cls)
 
         if len(arr) != 4:
@@ -252,31 +263,37 @@ class Enc4(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_int_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
 
 
 class DOFInt(np.ndarray):
-    """
-    Represents an array of C ints, one for each
-    degree-of-freedom as a view over a :class:`numpy.ndarray`.
+    """Represents an array of C ints, one for each degree-of-
+    freedom as a view over a :class:`numpy.ndarray`.
+
     Typically used by functions that get encoder values for each
     degree-of-freedom
+
     """
 
     def __new__(cls, data: Array[int, int] = tuple(0 for _ in range(MAX_DOF))):
+        """Create a new DOFInt.
+
+        :param ArrayLike data: The initial value of the Enc4.
+        :raises ValueError: If the data is not
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_int).view(cls)
 
         if len(arr) != MAX_DOF:
-            raise ValueError()
+            raise ValueError
 
         return arr
 
@@ -300,65 +317,69 @@ class DOFInt(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_int_ptr:
+        """A read-only pointer to the DOFInt's data."""
         return self._ptr
 
     @property
     def delta(self) -> Enc3:
-        """
-        A view over the part of the buffer that corresponds to the
-        degrees-of-freedom typically associated with the DELTA
-        structure.
+        """A view over the part of the buffer that corresponds to
+        the degrees-of-freedom typically associated with the
+        DELTA structure.
         """
         return self._delta
 
     @property
     def wrist(self) -> Enc3:
+        """A view over the part of the buffer that corresponds to
+        the degrees-of-freedom typically associated with the
+        WRIST structure.
         """
-        A view over the part of the buffer that corresponds to the
-        degrees-of-freedom typically associated with the WRIST
-        structure.
-        """
-
         return self._wrist
 
     @property
     def wrist_grip(self) -> Enc4:
+        """A view over the part of the buffer that corresponds to
+        the degrees-of-freedom typically associated with the
+        WRIST structure and the gripper.
         """
-        A view over the part of the buffer that corresponds to the
-        degrees-of-freedom typically associated with the WRIST structure
-        and the gripper.
-        """
-
         return self._wrist_grip
 
     @property
     def gripper(self) -> c_int:
+        """A view over the part of the buffer that corresponds to
+        the degrees-of-freedom typically associated with the
+        gripper.
         """
-        A view over the part of the buffer that corresponds to the
-        degrees-of-freedom typically associated with the gripper.
-        """
-
         return self._gripper
 
 
 class DOFMotor(np.ndarray):
-    """
-    Represents an array of C unsigned shorts, one for each
+    """Represents an array of C unsigned shorts, one for each
     degree-of-freedom  as a view over a :class:`numpy.ndarray`.
+
     Typically used by functions that request motor commands for
     each degree-of-freedom.
+
     """
 
     def __new__(cls, data: Array[int, int] = tuple(0 for _ in range(MAX_DOF))):
+        """Create a new DOFMotor.
+
+        :param ArrayLike data: The initial value of the DOFMotor.
+        :raises ValueError: If the data is not
+            :data:`forcedimension_core.constants.MAX_DOF` in
+            length.
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_ushort).view(cls)
 
         if len(arr) != MAX_DOF:
-            raise ValueError()
+            raise ValueError
 
         return arr
 
@@ -375,29 +396,34 @@ class DOFMotor(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_ushort_ptr:
+        """A read-only pointer to the DOFMotor's data."""
         return self._ptr
 
 
 class DOFFloat(np.ndarray):
-    """
-    Represents an array of floats, one for each
-    degree-of-freedom as a view over a :class:`numpy.array`.
+    """Represents an array of floats, one for each degree-of-
+    freedom as a view over a :class:`numpy.array`.
+
     Typically used by functions that request joint angles or
     linear/angular velocities for each  degree-of-freedom.
+
     """
 
-    def __new__(
-        cls, data: npt.ArrayLike = tuple(0. for _ in range(MAX_DOF))
-    ):
+    def __new__(cls, data: npt.ArrayLike = tuple(0.0 for _ in range(MAX_DOF))):
+        """Create a new DOFFloat.
+
+        :param ArrayLike data: The initial value of the DOFFloat.
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_double).view(cls)
 
         if len(arr) != MAX_DOF:
-            raise ValueError()
+            raise ValueError
 
         return arr
 
@@ -420,57 +446,61 @@ class DOFFloat(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_double_ptr:
+        """A read-only pointer to the front of the underlying
+        contiguous data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
 
     @property
     def delta(self) -> Vec3:
+        """A view over the part of the buffer that corresponds to
+        the degrees-of-freedom typically associated with the
+        DELTA structure.
         """
-        A view over the part of the buffer that corresponds to the
-        degrees-of-freedom typically associated with the DELTA structure.
-        """
-
         return self._delta
 
     @property
     def wrist(self) -> Vec3:
+        """A view over the part of the buffer that corresponds to
+        the degrees-of-freedom typically associated with the
+        WRIST structure.
         """
-        A view over the part of the buffer that corresponds to the
-        degrees-of-freedom typically associated with the WRIST structure.
-        """
-
         return self._wrist
 
     @property
     def gripper(self) -> c_double:
+        """A view over the part of the buffer that corresponds to
+        the degrees-of-freedom typically associated with the
+        gripper.
         """
-        A view over the part of the buffer that corresponds to the
-        degrees-of-freedom typically associated with the gripper.
-        """
-
         return self._gripper
 
 
 class Mat3x3(np.ndarray):
-    """
-    Represents the type of a 3x3 matrix of floats as a view
-    over a :class:`numpy.ndarray``. Typically used to represent
-    a 3x3 coordinate frame matrix.
+    """Represents the type of a 3x3 matrix of floats as a view
+    over a :class:`numpy.ndarray``.
+
+    Typically used to represent a 3x3 coordinate frame matrix.
+
     """
 
-    def __new__(cls, data: npt.ArrayLike = tuple(0. for _ in range(9))):
+    def __new__(cls, data: npt.ArrayLike = tuple(0.0 for _ in range(9))):
+        """Create a new Mat3x3.
+
+        :param ArrayLike data: The initial value of the Mat3x3.
+        :raises ValueError: If the data is not 9 elements in
+            length.
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_double)
 
         if arr.size != 9:
-            raise ValueError()
+            raise ValueError
 
         return arr.reshape((3, 3)).view(cls)
 
@@ -487,30 +517,37 @@ class Mat3x3(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_double_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
 
 
 class Mat6x6(np.ndarray):
-    """
-    Represents the type of a 6x6 matrix of floats as a view over
-    a :class:`numpy.ndarray`. Typically used to represent a 6x6
-    inertia matrix.
+    """Represents the type of a 6x6 matrix of floats as a view
+    over a :class:`numpy.ndarray`.
+
+    Typically used to represent a 6x6 inertia matrix.
+
     """
 
-    def __new__(cls, data: npt.ArrayLike = tuple(0. for _ in range(36))):
+    def __new__(cls, data: npt.ArrayLike = tuple(0.0 for _ in range(36))):
+        """Create a new Mat6x6.
+
+        :param ArrayLike data: The initial value of the Mat6x6.
+        :raises ValueError: If the data is not 36 elements in
+            length.
+
+        """
         arr = np.ascontiguousarray(data, dtype=c_double)
 
         if arr.size != 36:
-            raise ValueError()
+            raise ValueError
 
         return arr.reshape((6, 6)).view(cls)
 
@@ -527,13 +564,12 @@ class Mat6x6(np.ndarray):
             cls,
             serialization=_core_schema.plain_serializer_function_ser_schema(
                 lambda arr: arr.tolist()
-            )
+            ),
         )
 
     @property
     def ptr(self) -> c_double_ptr:
+        """A pointer to the front of the underlying contiguous
+        data.
         """
-        A pointer to the front of the underlying contiguous data.
-        """
-
         return self._ptr
