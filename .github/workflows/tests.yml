@@ -7,56 +7,64 @@ on:
 permissions:
   contents: read
 
+env:
+  UV_VERSION: "0.9.26"
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python: ["pypy3.8", "pypy3.9", "pypy3.10", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python: ["pypy3.10", "pypy3.11", "3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set up Python Environment
-      uses: actions/setup-python@v4
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
       with:
+        version: ${{ env.UV_VERSION }}
         python-version: ${{ matrix.python }}
 
-    - name: Install dependencies
-      run: |
-        python3 -m pip install -U pip setuptools wheel
-        python3 -m pip install pipx
-
-        pipx install 'poetry==1.6.1'
-        poetry install --with test --extras numpy
+    - name: Install Python dependencies with uv
+      run: uv sync --group test
 
     - name: Lint and Check Style
-      run: poetry run flake8 forcedimension_core --ignore "F401,E501"
+      run: uv run flake8 forcedimension_core --ignore "F401,E501,E704"
 
-    - name: Unittest and populate coverage data
+    - name: Run tests and generate coverage
       run: |
-        poetry run coverage run -m unittest tests
-        poetry run coverage report
+        uv run coverage run -m unittest tests
+        uv run coverage report
 
     - name: Upload coverage data to coveralls.io
-      run: poetry run coveralls --service=github
+      run: uv run coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
+        COVERALLS_FLAG_NAME: ${{ matrix.python }}
         COVERALLS_PARALLEL: true
 
   coveralls:
     name: Indicate completion to coveralls.io
     needs: test
     runs-on: ubuntu-latest
-    container: python:3-slim
+
     steps:
-    - name: Finished
-      run: |
-        python3 -m pip install -U pip setuptools wheel
-        python3 -m pip install coveralls
-        python3 -m coveralls --service=github --finish
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: ${{ env.UV_VERSION }}
+        python-version: "3.12"
+
+    - name: Install Python dependencies with uv
+      run: uv sync --group test
+
+    - name: Send final coverage data to coveralls.io
+      run: uv run coveralls --service=github --finish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
