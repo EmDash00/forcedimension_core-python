@@ -1,0 +1,50 @@
+name: "Publish"
+
+on:
+  push:
+    tags:
+      # Publish on any tag starting with a `v`, e.g., v0.1.0
+      - v*
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Extract tag and set version
+        id: tag_info
+        run: |
+          # Get tag without 'v' prefix
+          TAG=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG#v}  # Remove 'v' if present
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+          # Set version using uv
+          uv version $VERSION
+          echo "Set version to: $VERSION"
+
+      - name: Install Python 3.13
+        run: uv python install 3.13
+
+
+      - name: Build
+        run: uv build
+
+      # Check that basic features work and we didn't miss to include crucial files
+      - name: Unittest (wheel)
+        run: uv run --isolated --no-project --with dist/*.whl python -m unittest tests
+
+      - name: Unittest (source distribution)
+        run: uv run --isolated --no-project --with dist/*.tar.gz python -m unittest tests
+
+      - name: Publish
+        run: uv publish
