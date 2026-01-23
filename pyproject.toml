@@ -119,7 +119,7 @@ format.skip-magic-trailing-comma = false
 #
 # This only has an effect when the `docstring-code-format` setting is
 # enabled.
-format.docstring-code-line-length = "dynamic"
+format.docstring-code-line-length = 60
 # Enable auto-formatting of code examples in docstrings. Markdown,
 # reStructuredText code/literal blocks and doctests are all supported.
 #
@@ -149,7 +149,7 @@ lint.select = [
   "I001",
   "I002"
 ]
-lint.ignore = [  ]
+lint.ignore = [ "D205", "D105", "D107", "N818" ]
 # Allow fix for all enabled rules (when `--fix`) is provided.
 lint.fixable = [ "ALL" ]
 lint.unfixable = [  ]
