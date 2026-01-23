@@ -31,7 +31,7 @@ jobs:
           python-version: ${{ matrix.python }}
 
       - name: Install Python dependencies with uv
-        run: uv sync --group test
+        run: uv sync --extra numpy --group test
 
       - name: Lint and Check Style
         run: uv run flake8 forcedimension_core --ignore "F401,E501,E704"
