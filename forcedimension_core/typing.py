@@ -1,8 +1,8 @@
 import ctypes as ct
 from ctypes import c_double, c_int, c_ubyte, c_uint, c_ushort
+from collections.abc import Container, Sized
 from typing import (
-    TYPE_CHECKING, Container, Generic, Literal, Protocol, Sized, Tuple,
-    TypeVar, Union
+    TYPE_CHECKING, Generic, Literal, Protocol, TypeVar
 )
 
 
@@ -56,7 +56,7 @@ else:
     #: Generic type representing a C data type (e.g. int, float, etc.)
     CType = TypeVar('CType', bound=ct._CData)
 
-CBoolLike = Union[bool, int]
+CBoolLike = bool | int
 
 c_double_ptr = Pointer[c_double]
 c_ubyte_ptr = Pointer[c_ubyte]
@@ -86,7 +86,7 @@ class SupportsPtrs3(Protocol, Generic[CType]):
     """
 
     @property
-    def ptrs(self) -> Tuple[
+    def ptrs(self) -> tuple[
         Pointer[CType], Pointer[CType], Pointer[CType]
     ]:
         """
@@ -97,7 +97,7 @@ class SupportsPtrs3(Protocol, Generic[CType]):
 
 
 #: Represents a tuple of integers, one for each DOF.
-IntDOFTuple = Tuple[int, int, int, int, int, int, int, int]
+IntDOFTuple = tuple[int, int, int, int, int, int, int, int]
 
 #: Represents a tuple of floats, one for each DOF.
-FloatDOFTuple = Tuple[float, float, float, float, float, float, float, float]
+FloatDOFTuple = tuple[float, float, float, float, float, float, float, float]

@@ -1,5 +1,4 @@
 from enum import IntEnum
-from typing import Dict
 from typing import cast as _cast
 
 import forcedimension_core.constants as constants

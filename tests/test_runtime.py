@@ -9,7 +9,6 @@ import sys
 import unittest
 from ctypes import CFUNCTYPE, POINTER, c_int
 from random import randint
-from typing import Optional, Set, Type
 
 import forcedimension_core.runtime as runtime
 
@@ -47,7 +46,7 @@ class MockCtypes:
     should_load_successfully: bool = True
 
     @staticmethod
-    def CDLL(lib_path: str) -> Type[MockDHD]:
+    def CDLL(lib_path: str) -> type[MockDHD]:
         if MockCtypes.should_load_successfully:
             MockDHD.path = lib_path
             return MockDHD
@@ -107,7 +106,7 @@ class MockSys:
 class MockEnviron:
     FORCEDIM_SDK: str = '/home/GeneEric/forcedimension_sdk'
     FDSDK: str = '/home/GeneEric/forcedimension_sdk'
-    PATH: Optional[str] = None
+    PATH: str | None = None
 
     _environ = {}
 
@@ -140,7 +139,7 @@ class MockOS:
     environ: MockEnviron = MockEnviron()
 
     class path:
-        VALID_PATHS: Set[str] = set()
+        VALID_PATHS: set[str] = set()
         HOME: str = "/home/GeneEric"
         sep: str = '/'
 

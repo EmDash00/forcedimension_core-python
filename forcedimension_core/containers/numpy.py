@@ -3,7 +3,7 @@ from __future__ import annotations
 import ctypes
 from ctypes import c_double, c_int, c_ushort
 import os
-from typing import Any, Tuple
+from typing import Any
 
 try:
     if os.environ.get('__fdsdk__unittest_opt_has_numpy__', 'True') == 'False':
@@ -73,7 +73,7 @@ class Vec3(np.ndarray):
         return self._ptrs[0]
 
     @property
-    def ptrs(self) -> Tuple[c_double_ptr, c_double_ptr, c_double_ptr]:
+    def ptrs(self) -> tuple[c_double_ptr, c_double_ptr, c_double_ptr]:
         """
         A tuple of pointers to each element of the array in order.
         """
@@ -162,7 +162,7 @@ class Enc3(np.ndarray):
         return self._ptrs[0]
 
     @property
-    def ptrs(self) -> Tuple[c_int_ptr, c_int_ptr, c_int_ptr]:
+    def ptrs(self) -> tuple[c_int_ptr, c_int_ptr, c_int_ptr]:
         """
         A tuple of pointers to each element of the array in order.
         """
@@ -216,7 +216,7 @@ class Mot3(np.ndarray):
         return self._ptrs[0]
 
     @property
-    def ptrs(self) -> Tuple[c_ushort_ptr, c_ushort_ptr, c_ushort_ptr]:
+    def ptrs(self) -> tuple[c_ushort_ptr, c_ushort_ptr, c_ushort_ptr]:
         """
         A tuple of pointers to each element of the array in order.
         """

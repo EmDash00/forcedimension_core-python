@@ -1,5 +1,4 @@
 from ctypes import c_byte, c_double, c_int, c_ushort
-from typing import Tuple
 
 import forcedimension_core.runtime as _runtime
 from forcedimension_core.typing import (
@@ -875,7 +874,7 @@ def gripperForceToMotor(
     enc_wrist_grip: SupportsPtr[c_int],
     out: c_ushort,
     ID: int = -1
-) -> Tuple[int, int]:
+) -> tuple[int, int]:
     """
     Given a desired force to be displayed by the force gripper, this routine
     computes and returns the refering motor command.

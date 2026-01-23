@@ -4,7 +4,7 @@ from ctypes import (CFUNCTYPE, POINTER, c_bool, c_byte, c_char, c_char_p,
                     c_double, c_int, c_size_t, c_ubyte, c_uint, c_uint32,
                     c_ushort)
 from random import randint, random
-from typing import Any, Optional
+from typing import Any
 from forcedimension_core import containers
 from forcedimension_core.containers import Status
 
@@ -345,7 +345,7 @@ class MockDHD:
         restype = c_char_p
 
         ID = 0
-        ret: Optional[bytes] = b"lorem ipsem"
+        ret: bytes | None = b"lorem ipsem"
 
         @staticmethod
         @CFUNCTYPE(restype, *argtypes)

@@ -1,4 +1,3 @@
-from typing import Dict
 from typing import cast as _cast
 
 from forcedimension_core import dhd
@@ -41,7 +40,7 @@ _com_mode_strs = {
     ComMode.NETWORK: 'network'
 }
 
-_com_modes: Dict[ComModeStr, ComMode] = {
+_com_modes: dict[ComModeStr, ComMode] = {
     'sync': ComMode.SYNC,
     'async': ComMode.ASYNC,
     'virtual': ComMode.VIRTUAL,

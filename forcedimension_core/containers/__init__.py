@@ -4,7 +4,8 @@ import ctypes as ct
 from array import array
 from ctypes import c_int
 import os
-from typing import Any, Iterable, NamedTuple, Tuple
+from collections.abc import Iterable
+from typing import Any, NamedTuple
 from typing_extensions import overload
 
 import pydantic as pyd
@@ -303,7 +304,7 @@ class Vec3(array):
         return self._ptrs[0]
 
     @property
-    def ptrs(self) -> Tuple[c_double_ptr, c_double_ptr, c_double_ptr]:
+    def ptrs(self) -> tuple[c_double_ptr, c_double_ptr, c_double_ptr]:
         """
         A tuple of pointers to each element of the array in order.
         """
@@ -397,7 +398,7 @@ class Enc3(array):
         return self._ptrs[0]
 
     @property
-    def ptrs(self) -> Tuple[c_int_ptr, c_int_ptr, c_int_ptr]:
+    def ptrs(self) -> tuple[c_int_ptr, c_int_ptr, c_int_ptr]:
         """
         A tuple of pointers to each element of the array in order.
         """
@@ -455,7 +456,7 @@ class Mot3(array):
         return self._ptrs[0]
 
     @property
-    def ptrs(self) -> Tuple[c_ushort_ptr, c_ushort_ptr, c_ushort_ptr]:
+    def ptrs(self) -> tuple[c_ushort_ptr, c_ushort_ptr, c_ushort_ptr]:
         """
         A tuple of pointers to each element of the array in order.
         """
@@ -659,8 +660,8 @@ class Mat3x3(array):
     def __init__(self, *args, **kwargs):
         self._ptr = ct.cast(self.buffer_info()[0], c_double_ptr)
 
-    def __getitem__(self, indicies: Tuple[int, int]) -> float:
-        if not isinstance(indicies, Tuple):
+    def __getitem__(self, indicies: tuple[int, int]) -> float:
+        if not isinstance(indicies, tuple):
             raise TypeError("Indicies must be a tuple of two ints")
 
         i, j = indicies
@@ -673,8 +674,8 @@ class Mat3x3(array):
 
         return super().__getitem__(3 * i + j)
 
-    def __setitem__(self, indicies: Tuple[int, int], value: float):
-        if not isinstance(indicies, Tuple):
+    def __setitem__(self, indicies: tuple[int, int], value: float):
+        if not isinstance(indicies, tuple):
             raise TypeError("Indicies must be a tuple of two ints")
 
         i, j = indicies
@@ -732,8 +733,8 @@ class Mat6x6(array):
     def __init__(self, *args, **kwargs):
         self._ptr = ct.cast(self.buffer_info()[0], c_double_ptr)
 
-    def __getitem__(self, indicies: Tuple[int, int]) -> float:
-        if not isinstance(indicies, Tuple):
+    def __getitem__(self, indicies: tuple[int, int]) -> float:
+        if not isinstance(indicies, tuple):
             raise TypeError("Indicies must be a tuple of two ints")
 
         i, j = indicies
@@ -746,8 +747,8 @@ class Mat6x6(array):
 
         return super().__getitem__(6 * i + j)
 
-    def __setitem__(self, indicies: Tuple[int, int], value: float):
-        if not isinstance(indicies, Tuple):
+    def __setitem__(self, indicies: tuple[int, int], value: float):
+        if not isinstance(indicies, tuple):
             raise TypeError("Indicies must be a tuple of two ints")
 
         i, j = indicies

@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import Final, Literal, Tuple
+from typing import Final, Literal
 
 MAX_DOF: Final[int] = 8   #: Maximum number of DOF a device can have
 MAX_BUTTONS: Final[int] = 32  #: Maximum number of buttons a device can have
@@ -98,12 +98,12 @@ class ErrorNum(IntEnum):
 
 #: Array index for motors/encoders of the WRIST structure.
 #: i.e. DELTA motor/encoder 0 has index 0
-DELTA_IDX: Final[Tuple[Literal[0], Literal[1], Literal[2]]] = (0, 1, 2)
+DELTA_IDX: Final[tuple[Literal[0], Literal[1], Literal[2]]] = (0, 1, 2)
 
 
 #: Array index for motors/encoders of the WRIST structure.
 #: i.e. WRIST motor/encoder 0 has index 3
-WRIST_IDX: Final[Tuple[Literal[3], Literal[4], Literal[5]]] = (3, 4, 5)
+WRIST_IDX: Final[tuple[Literal[3], Literal[4], Literal[5]]] = (3, 4, 5)
 
 
 class NovintButtonID(IntEnum):

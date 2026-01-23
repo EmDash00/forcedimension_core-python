@@ -1,6 +1,5 @@
 import ctypes as ct
 from ctypes import c_byte, c_char_p, c_double, c_int, c_ubyte, c_uint, c_ushort
-from typing import Tuple
 
 import typing_extensions
 
@@ -3420,7 +3419,7 @@ def getJointAngleRange(
     jmin_out: MutableArray[int, float],
     jmax_out: MutableArray[int, float],
     ID: int = -1
-) -> Tuple[
+) -> tuple[
     FloatDOFTuple, FloatDOFTuple, int
 ]:
     """

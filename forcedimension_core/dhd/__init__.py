@@ -1,7 +1,6 @@
 import ctypes as ct
 from ctypes import (c_bool, c_byte, c_char_p, c_double, c_int, c_size_t,
                     c_uint, c_uint32, c_ushort)
-from typing import Optional, Union
 
 import forcedimension_core.containers as containers
 import forcedimension_core.runtime as _runtime
@@ -635,7 +634,7 @@ _runtime._libdhd.dhdGetSystemName.argtypes = [c_byte]
 _runtime._libdhd.dhdGetSystemName.restype = c_char_p
 
 
-def getSystemName(ID: int = -1) -> Union[str, None]:
+def getSystemName(ID: int = -1) -> str | None:
     """
     Return the haptic device type name. As this SDK can be used
     to control all of Force Dimension haptic products, this can
@@ -1262,7 +1261,7 @@ _runtime._libdhd.dhdWaitForReset.argtypes = [c_int, c_byte]
 _runtime._libdhd.dhdWaitForReset.restype = c_int
 
 
-def waitForReset(timeout: Optional[int] = None, ID: int = -1) -> int:
+def waitForReset(timeout: int | None = None, ID: int = -1) -> int:
     """
     Puts the device in RESET mode and waits for the user to
     calibrate the device. Optionally, a timeout can be defined
@@ -1273,7 +1272,7 @@ def waitForReset(timeout: Optional[int] = None, ID: int = -1) -> int:
     :func:`forcedimension_core.dhd.dhdErrorGetLast()` will return
     :data:`forcedimension_core.constants.ErrorNum.TIMEOUT`.
 
-    :param Optional[int] timeout:
+    :param int | None timeout:
         Maximum time to wait for calibration (in [ms]).
 
     :param int ID:

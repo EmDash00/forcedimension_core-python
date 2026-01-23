@@ -1,6 +1,5 @@
 import ctypes as ct
 from ctypes import c_bool, c_byte, c_double, c_int
-from typing import Tuple
 
 import forcedimension_core.runtime as _runtime
 import forcedimension_core.runtime as runtime
@@ -1487,7 +1486,7 @@ _runtime._libdrd.drdGetPriorities.argtypes = [c_int_ptr, c_int_ptr, c_byte]
 _runtime._libdrd.drdGetPriorities.restype = c_int
 
 
-def getPriorities(ID: int = -1) -> Tuple[int, int, int]:
+def getPriorities(ID: int = -1) -> tuple[int, int, int]:
     """
     This function makes it possible to retrieve the priority of
     the control thread and the calling thread. Thread priority is
@@ -2489,7 +2488,7 @@ _runtime._libdrd.drdGetEncMoveParam.argtypes = [
 _runtime._libdrd.drdGetEncMoveParam.restype = c_int
 
 
-def getEncMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
+def getEncMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
     """
     Retrieve encoder positioning trajectory generation
     parameters.
@@ -2528,7 +2527,7 @@ _runtime._libdrd.drdGetEncTrackParam.argtypes = [
 _runtime._libdrd.drdGetEncTrackParam.restype = c_int
 
 
-def getEncTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
+def getEncTrackParam(ID: int = -1) -> tuple[float, float, float, int]:
     """
     Retrieve encoder tracking trajectory generation parameters.
 
@@ -2567,7 +2566,7 @@ _runtime._libdrd.drdGetPosMoveParam.argtypes = [
 _runtime._libdrd.drdGetPosMoveParam.restype = c_int
 
 
-def getPosMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
+def getPosMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
     """
     Retrieve cartesian positioning trajectory generation
     parameters.
@@ -2607,7 +2606,7 @@ _runtime._libdrd.drdGetPosTrackParam.argtypes = [
 _runtime._libdrd.drdGetPosTrackParam.restype = c_int
 
 
-def getPosTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
+def getPosTrackParam(ID: int = -1) -> tuple[float, float, float, int]:
     """
     Retrieve cartesian tracking trajectory generation
     parameters.
@@ -2647,7 +2646,7 @@ _runtime._libdrd.drdGetRotMoveParam.argtypes = [
 _runtime._libdrd.drdGetRotMoveParam.restype = c_int
 
 
-def getRotMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
+def getRotMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
     """
     Retrieve cartesian positioning trajectory generation
     parameters.
@@ -2687,7 +2686,7 @@ _runtime._libdrd.drdGetRotTrackParam.argtypes = [
 _runtime._libdrd.drdGetRotTrackParam.restype = c_int
 
 
-def getRotTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
+def getRotTrackParam(ID: int = -1) -> tuple[float, float, float, int]:
     """
     Retrieve cartesian tracking trajectory generation
     parameters.
@@ -2727,7 +2726,7 @@ _runtime._libdrd.drdGetGripMoveParam.argtypes = [
 _runtime._libdrd.drdGetGripMoveParam.restype = c_int
 
 
-def getGripMoveParam(ID: int = -1) -> Tuple[float, float, float, int]:
+def getGripMoveParam(ID: int = -1) -> tuple[float, float, float, int]:
     """
     Retrieve cartesian positioning trajectory generation parameters.
 
@@ -2766,7 +2765,7 @@ _runtime._libdrd.drdGetGripTrackParam.argtypes = [
 _runtime._libdrd.drdGetGripTrackParam.restype = c_int
 
 
-def getGripTrackParam(ID: int = -1) -> Tuple[float, float, float, int]:
+def getGripTrackParam(ID: int = -1) -> tuple[float, float, float, int]:
     """
     Retrieve cartesian tracking trajectory generation parameters.
 

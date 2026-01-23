@@ -6,13 +6,14 @@ import pathlib
 import platform
 import sys
 import unittest.mock as __mock
-from typing import Final, Iterable, Set
+from collections.abc import Iterable
+from typing import Final
 
 from forcedimension_core.containers import VersionTuple
 
 VERSION_TARGET = VersionTuple(3, 16, 0, 0)
 
-SUPPORTED_PLATFORMS: Final[Set[str]] = {'linux', 'win32', 'cygwin', 'darwin'}
+SUPPORTED_PLATFORMS: Final[set[str]] = {'linux', 'win32', 'cygwin', 'darwin'}
 
 _ctypes_impl = ctypes
 _getpass_impl = getpass

@@ -1,9 +1,10 @@
-from typing import Any, Callable, Optional
+from collections.abc import Callable
+from typing import Any
 
 
 class DHDError(Exception):
     def __init__(
-        self, msg: Optional[str] = "An undocumented error has occured.",
+        self, msg: str | None = "An undocumented error has occured.",
         **kwargs
     ):
         if msg is not None:
@@ -17,8 +18,8 @@ class DHDFeatureError(DHDError):
         self,
         *,
         reason: str,
-        ID: Optional[int] = None,
-        op: Optional[Callable[[Any], Any]],
+        ID: int | None = None,
+        op: Callable[[Any], Any] | None,
         **kwargs
     ):
         op_seg = (
@@ -35,7 +36,7 @@ class DHDErrorExpertModeDisabled(DHDFeatureError):
     def __init__(
         self,
         *args,
-        op: Optional[Callable[[Any], Any]] = None,
+        op: Callable[[Any], Any] | None = None,
         **kwargs
     ):
         if 'ID' in kwargs:
@@ -53,8 +54,8 @@ class DHDErrorFeatureNotAvailable(DHDFeatureError):
     def __init__(
         self,
         *args,
-        op: Optional[Callable[[Any], Any]],
-        ID: Optional[int] = None,
+        op: Callable[[Any], Any] | None,
+        ID: int | None = None,
         **kwargs
     ):
 
@@ -70,8 +71,8 @@ class DHDErrorFeatureNotEnabled(DHDFeatureError):
     def __init__(
         self,
         *args,
-        op: Optional[Callable[[Any], Any]] = None,
-        ID: Optional[int] = None,
+        op: Callable[[Any], Any] | None = None,
+        ID: int | None = None,
         **kwargs
     ):
 
@@ -87,8 +88,8 @@ class DHDErrorDeviceNotReady(DHDFeatureError):
     def __init__(
         self,
         *args,
-        op: Optional[Callable[[Any], Any]],
-        ID: Optional[int] = None,
+        op: Callable[[Any], Any] | None,
+        ID: int | None = None,
         **kwargs
     ):
         return super().__init__(
@@ -100,7 +101,7 @@ class DHDErrorDeviceNotReady(DHDFeatureError):
 
 
 class DHDErrorRedundantFail(DHDError):
-    def __init__(self, *, ID: Optional[int] = None, **kwargs):
+    def __init__(self, *, ID: int | None = None, **kwargs):
         if ID is not None:
             spec = f" on device ID {ID}"
         else:
@@ -117,8 +118,8 @@ class DHDIOError(DHDError, OSError):
         self,
         *args,
         err: str,
-        ID: Optional[int] = None,
-        op: Optional[str] = None,
+        ID: int | None = None,
+        op: str | None = None,
         **kwargs
     ):
         op_seg = "" if op is None else f"{op} failed. "
@@ -131,8 +132,8 @@ class DHDErrorTimeout(DHDIOError):
     def __init__(
         self,
         *args,
-        op: Optional[str] = None,
-        ID: Optional[int] = None,
+        op: str | None = None,
+        ID: int | None = None,
         **kwargs
     ):
 
@@ -148,7 +149,7 @@ class DHDErrorCom(DHDIOError):
     def __init__(
         self,
         *args,
-        ID: Optional[int] = None,
+        ID: int | None = None,
         **kwargs
     ):
         return super().__init__(
@@ -159,7 +160,7 @@ class DHDErrorCom(DHDIOError):
 
 
 class DHDErrorDHCBusy(DHDIOError):
-    def __init__(self, *, ID: Optional[int] = None, **kwargs):
+    def __init__(self, *, ID: int | None = None, **kwargs):
         return super().__init__(
             err="The device controller is busy.",
             ID=ID,
@@ -176,7 +177,7 @@ class DHDErrorNoDeviceFound(DHDIOError):
 
 
 class DHDErrorDeviceInUse(DHDIOError):
-    def __init__(self, *, ID: Optional[int] = None, **kwargs):
+    def __init__(self, *, ID: int | None = None, **kwargs):
         super().__init__(
             err="Open error (because the device is already in use)",
             ID=ID,
@@ -185,7 +186,7 @@ class DHDErrorDeviceInUse(DHDIOError):
 
 
 class DHDErrorNoDriverFound(DHDIOError):
-    def __init__(self, *, ID: Optional[int] = None, **kwargs):
+    def __init__(self, *, ID: int | None = None, **kwargs):
         return super().__init__(
             err="A required driver is not installed (see device manual for"
                 "details)",
@@ -195,7 +196,7 @@ class DHDErrorNoDriverFound(DHDIOError):
 
 
 class DHDErrorConfiguration(DHDIOError):
-    def __init__(self, *, ID: Optional[int] = None, **kwargs):
+    def __init__(self, *, ID: int | None = None, **kwargs):
         super().__init__(
             err="The firmware or internal configuration health check failed",
             ID=ID,
@@ -204,7 +205,7 @@ class DHDErrorConfiguration(DHDIOError):
 
 
 class DHDErrorGeometry(DHDError):
-    def __init__(self, ID: Optional[int] = None, *args, **kwargs):
+    def __init__(self, ID: int | None = None, *args, **kwargs):
 
         if (ID is not None):
             spec = f"device ID {ID}'s"
